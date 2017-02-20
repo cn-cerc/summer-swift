@@ -18,9 +18,11 @@ class DisplayUtils: NSObject {
     fileprivate var cancelBlock:CancelBlock?
     
     class func uuid() -> String {
-        var adid = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        adid = adid .replacingOccurrences(of: "-", with: "")
-        return adid
+//        var adid = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+//        adid = adid .replacingOccurrences(of: "-", with: "")
+        var deviceUUID = UIDevice.current.identifierForVendor?.uuidString
+        deviceUUID = deviceUUID!.replacingOccurrences(of: "-", with: "")
+        return deviceUUID!
     }
     
     class func alertControllerDisplay(str:String, viewController:UIViewController,confirmBlock:@escaping ConfirmBlock,cancelBlock:@escaping CancelBlock){
