@@ -360,7 +360,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
     //CustemBBI代理方法
     func BBIdidClickWithName(infoStr: String) {
         if infoStr == "first" {
-            if (self.webView.url?.absoluteString.contains(URL_APP_ROOT))! || !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! {
+            if !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! {
                 if self.webView.canGoBack {
                     self.webView.goBack()
                 }
@@ -395,14 +395,13 @@ extension MainViewController:CustemBBI,SettingDelegate{
                     settingVC.delegate = self
                     self?.navigationController?.pushViewController(settingVC, animated: true)
                 }else if index == 3 {
-                    self?.loadUrl(urlStr: BACK_MAIN)
+                    self?.loadUrl(urlStr: URLPATH)
                 }else if index == 4 {
                     UserDefaultsUtils.deleteValueWithKey(key: "userName")
                     UserDefaultsUtils.deleteValueWithKey(key: "pwd")
                     self?.webView.evaluateJavaScript("exit()", completionHandler: { (item:Any?, error:Error?) in
                         
                     })
-                    self?.loadUrl(urlStr: EXIT_URL_PATH)
                 }
             }
             popMenu.show()

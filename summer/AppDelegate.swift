@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         if isFirstLauch() == true {
             var array = Array<UIImage>()
             for i in 0..<WELCOME_IMAGES_COUNT {
-                let image = UIImage.init(named: String(format:"welcome%d",i+1))
+                let image = UIImage.init(named: String(format:"欢迎页%d",i+1))
                 array.append(image!)
             }
             LaunchIntroductionView.shared(withImages: array, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: false)

@@ -8,9 +8,9 @@
 
 import UIKit
 
-let URL_APP_ROOT = "http://m.knowall.cn"//域名地址//内测版
+let URL_APP_ROOT = "http://testehealth.zhongyinginfo.com"//域名地址//预发布版
 
-let WELCOME_IMAGES_COUNT = 3
+let WELCOME_IMAGES_COUNT = 4
 
 //推送
 let appkey = "3cc3e3d7c7e8c1dc7cc8f003"
