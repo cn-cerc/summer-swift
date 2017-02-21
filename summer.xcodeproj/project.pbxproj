@@ -123,6 +123,7 @@
 		64F44AB81E569B14009D1135 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB71E569B14009D1135 /* AdSupport.framework */; };
 		64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB91E569B24009D1135 /* UserNotifications.framework */; };
 		64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44ABB1E569B3A009D1135 /* libresolv.tbd */; };
+		64F69AB51E5C5C4400E1B709 /* PDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F69AB41E5C5C4400E1B709 /* PDKeyChain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -672,6 +673,8 @@
 		64F44AB91E569B24009D1135 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
+		64F69AB31E5C5C4400E1B709 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
+		64F69AB41E5C5C4400E1B709 /* PDKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeyChain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -743,6 +746,8 @@
 		6407BF411E542DB60073C297 /* Library-oc */ = {
 			isa = PBXGroup;
 			children = (
+				64F69AB31E5C5C4400E1B709 /* PDKeyChain.h */,
+				64F69AB41E5C5C4400E1B709 /* PDKeyChain.m */,
 				64F413741E55A88E00FDAAC6 /* ScanCard */,
 				64F413751E55A88E00FDAAC6 /* ScanQRCode */,
 				64F4132F1E55528400FDAAC6 /* MJRefresh */,
@@ -1756,6 +1761,7 @@
 				64F413641E55528400FDAAC6 /* MJRefreshAutoNormalFooter.m in Sources */,
 				64F413611E55528400FDAAC6 /* MJRefreshFooter.m in Sources */,
 				64EFE3B51E4D5FA3006A1455 /* BaseViewController.swift in Sources */,
+				64F69AB51E5C5C4400E1B709 /* PDKeyChain.m in Sources */,
 				64F4136D1E55528400FDAAC6 /* MJRefreshConst.m in Sources */,
 				6407BF6B1E542DD00073C297 /* SDWebImageManager.m in Sources */,
 				6407BFA31E542DDF0073C297 /* AFURLRequestSerialization.m in Sources */,
