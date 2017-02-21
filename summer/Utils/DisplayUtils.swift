@@ -18,9 +18,9 @@ class DisplayUtils: NSObject {
     fileprivate var cancelBlock:CancelBlock?
     
     class func uuid() -> String {
-        var deviceUUID = UIDevice.current.identifierForVendor?.uuidString
-        deviceUUID = deviceUUID!.replacingOccurrences(of: "-", with: "")
-        return deviceUUID!
+//        var deviceUUID = UIDevice.current.identifierForVendor?.uuidString
+//        deviceUUID = deviceUUID!.replacingOccurrences(of: "-", with: "")
+        return PDKeyChain.keyChainLoad().replacingOccurrences(of: "-", with: "")
     }
     
     class func alertControllerDisplay(str:String, viewController:UIViewController,confirmBlock:@escaping ConfirmBlock,cancelBlock:@escaping CancelBlock){
