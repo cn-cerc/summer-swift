@@ -43,6 +43,9 @@ var URLPATH = URL_APP_ROOT+"?device=phone&CLIENTID="+DisplayUtils.uuid()//url
 
 var URLPATH_CONFIG = URL_APP_ROOT+"/MobileConfig?device=phone&CLIENTID="+DisplayUtils.uuid()//配置信息的url
 
+var EXIT_URL_PATH = URL_APP_ROOT+"/form/TFrmLogout"
+
+var BACK_MAIN = URL_APP_ROOT+"/form/TWebDefault"
 
 let WXPaySuccessNotification = "WeixinPaySuccessNotification"//支付成功
 
