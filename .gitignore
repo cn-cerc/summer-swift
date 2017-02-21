@@ -18,3 +18,9 @@ e-healthy.xcodeproj/project.xcworkspace/xcuserdata/FL.xcuserdatad/UserInterfaceS
 e-healthy/Library/RecognizeCardManager/opencv2.zip
 
 summer/Library-oc/ScanCard/RecognizeCardManager/opencv2.framework/Versions/A/opencv2
+
+summer.xcodeproj/project.xcworkspace/xcuserdata/FL.xcuserdatad/UserInterfaceState.xcuserstate
+
+*.xcuserstate
+
+*.xcuserstate
