@@ -87,7 +87,7 @@ extension SettingViewController{
         view.addSubview(label)
         
         //定义两张图片
-        slider.minimumValue = 0.5//最小值
+        slider.minimumValue = 0.8//最小值
         slider.maximumValue = 1.2//最大值
         let value:String? = UserDefaultsUtils.valueWithKey(key: "scale")as? String
         slider.value = Float(value!)!
