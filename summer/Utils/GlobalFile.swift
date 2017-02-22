@@ -55,6 +55,9 @@ let kAppVersion = "appVersion"
 
 let KLoadDataBase = "KLoadDataBase"//网络监听
 
+let JPushMessage = "JPushMessage"//极光推送
+
+
 
 
 

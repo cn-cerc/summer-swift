@@ -58,6 +58,8 @@ class MainViewController: BaseViewController {
         
         //网络监听
         NotificationCenter.default.addObserver(self, selector: #selector(getLoadDataBase), name: NSNotification.Name(rawValue: KLoadDataBase), object: nil)
+        //推送
+        NotificationCenter.default.addObserver(self, selector: #selector(jpushMessage), name: NSNotification.Name(rawValue: JPushMessage), object: nil)
     }
     
     func paySucceed() {
@@ -78,6 +80,11 @@ class MainViewController: BaseViewController {
             })
         }
 //        self.webView.reload()
+    }
+    
+    func jpushMessage(notifi:Notification) {
+        let uid:String? = notifi.userInfo?["UID"] as! String?
+        self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?uid=%@",URL_APP_ROOT,uid!))
     }
 
     //添加下拉刷新
@@ -129,7 +136,7 @@ class MainViewController: BaseViewController {
 extension MainViewController{
     
     //加载url
-    fileprivate func loadUrl(urlStr:String) {
+    func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
         print(URLPATH)
         let request = URLRequest.init(url: urlStr!)
