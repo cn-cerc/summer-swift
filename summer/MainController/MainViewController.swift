@@ -372,7 +372,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
         }else if infoStr == "second" {
             
         }else{
-            let dataDict:[(String,String)]! = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
+            let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
                                                (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
                                                (icon:"iconfont-shezhi-3",title:"设置"),
                                                (icon:"iconfont-zhuye-2",title:"返回首页"),
