@@ -61,13 +61,13 @@ class MainViewController: BaseViewController {
         //推送
         NotificationCenter.default.addObserver(self, selector: #selector(jpushMessage), name: NSNotification.Name(rawValue: JPushMessage), object: nil)
     }
-    
+    //支付成功返回
     func paySucceed() {
         self.webView.evaluateJavaScript("ReturnBtnClick()") { (item:Any?, error:Error?) in
             
         }
     }
-    
+    //网络监测
     func getLoadDataBase(notifi:Notification) {
         let netWork:String? = notifi.userInfo?["netType"] as! String?
         print(netWork)
@@ -81,7 +81,7 @@ class MainViewController: BaseViewController {
         }
 //        self.webView.reload()
     }
-    
+    //推送
     func jpushMessage(notifi:Notification) {
         let uid:String? = notifi.userInfo?["UID"] as! String?
         self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?uid=%@",URL_APP_ROOT,uid!))

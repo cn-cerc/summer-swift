@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        application.applicationIconBadgeNumber = 0
-        JPUSHService.resetBadge()
         //保存uuid
         if isFirst() == true {
             PDKeyChain.keyChainSave(NSUUID().uuidString)
@@ -182,8 +180,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        application.applicationIconBadgeNumber = 0
-        JPUSHService.resetBadge()
+        var currentNumber = application.applicationIconBadgeNumber
+        if currentNumber > 0 {
+            currentNumber -= 1
+        }
+        application.applicationIconBadgeNumber = currentNumber
+        JPUSHService.setBadge(currentNumber)
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -240,8 +242,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         JPUSHService.handleRemoteNotification(userInfo)
-        application.applicationIconBadgeNumber = 0
-        JPUSHService.resetBadge()
+//        application.applicationIconBadgeNumber = 0
+//        JPUSHService.resetBadge()
     }
     
 }

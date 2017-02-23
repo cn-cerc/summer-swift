@@ -20,7 +20,7 @@ class DisplayUtils: NSObject {
     class func uuid() -> String {
 //        var deviceUUID = UIDevice.current.identifierForVendor?.uuidString
 //        deviceUUID = deviceUUID!.replacingOccurrences(of: "-", with: "")
-        return PDKeyChain.keyChainLoad().replacingOccurrences(of: "-", with: "")
+        return String(format:"i_%@",PDKeyChain.keyChainLoad().replacingOccurrences(of: "-", with: ""))
     }
     
     class func alertControllerDisplay(str:String, viewController:UIViewController,confirmBlock:@escaping ConfirmBlock,cancelBlock:@escaping CancelBlock){

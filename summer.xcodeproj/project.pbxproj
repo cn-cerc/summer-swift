@@ -1607,7 +1607,7 @@
 				TargetAttributes = {
 					64EFE37D1E4D5EC8006A1455 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = TX8X4G99PU;
+						DevelopmentTeam = 35SG99VZ4S;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1928,7 +1928,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = TX8X4G99PU;
+				DEVELOPMENT_TEAM = 35SG99VZ4S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1963,7 +1963,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = TX8X4G99PU;
+				DEVELOPMENT_TEAM = 35SG99VZ4S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
