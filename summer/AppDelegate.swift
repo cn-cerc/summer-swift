@@ -178,12 +178,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        var currentNumber = application.applicationIconBadgeNumber
-        if currentNumber > 0 {
-            currentNumber -= 1
-        }
-        application.applicationIconBadgeNumber = currentNumber
-        JPUSHService.setBadge(currentNumber)
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -265,8 +259,18 @@ extension AppDelegate : JPUSHRegisterDelegate{
             JPUSHService.handleRemoteNotification(userInfo)
         }
         completionHandler()
-        print(userInfo["msgId"]!)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:JPushMessage), object: nil, userInfo: ["UID":userInfo["msgId"]!])
+        //设置角标
+        var currentNumber = UIApplication.shared.applicationIconBadgeNumber
+        if currentNumber > 0 {
+            currentNumber -= 1
+        }
+        UIApplication.shared.applicationIconBadgeNumber = currentNumber
+        JPUSHService.setBadge(currentNumber)
+        
+        print(userInfo.keys)
+        if userInfo.keys.contains("msgId"){
+           NotificationCenter.default.post(name: NSNotification.Name(rawValue:JPushMessage), object: nil, userInfo: ["msgId":userInfo["msgId"]!])
+        }
     }
 }
 

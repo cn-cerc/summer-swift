@@ -82,8 +82,8 @@ class MainViewController: BaseViewController {
     }
     //推送
     func jpushMessage(notifi:Notification) {
-        let uid:String? = notifi.userInfo?["UID"] as! String?
-        self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?uid=%@",URL_APP_ROOT,uid!))
+        let msgId:String? = notifi.userInfo?["msgId"] as! String?
+        self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
     }
     
     //添加下拉刷新
