@@ -16,7 +16,3 @@ let WELCOME_IMAGES_COUNT = 3
 let appkey = "cc92570c841a688af5adc5b0"
 let channel = "Publish channel"
 let isProduction = true
-
-
-
-
