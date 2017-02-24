@@ -43,6 +43,9 @@ var URLPATH = URL_APP_ROOT+"?device=phone&CLIENTID="+DisplayUtils.uuid()//url
 
 var URLPATH_CONFIG = URL_APP_ROOT+"/MobileConfig?device=phone&CLIENTID="+DisplayUtils.uuid()//配置信息的url
 
+var EXIT_URL_PATH = URL_APP_ROOT+"/form/TFrmLogout"
+
+var BACK_MAIN = URL_APP_ROOT+"/form/TWebDefault"
 
 let WXPaySuccessNotification = "WeixinPaySuccessNotification"//支付成功
 
@@ -51,6 +54,9 @@ let WX_APPID = "wx880d8fc48ac1e88e"
 let kAppVersion = "appVersion"
 
 let KLoadDataBase = "KLoadDataBase"//网络监听
+
+let JPushMessage = "JPushMessage"//极光推送
+
 
 
 

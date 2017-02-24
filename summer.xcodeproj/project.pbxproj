@@ -67,9 +67,9 @@
 		64EFE3CB1E4DBD5C006A1455 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64EFE3CA1E4DBD5C006A1455 /* Images.xcassets */; };
 		64EFE3CD1E4DC65F006A1455 /* DisplayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3CC1E4DC65F006A1455 /* DisplayUtils.swift */; };
 		64F196BE1E515B67005B80F8 /* CustemNavItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F196BD1E515B67005B80F8 /* CustemNavItem.swift */; };
-		64F21B991E52B209009342E0 /* SwiftPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F21B981E52B209009342E0 /* SwiftPopMenu.swift */; };
 		64F21B9B1E52E93B009342E0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F21B9A1E52E93B009342E0 /* SettingViewController.swift */; };
 		64F2B88C1E53F4F800E287AA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F2B8891E53F4F800E287AA /* libWeChatSDK.a */; };
+		64F3A4CA1E5D2D290083E73D /* SwiftPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F3A4C91E5D2D290083E73D /* SwiftPopMenu.swift */; };
 		64F4135E1E55528400FDAAC6 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413321E55528400FDAAC6 /* MJRefreshAutoFooter.m */; };
 		64F4135F1E55528400FDAAC6 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413341E55528400FDAAC6 /* MJRefreshBackFooter.m */; };
 		64F413601E55528400FDAAC6 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413361E55528400FDAAC6 /* MJRefreshComponent.m */; };
@@ -123,6 +123,7 @@
 		64F44AB81E569B14009D1135 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB71E569B14009D1135 /* AdSupport.framework */; };
 		64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB91E569B24009D1135 /* UserNotifications.framework */; };
 		64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44ABB1E569B3A009D1135 /* libresolv.tbd */; };
+		C7B089CB1E5C502A00BE0D43 /* PDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,12 +247,12 @@
 		64EFE3CA1E4DBD5C006A1455 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		64EFE3CC1E4DC65F006A1455 /* DisplayUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayUtils.swift; sourceTree = "<group>"; };
 		64F196BD1E515B67005B80F8 /* CustemNavItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustemNavItem.swift; sourceTree = "<group>"; };
-		64F21B981E52B209009342E0 /* SwiftPopMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPopMenu.swift; sourceTree = "<group>"; };
 		64F21B9A1E52E93B009342E0 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		64F2B8891E53F4F800E287AA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		64F2B88A1E53F4F800E287AA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		64F2B88B1E53F4F800E287AA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		64F2B8961E53F7F600E287AA /* summer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "summer-Bridging-Header.h"; sourceTree = "<group>"; };
+		64F3A4C91E5D2D290083E73D /* SwiftPopMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPopMenu.swift; sourceTree = "<group>"; };
 		64F413311E55528400FDAAC6 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		64F413321E55528400FDAAC6 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		64F413331E55528400FDAAC6 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -672,6 +673,8 @@
 		64F44AB91E569B24009D1135 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
+		C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
+		C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeyChain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -743,6 +746,8 @@
 		6407BF411E542DB60073C297 /* Library-oc */ = {
 			isa = PBXGroup;
 			children = (
+				C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */,
+				C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */,
 				64F413741E55A88E00FDAAC6 /* ScanCard */,
 				64F413751E55A88E00FDAAC6 /* ScanQRCode */,
 				64F4132F1E55528400FDAAC6 /* MJRefresh */,
@@ -972,7 +977,7 @@
 		64EFE3B31E4D5F5B006A1455 /* ToolClass */ = {
 			isa = PBXGroup;
 			children = (
-				64F21B981E52B209009342E0 /* SwiftPopMenu.swift */,
+				64F3A4C91E5D2D290083E73D /* SwiftPopMenu.swift */,
 				64F196BD1E515B67005B80F8 /* CustemNavItem.swift */,
 			);
 			path = ToolClass;
@@ -1602,7 +1607,7 @@
 				TargetAttributes = {
 					64EFE37D1E4D5EC8006A1455 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = TX8X4G99PU;
+						DevelopmentTeam = 35SG99VZ4S;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1695,7 +1700,6 @@
 				64F4138D1E55A94900FDAAC6 /* ScanViewController.m in Sources */,
 				6407BFA01E542DDF0073C297 /* AFNetworkReachabilityManager.m in Sources */,
 				6407BFAF1E542DDF0073C297 /* UIWebView+AFNetworking.m in Sources */,
-				64F21B991E52B209009342E0 /* SwiftPopMenu.swift in Sources */,
 				64F4151F1E55A97300FDAAC6 /* G8RecognitionOperation.m in Sources */,
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
@@ -1751,11 +1755,13 @@
 				6407BF701E542DD00073C297 /* UIImageView+HighlightedWebCache.m in Sources */,
 				6407BF6C1E542DD00073C297 /* SDWebImagePrefetcher.m in Sources */,
 				64F196BE1E515B67005B80F8 /* CustemNavItem.swift in Sources */,
+				64F3A4CA1E5D2D290083E73D /* SwiftPopMenu.swift in Sources */,
 				6407BFA71E542DDF0073C297 /* README.md in Sources */,
 				64F415211E55A97300FDAAC6 /* G8Tesseract.mm in Sources */,
 				64F413641E55528400FDAAC6 /* MJRefreshAutoNormalFooter.m in Sources */,
 				64F413611E55528400FDAAC6 /* MJRefreshFooter.m in Sources */,
 				64EFE3B51E4D5FA3006A1455 /* BaseViewController.swift in Sources */,
+				C7B089CB1E5C502A00BE0D43 /* PDKeyChain.m in Sources */,
 				64F4136D1E55528400FDAAC6 /* MJRefreshConst.m in Sources */,
 				6407BF6B1E542DD00073C297 /* SDWebImageManager.m in Sources */,
 				6407BFA31E542DDF0073C297 /* AFURLRequestSerialization.m in Sources */,
@@ -1922,7 +1928,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = TX8X4G99PU;
+				DEVELOPMENT_TEAM = 35SG99VZ4S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1941,7 +1947,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.ehealthy.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1957,7 +1963,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = TX8X4G99PU;
+				DEVELOPMENT_TEAM = 35SG99VZ4S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1976,7 +1982,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.ehealthy.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

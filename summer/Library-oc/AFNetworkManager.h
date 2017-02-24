@@ -27,16 +27,16 @@ typedef void(^AFFormDataBlock) (id<AFMultipartFormData> formData);
  */
 +(void)POST:(NSString *)url parameters:(id)param success:(AFSucBlock)successBlock failure:(AFErrBlock)errorBlock;
 /**
-*  上传图片使用
-*
-*  @param url          URL
-*  @param param        参数
-*  @param title        菊花的标题
-*  @param successBlock 成功回调数据
-*  @param errorBlock   失败回调数据
-*  @param dataBlock    图片上传类 appendPartWithFileURL  name是服务器要的参数名
-
-*/
+ *  上传图片使用
+ *
+ *  @param url          URL
+ *  @param param        参数
+ *  @param title        菊花的标题
+ *  @param successBlock 成功回调数据
+ *  @param errorBlock   失败回调数据
+ *  @param dataBlock    图片上传类 appendPartWithFileURL  name是服务器要的参数名
+ 
+ */
 
 +(void)POST:(NSString *)url parameters:(id)param formData:(AFFormDataBlock)dataBlock success:(AFSucBlock1)successBlock failure:(AFErrBlock1)errorBlock;
 /**
@@ -46,10 +46,10 @@ typedef void(^AFFormDataBlock) (id<AFMultipartFormData> formData);
 +(void)GET:(NSString *)url parameters:(id)param success:(AFSucBlock1)successBlock failure:(AFErrBlock1)errorBlock;
 
 +(void)downloadFileWithURL:(NSString*)requestURLString
-                 parameters:(NSDictionary *)parameters
-                  savedPath:(NSString*)savedPath
-            downloadSuccess:(void (^)(NSURLResponse *response, NSURL *filePath))success
-            downloadFailure:(void (^)(NSError *error))failure
-           downloadProgress:(void (^)(NSProgress *downloadProgress))progress;
+                parameters:(NSDictionary *)parameters
+                 savedPath:(NSString*)savedPath
+           downloadSuccess:(void (^)(NSURLResponse *response, NSURL *filePath))success
+           downloadFailure:(void (^)(NSError *error))failure
+          downloadProgress:(void (^)(NSProgress *downloadProgress))progress;
 
 @end

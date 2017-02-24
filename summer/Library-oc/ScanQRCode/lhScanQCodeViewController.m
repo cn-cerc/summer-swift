@@ -80,7 +80,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         readview.alpha = 1;
     }completion:^(BOOL finished) {
-
+        
     }];
     
 }
@@ -89,7 +89,7 @@
 - (void)alumbBtnEvent
 {
     self.detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
-
+    
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) { //判断设备是否支持相册
         
         if (IOS8) {
@@ -99,7 +99,7 @@
             }];
             [alertController addAction:alertAction];
             [self presentViewController:alertController animated:YES completion:nil];
-
+            
         }
         else{
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"设备不支持访问相册，请在设置->隐私->照片中进行设置！" preferredStyle:UIAlertControllerStyleAlert];
@@ -109,7 +109,7 @@
             [alertController addAction:alertAction];
             [self presentViewController:alertController animated:YES completion:nil];
         }
-    
+        
         return;
     }
     
@@ -141,14 +141,14 @@
         
         [picker dismissViewControllerAnimated:YES completion:^{
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-
+            
             CIQRCodeFeature *feature = [features objectAtIndex:0];
             NSString *scannedResult = feature.messageString;
             //播放扫描二维码的声音
-//            SystemSoundID soundID;
-//            NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:@"noticeMusic" ofType:@"wav"];
-//            AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID);
-//            AudioServicesPlaySystemSound(soundID);
+            //            SystemSoundID soundID;
+            //            NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:@"noticeMusic" ofType:@"wav"];
+            //            AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID);
+            //            AudioServicesPlaySystemSound(soundID);
             
             [self accordingQcode:scannedResult];
         }];
@@ -186,10 +186,10 @@
     [readview stop];
     
     //播放扫描二维码的声音
-//    SystemSoundID soundID;
-//    NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:@"noticeMusic" ofType:@"wav"];
-//    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID);
-//    AudioServicesPlaySystemSound(soundID);
+    //    SystemSoundID soundID;
+    //    NSString *strSoundFile = [[NSBundle mainBundle] pathForResource:@"noticeMusic" ofType:@"wav"];
+    //    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:strSoundFile],&soundID);
+    //    AudioServicesPlaySystemSound(soundID);
     
     [self accordingQcode:result];
     
@@ -199,16 +199,16 @@
 #pragma mark - 扫描结果处理
 - (void)accordingQcode:(NSString *)str
 {
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"扫描结果" message:str preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
-//    UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
-//    [alertController addAction:alertAction1];
-//    [alertController addAction:alertAction2];
-//    [self presentViewController:alertController animated:YES completion:nil];
+    //    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"扫描结果" message:str preferredStyle:UIAlertControllerStyleAlert];
+    //    UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    //
+    //    }];
+    //    UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    //
+    //    }];
+    //    [alertController addAction:alertAction1];
+    //    [alertController addAction:alertAction2];
+    //    [self presentViewController:alertController animated:YES completion:nil];
     if (self.delegate && [self.delegate respondsToSelector:@selector(scanCodeReturn:)]) {
         [self.delegate scanCodeReturn:str];
     }
@@ -263,13 +263,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -8,58 +8,48 @@
 
 import UIKit
 
-protocol SwiftPopMenuDelegate {
+public protocol SwiftPopMenuDelegate {
     func swiftPopMenuDidSelectIndex(index:Int)
 }
 
-class SwiftPopMenu: UIView {
+public class SwiftPopMenu: UIView {
     
-    //var delegate : SwiftPopMenuDelegate?
-    
+    public var delegate : SwiftPopMenuDelegate?
     
     let KScrW:CGFloat = UIScreen.main.bounds.size.width
     let KScrH:CGFloat = UIScreen.main.bounds.size.height
     
     private var myFrame:CGRect!
-
+    
     private var arrowView : UIView! = nil
     private var arrowViewWidth : CGFloat = 15
     private var arrowViewHeight : CGFloat = 8
     
-    
     //／*  -----------------------  可变参数 ------------------------------------------ *／
     
     //小箭头距离右边距离
-    var arrowViewMargin : CGFloat = 15
+    public var arrowViewMargin : CGFloat = 15
     //圆角弧度
-    var cornorRadius:CGFloat = 5
+    public var cornorRadius:CGFloat = 5
     
     //pop文字颜色
-    var popTextColor:UIColor = UIColor(red: 107 / 255.0, green: 107 / 255.0, blue: 107 / 255.0, alpha: 1.0)
+    public var popTextColor:UIColor = UIColor(red: 107 / 255.0, green: 107 / 255.0, blue: 107 / 255.0, alpha: 1.0)
     //pop背景色
-    var popMenuBgColor:UIColor = UIColor.white
-    
-    
+    public var popMenuBgColor:UIColor = UIColor.white
     
     var tableView:UITableView! = nil
-    var popData:[(icon:String,title:String)]! = [(icon:String,title:String)](){
+    public var popData:[(icon:String,title:String)]! = [(icon:String,title:String)](){
         didSet{
             //计算行高
             rowHeightValue = (self.myFrame.height - arrowViewHeight)/CGFloat(popData.count)
             initViews()
         }
-        
     }
     
-    
-    var didSelectMenuBlock:((_ index:Int)->Void)?
-    
+    public var didSelectMenuBlock:((_ index:Int)->Void)?
     
     static let cellID:String = "SwiftPopMenuCellID"
     var rowHeightValue:CGFloat = 44
-    
-    
-   
     
     /**
      位置是popmenu相对整个屏幕的位置
@@ -68,13 +58,12 @@ class SwiftPopMenu: UIView {
      
      - returns: <#return value description#>
      */
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.frame = CGRect(x: 0, y: 0, width: KScrW, height: KScrH)
         myFrame = frame
     }
-    
     
     /// 位置是popmenu相对整个屏幕的位置
     ///
@@ -89,23 +78,23 @@ class SwiftPopMenu: UIView {
         myFrame = frame
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         dismiss()
     }
     
-    func show() {
+    public func show() {
         UIApplication.shared.keyWindow?.addSubview(self)
     }
     
-    func dismiss() {
-         self.removeFromSuperview()
+    public func dismiss() {
+        self.removeFromSuperview()
     }
-
+    
     
     func initViews() {
         self.backgroundColor = UIColor.black.withAlphaComponent(0.1)
@@ -129,14 +118,10 @@ class SwiftPopMenu: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.bounces = false
-        UIView.animate(withDuration: 0.3) { 
+        UIView.animate(withDuration: 0.3) {
             self.addSubview(self.tableView)
         }
-        
-
-        
     }
-    
 }
 
 
@@ -144,7 +129,6 @@ class SwiftPopMenuCell: UITableViewCell {
     var iconImage:UIImageView!
     var lblTitle:UILabel!
     var line:UIView!
-    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -174,7 +158,6 @@ class SwiftPopMenuCell: UITableViewCell {
         lblTitle.textColor = textColor
         
     }
-
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -182,26 +165,23 @@ class SwiftPopMenuCell: UITableViewCell {
         self.iconImage.frame = CGRect(x: 10, y: (self.bounds.size.height - 20)/2, width: 20, height: 20)
         self.lblTitle.frame = CGRect(x: 40, y: 0, width: self.bounds.size.width - 40, height: self.bounds.size.height)
         self.line.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width, height: 1)
-
     }
-    
-    
 }
 
 extension SwiftPopMenu : UITableViewDataSource{
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return popData.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if popData.count>indexPath.row {
             let cell = tableView.dequeueReusableCell(withIdentifier: SwiftPopMenu.cellID) as! SwiftPopMenuCell
             let model = popData[indexPath.row]
             if indexPath.row == popData.count - 1 {
                 cell.fill(iconImage: model.icon, title: model.title,textColor: popTextColor, islast: true)
             }else{
-                 cell.fill(iconImage: model.icon, title: model.title,textColor: popTextColor)
+                cell.fill(iconImage: model.icon, title: model.title,textColor: popTextColor)
             }
             return cell
         }
@@ -212,18 +192,18 @@ extension SwiftPopMenu : UITableViewDataSource{
 }
 
 extension SwiftPopMenu : UITableViewDelegate{
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return rowHeightValue
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if self.delegate != nil{
-//            self.delegate?.swiftPopMenuDidSelectIndex(index: indexPath.row)
-//        }
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if self.delegate != nil{
+            self.delegate?.swiftPopMenuDidSelectIndex(index: indexPath.row)
+        }
         if didSelectMenuBlock != nil {
             didSelectMenuBlock!(indexPath.row)
         }
