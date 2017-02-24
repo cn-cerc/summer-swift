@@ -18,8 +18,6 @@ class DisplayUtils: NSObject {
     fileprivate var cancelBlock:CancelBlock?
     
     class func uuid() -> String {
-//        var deviceUUID = UIDevice.current.identifierForVendor?.uuidString
-//        deviceUUID = deviceUUID!.replacingOccurrences(of: "-", with: "")
         return String(format:"i_%@",PDKeyChain.keyChainLoad().replacingOccurrences(of: "-", with: ""))
     }
     

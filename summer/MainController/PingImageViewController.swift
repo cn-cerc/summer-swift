@@ -9,7 +9,7 @@
 import UIKit
 
 class PingImageViewController: UIViewController,UIGestureRecognizerDelegate {
-
+    
     var imageView:UIImageView?
     var imageStr:String?
     var size:CGSize?
@@ -57,7 +57,7 @@ class PingImageViewController: UIViewController,UIGestureRecognizerDelegate {
             panGestureRecognizer.setTranslation(.zero, in: self.imageView?.superview)
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

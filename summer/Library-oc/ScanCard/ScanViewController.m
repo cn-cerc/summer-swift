@@ -147,7 +147,7 @@
     }completion:^(BOOL finished) {
         
     }];
-//    [self.view addSubview:self.imageView];
+    //    [self.view addSubview:self.imageView];
 }
 
 #pragma mark - 相册
@@ -304,7 +304,7 @@
         }
     };
     
-//    self.imageView.image = operation.tesseract.thresholdedImage;
+    //    self.imageView.image = operation.tesseract.thresholdedImage;
     [self.queue addOperation:self.operation];
     self.operation = nil;
 }

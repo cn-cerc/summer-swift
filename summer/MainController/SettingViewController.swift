@@ -25,7 +25,7 @@ class SettingViewController: BaseViewController {
         
         createUI()
     }
-
+    
     //懒加载
     fileprivate lazy var slider:UISlider = {
         let slider = UISlider.init(frame: CGRect.init(x: 40, y: 120, width: SCREEN_WIDTH-80, height: 30))
@@ -69,7 +69,7 @@ class SettingViewController: BaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
 
 extension SettingViewController{
@@ -103,6 +103,6 @@ extension SettingViewController{
 
 extension SettingViewController:CustemBBI {
     func BBIdidClickWithName(infoStr: String) {
-       _ = self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }

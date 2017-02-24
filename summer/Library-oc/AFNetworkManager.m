@@ -18,19 +18,19 @@
     [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
     manager.requestSerializer.timeoutInterval = 10.f;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-   [manager POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
-       NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-       if ([dataDic[@"status"][@"succeed"] integerValue]==1) {
-           if (dataDic[@"error_desc"]!=nil) {
-              // [MBProgressHUD showError:dataDic[@"error_desc"]];
-           }
-           
-       }
-       successBlock(task,dataDic);
-       
-   } failure:^(NSURLSessionDataTask *task, NSError *error) {
-       errorBlock(task,error);
-   }];
+    [manager POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if ([dataDic[@"status"][@"succeed"] integerValue]==1) {
+            if (dataDic[@"error_desc"]!=nil) {
+                // [MBProgressHUD showError:dataDic[@"error_desc"]];
+            }
+            
+        }
+        successBlock(task,dataDic);
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        errorBlock(task,error);
+    }];
     
 }
 +(void)POST:(NSString *)url parameters:(id)param formData:(AFFormDataBlock)dataBlock success:(AFSucBlock1)successBlock failure:(AFErrBlock1)errorBlock
@@ -91,11 +91,11 @@
 }
 
 +(void)downloadFileWithURL:(NSString*)requestURLString
-                 parameters:(NSDictionary *)parameters
-                  savedPath:(NSString*)savedPath
-            downloadSuccess:(void (^)(NSURLResponse *response, NSURL *filePath))success
-            downloadFailure:(void (^)(NSError *error))failure
-           downloadProgress:(void (^)(NSProgress *downloadProgress))progress
+                parameters:(NSDictionary *)parameters
+                 savedPath:(NSString*)savedPath
+           downloadSuccess:(void (^)(NSURLResponse *response, NSURL *filePath))success
+           downloadFailure:(void (^)(NSError *error))failure
+          downloadProgress:(void (^)(NSProgress *downloadProgress))progress
 {
     AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
     NSMutableURLRequest *request =[serializer requestWithMethod:@"POST" URLString:requestURLString parameters:parameters error:nil];

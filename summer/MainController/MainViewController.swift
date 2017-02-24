@@ -16,10 +16,9 @@ class MainViewController: BaseViewController {
     
     var popMenu: SwiftPopMenu!//导航栏右边菜单
     
-    
     var isNavHidden = false
     var scale:Float!//缩放比例
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -75,18 +74,18 @@ class MainViewController: BaseViewController {
             DisplayUtils.alertControllerDisplay(str: "网络出现异常，请检查网络连接！", viewController: self, confirmBlock: {
                 print("刷新")
                 self.webView.reload()
-            },cancelBlock: {
-                print("取消")
+                },cancelBlock: {
+                    print("取消")
             })
         }
-//        self.webView.reload()
+        //        self.webView.reload()
     }
     //推送
     func jpushMessage(notifi:Notification) {
         let uid:String? = notifi.userInfo?["UID"] as! String?
         self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?uid=%@",URL_APP_ROOT,uid!))
     }
-
+    
     //添加下拉刷新
     func addRefreshView() {
         var isChangeStr:String
@@ -186,7 +185,7 @@ extension MainViewController{
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        webView.configuration.userContentController.removeScriptMessageHandler(forName: "webViewApp")
+        //        webView.configuration.userContentController.removeScriptMessageHandler(forName: "webViewApp")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -210,9 +209,9 @@ extension MainViewController{
                     
                     self.progressView.alpha = 0.0
                     
-                },completion:{(finished:Bool) -> Void in
+                    },completion:{(finished:Bool) -> Void in
                         
-                    self.progressView .setProgress(0.0, animated: false)
+                        self.progressView .setProgress(0.0, animated: false)
                 })
             }
         }
@@ -284,13 +283,13 @@ extension MainViewController: WKNavigationDelegate{
             })
         }
         //方法二
-//        let userName = UserDefaultsUtils.valueWithKey(key: "userName")
-//        let pwd = UserDefaultsUtils.valueWithKey(key: "pwd")
-//        if !(userName as! String).isEmpty && !(pwd as! String).isEmpty  {
-//            self.webView.evaluateJavaScript("iosLogin(\(userName as! String),\(pwd as! String))", completionHandler: { (item:Any?, error:Error?) in
-//                
-//            })
-//        }
+        //        let userName = UserDefaultsUtils.valueWithKey(key: "userName")
+        //        let pwd = UserDefaultsUtils.valueWithKey(key: "pwd")
+        //        if !(userName as! String).isEmpty && !(pwd as! String).isEmpty  {
+        //            self.webView.evaluateJavaScript("iosLogin(\(userName as! String),\(pwd as! String))", completionHandler: { (item:Any?, error:Error?) in
+        //
+        //            })
+        //        }
         //加载完成结束刷新
         endRefresh()
         //设置下拉刷新
@@ -349,8 +348,8 @@ extension MainViewController: WKNavigationDelegate{
         DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
             print("刷新")
             self.webView.reload()
-        },cancelBlock: {
-            print("取消")
+            },cancelBlock: {
+                print("取消")
         })
     }
 }
@@ -380,17 +379,17 @@ extension MainViewController:CustemBBI,SettingDelegate{
             
         }else{
             let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
-                                               (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
-                                               (icon:"iconfont-shezhi-3",title:"设置"),
-                                               (icon:"iconfont-zhuye-2",title:"返回首页"),
-                                               (icon:"退出",title:"退出登录")]
+                            (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
+                            (icon:"iconfont-shezhi-3",title:"设置"),
+                            (icon:"iconfont-zhuye-2",title:"返回首页"),
+                            (icon:"退出",title:"退出登录")]
             
             popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH-155), y: 51, width: 150, height: dataDict.count*40),arrowMargin:17)
             //数据
             popMenu.popData = dataDict
             //点击菜单的回调
             popMenu.didSelectMenuBlock = {[weak self](index:Int)->Void in self?.popMenu.dismiss()
-    
+                
                 let msgUrl = "\(URL_APP_ROOT)/\(UserDefaultsUtils.valueWithKey(key: "msgManage"))"
                 print(msgUrl)
                 if index == 0 {

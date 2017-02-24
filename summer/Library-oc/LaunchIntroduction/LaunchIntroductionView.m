@@ -125,7 +125,7 @@ static LaunchIntroductionView *launch = nil;
                 enterButton.layer.borderColor = [UIColor blackColor].CGColor;
                 enterButton.layer.cornerRadius = 10.0f;
                 enterButton.layer.masksToBounds = YES;
-
+                
                 [imageView addSubview:enterButton];
                 imageView.userInteractionEnabled = YES;
             }

@@ -47,11 +47,11 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
-
+        
         [self instanceDevice];
-  }
-  
-  return self;
+    }
+    
+    return self;
 }
 
 - (void)instanceDevice
@@ -234,12 +234,12 @@
     
     CGFloat x,y,width,height;
     
-//    width = (CGFloat)(rect.size.height+10)/readerViewBounds.size.height;
-//    
-//    height = (CGFloat)(rect.size.width-50)/readerViewBounds.size.width;
-//    
-//    x = (1-width)/2;
-//    y = (1-height)/2;
+    //    width = (CGFloat)(rect.size.height+10)/readerViewBounds.size.height;
+    //
+    //    height = (CGFloat)(rect.size.width-50)/readerViewBounds.size.width;
+    //
+    //    x = (1-width)/2;
+    //    y = (1-height)/2;
     
     x = (CGRectGetHeight(readerViewBounds)-CGRectGetHeight(rect))/2/CGRectGetHeight(readerViewBounds);
     y = (CGRectGetWidth(readerViewBounds)-CGRectGetWidth(rect))/2/CGRectGetWidth(readerViewBounds);
