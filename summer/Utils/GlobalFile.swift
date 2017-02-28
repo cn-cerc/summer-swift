@@ -45,11 +45,11 @@ var URLPATH_CONFIG = URL_APP_ROOT+"/MobileConfig?device=iphone&CLIENTID="+Displa
 
 let WXPaySuccessNotification = "WeixinPaySuccessNotification"//支付成功
 
-let WX_APPID = "wx880d8fc48ac1e88e"
-
 let kAppVersion = "appVersion"
 
 let KLoadDataBase = "KLoadDataBase"//网络监听
+
+let WXLogin = "WXLogin" //微信登录
 
 
 
