@@ -21,7 +21,3 @@ let isProduction = false
 let WX_APPID = "wx880d8fc48ac1e88e"
 let WX_APPSecret = "01637635ce8648402cf4268d690b1226"
 
-
-
-
-
