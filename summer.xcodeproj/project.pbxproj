@@ -673,6 +673,7 @@
 		64F44AB91E569B24009D1135 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
+		64F664DC1E65170200F4C9E7 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		64F69AB31E5C5C4400E1B709 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
 		64F69AB41E5C5C4400E1B709 /* PDKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeyChain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -997,6 +998,7 @@
 		64F2B8881E53F4E400E287AA /* WXPay */ = {
 			isa = PBXGroup;
 			children = (
+				64F664DC1E65170200F4C9E7 /* WechatAuthSDK.h */,
 				64F2B8891E53F4F800E287AA /* libWeChatSDK.a */,
 				64F2B88A1E53F4F800E287AA /* WXApi.h */,
 				64F2B88B1E53F4F800E287AA /* WXApiObject.h */,

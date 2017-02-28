@@ -24,14 +24,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         // Override point for customization after application launch.
         application.applicationIconBadgeNumber = 0
         JPUSHService.resetBadge()
+        
         //保存uuid
         if isFirst() == true {
             PDKeyChain.keyChainSave(NSUUID().uuidString)
-        }else{
-            
         }
+        
         //配置信息
         getImageData()
+        
+        //微信注册
+        WXApi.registerApp(WX_APPID)
+        
         //沉睡
         Thread.sleep(forTimeInterval: 1.2)
         
@@ -42,8 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
         
-        let NotifyChatMsgRecv = NSNotification.Name(rawValue:"ShowBanner")
         //接收通知
+        let NotifyChatMsgRecv = NSNotification.Name(rawValue:"ShowBanner")
         NotificationCenter.default.addObserver(self, selector: #selector(statusBarHiddenNotfi), name: NotifyChatMsgRecv, object: nil)
         
         /*
@@ -203,7 +207,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
 //        AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDict:[AnyHashable: Any]!) -> Void in
 //            print("openURL result: \(resultDict)")
 //        })
-        
         return true
     }
     
@@ -219,9 +222,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 strMsg = "支付失败，请您重新支付!"
                 print("retcode = \(resp.errCode), retstr = \(resp.errStr)")
             }
+            let alert = UIAlertView(title: strTitle, message: strMsg, delegate: nil, cancelButtonTitle: "好的")
+            alert.show()
+        }else if resp.isKind(of: SendAuthResp.self) {
+            if resp.errCode == 0 {//成功
+                let resp2:SendAuthResp = resp as! SendAuthResp
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue:WXLogin), object: nil, userInfo: ["code":resp2.code])
+            }else{//失败
+                
+            }
         }
-        let alert = UIAlertView(title: strTitle, message: strMsg, delegate: nil, cancelButtonTitle: "好的")
-        alert.show()
     }
     
     //极光推送
