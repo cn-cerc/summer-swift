@@ -17,6 +17,6 @@ let appkey = "3cc3e3d7c7e8c1dc7cc8f003"
 let channel = "Publish channel"
 let isProduction = false
 
-
-
-
+//微信
+let WX_APPID = "wx880d8fc48ac1e88e"
+let WX_APPSecret = "01637635ce8648402cf4268d690b1226"

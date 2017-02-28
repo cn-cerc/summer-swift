@@ -58,6 +58,9 @@ class MainViewController: BaseViewController {
         
         //网络监听
         NotificationCenter.default.addObserver(self, selector: #selector(getLoadDataBase), name: NSNotification.Name(rawValue: KLoadDataBase), object: nil)
+        
+        //微信登录
+        NotificationCenter.default.addObserver(self, selector: #selector(WXLoginAction), name: NSNotification.Name(rawValue: WXLogin), object: nil)
     }
     
     func paySucceed() {
@@ -77,7 +80,22 @@ class MainViewController: BaseViewController {
                 print("取消")
             })
         }
-//        self.webView.reload()
+    }
+    
+    func WXLoginAction(notifi:Notification) {
+        let code:String? = notifi.userInfo?["code"] as! String?
+        print(code)
+        AFNetworkManager.get(String(format:"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WX_APPID,WX_APPSecret,code!), parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
+            print(responseObject)
+            print(responseObject?["openid"] as! String)
+            print("wxClientLogin(\(responseObject?["openid"] as! String))")
+            self.webView.evaluateJavaScript("wxClientLogin('\(responseObject?["openid"] as! String)')", completionHandler: { (item:Any?, error:Error?) in
+                
+            })
+        }) { (operation:AFHTTPRequestOperation?, error:Error?) in
+            print(error)
+        }
+        
     }
 
     //添加下拉刷新
@@ -249,8 +267,15 @@ extension MainViewController: WKScriptMessageHandler {
             sqVC.delegate = self
             let navVC = UINavigationController.init(rootViewController: sqVC)
             self.present(navVC, animated: true, completion: nil)
+        }else if type == "wxLogin" {//微信登录
+            if WXApi.isWXAppInstalled() {
+                let req = SendAuthReq()
+                req.scope = "snsapi_userinfo"
+                req.openID = WX_APPID
+                req.state = "1245"
+                WXApi.send(req)
+            }
         }else{//微信支付
-            WXApi.registerApp((message.body as! Dictionary<String,String>)["appid"])
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
             request.nonceStr = (message.body as! Dictionary<String,String>)["nonce_str"]
