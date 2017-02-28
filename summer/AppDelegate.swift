@@ -228,8 +228,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             if resp.errCode == 0 {//成功
                 let resp2:SendAuthResp = resp as! SendAuthResp
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue:WXLogin), object: nil, userInfo: ["code":resp2.code])
-            }else{//失败
-                
             }
         }
     }
