@@ -339,6 +339,13 @@ extension MainViewController: WKNavigationDelegate{
         }
         if isChangeStr.contains((webView.url?.relativePath)!){
             self.navigationItem.rightBarButtonItem = nil
+            let js_fit_code = "var meta=document.createElement('meta');" +
+            "meta.name = 'viewport';" +
+            "meta.content = 'width=device-width, initial-scale=1.0,minimum-scale=0.1, maximum-scale=0.9, user-scalable=yes';" +
+            "document.getElementsByTagName('head')[0].appendChild(meta);"
+            webView.evaluateJavaScript(js_fit_code, completionHandler: { (item:Any?, error:Error?) in
+                
+            })
         }else{
             //设置导航栏按钮
             self.navigationItem.rightBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third")
