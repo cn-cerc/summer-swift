@@ -404,11 +404,11 @@ extension MainViewController:CustemBBI,SettingDelegate{
         }else if infoStr == "second" {
             
         }else{
-            let dataDict:[(String,String)]! = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
-                                               (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
-                                               (icon:"iconfont-shezhi-3",title:"设置"),
-                                               (icon:"iconfont-zhuye-2",title:"返回首页"),
-                                               (icon:"退出",title:"退出登录")]
+            let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
+                            (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
+                            (icon:"iconfont-shezhi-3",title:"设置"),
+                            (icon:"iconfont-zhuye-2",title:"返回首页"),
+                            (icon:"退出",title:"退出登录")]
             
             popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH-155), y: 51, width: 150, height: dataDict.count*40),arrowMargin:17)
             //数据
