@@ -337,16 +337,19 @@ extension MainViewController: WKNavigationDelegate{
         }else{
             isChangeStr = UserDefaultsUtils.valueWithKey(key: "ChangeStr") as! String
         }
-        if isChangeStr.contains((webView.url?.relativePath)!){
+        if isChangeStr.contains((webView.url?.relativePath)!) || (self.webView.url?.absoluteString.contains("/cgi-bin/xlogin"))! {
             self.navigationItem.rightBarButtonItem = nil
             let js_fit_code = "var meta=document.createElement('meta');" +
-                "meta.name = 'viewport';" +
-                "meta.content = 'width=device-width, initial-scale=1.0,minimum-scale=0.1, maximum-scale=0.9, user-scalable=yes';" +
+            "meta.name = 'viewport';" +
+            "meta.content = 'width=device-width, initial-scale=1.0,minimum-scale=0.1, maximum-scale=0.9, user-scalable=yes';" +
             "document.getElementsByTagName('head')[0].appendChild(meta);"
             webView.evaluateJavaScript(js_fit_code, completionHandler: { (item:Any?, error:Error?) in
                 
             })
+        }else if isSelectCard.contains((webView.url?.relativePath)!) {
+            self.navigationItem.rightBarButtonItems = [CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third"),CustemNavItem.initWithImage(image: UIImage.init(named: "iconfont-yuanjiaojuxing2kaobei")!, target: self as CustemBBI, infoStr: "second")]
         }else{
+            self.navigationItem.rightBarButtonItems = nil;
             //设置导航栏按钮
             self.navigationItem.rightBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third")
             let js_fit_code = "document.getElementsByTagName('body')[0].style.zoom= '\(self.scale!)'"
@@ -354,6 +357,7 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
+        print(self.webView.url?.relativePath)
     }
     
     //跳转失败的时候调用
@@ -392,7 +396,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
     //CustemBBI代理方法
     func BBIdidClickWithName(infoStr: String) {
         if infoStr == "first" {
-            if !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! {
+            if !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! || (self.webView.url?.absoluteString.contains("/cgi-bin/xlogin"))!{
                 if self.webView.canGoBack {
                     self.webView.goBack()
                 }
@@ -402,7 +406,9 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 })
             }
         }else if infoStr == "second" {
-            
+            self.webView.evaluateJavaScript("appChangeCard()", completionHandler: { (item:Any?, error:Error?) in
+                
+            })
         }else{
             let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
                             (icon:"iconfont-xiaoxiguanli",title:"消息管理"),

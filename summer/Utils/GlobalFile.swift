@@ -38,6 +38,7 @@ func current_y_h(object:UIView) -> CGFloat {
 
 let isBackStr = "/forms/FrmIndex,/forms/Login,/forms/VerificationLogin"
 let isRefrushStr = "/forms/Default,/,/forms/Login?device=iphone,/forms/FrmPhoneRegistered,/forms/VerificationLogin,/forms/Login,/forms/FrmLossPassword"
+let isSelectCard = "/forms/FrmCottoms,/forms/FrmHealthService,/forms/FrmSelfRecord,/forms/FrmCardPage,/forms/FrmMessages.group"
 
 var URLPATH = URL_APP_ROOT+"?device=iphone&CLIENTID="+DisplayUtils.uuid()//url
 
@@ -50,3 +51,4 @@ let kAppVersion = "appVersion"
 let KLoadDataBase = "KLoadDataBase"//网络监听
 
 let WXLogin = "WXLogin" //微信登录
+
