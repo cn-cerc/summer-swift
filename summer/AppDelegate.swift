@@ -216,8 +216,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 print("retcode = \(resp.errCode), retstr = \(resp.errStr)")
             }
         }
-        let alert = UIAlertView(title: strTitle, message: strMsg, delegate: nil, cancelButtonTitle: "好的")
-        alert.show()
     }
     
     //极光推送
