@@ -413,6 +413,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
             let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
                             (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
                             (icon:"iconfont-shezhi-3",title:"设置"),
+                            (icon:"组-1",title:"帮助中心"),
                             (icon:"iconfont-zhuye-2",title:"返回首页"),
                             (icon:"退出",title:"退出登录")]
             
@@ -432,14 +433,16 @@ extension MainViewController:CustemBBI,SettingDelegate{
                     let settingVC = SettingViewController()
                     settingVC.delegate = self
                     self?.navigationController?.pushViewController(settingVC, animated: true)
-                }else if index == 3 {
-                    self?.loadUrl(urlStr: URLPATH)
                 }else if index == 4 {
+                    self?.loadUrl(urlStr: URLPATH)
+                }else if index == 5 {
                     UserDefaultsUtils.deleteValueWithKey(key: "userName")
                     UserDefaultsUtils.deleteValueWithKey(key: "pwd")
                     self?.webView.evaluateJavaScript("exit()", completionHandler: { (item:Any?, error:Error?) in
                         
                     })
+                }else if index == 3 {
+                    self?.loadUrl(urlStr: "\(URL_APP_ROOT)/forms/FrmAPPHelplist")
                 }
             }
             popMenu.show()
