@@ -29,10 +29,10 @@ class CustemNavItem: UIBarButtonItem {
         return BBI
     }
     
-    func initWithString(str:String, target:CustemBBI, infoStr:String) -> CustemNavItem! {
+    class func initWithString(str:String, target:CustemBBI, infoStr:String) -> CustemNavItem! {
         let btn = UIButton(type:.custom)
         btn.setTitle(str, for: .normal)
-        btn.frame = CGRect.init(x: 0, y: 0, width: 60, height: 40)
+        btn.frame = CGRect.init(x: 0, y: 0, width: 80, height: 40)
         let BBI = CustemNavItem(customView:btn)
         btn.addTarget(BBI, action: #selector(BBIdidClick), for: .touchUpInside)
         BBI.delegate = target
