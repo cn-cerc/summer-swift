@@ -61,6 +61,9 @@ class MainViewController: BaseViewController {
         
         //微信登录
         NotificationCenter.default.addObserver(self, selector: #selector(WXLoginAction), name: NSNotification.Name(rawValue: WXLogin), object: nil)
+        
+        //推送
+        NotificationCenter.default.addObserver(self, selector: #selector(jpushMessage), name: NSNotification.Name(rawValue: JPushMessage), object: nil)
     }
     
     func paySucceed() {
@@ -96,6 +99,13 @@ class MainViewController: BaseViewController {
             print(error)
         }
         
+    }
+    
+    //推送
+    func jpushMessage(notifi:Notification) {
+        let msgId:String? = notifi.userInfo?["msgId"] as! String?
+        self.setNavTitle(title: "最新资讯")
+        self.loadUrl(urlStr: msgId!)
     }
 
     //添加下拉刷新
@@ -317,7 +327,9 @@ extension MainViewController: WKNavigationDelegate{
         //隐藏错误视图
         self.errorImageView.isHidden = true
         //设置标题
-        self .setNavTitle(title: webView.title!)
+        if !(webView.title?.isEmpty)!{
+            self .setNavTitle(title: webView.title!)
+        }
         //判断是否需要返回按钮
         var isMainStr:String
         if UserDefaultsUtils.valueWithKey(key: "MainUrlStr").stringValue == nil {
@@ -347,9 +359,19 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }else if isSelectCard.contains((webView.url?.relativePath)!) {
+            self.navigationItem.rightBarButtonItems = nil
             self.navigationItem.rightBarButtonItems = [CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third"),CustemNavItem.initWithImage(image: UIImage.init(named: "iconfont-yuanjiaojuxing2kaobei")!, target: self as CustemBBI, infoStr: "second")]
+        }else if isMeasureRecord.contains((webView.url?.relativePath)!){
+            self.navigationItem.rightBarButtonItems = nil
+            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "测量记录", target: self, infoStr: "four")
+        }else if isChart.contains((webView.url?.relativePath)!) {
+            self.navigationItem.rightBarButtonItems = nil
+            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "图表", target: self, infoStr: "five")
+        }else if isHelp.contains((webView.url?.relativePath)!) {
+            self.navigationItem.rightBarButtonItems = nil
+            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "帮助", target: self, infoStr: "six")
         }else{
-            self.navigationItem.rightBarButtonItems = nil;
+            self.navigationItem.rightBarButtonItems = nil
             //设置导航栏按钮
             self.navigationItem.rightBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third")
             let js_fit_code = "document.getElementsByTagName('body')[0].style.zoom= '\(self.scale!)'"
@@ -407,6 +429,18 @@ extension MainViewController:CustemBBI,SettingDelegate{
             }
         }else if infoStr == "second" {
             self.webView.evaluateJavaScript("appChangeCard()", completionHandler: { (item:Any?, error:Error?) in
+                
+            })
+        }else if infoStr == "four" {
+            self.webView.evaluateJavaScript("appChangeCl()", completionHandler: { (item:Any?, error:Error?) in
+                
+            })
+        }else if infoStr == "five" {
+            self.webView.evaluateJavaScript("tubiao()", completionHandler: { (item:Any?, error:Error?) in
+                
+            })
+        }else if infoStr == "six" {
+            self.webView.evaluateJavaScript("appHelp()", completionHandler: { (item:Any?, error:Error?) in
                 
             })
         }else{

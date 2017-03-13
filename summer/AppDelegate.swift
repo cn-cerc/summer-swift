@@ -22,9 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        application.applicationIconBadgeNumber = 0
-        JPUSHService.resetBadge()
-        
         //保存uuid
         if isFirst() == true {
             PDKeyChain.keyChainSave(NSUUID().uuidString)
@@ -186,6 +183,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        JPUSHService.setBadge(0)
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -211,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     
     func onResp(_ resp: BaseResp!) {
-        let strTitle = "支付结果"
+//        let strTitle = "支付结果"
         var strMsg = "\(resp.errCode)"
         if resp.isKind(of: PayResp.self) {
             switch resp.errCode {
@@ -222,8 +221,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 strMsg = "支付失败，请您重新支付!"
                 print("retcode = \(resp.errCode), retstr = \(resp.errStr)")
             }
-            let alert = UIAlertView(title: strTitle, message: strMsg, delegate: nil, cancelButtonTitle: "好的")
-            alert.show()
         }else if resp.isKind(of: SendAuthResp.self) {
             if resp.errCode == 0 {//成功
                 let resp2:SendAuthResp = resp as! SendAuthResp
@@ -246,8 +243,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         JPUSHService.handleRemoteNotification(userInfo)
-        application.applicationIconBadgeNumber = 0
-        JPUSHService.resetBadge()
+
     }
     
 }
@@ -271,7 +267,17 @@ extension AppDelegate : JPUSHRegisterDelegate{
             JPUSHService.handleRemoteNotification(userInfo)
         }
         completionHandler()
+        //设置角标
+        var currentNumber = UIApplication.shared.applicationIconBadgeNumber
+        if currentNumber > 0 {
+            currentNumber -= 1
+        }
+        UIApplication.shared.applicationIconBadgeNumber = currentNumber
+        JPUSHService.setBadge(currentNumber)
+        
+        if userInfo.keys.contains("msgId"){
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue:JPushMessage), object: nil, userInfo: ["msgId":userInfo["msgId"]!])
+        }
+
     }
 }
-
-
