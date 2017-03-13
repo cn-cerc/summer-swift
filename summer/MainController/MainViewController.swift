@@ -16,10 +16,11 @@ class MainViewController: BaseViewController {
     
     var popMenu: SwiftPopMenu!//导航栏右边菜单
     
-    
     var isNavHidden = false
     var scale:Float!//缩放比例
-
+    var rightText:String!//导航栏右边的按钮
+    var methodName:String!//方法名
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -285,6 +286,11 @@ extension MainViewController: WKScriptMessageHandler {
                 req.state = "1245"
                 WXApi.send(req)
             }
+        }else if type == "showBtn" {//显示按钮
+            let Text = (message.body as! Dictionary<String,String>)["text"]
+            let method = (message.body as! Dictionary<String,String>)["callBack"]
+            rightText = Text
+            methodName = method
         }else{//微信支付
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -361,15 +367,12 @@ extension MainViewController: WKNavigationDelegate{
         }else if isSelectCard.contains((webView.url?.relativePath)!) {
             self.navigationItem.rightBarButtonItems = nil
             self.navigationItem.rightBarButtonItems = [CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third"),CustemNavItem.initWithImage(image: UIImage.init(named: "iconfont-yuanjiaojuxing2kaobei")!, target: self as CustemBBI, infoStr: "second")]
-        }else if isMeasureRecord.contains((webView.url?.relativePath)!){
-            self.navigationItem.rightBarButtonItems = nil
-            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "测量记录", target: self, infoStr: "four")
-        }else if isChart.contains((webView.url?.relativePath)!) {
-            self.navigationItem.rightBarButtonItems = nil
-            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "图表", target: self, infoStr: "five")
         }else if isHelp.contains((webView.url?.relativePath)!) {
             self.navigationItem.rightBarButtonItems = nil
-            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "帮助", target: self, infoStr: "six")
+            rightText = nil
+        }else if rightText != nil {
+            self.navigationItem.rightBarButtonItems = nil
+            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: rightText!, target: self, infoStr: "four")
         }else{
             self.navigationItem.rightBarButtonItems = nil
             //设置导航栏按钮
@@ -432,15 +435,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 
             })
         }else if infoStr == "four" {
-            self.webView.evaluateJavaScript("appChangeCl()", completionHandler: { (item:Any?, error:Error?) in
-                
-            })
-        }else if infoStr == "five" {
-            self.webView.evaluateJavaScript("tubiao()", completionHandler: { (item:Any?, error:Error?) in
-                
-            })
-        }else if infoStr == "six" {
-            self.webView.evaluateJavaScript("appHelp()", completionHandler: { (item:Any?, error:Error?) in
+            self.webView.evaluateJavaScript(methodName!, completionHandler: { (item:Any?, error:Error?) in
                 
             })
         }else{
