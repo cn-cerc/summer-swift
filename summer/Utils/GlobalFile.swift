@@ -41,7 +41,7 @@ let isRefrushStr = "/forms/Default,/,/forms/Login?device=iphone,/forms/FrmPhoneR
 let isSelectCard = "/forms/FrmCottoms,/forms/FrmHealthService,/forms/FrmSelfRecord,/forms/FrmCardPage,/forms/FrmMessages.group"
 let isMeasureRecord = "/forms/FrmSelfTzSg,/forms/FrmSelfXY,/forms/FrmSelfXT,/forms/FrmSelfYD"
 let isChart = "/forms/FrmSelfTzSg.TzSgSelect,/forms/FrmSelfXT.XTSelect,/forms/FrmSelfXY.XYSelect,/forms/FrmSelfYD.YDSelect"
-let isHelp = "/forms/FrmSelfTzSg"
+let isHelp = "/forms/FrmSelfTzSg.Tb,/forms/FrmSelfXY.Tb,/forms/FrmSelfXT.Tb,/forms/FrmSelfYD.Tb"
 
 
 var URLPATH = URL_APP_ROOT+"?device=iphone&CLIENTID="+DisplayUtils.uuid()//url
