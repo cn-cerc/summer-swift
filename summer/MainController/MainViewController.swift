@@ -308,6 +308,8 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        //推送
+        NotificationCenter.default.addObserver(self, selector: #selector(jpushMessage), name: NSNotification.Name(rawValue: JPushMessage), object: nil)
         //是否自动登录
         //方法一
         let userName:String? = UserDefaultsUtils.valueWithKey(key: "userName") as? String
@@ -345,6 +347,7 @@ extension MainViewController: WKNavigationDelegate{
         }
         if isMainStr.contains((webView.url?.relativePath)!) && (webView.url?.absoluteString.contains(URL_APP_ROOT))! {
             self.navigationItem.leftBarButtonItem = nil
+            rightText = nil
         }else{
             self.navigationItem.leftBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, target: self as CustemBBI, infoStr: "first")
         }
@@ -356,7 +359,7 @@ extension MainViewController: WKNavigationDelegate{
             isChangeStr = UserDefaultsUtils.valueWithKey(key: "ChangeStr") as! String
         }
         if isChangeStr.contains((webView.url?.relativePath)!) || (self.webView.url?.absoluteString.contains("/cgi-bin/xlogin"))! {
-            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.rightBarButtonItems = nil
             let js_fit_code = "var meta=document.createElement('meta');" +
             "meta.name = 'viewport';" +
             "meta.content = 'width=device-width, initial-scale=1.0,minimum-scale=0.1, maximum-scale=0.9, user-scalable=yes';" +
@@ -369,7 +372,6 @@ extension MainViewController: WKNavigationDelegate{
             self.navigationItem.rightBarButtonItems = [CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third"),CustemNavItem.initWithImage(image: UIImage.init(named: "iconfont-yuanjiaojuxing2kaobei")!, target: self as CustemBBI, infoStr: "second")]
         }else if isHelp.contains((webView.url?.relativePath)!) {
             self.navigationItem.rightBarButtonItems = nil
-            rightText = nil
         }else if rightText != nil {
             self.navigationItem.rightBarButtonItems = nil
             self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: rightText!, target: self, infoStr: "four")

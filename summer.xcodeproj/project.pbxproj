@@ -1949,7 +1949,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.ehealthy.app.zhongyingtest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.ehealthy.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1984,7 +1984,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.ehealthy.app.zhongyingtest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.ehealthy.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
