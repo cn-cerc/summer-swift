@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var mainVC: MainViewController?
     var mainNav: BaseNavViewController?
     
+    
+    
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
         return addArr
@@ -42,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.mainNav = BaseNavViewController(rootViewController:mainVC!)
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
-        
+
         //接收通知
         let NotifyChatMsgRecv = NSNotification.Name(rawValue:"ShowBanner")
         NotificationCenter.default.addObserver(self, selector: #selector(statusBarHiddenNotfi), name: NotifyChatMsgRecv, object: nil)
@@ -202,10 +204,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             return WXApi.handleOpen(url, delegate: self)
         }
         
-        //跳转支付宝钱包进行支付，处理支付结果
-//        AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDict:[AnyHashable: Any]!) -> Void in
-//            print("openURL result: \(resultDict)")
-//        })
         return true
     }
     
@@ -267,6 +265,9 @@ extension AppDelegate : JPUSHRegisterDelegate{
             JPUSHService.handleRemoteNotification(userInfo)
         }
         completionHandler()
+        
+        //保存URL
+        msgId = userInfo["msgId"] as! String?
         //设置角标
         var currentNumber = UIApplication.shared.applicationIconBadgeNumber
         if currentNumber > 0 {
@@ -274,7 +275,7 @@ extension AppDelegate : JPUSHRegisterDelegate{
         }
         UIApplication.shared.applicationIconBadgeNumber = currentNumber
         JPUSHService.setBadge(currentNumber)
-        
+    
         if userInfo.keys.contains("msgId"){
             NotificationCenter.default.post(name: NSNotification.Name(rawValue:JPushMessage), object: nil, userInfo: ["msgId":userInfo["msgId"]!])
         }

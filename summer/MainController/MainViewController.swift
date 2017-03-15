@@ -174,6 +174,8 @@ extension MainViewController{
         configuretion.preferences = WKPreferences()
         configuretion.preferences.minimumFontSize = 10;
         configuretion.preferences.javaScriptEnabled = true
+        configuretion.allowsInlineMediaPlayback = true
+        
         //默认是不能通过js自动打开窗口的，必须通过用户交互才能打开
         configuretion.preferences.javaScriptCanOpenWindowsAutomatically = false;
         //通过js与webview内容交互配置
@@ -185,7 +187,7 @@ extension MainViewController{
         webView.allowsBackForwardNavigationGestures = true
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
-        
+
         //监听支持KVO的属性
         webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         //内容自适应
@@ -308,8 +310,6 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        //推送
-        NotificationCenter.default.addObserver(self, selector: #selector(jpushMessage), name: NSNotification.Name(rawValue: JPushMessage), object: nil)
         //是否自动登录
         //方法一
         let userName:String? = UserDefaultsUtils.valueWithKey(key: "userName") as? String
@@ -385,6 +385,11 @@ extension MainViewController: WKNavigationDelegate{
             })
         }
         print(self.webView.url?.relativePath)
+        
+        //推送
+        if msgId != nil && (webView.url?.relativePath.contains("/forms/FrmIndex"))! {
+            self.loadUrl(urlStr: msgId!)
+        }
     }
     
     //跳转失败的时候调用
@@ -428,9 +433,15 @@ extension MainViewController:CustemBBI,SettingDelegate{
                     self.webView.goBack()
                 }
             }else{
-                self.webView.evaluateJavaScript("ReturnBtnClick()", completionHandler: { (item:Any?, error:Error?) in
-                    
-                })
+                if msgId != nil {
+                    self.loadUrl(urlStr: "\(URL_APP_ROOT)/forms/FrmIndex")
+                    msgId = nil
+                }else{
+                    self.webView.evaluateJavaScript("ReturnBtnClick()", completionHandler: { (item:Any?, error:Error?) in
+                        
+                    })
+                }
+                
             }
         }else if infoStr == "second" {
             self.webView.evaluateJavaScript("appChangeCard()", completionHandler: { (item:Any?, error:Error?) in
