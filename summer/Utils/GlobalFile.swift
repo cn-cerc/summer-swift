@@ -55,3 +55,5 @@ let WXLogin = "WXLogin" //微信登录
 
 let JPushMessage = "JPushMessage"//推送
 
+var msgId: String?//推送url
+
