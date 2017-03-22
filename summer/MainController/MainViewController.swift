@@ -453,7 +453,6 @@ extension MainViewController:CustemBBI,SettingDelegate{
             })
         }else{
             let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
-                            (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
                             (icon:"iconfont-shezhi-3",title:"设置"),
                             (icon:"组-1",title:"帮助中心"),
                             (icon:"iconfont-zhuye-2",title:"返回首页"),
@@ -470,20 +469,18 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 if index == 0 {
                     self?.loadUrl(urlStr: "\(msgUrl).unread")
                 }else if index == 1 {
-                    self?.loadUrl(urlStr: "\(msgUrl)")
-                }else if index == 2 {
                     let settingVC = SettingViewController()
                     settingVC.delegate = self
                     self?.navigationController?.pushViewController(settingVC, animated: true)
-                }else if index == 4 {
+                }else if index == 3 {
                     self?.loadUrl(urlStr: URLPATH)
-                }else if index == 5 {
+                }else if index == 4 {
                     UserDefaultsUtils.deleteValueWithKey(key: "userName")
                     UserDefaultsUtils.deleteValueWithKey(key: "pwd")
                     self?.webView.evaluateJavaScript("exit()", completionHandler: { (item:Any?, error:Error?) in
                         
                     })
-                }else if index == 3 {
+                }else if index == 2 {
                     self?.loadUrl(urlStr: "\(URL_APP_ROOT)/forms/FrmAPPHelplist")
                 }
             }
