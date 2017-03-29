@@ -367,7 +367,7 @@ extension MainViewController: WKNavigationDelegate{
             webView.evaluateJavaScript(js_fit_code, completionHandler: { (item:Any?, error:Error?) in
                 
             })
-        }else if isSelectCard.contains((webView.url?.relativePath)!) {
+        }else if isSelectCard.contains((webView.url?.relativePath)!) && webView.url?.relativePath != "/forms/FrmMessages"{
             self.navigationItem.rightBarButtonItems = nil
             self.navigationItem.rightBarButtonItems = [CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third"),CustemNavItem.initWithImage(image: UIImage.init(named: "iconfont-yuanjiaojuxing2kaobei")!, target: self as CustemBBI, infoStr: "second")]
         }else if isHelp.contains((webView.url?.relativePath)!) {
