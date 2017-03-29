@@ -19,5 +19,5 @@ let isProduction = true
 
 //微信
 let WX_APPID = "wxc429effa4562439c"
-let WX_APPSecret = "8bf5cf08f15ac853398cf9fb125d7b9e"
+let WX_APPSecret = "6a59e0fe5f00e3dad6629af26b0fca32"
 
