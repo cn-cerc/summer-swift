@@ -15,8 +15,9 @@ let WELCOME_IMAGES_COUNT = 4
 //推送
 let appkey = "3cc3e3d7c7e8c1dc7cc8f003"
 let channel = "Publish channel"
-let isProduction = false
+let isProduction = true
 
 //微信
-let WX_APPID = "wx880d8fc48ac1e88e"
-let WX_APPSecret = "01637635ce8648402cf4268d690b1226"
+let WX_APPID = "wxc429effa4562439c"
+let WX_APPSecret = "8bf5cf08f15ac853398cf9fb125d7b9e"
+
