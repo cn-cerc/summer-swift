@@ -448,9 +448,14 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 
             })
         }else if infoStr == "four" {
-            self.webView.evaluateJavaScript(methodName!, completionHandler: { (item:Any?, error:Error?) in
-                
-            })
+            if rightText == "图表" {
+                let chartVC = ChartViewController()
+                self.navigationController?.pushViewController(chartVC, animated: true)
+            }else{
+                self.webView.evaluateJavaScript(methodName!, completionHandler: { (item:Any?, error:Error?) in
+                    
+                })
+            }
         }else{
             let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
                             (icon:"iconfont-shezhi-3",title:"设置"),
