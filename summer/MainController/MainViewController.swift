@@ -20,6 +20,7 @@ class MainViewController: BaseViewController {
     var scale:Float!//缩放比例
     var rightText:String!//导航栏右边的按钮
     var methodName:String!//方法名
+    var chartDataStr:String!//图表数据
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -293,6 +294,9 @@ extension MainViewController: WKScriptMessageHandler {
             let method = (message.body as! Dictionary<String,String>)["callBack"]
             rightText = Text
             methodName = method
+            let  chartData = (message.body as! Dictionary<String,String>)["list1"]
+            print(chartData)
+            chartDataStr = chartData
         }else{//微信支付
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -448,13 +452,13 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 
             })
         }else if infoStr == "four" {
+            self.webView.evaluateJavaScript(methodName!, completionHandler: { (item:Any?, error:Error?) in
+                
+            })
             if rightText == "图表" {
                 let chartVC = ChartViewController()
+                chartVC.dataStr = chartDataStr
                 self.navigationController?.pushViewController(chartVC, animated: true)
-            }else{
-                self.webView.evaluateJavaScript(methodName!, completionHandler: { (item:Any?, error:Error?) in
-                    
-                })
             }
         }else{
             let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
