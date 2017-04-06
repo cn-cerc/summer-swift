@@ -51,6 +51,7 @@
 		6407BFAF1E542DDF0073C297 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BF9C1E542DDF0073C297 /* UIWebView+AFNetworking.m */; };
 		6407BFB21E5435700073C297 /* AFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BFB11E5435700073C297 /* AFNetworkManager.m */; };
 		6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BFB51E5447D40073C297 /* LaunchIntroductionView.m */; };
+		64845BB71E962B6300F091A9 /* String+Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64845BB61E962B6300F091A9 /* String+Json.swift */; };
 		64E82DC31E948A2F0046397E /* DVLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DBC1E948A2F0046397E /* DVLineChartView.m */; };
 		64E82DC41E948A2F0046397E /* DVPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DBE1E948A2F0046397E /* DVPlot.m */; };
 		64E82DC51E948A2F0046397E /* DVXAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DC01E948A2F0046397E /* DVXAxisView.m */; };
@@ -232,6 +233,7 @@
 		6407BFB11E5435700073C297 /* AFNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkManager.m; sourceTree = "<group>"; };
 		6407BFB41E5447D40073C297 /* LaunchIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchIntroductionView.h; sourceTree = "<group>"; };
 		6407BFB51E5447D40073C297 /* LaunchIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchIntroductionView.m; sourceTree = "<group>"; };
+		64845BB61E962B6300F091A9 /* String+Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Json.swift"; sourceTree = "<group>"; };
 		64E82DBB1E948A2F0046397E /* DVLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVLineChartView.h; sourceTree = "<group>"; };
 		64E82DBC1E948A2F0046397E /* DVLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVLineChartView.m; sourceTree = "<group>"; };
 		64E82DBD1E948A2F0046397E /* DVPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVPlot.h; sourceTree = "<group>"; };
@@ -992,6 +994,7 @@
 		64EFE3B01E4D5F5B006A1455 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				64845BB61E962B6300F091A9 /* String+Json.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1820,6 +1823,7 @@
 				6407BFAB1E542DDF0073C297 /* UIButton+AFNetworking.m in Sources */,
 				64F413621E55528400FDAAC6 /* MJRefreshHeader.m in Sources */,
 				6407BF9F1E542DDF0073C297 /* AFHTTPSessionManager.m in Sources */,
+				64845BB71E962B6300F091A9 /* String+Json.swift in Sources */,
 				64E82DC61E948A2F0046397E /* DVYAxisView.m in Sources */,
 				64F413631E55528400FDAAC6 /* MJRefreshAutoGifFooter.m in Sources */,
 				64EFE3B71E4D6667006A1455 /* MainViewController.swift in Sources */,

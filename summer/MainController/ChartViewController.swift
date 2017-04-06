@@ -24,6 +24,7 @@ class ChartViewController: BaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.init(hexString: "3e4a59");
+        self.setNavTitle(title: "图表")
         self.navigationItem.leftBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, target: self as CustemBBI, infoStr: "first")
         self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "帮助", target: self, infoStr: "second")
         charChange()
@@ -33,8 +34,11 @@ class ChartViewController: BaseViewController {
     func charChange(){
         dataStr = dataStr?.replacingOccurrences(of: "[", with: "", options: .literal, range: nil)
         dataStr = dataStr?.replacingOccurrences(of: "]", with: "", options: .literal, range: nil)
-        let dataArr = dataStr?.components(separatedBy: ",")
-        print(dataArr)
+        let dataArr = dataStr?.components(separatedBy: ", ")
+        print(dataArr?.count)
+        for <#item#> in <#items#> {
+            <#code#>
+        }
     }
     
     func createView() {
