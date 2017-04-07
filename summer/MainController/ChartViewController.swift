@@ -36,8 +36,9 @@ class ChartViewController: BaseViewController {
         dataStr = dataStr?.replacingOccurrences(of: "]", with: "", options: .literal, range: nil)
         let dataArr = dataStr?.components(separatedBy: ", ")
         print(dataArr?.count)
-        for <#item#> in <#items#> {
-            <#code#>
+        for value in dataArr! {
+            print(value)
+            print(UserDefaultsUtils.parseJSONStringToNSDictionary(jsonString: value))
         }
     }
     

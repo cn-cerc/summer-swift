@@ -58,4 +58,13 @@ class UserDefaultsUtils: NSObject {
         userDefaults.removeObject(forKey: key)
         userDefaults.synchronize()
     }
+    
+    class func parseJSONStringToNSDictionary(jsonString:String) -> NSDictionary {
+    
+        let jsonData:Data = jsonString.data(using: .utf8)!
+        let responseJson = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
+        let jsonDic = responseJson as! NSDictionary
+        
+        return jsonDic
+    }
 }

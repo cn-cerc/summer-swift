@@ -8,7 +8,7 @@
 
 import UIKit
 
-let URL_APP_ROOT = "http://ehealth.lucland.com"//域名地址//内测版
+let URL_APP_ROOT = "http://192.168.1.211:8080"//域名地址//内测版
 
 let WELCOME_IMAGES_COUNT = 4
 

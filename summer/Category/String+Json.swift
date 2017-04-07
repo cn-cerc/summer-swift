@@ -9,11 +9,22 @@
 import UIKit
 
 extension String{
-    func parseJSONStringToNSDictionary(jsonString:String) -> NSDictionary? {
+    func parseJSONStringToNSDictionary(jsonString:String) -> NSDictionary {
         let jsonData = jsonString.data(using: String.Encoding.utf8)
-        let responseJson:Any = try? JSONSerialization.jsonObject(with: jsonData!, options: .mutableLeaves)
-        let jsonDic = responseJson as!Dictionary<String,Any>
+        let responseJson = try? JSONSerialization.jsonObject(with: jsonData!, options: .mutableLeaves)
+        let jsonDic = responseJson as!NSDictionary
         
-        return jsonDic as NSDictionary?
+        return jsonDic
+    }
+    
+    func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
+        
+        let jsonData:Data = jsonString.data(using: .utf8)!
+        
+        let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
+        if dict != nil {
+            return dict as! NSDictionary
+        }
+        return NSDictionary()
     }
 }

@@ -295,7 +295,7 @@ extension MainViewController: WKScriptMessageHandler {
             rightText = Text
             methodName = method
             let  chartData = (message.body as! Dictionary<String,String>)["list1"]
-            print(chartData)
+            print((message.body as! Dictionary<String,String>)["list1"])
             chartDataStr = chartData
             if rightText == "帮助" {
                 let chartVC = ChartViewController()
