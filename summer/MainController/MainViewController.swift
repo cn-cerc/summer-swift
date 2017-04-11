@@ -352,8 +352,15 @@ extension MainViewController: WKNavigationDelegate{
                 print("取消")
         })
     }
+}
+
+//出现白屏时刷新页面
+extension MainViewController: WKUIDelegate{
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        webView.reload()
+    }
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil {
             AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "alipay", callback: { (result:[AnyHashable : Any]?) in
@@ -361,13 +368,6 @@ extension MainViewController: WKNavigationDelegate{
                 self.loadUrl(urlStr: urlStr as! String)
             })
         }
-    }
-}
-
-//出现白屏时刷新页面
-extension MainViewController: WKUIDelegate{
-    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        webView.reload()
     }
 }
 
