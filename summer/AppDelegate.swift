@@ -210,17 +210,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     
     func onResp(_ resp: BaseResp!) {
-        let strTitle = "支付结果"
-        var strMsg = "\(resp.errCode)"
+//        let strTitle = "支付结果"
+//        var strMsg = "\(resp.errCode)"
         if resp.isKind(of: PayResp.self) {
+            var backCode = "支付结果"
             switch resp.errCode {
             case 0:
                 print("支付成功")
-                NotificationCenter.default.post(name: Notification.Name(rawValue: WXPaySuccessNotification), object: nil)
+                backCode = "success"
+            case -2:
+                print("用户取消")
+                backCode = "用户取消"
             default:
-                strMsg = "支付失败，请您重新支付!"
-                print("retcode = \(resp.errCode), retstr = \(resp.errStr)")
+//                strMsg = "支付失败，请您重新支付!"
+//                print("retcode = \(resp.errCode), retstr = \(resp.errStr)")
+                backCode = "failed"
             }
+            NotificationCenter.default.post(name: Notification.Name(rawValue: WXPaySuccessNotification), object: nil, userInfo: ["code":backCode])
         }
     }
     

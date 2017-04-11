@@ -61,8 +61,8 @@ class MainViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(jpushMessage), name: NSNotification.Name(rawValue: JPushMessage), object: nil)
     }
     //支付成功返回
-    func paySucceed() {
-        self.webView.evaluateJavaScript("ReturnForApp('success')") { (item:Any?, error:Error?) in
+    func paySucceed(notifi:Notification) {
+        self.webView.evaluateJavaScript("ReturnForApp(\(notifi.userInfo?["code"]))") { (item:Any?, error:Error?) in
             
         }
     }
