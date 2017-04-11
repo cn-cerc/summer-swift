@@ -331,6 +331,11 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
+        
+        // TODO alipay需要刷新唤起支付宝客户端，临时解决方案，待进一步改进
+        if webView.url?.relativePath == "/cashier/mobilepay.htm" {
+            self.webView.reload()
+        }
     }
     
     //跳转失败的时候调用
@@ -365,7 +370,7 @@ extension MainViewController: WKUIDelegate{
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
-        if orderInfo != nil {
+        if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
             AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "alipay", callback: { (result:[AnyHashable : Any]?) in
                 if result?["resultCode"] as! String == "9000"{
                     let urlStr = result?["returnUrl"]
