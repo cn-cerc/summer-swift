@@ -62,7 +62,7 @@ class MainViewController: BaseViewController {
     }
     //支付成功返回
     func paySucceed() {
-        self.webView.evaluateJavaScript("ReturnBtnClick()") { (item:Any?, error:Error?) in
+        self.webView.evaluateJavaScript("ReturnForApp('success')") { (item:Any?, error:Error?) in
             
         }
     }
@@ -352,6 +352,16 @@ extension MainViewController: WKNavigationDelegate{
                 print("取消")
         })
     }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
+        if orderInfo != nil {
+            AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "alipay", callback: { (result:[AnyHashable : Any]?) in
+                let urlStr = result?["returnUrl"]
+                self.loadUrl(urlStr: urlStr as! String)
+            })
+        }
+    }
 }
 
 //出现白屏时刷新页面
@@ -393,22 +403,22 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 let msgUrl = "\(URL_APP_ROOT)/\(UserDefaultsUtils.valueWithKey(key: "msgManage"))"
                 print(msgUrl)
                 if index == 0 {
-                    self?.loadUrl(urlStr: "\(msgUrl).unread")
+                    self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: "\(msgUrl).unread"))
                 }else if index == 1 {
-                    self?.loadUrl(urlStr: "\(msgUrl)")
+                    self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: "\(msgUrl)"))
                 }else if index == 2 {
                     let settingVC = SettingViewController()
                     settingVC.delegate = self
                     self?.navigationController?.pushViewController(settingVC, animated: true)
                 }else if index == 3 {
-                    self?.loadUrl(urlStr: BACK_MAIN)
+                    self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: BACK_MAIN))
                 }else if index == 4 {
                     UserDefaultsUtils.deleteValueWithKey(key: "userName")
                     UserDefaultsUtils.deleteValueWithKey(key: "pwd")
                     self?.webView.evaluateJavaScript("exit()", completionHandler: { (item:Any?, error:Error?) in
                         
                     })
-                    self?.loadUrl(urlStr: EXIT_URL_PATH)
+                    self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: EXIT_URL_PATH))
                 }
             }
             popMenu.show()

@@ -24,3 +24,6 @@
 #import <AdSupport/AdSupport.h>
 
 #import "PDKeyChain.h"
+
+//支付宝
+#import <AlipaySDK/AlipaySDK.h>

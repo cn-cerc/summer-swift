@@ -51,6 +51,11 @@
 		6407BFAF1E542DDF0073C297 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BF9C1E542DDF0073C297 /* UIWebView+AFNetworking.m */; };
 		6407BFB21E5435700073C297 /* AFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BFB11E5435700073C297 /* AFNetworkManager.m */; };
 		6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BFB51E5447D40073C297 /* LaunchIntroductionView.m */; };
+		64AE94081E9B606900E08B78 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 64AE94061E9B606900E08B78 /* AlipaySDK.bundle */; };
+		64AE94091E9B606900E08B78 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AE94071E9B606900E08B78 /* AlipaySDK.framework */; };
+		64AE940B1E9B620E00E08B78 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AE940A1E9B620E00E08B78 /* QuartzCore.framework */; };
+		64AE940D1E9B627A00E08B78 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AE940C1E9B627A00E08B78 /* CoreText.framework */; };
+		64AE940F1E9B62C100E08B78 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AE940E1E9B62C100E08B78 /* CoreMotion.framework */; };
 		64EFE3821E4D5EC8006A1455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */; };
 		64EFE3841E4D5EC8006A1455 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3831E4D5EC8006A1455 /* ViewController.swift */; };
 		64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64EFE3851E4D5EC8006A1455 /* Main.storyboard */; };
@@ -225,6 +230,11 @@
 		6407BFB11E5435700073C297 /* AFNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkManager.m; sourceTree = "<group>"; };
 		6407BFB41E5447D40073C297 /* LaunchIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchIntroductionView.h; sourceTree = "<group>"; };
 		6407BFB51E5447D40073C297 /* LaunchIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchIntroductionView.m; sourceTree = "<group>"; };
+		64AE94061E9B606900E08B78 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		64AE94071E9B606900E08B78 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		64AE940A1E9B620E00E08B78 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		64AE940C1E9B627A00E08B78 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		64AE940E1E9B62C100E08B78 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		64EFE37E1E4D5EC8006A1455 /* summer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = summer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64EFE3831E4D5EC8006A1455 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -682,6 +692,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64AE940F1E9B62C100E08B78 /* CoreMotion.framework in Frameworks */,
+				64AE940D1E9B627A00E08B78 /* CoreText.framework in Frameworks */,
+				64AE940B1E9B620E00E08B78 /* QuartzCore.framework in Frameworks */,
 				64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */,
 				64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */,
 				64F44AB81E569B14009D1135 /* AdSupport.framework in Frameworks */,
@@ -696,6 +709,7 @@
 				6407BF3C1E5403AE0073C297 /* Security.framework in Frameworks */,
 				64F415081E55A97300FDAAC6 /* opencv2.framework in Frameworks */,
 				6407BF3A1E5403A40073C297 /* libc++.tbd in Frameworks */,
+				64AE94091E9B606900E08B78 /* AlipaySDK.framework in Frameworks */,
 				6407BF381E54039C0073C297 /* libsqlite3.0.tbd in Frameworks */,
 				64F44AAD1E569A92009D1135 /* jcore-ios-1.1.1.a in Frameworks */,
 				6407BF361E5403920073C297 /* libz.tbd in Frameworks */,
@@ -725,6 +739,9 @@
 		6407BF321E54037D0073C297 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				64AE940E1E9B62C100E08B78 /* CoreMotion.framework */,
+				64AE940C1E9B627A00E08B78 /* CoreText.framework */,
+				64AE940A1E9B620E00E08B78 /* QuartzCore.framework */,
 				64F44ABB1E569B3A009D1135 /* libresolv.tbd */,
 				64F44AB91E569B24009D1135 /* UserNotifications.framework */,
 				64F44AB71E569B14009D1135 /* AdSupport.framework */,
@@ -877,6 +894,15 @@
 			path = LaunchIntroduction;
 			sourceTree = "<group>";
 		};
+		64AE94051E9B606900E08B78 /* AliPay */ = {
+			isa = PBXGroup;
+			children = (
+				64AE94061E9B606900E08B78 /* AlipaySDK.bundle */,
+				64AE94071E9B606900E08B78 /* AlipaySDK.framework */,
+			);
+			path = AliPay;
+			sourceTree = "<group>";
+		};
 		64EFE3751E4D5EC8006A1455 = {
 			isa = PBXGroup;
 			children = (
@@ -958,6 +984,7 @@
 		64EFE3B11E4D5F5B006A1455 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				64AE94051E9B606900E08B78 /* AliPay */,
 				64F44AA91E569A92009D1135 /* Lib */,
 				64F2B8881E53F4E400E287AA /* WXPay */,
 			);
@@ -1656,6 +1683,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64AE94081E9B606900E08B78 /* AlipaySDK.bundle in Resources */,
 				6407BFA61E542DDF0073C297 /* LICENSE in Resources */,
 				64EFE38C1E4D5EC8006A1455 /* LaunchScreen.storyboard in Resources */,
 				64F413841E55A8CD00FDAAC6 /* scanscanBg.png in Resources */,
@@ -1933,6 +1961,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/summer/Library-oc/ScanCard/RecognizeCardManager",
+					"$(PROJECT_DIR)/summer/Library/AliPay",
 				);
 				INFOPLIST_FILE = summer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1952,7 +1981,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1969,6 +1998,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/summer/Library-oc/ScanCard/RecognizeCardManager",
+					"$(PROJECT_DIR)/summer/Library/AliPay",
 				);
 				INFOPLIST_FILE = summer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1987,7 +2017,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

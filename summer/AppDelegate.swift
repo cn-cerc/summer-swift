@@ -196,9 +196,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
         
         //跳转支付宝钱包进行支付，处理支付结果
-        //        AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDict:[AnyHashable: Any]!) -> Void in
-        //            print("openURL result: \(resultDict)")
-        //        })
+        AlipaySDK.defaultService().processAuthResult(url) { (resultDic: [AnyHashable : Any]?) in
+            print(resultDic)
+        }
         
         return true
     }
