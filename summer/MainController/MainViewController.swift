@@ -60,12 +60,14 @@ class MainViewController: BaseViewController {
         //推送
         NotificationCenter.default.addObserver(self, selector: #selector(jpushMessage), name: NSNotification.Name(rawValue: JPushMessage), object: nil)
     }
+    
     //支付成功返回
     func paySucceed(notifi:Notification) {
-        self.webView.evaluateJavaScript("ReturnForApp(\(notifi.userInfo?["code"]))") { (item:Any?, error:Error?) in
+        self.webView.evaluateJavaScript("ReturnForApp(\(String(describing: notifi.userInfo?["code"])))") { (item:Any?, error:Error?) in
             
         }
     }
+    
     //网络监测
     func getLoadDataBase(notifi:Notification) {
         let netWork:String? = notifi.userInfo?["netType"] as! String?
@@ -80,6 +82,7 @@ class MainViewController: BaseViewController {
         }
         //        self.webView.reload()
     }
+    
     //推送
     func jpushMessage(notifi:Notification) {
         let msgId:String? = notifi.userInfo?["msgId"] as! String?
@@ -364,8 +367,14 @@ extension MainViewController: WKUIDelegate{
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil {
             AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "alipay", callback: { (result:[AnyHashable : Any]?) in
-                let urlStr = result?["returnUrl"]
-                self.loadUrl(urlStr: urlStr as! String)
+                if result?["resultCode"] as! String == "9000"{
+                    let urlStr = result?["returnUrl"]
+                    self.loadUrl(urlStr: urlStr as! String)
+                }else{
+                    if self.webView.canGoBack {
+                        self.webView.goBack()
+                    }
+                }
             })
         }
     }
