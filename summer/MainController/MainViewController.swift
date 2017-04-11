@@ -63,15 +63,15 @@ class MainViewController: BaseViewController {
     
     //支付成功返回
     func paySucceed(notifi:Notification) {
-        self.webView.evaluateJavaScript("ReturnForApp(\(String(describing: notifi.userInfo?["code"])))") { (item:Any?, error:Error?) in
-            
+        let result = notifi.userInfo?["code"]
+        self.webView.evaluateJavaScript("ReturnForApp('\(result!)')") {
+            (item:Any?, error:Error?) in
         }
     }
     
     //网络监测
     func getLoadDataBase(notifi:Notification) {
         let netWork:String? = notifi.userInfo?["netType"] as! String?
-        print(netWork)
         if netWork! == "NotReachable" || netWork! == "Unknown" {
             DisplayUtils.alertControllerDisplay(str: "网络出现异常，请检查网络连接！", viewController: self, confirmBlock: {
                 print("刷新")
