@@ -196,10 +196,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
         
         //跳转支付宝钱包进行支付，处理支付结果
-        AlipaySDK.defaultService().processAuthResult(url) { (resultDic: [AnyHashable : Any]?) in
-            print(resultDic)
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result:[AnyHashable : Any]?) in
+                print(result)
+            })
         }
-        
+        if url.host == "platformapi" {
+            AlipaySDK.defaultService().processAuthResult(url) { (resultDic: [AnyHashable : Any]?) in
+                print(resultDic)
+            }
+        }
         return true
     }
     
