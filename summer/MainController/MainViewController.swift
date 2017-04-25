@@ -20,6 +20,7 @@ class MainViewController: BaseViewController {
     var scale:Float!//缩放比例
     var rightText:String!//导航栏右边的按钮
     var methodName:String!//方法名
+    var chartDataStr:String!//图表数据
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -293,6 +294,14 @@ extension MainViewController: WKScriptMessageHandler {
             let method = (message.body as! Dictionary<String,String>)["callBack"]
             rightText = Text
             methodName = method
+//            let  chartData = (message.body as! Dictionary<String,String>)["list1"]
+//            print((message.body as! Dictionary<String,String>)["list1"])
+//            chartDataStr = chartData
+//            if rightText == "帮助" {
+//                let chartVC = ChartViewController()
+//                chartVC.dataStr = chartDataStr
+//                self.navigationController?.pushViewController(chartVC, animated: true)
+//            }
         }else{//微信支付
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -384,7 +393,6 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
-        print(self.webView.url?.relativePath)
         
         //推送
         if msgId != nil && (webView.url?.relativePath.contains("/forms/FrmIndex"))! {
