@@ -12,8 +12,8 @@ class ChartViewController: BaseViewController {
     
     var dataStr:String?
     
-    var xArray:NSArray?
-    var yArray:NSArray?
+    var xArray:Array<Any>?
+    var yArray:Array<Any>?
     
     fileprivate lazy var chartView:DVLineChartView = {
         let chartView = DVLineChartView()
@@ -23,54 +23,59 @@ class ChartViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.init(hexString: "3e4a59");
+        self.view.backgroundColor = UIColor.white;
         self.setNavTitle(title: "图表")
         self.navigationItem.leftBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, target: self as CustemBBI, infoStr: "first")
         self.navigationItem.rightBarButtonItem = CustemNavItem.initWithString(str: "帮助", target: self, infoStr: "second")
+        xArray = [String]()
+        yArray = [String]()
         charChange()
         createView()
     }
     
     func charChange(){
-        dataStr = dataStr?.replacingOccurrences(of: "[", with: "", options: .literal, range: nil)
-        dataStr = dataStr?.replacingOccurrences(of: "]", with: "", options: .literal, range: nil)
-        let dataArr = dataStr?.components(separatedBy: ", ")
-        print(dataArr?.count)
-        for value in dataArr! {
-            print(value)
-            print(UserDefaultsUtils.parseJSONStringToNSDictionary(jsonString: value))
+        print(UserDefaultsUtils.parseJSONStringToNSDictionary(jsonString: dataStr!))
+        let dataArr = UserDefaultsUtils.parseJSONStringToNSDictionary(jsonString: dataStr!).value(forKey: "data") as! Array<Any>
+        for i in 0..<dataArr.count {
+            let dataDic = dataArr[i]
+            let oneDic = dataDic as? Dictionary<String, Any>
+            let timeStr:String = (oneDic?["checkDate_"] as! String) + "\n" + (oneDic?["xuetangceshi_"] as! String)
+            xArray?.append(timeStr)
+            yArray?.append(oneDic?["blodSug_"] as! String)
         }
     }
     
     func createView() {
-        self.view.addSubview(self.chartView)
+        
         self.chartView.width = self.view.width
         self.chartView.yAxisViewWidth = 52
         self.chartView.numberOfYAxisElements = 5
         self.chartView.isPointUserInteractionEnabled = true
-        self.chartView.yAxisMaxValue = 1000
+        self.chartView.yAxisMaxValue = 30
         self.chartView.pointGap = 50
         
         self.chartView.isShowSeparate = true
         self.chartView.separateColor = UIColor.init(hexString: "67707c")
         
         self.chartView.textColor = UIColor.init(hexString: "9aafc1")
-        self.chartView.backColor = UIColor.init(hexString: "3e4a59")
+        self.chartView.backColor = UIColor.white
         self.chartView.axisColor = UIColor.init(hexString: "67707c")
-        self.chartView.xAxisTitleArray = xArray as! [Any]!
+        self.chartView.xAxisTitleArray = xArray as [Any]!
+        self.chartView.textFont = UIFont.systemFont(ofSize: 10)
         
         self.chartView.x = 0
         self.chartView.y = 100
-        self.chartView.width = self.view.width-80
+        self.chartView.width = self.view.width-30
         self.chartView.height = 300
         
         let plot = DVPlot()
-        plot.pointArray = nil
+        plot.pointArray = yArray!
         plot.lineColor = UIColor.init(hexString: "2f7184")
         plot.pointColor = UIColor.init(hexString: "14b9d6")
         plot.withPoint = true
         self.chartView.addPlot(plot)
         self.chartView.draw()
+        self.view.addSubview(self.chartView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,7 +95,8 @@ extension ChartViewController:CustemBBI {
         if infoStr == "first" {
             _ = self.navigationController?.popViewController(animated: true)
         }else if infoStr == "second" {
-            
+            let helpVC = HelpViewController()
+            self.navigationController?.pushViewController(helpVC, animated: true)
         }
     }
 }

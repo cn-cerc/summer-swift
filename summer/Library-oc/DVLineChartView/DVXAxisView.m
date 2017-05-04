@@ -104,12 +104,14 @@
         label.text = title;
         label.font = self.textFont;
         label.textColor = self.textColor;
+        label.numberOfLines = 2;
+        label.textAlignment = NSTextAlignmentCenter;
         
         NSDictionary *attr = @{NSFontAttributeName : self.textFont};
         CGSize labelSize = [title sizeWithAttributes:attr];
         
         label.x = (i + 1) * self.pointGap - labelSize.width / 2;
-        label.y = self.height - labelSize.height;
+        label.y = self.height - labelSize.height+2;
         label.width = labelSize.width;
         label.height = labelSize.height;
         
