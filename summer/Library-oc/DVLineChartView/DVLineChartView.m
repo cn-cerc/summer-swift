@@ -119,7 +119,7 @@
 
 - (void)draw {
     
-    if (self.plots.count == 0) return;
+//    if (self.plots.count == 0) return;
     
     // 设置y轴视图的尺寸
     self.yAxisView.width = self.yAxisViewWidth;
@@ -137,7 +137,7 @@
     self.xAxisView.x = 0;
     self.xAxisView.y = 0;
     self.xAxisView.height = self.scrollView.height;
-    self.xAxisView.width = self.xAxisTitleArray.count * self.pointGap + 200;
+    self.xAxisView.width = self.xAxisTitleArray.count * self.pointGap+50;
     
     self.scrollView.contentSize = self.xAxisView.frame.size;
     

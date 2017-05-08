@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		640378E61EBACE6F0068CA56 /* DVLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 640378DF1EBACE6F0068CA56 /* DVLineChartView.m */; };
+		640378E71EBACE6F0068CA56 /* DVPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 640378E11EBACE6F0068CA56 /* DVPlot.m */; };
+		640378E81EBACE6F0068CA56 /* DVXAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 640378E31EBACE6F0068CA56 /* DVXAxisView.m */; };
+		640378E91EBACE6F0068CA56 /* DVYAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 640378E51EBACE6F0068CA56 /* DVYAxisView.m */; };
+		640378EE1EBACE790068CA56 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 640378EB1EBACE790068CA56 /* UIColor+Hex.m */; };
+		640378EF1EBACE790068CA56 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 640378ED1EBACE790068CA56 /* UIView+Extension.m */; };
+		640378F11EBB0FC90068CA56 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640378F01EBB0FC90068CA56 /* HelpViewController.swift */; };
 		6407BF341E54037D0073C297 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF331E54037D0073C297 /* SystemConfiguration.framework */; };
 		6407BF361E5403920073C297 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF351E5403920073C297 /* libz.tbd */; };
 		6407BF381E54039C0073C297 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF371E54039C0073C297 /* libsqlite3.0.tbd */; };
@@ -52,12 +59,6 @@
 		6407BFB21E5435700073C297 /* AFNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BFB11E5435700073C297 /* AFNetworkManager.m */; };
 		6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BFB51E5447D40073C297 /* LaunchIntroductionView.m */; };
 		64845BB71E962B6300F091A9 /* String+Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64845BB61E962B6300F091A9 /* String+Json.swift */; };
-		64E82DC31E948A2F0046397E /* DVLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DBC1E948A2F0046397E /* DVLineChartView.m */; };
-		64E82DC41E948A2F0046397E /* DVPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DBE1E948A2F0046397E /* DVPlot.m */; };
-		64E82DC51E948A2F0046397E /* DVXAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DC01E948A2F0046397E /* DVXAxisView.m */; };
-		64E82DC61E948A2F0046397E /* DVYAxisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DC21E948A2F0046397E /* DVYAxisView.m */; };
-		64E82DCB1E948A8B0046397E /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DC81E948A8B0046397E /* UIColor+Hex.m */; };
-		64E82DCC1E948A8B0046397E /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E82DCA1E948A8B0046397E /* UIView+Extension.m */; };
 		64EFE3821E4D5EC8006A1455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */; };
 		64EFE3841E4D5EC8006A1455 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3831E4D5EC8006A1455 /* ViewController.swift */; };
 		64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64EFE3851E4D5EC8006A1455 /* Main.storyboard */; };
@@ -152,6 +153,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		640378DE1EBACE6F0068CA56 /* DVLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVLineChartView.h; sourceTree = "<group>"; };
+		640378DF1EBACE6F0068CA56 /* DVLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVLineChartView.m; sourceTree = "<group>"; };
+		640378E01EBACE6F0068CA56 /* DVPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVPlot.h; sourceTree = "<group>"; };
+		640378E11EBACE6F0068CA56 /* DVPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVPlot.m; sourceTree = "<group>"; };
+		640378E21EBACE6F0068CA56 /* DVXAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVXAxisView.h; sourceTree = "<group>"; };
+		640378E31EBACE6F0068CA56 /* DVXAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVXAxisView.m; sourceTree = "<group>"; };
+		640378E41EBACE6F0068CA56 /* DVYAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVYAxisView.h; sourceTree = "<group>"; };
+		640378E51EBACE6F0068CA56 /* DVYAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVYAxisView.m; sourceTree = "<group>"; };
+		640378EA1EBACE790068CA56 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		640378EB1EBACE790068CA56 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		640378EC1EBACE790068CA56 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		640378ED1EBACE790068CA56 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		640378F01EBB0FC90068CA56 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		6407BF331E54037D0073C297 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6407BF351E5403920073C297 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6407BF371E54039C0073C297 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -234,18 +248,6 @@
 		6407BFB41E5447D40073C297 /* LaunchIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchIntroductionView.h; sourceTree = "<group>"; };
 		6407BFB51E5447D40073C297 /* LaunchIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchIntroductionView.m; sourceTree = "<group>"; };
 		64845BB61E962B6300F091A9 /* String+Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Json.swift"; sourceTree = "<group>"; };
-		64E82DBB1E948A2F0046397E /* DVLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVLineChartView.h; sourceTree = "<group>"; };
-		64E82DBC1E948A2F0046397E /* DVLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVLineChartView.m; sourceTree = "<group>"; };
-		64E82DBD1E948A2F0046397E /* DVPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVPlot.h; sourceTree = "<group>"; };
-		64E82DBE1E948A2F0046397E /* DVPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVPlot.m; sourceTree = "<group>"; };
-		64E82DBF1E948A2F0046397E /* DVXAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVXAxisView.h; sourceTree = "<group>"; };
-		64E82DC01E948A2F0046397E /* DVXAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVXAxisView.m; sourceTree = "<group>"; };
-		64E82DC11E948A2F0046397E /* DVYAxisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVYAxisView.h; sourceTree = "<group>"; };
-		64E82DC21E948A2F0046397E /* DVYAxisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVYAxisView.m; sourceTree = "<group>"; };
-		64E82DC71E948A8B0046397E /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
-		64E82DC81E948A8B0046397E /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
-		64E82DC91E948A8B0046397E /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		64E82DCA1E948A8B0046397E /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		64EFE37E1E4D5EC8006A1455 /* summer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = summer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64EFE3831E4D5EC8006A1455 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -745,6 +747,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		640378DD1EBACE6F0068CA56 /* DVLineChartView */ = {
+			isa = PBXGroup;
+			children = (
+				640378EA1EBACE790068CA56 /* UIColor+Hex.h */,
+				640378EB1EBACE790068CA56 /* UIColor+Hex.m */,
+				640378EC1EBACE790068CA56 /* UIView+Extension.h */,
+				640378ED1EBACE790068CA56 /* UIView+Extension.m */,
+				640378DE1EBACE6F0068CA56 /* DVLineChartView.h */,
+				640378DF1EBACE6F0068CA56 /* DVLineChartView.m */,
+				640378E01EBACE6F0068CA56 /* DVPlot.h */,
+				640378E11EBACE6F0068CA56 /* DVPlot.m */,
+				640378E21EBACE6F0068CA56 /* DVXAxisView.h */,
+				640378E31EBACE6F0068CA56 /* DVXAxisView.m */,
+				640378E41EBACE6F0068CA56 /* DVYAxisView.h */,
+				640378E51EBACE6F0068CA56 /* DVYAxisView.m */,
+			);
+			path = DVLineChartView;
+			sourceTree = "<group>";
+		};
 		6407BF321E54037D0073C297 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -769,7 +790,7 @@
 		6407BF411E542DB60073C297 /* Library-oc */ = {
 			isa = PBXGroup;
 			children = (
-				64E82DBA1E948A2F0046397E /* DVLineChartView */,
+				640378DD1EBACE6F0068CA56 /* DVLineChartView */,
 				64F69AB31E5C5C4400E1B709 /* PDKeyChain.h */,
 				64F69AB41E5C5C4400E1B709 /* PDKeyChain.m */,
 				64F413741E55A88E00FDAAC6 /* ScanCard */,
@@ -901,25 +922,6 @@
 			path = LaunchIntroduction;
 			sourceTree = "<group>";
 		};
-		64E82DBA1E948A2F0046397E /* DVLineChartView */ = {
-			isa = PBXGroup;
-			children = (
-				64E82DC71E948A8B0046397E /* UIColor+Hex.h */,
-				64E82DC81E948A8B0046397E /* UIColor+Hex.m */,
-				64E82DC91E948A8B0046397E /* UIView+Extension.h */,
-				64E82DCA1E948A8B0046397E /* UIView+Extension.m */,
-				64E82DBB1E948A2F0046397E /* DVLineChartView.h */,
-				64E82DBC1E948A2F0046397E /* DVLineChartView.m */,
-				64E82DBD1E948A2F0046397E /* DVPlot.h */,
-				64E82DBE1E948A2F0046397E /* DVPlot.m */,
-				64E82DBF1E948A2F0046397E /* DVXAxisView.h */,
-				64E82DC01E948A2F0046397E /* DVXAxisView.m */,
-				64E82DC11E948A2F0046397E /* DVYAxisView.h */,
-				64E82DC21E948A2F0046397E /* DVYAxisView.m */,
-			);
-			path = DVLineChartView;
-			sourceTree = "<group>";
-		};
 		64EFE3751E4D5EC8006A1455 = {
 			isa = PBXGroup;
 			children = (
@@ -1015,6 +1017,7 @@
 				64F21B9A1E52E93B009342E0 /* SettingViewController.swift */,
 				64F413721E555A5000FDAAC6 /* PingImageViewController.swift */,
 				64F327281E8F59B0009BDDF0 /* ChartViewController.swift */,
+				640378F01EBB0FC90068CA56 /* HelpViewController.swift */,
 			);
 			path = MainController;
 			sourceTree = "<group>";
@@ -1747,12 +1750,12 @@
 				6407BFA01E542DDF0073C297 /* AFNetworkReachabilityManager.m in Sources */,
 				6407BFAF1E542DDF0073C297 /* UIWebView+AFNetworking.m in Sources */,
 				64F21B991E52B209009342E0 /* SwiftPopMenu.swift in Sources */,
-				64E82DCB1E948A8B0046397E /* UIColor+Hex.m in Sources */,
 				64F4151F1E55A97300FDAAC6 /* G8RecognitionOperation.m in Sources */,
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
 				64F4136A1E55528400FDAAC6 /* MJRefreshNormalHeader.m in Sources */,
 				64F415321E55B3ED00FDAAC6 /* BaseOCViewController.m in Sources */,
+				640378E81EBACE6F0068CA56 /* DVXAxisView.m in Sources */,
 				64F413871E55A8E900FDAAC6 /* lhScanQCodeViewController.m in Sources */,
 				64F413701E55528400FDAAC6 /* UIScrollView+MJRefresh.m in Sources */,
 				64F415091E55A97300FDAAC6 /* RecogizeCardManager.mm in Sources */,
@@ -1762,14 +1765,13 @@
 				64F413661E55528400FDAAC6 /* MJRefreshBackGifFooter.m in Sources */,
 				64F415201E55A97300FDAAC6 /* G8RecognizedBlock.m in Sources */,
 				64F413651E55528400FDAAC6 /* MJRefreshAutoStateFooter.m in Sources */,
-				64E82DC51E948A2F0046397E /* DVXAxisView.m in Sources */,
 				6407BFB21E5435700073C297 /* AFNetworkManager.m in Sources */,
 				6407BF6A1E542DD00073C297 /* SDWebImageDownloaderOperation.m in Sources */,
 				64EFE3B91E4D6B09006A1455 /* BaseNavViewController.swift in Sources */,
 				6407BF661E542DD00073C297 /* SDImageCache.m in Sources */,
-				64E82DC31E948A2F0046397E /* DVLineChartView.m in Sources */,
 				6407BF651E542DD00073C297 /* NSData+ImageContentType.m in Sources */,
 				64F413601E55528400FDAAC6 /* MJRefreshComponent.m in Sources */,
+				640378E61EBACE6F0068CA56 /* DVLineChartView.m in Sources */,
 				6407BFA51E542DDF0073C297 /* AFURLSessionManager.m in Sources */,
 				6407BF641E542DD00073C297 /* README.md in Sources */,
 				6407BFA91E542DDF0073C297 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -1786,12 +1788,11 @@
 				6407BFAE1E542DDF0073C297 /* UIRefreshControl+AFNetworking.m in Sources */,
 				64F413711E55528400FDAAC6 /* UIView+MJExtension.m in Sources */,
 				64F4135F1E55528400FDAAC6 /* MJRefreshBackFooter.m in Sources */,
-				64E82DCC1E948A8B0046397E /* UIView+Extension.m in Sources */,
 				6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */,
 				6407BF711E542DD00073C297 /* UIImageView+WebCache.m in Sources */,
 				6407BFAC1E542DDF0073C297 /* UIImageView+AFNetworking.m in Sources */,
 				64F413731E555A5000FDAAC6 /* PingImageViewController.swift in Sources */,
-				64E82DC41E948A2F0046397E /* DVPlot.m in Sources */,
+				640378F11EBB0FC90068CA56 /* HelpViewController.swift in Sources */,
 				64EFE3821E4D5EC8006A1455 /* AppDelegate.swift in Sources */,
 				6407BF721E542DD00073C297 /* UIView+WebCacheOperation.m in Sources */,
 				6407BF6E1E542DD00073C297 /* UIImage+GIF.m in Sources */,
@@ -1819,14 +1820,17 @@
 				64F327291E8F59B0009BDDF0 /* ChartViewController.swift in Sources */,
 				64F415251E55A97300FDAAC6 /* UIImage+G8Filters.m in Sources */,
 				64F413691E55528400FDAAC6 /* MJRefreshGifHeader.m in Sources */,
+				640378E71EBACE6F0068CA56 /* DVPlot.m in Sources */,
 				6407BFA11E542DDF0073C297 /* AFSecurityPolicy.m in Sources */,
 				6407BFAB1E542DDF0073C297 /* UIButton+AFNetworking.m in Sources */,
 				64F413621E55528400FDAAC6 /* MJRefreshHeader.m in Sources */,
 				6407BF9F1E542DDF0073C297 /* AFHTTPSessionManager.m in Sources */,
 				64845BB71E962B6300F091A9 /* String+Json.swift in Sources */,
-				64E82DC61E948A2F0046397E /* DVYAxisView.m in Sources */,
+				640378EF1EBACE790068CA56 /* UIView+Extension.m in Sources */,
+				640378E91EBACE6F0068CA56 /* DVYAxisView.m in Sources */,
 				64F413631E55528400FDAAC6 /* MJRefreshAutoGifFooter.m in Sources */,
 				64EFE3B71E4D6667006A1455 /* MainViewController.swift in Sources */,
+				640378EE1EBACE790068CA56 /* UIColor+Hex.m in Sources */,
 				64F4135E1E55528400FDAAC6 /* MJRefreshAutoFooter.m in Sources */,
 				64F21B9B1E52E93B009342E0 /* SettingViewController.swift in Sources */,
 			);
