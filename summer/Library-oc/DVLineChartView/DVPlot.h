@@ -14,6 +14,7 @@
  *  线的颜色
  */
 @property (strong, nonatomic) UIColor *lineColor;
+@property (strong, nonatomic) NSArray *lineColorArr;
 /**
  *  坐标点数组
  */

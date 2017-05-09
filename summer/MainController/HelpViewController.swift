@@ -24,7 +24,7 @@ class HelpViewController: BaseViewController {
         //添加WkWebView
         addWebView()
         //加载网页
-        loadUrl(urlStr: URLPATH)
+//        loadUrl(urlStr: "")
     }
     
     override func viewWillAppear(_ animated: Bool) {

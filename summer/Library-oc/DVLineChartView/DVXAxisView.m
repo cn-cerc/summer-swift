@@ -227,66 +227,70 @@
     
     if (isPoint) {  // 画点
         
+        
         for (int i = 0; i < plot.pointArray.count; i++) {
-            
-            NSNumber *value = plot.pointArray[i];
-            NSString *title = [self decimalwithFormat:@"0.00" floatV:value.floatValue];
-
-			
-			// 判断title的值，整数或者小数
-			if (![self isPureFloat:title]) {
-				title = [NSString stringWithFormat:@"%.0f", title.floatValue];
-			}
-			
-			
-			if (value.floatValue < 0) {
-				value = @(0);
-			}
-			
-            CGPoint center = CGPointMake((i+1)*self.pointGap, self.chartHeight - value.floatValue/self.yAxisMaxValue * self.chartHeight + self.topMargin);
-			
-			if (self.yAxisMaxValue * self.chartHeight == 0) {
-				center = CGPointMake((i+1)*self.pointGap, self.chartHeight + self.topMargin);
-			}
-			
-            // 添加point处的Label
-            if (self.isShowPointLabel) {
+            NSArray *dataArr = plot.pointArray[i];
+            for (int j = 0; j<dataArr.count; j++) {
+                NSNumber *value = dataArr[j];
+                NSString *title = [self decimalwithFormat:@"0.00" floatV:value.floatValue];
                 
-                [self addLabelWithTitle:title atLocation:center andTag:i];
                 
+                // 判断title的值，整数或者小数
+                if (![self isPureFloat:title]) {
+                    title = [NSString stringWithFormat:@"%.0f", title.floatValue];
+                }
+                
+                
+                if (value.floatValue < 0) {
+                    value = @(0);
+                }
+                
+                CGPoint center = CGPointMake((j+1)*self.pointGap, self.chartHeight - value.floatValue/self.yAxisMaxValue * self.chartHeight + self.topMargin);
+                
+                if (self.yAxisMaxValue * self.chartHeight == 0) {
+                    center = CGPointMake((j+1)*self.pointGap, self.chartHeight + self.topMargin);
+                }
+                
+                // 添加point处的Label
+                if (self.isShowPointLabel) {
+                    
+                    [self addLabelWithTitle:title atLocation:center andTag:j];
+                    
+                }
+                
+                //            UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:center radius:3 startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+                //
+                //            [plot.pointColor set];
+                //
+                //            CGContextAddPath(context, path.CGPath);
+                //
+                //            CGContextFillPath(context);
+                
+                UIButton *button = [[UIButton alloc] init];
+                button.tag = j;
+                [button setBackgroundImage:[self imageWithColor:plot.pointColor] forState:UIControlStateNormal];
+//                [button setBackgroundImage:[self imageWithColor:plot.pointSelectedColor] forState:UIControlStateSelected];
+                button.size = CGSizeMake(6, 6);
+                button.center = center;
+                
+                button.layer.cornerRadius = 3;
+                button.layer.masksToBounds = YES;
+                
+                button.userInteractionEnabled = self.isPointUserInteractionEnabled;
+                
+                [button addTarget:self action:@selector(pointDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [self.pointButtonArray addObject:button];
+                
+                if (button.userInteractionEnabled) {
+                    if (j == 0) {
+                        [self pointDidClicked:button];
+                    }
+                }
+                
+                [self addSubview:button];
             }
             
-//            UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:center radius:3 startAngle:0 endAngle:M_PI * 2 clockwise:YES];
-//            
-//            [plot.pointColor set];
-//            
-//            CGContextAddPath(context, path.CGPath);
-//            
-//            CGContextFillPath(context);
-			
-			UIButton *button = [[UIButton alloc] init];
-			button.tag = i;
-            [button setBackgroundImage:[self imageWithColor:plot.pointColor] forState:UIControlStateNormal];
-			[button setBackgroundImage:[self imageWithColor:plot.pointSelectedColor] forState:UIControlStateSelected];
-			button.size = CGSizeMake(6, 6);
-			button.center = center;
-			
-			button.layer.cornerRadius = 3;
-			button.layer.masksToBounds = YES;
-			
-			button.userInteractionEnabled = self.isPointUserInteractionEnabled;
-			
-			[button addTarget:self action:@selector(pointDidClicked:) forControlEvents:UIControlEventTouchUpInside];
-			
-            [self.pointButtonArray addObject:button];
-            
-			if (button.userInteractionEnabled) {
-				if (i == 0) {
-					[self pointDidClicked:button];
-				}
-			}
-			
-			[self addSubview:button];
         }
         
     }else{
@@ -333,37 +337,41 @@
             
         }else{  // 画线，只有线，没有填充色
             
-            CGContextRef ctx = UIGraphicsGetCurrentContext();
-            
-            UIBezierPath *path = [[UIBezierPath alloc] init];
-            
-            NSNumber *startValue = plot.pointArray.firstObject;
-            
-            CGPoint start = CGPointMake(self.pointGap, self.chartHeight - startValue.floatValue/self.yAxisMaxValue * self.chartHeight + self.topMargin);
-            
-            [path moveToPoint:start];
-            
-            for (int i = 0; i < plot.pointArray.count; i++) {
+            for (int j = 0; j<plot.pointArray.count; j++) {
+                NSArray *arr = plot.pointArray[j];
+                CGContextRef ctx = UIGraphicsGetCurrentContext();
                 
-                if (i < plot.pointArray.count - 1) {
+                UIBezierPath *path = [[UIBezierPath alloc] init];
+                
+                NSNumber *startValue = arr.firstObject;
+                
+                CGPoint start = CGPointMake(self.pointGap, self.chartHeight - startValue.floatValue/self.yAxisMaxValue * self.chartHeight + self.topMargin);
+                
+                [path moveToPoint:start];
+                
+                for (int i = 0; i < arr.count; i++) {
                     
-                    NSNumber *value = plot.pointArray[i+1];
-                    CGPoint center = CGPointMake((i+2)*self.pointGap, self.chartHeight - value.floatValue/self.yAxisMaxValue * self.chartHeight + self.topMargin);
-					
-					if (self.yAxisMaxValue * self.chartHeight == 0) {
-						center = CGPointMake((i+1)*self.pointGap, self.chartHeight + self.topMargin);
-					}
-                    [path addLineToPoint:center];
+                    if (i < arr.count - 1) {
+                        
+                        NSNumber *value = arr[i+1];
+                        CGPoint center = CGPointMake((i+2)*self.pointGap, self.chartHeight - value.floatValue/self.yAxisMaxValue * self.chartHeight + self.topMargin);
+                        
+                        if (self.yAxisMaxValue * self.chartHeight == 0) {
+                            center = CGPointMake((i+1)*self.pointGap, self.chartHeight + self.topMargin);
+                        }
+                        [path addLineToPoint:center];
+                        
+                    }
                     
                 }
                 
+                [[plot.lineColorArr[j] colorWithAlphaComponent:1.0] set];
+                // 将路径添加到图形上下文
+                CGContextAddPath(ctx, path.CGPath);
+                // 渲染
+                CGContextStrokePath(ctx);
+
             }
-            
-            [[plot.lineColor colorWithAlphaComponent:0.7] set];
-            // 将路径添加到图形上下文
-            CGContextAddPath(ctx, path.CGPath);
-            // 渲染
-            CGContextStrokePath(ctx);
         }
     }
     

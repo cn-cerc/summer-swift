@@ -137,7 +137,7 @@
     self.xAxisView.x = 0;
     self.xAxisView.y = 0;
     self.xAxisView.height = self.scrollView.height;
-    self.xAxisView.width = self.xAxisTitleArray.count * self.pointGap+50;
+    self.xAxisView.width = self.xAxisTitleArray.count * self.pointGap + 200;
     
     self.scrollView.contentSize = self.xAxisView.frame.size;
     

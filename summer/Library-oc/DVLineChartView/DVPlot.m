@@ -13,9 +13,9 @@
 - (instancetype)init {
     
     if (self = [super init]) {
-        self.lineColor = [UIColor blackColor];
-        self.pointColor = [UIColor blackColor];
-        self.pointSelectedColor = [UIColor orangeColor];
+//        self.lineColor = [UIColor blackColor];
+//        self.pointColor = [UIColor blackColor];
+//        self.pointSelectedColor = [UIColor orangeColor];
     }
     return self;
 }

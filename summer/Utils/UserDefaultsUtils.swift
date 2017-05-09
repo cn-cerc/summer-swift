@@ -63,8 +63,9 @@ class UserDefaultsUtils: NSObject {
     
         let jsonData:Data = jsonString.data(using: .utf8)!
         let responseJson = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
-        let jsonDic = responseJson as! NSDictionary
-        
-        return jsonDic
+        if responseJson != nil {
+            return responseJson as! NSDictionary
+        }
+        return NSDictionary()
     }
 }

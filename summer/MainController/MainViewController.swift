@@ -295,13 +295,8 @@ extension MainViewController: WKScriptMessageHandler {
             rightText = Text
             methodName = method
             let  chartData = (message.body as! Dictionary<String,String>)["list1"]
-            print((message.body as! Dictionary<String,String>)["list1"])
+//            print((message.body as! Dictionary<String,String>)["list1"])
             chartDataStr = chartData
-            if rightText == "帮助" {
-                let chartVC = ChartViewController()
-                chartVC.dataStr = chartDataStr
-                self.navigationController?.pushViewController(chartVC, animated: true)
-            }
         }else{//微信支付
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -459,6 +454,11 @@ extension MainViewController:CustemBBI,SettingDelegate{
             self.webView.evaluateJavaScript(methodName!, completionHandler: { (item:Any?, error:Error?) in
                 
             })
+            if rightText == "图表" {
+                let chartVC = ChartViewController()
+                chartVC.dataStr = chartDataStr
+                self.navigationController?.pushViewController(chartVC, animated: true)
+            }
         }else{
             let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
                             (icon:"iconfont-shezhi-3",title:"设置"),
