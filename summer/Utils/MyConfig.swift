@@ -8,7 +8,7 @@
 
 import UIKit
 
-let URL_APP_ROOT = "http://m.knowall.cn"//域名地址//内测版
+let URL_APP_ROOT = "http://121.42.225.27:7070"//域名地址//内测版
 
 let WELCOME_IMAGES_COUNT = 3
 
