@@ -1634,7 +1634,7 @@
 				TargetAttributes = {
 					64EFE37D1E4D5EC8006A1455 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 35SG99VZ4S;
+						DevelopmentTeam = TX8X4G99PU;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1956,7 +1956,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 35SG99VZ4S;
+				DEVELOPMENT_TEAM = TX8X4G99PU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1976,7 +1976,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.yinxinshangtong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1993,7 +1993,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 35SG99VZ4S;
+				DEVELOPMENT_TEAM = TX8X4G99PU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2013,7 +2013,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.yinxinshangtong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

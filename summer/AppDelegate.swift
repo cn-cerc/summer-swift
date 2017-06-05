@@ -34,8 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
         self.mainVC = MainViewController()
-        self.mainNav = BaseNavViewController(rootViewController:mainVC!)
-        self.window?.rootViewController = mainNav
+//        self.mainNav = BaseNavViewController(rootViewController:mainVC!)
+        self.window?.rootViewController = mainVC
         self.window?.makeKeyAndVisible()
         
         //接收通知
