@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             PDKeyChain.keyChainSave(NSUUID().uuidString)
         }
         //配置信息
-        getImageData()
+//        getImageData()
         //沉睡
         Thread.sleep(forTimeInterval: 1.2)
         
@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         /*
          * #pragma 欢迎页
          */
+/*
         for i in 0..<UserDefaultsUtils.intValueWithKey(key: "addCount") {
             let manager = SDWebImageManager()
             let image1 = manager.imageCache.imageFromDiskCache(forKey: String(format:"adImage%d",i))
@@ -53,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 self.addArr.append(image1!)
             }
         }
+        
         if isFirstLauch() == true {
             var array = Array<UIImage>()
             for i in 0..<WELCOME_IMAGES_COUNT {
@@ -68,6 +70,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 LaunchIntroductionView.shared(withImages: self.addArr, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: true)
             }
         }
+ */
+        var array = Array<UIImage>()
+        for i in 0..<WELCOME_IMAGES_COUNT {
+            let image = UIImage.init(named: String(format:"welcome%d",i+1))
+            array.append(image!)
+        }
+        LaunchIntroductionView.shared(withImages: array, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: false)
         
         UserDefaultsUtils.saveValue(value: "1.00" as AnyObject, key: "scale")
         
@@ -98,8 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     
     func statusBarHiddenNotfi() {
-        UIApplication.shared.statusBarStyle = .lightContent
-        UIApplication.shared.isStatusBarHidden = false
+//        UIApplication.shared.statusBarStyle = .lightContent
+//        UIApplication.shared.isStatusBarHidden = true
     }
     
     func monitorNetworkState() {
