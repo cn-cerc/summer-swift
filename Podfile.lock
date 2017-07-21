@@ -1,0 +1,21 @@
+PODS:
+  - Alamofire (4.5.0)
+  - Moya (8.0.5):
+    - Moya/Core (= 8.0.5)
+  - Moya/Core (8.0.5):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
+  - Result (3.2.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.5.0)
+  - Moya (~> 8.0.5)
+
+SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Moya: c37eec09a098ba9991b5a963b291fc5704bdb9ef
+  Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
+
+PODFILE CHECKSUM: 8ffd0ae3cc78458f96f7eb3e76a9ab7251ca68e7
+
+COCOAPODS: 1.2.1
