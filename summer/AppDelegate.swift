@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Result
-import Moya
 import Alamofire
 
 @UIApplicationMain
@@ -34,10 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         //沉睡
 //        Thread.sleep(forTimeInterval: 1.2)
         
+        //let testVC = CamaroViewController(mediaType: .camaro)
+        
+        
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:mainVC!)
+        //self.mainNav = BaseNavViewController(rootViewController:CamaroViewController(mediaType: .photo))
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
         

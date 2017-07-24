@@ -31,7 +31,6 @@ class MainViewController: BaseViewController {
         addProgressView()
         //加载网页
         loadUrl(urlStr: URLPATH)
-        
         self.scale = 1.0
         
         //设置别名
@@ -223,7 +222,9 @@ extension MainViewController{
 
 extension MainViewController: WKScriptMessageHandler {
     //js交互回调
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        /*
         let type = (message.body as! Dictionary<String,String>)["type"]
         if type == "login" {//自动登录
             let u = (message.body as! Dictionary<String,String>)["u"]! as String
@@ -270,6 +271,7 @@ extension MainViewController: WKScriptMessageHandler {
             request.sign = (message.body as! Dictionary<String,String>)["sign"]
             WXApi.send(request)
         }
+ */
     }
 }
 
