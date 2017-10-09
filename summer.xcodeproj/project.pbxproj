@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		286CDBFA1F20915200FEAF8D /* DebugLogTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286CDBF91F20915200FEAF8D /* DebugLogTool.swift */; };
+		286CDBFE1F2098F200FEAF8D /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286CDBFD1F2098F200FEAF8D /* Provider.swift */; };
+		286CDC001F20AE2A00FEAF8D /* ProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286CDBFF1F20AE2A00FEAF8D /* ProviderTests.swift */; };
+		288713D71F21F0D30004FBA5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288713D61F21F0D30004FBA5 /* Extension.swift */; };
+		288713DC1F2596B20004FBA5 /* CamaroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288713DB1F2596B20004FBA5 /* CamaroViewController.swift */; };
+		288713E11F25D7B70004FBA5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 288713E31F25D7B70004FBA5 /* Localizable.strings */; };
+		5A11399DBC011AD18708D81E /* Pods_summer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9EC5178940DF8C181E4AC2 /* Pods_summer.framework */; };
 		6407BF341E54037D0073C297 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF331E54037D0073C297 /* SystemConfiguration.framework */; };
 		6407BF361E5403920073C297 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF351E5403920073C297 /* libz.tbd */; };
 		6407BF381E54039C0073C297 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF371E54039C0073C297 /* libsqlite3.0.tbd */; };
@@ -149,6 +156,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2172F24DD5E97503D58B9868 /* Pods-summer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-summer.release.xcconfig"; path = "Pods/Target Support Files/Pods-summer/Pods-summer.release.xcconfig"; sourceTree = "<group>"; };
+		286CDBF91F20915200FEAF8D /* DebugLogTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogTool.swift; sourceTree = "<group>"; };
+		286CDBFD1F2098F200FEAF8D /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		286CDBFF1F20AE2A00FEAF8D /* ProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderTests.swift; sourceTree = "<group>"; };
+		288713D61F21F0D30004FBA5 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = summer/Extension.swift; sourceTree = SOURCE_ROOT; };
+		288713DB1F2596B20004FBA5 /* CamaroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CamaroViewController.swift; sourceTree = "<group>"; };
+		288713DD1F25D71D0004FBA5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		288713DE1F25D71E0004FBA5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		288713E21F25D7B70004FBA5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		288713E41F25D7C30004FBA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3F9EC5178940DF8C181E4AC2 /* Pods_summer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_summer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6407BF331E54037D0073C297 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6407BF351E5403920073C297 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6407BF371E54039C0073C297 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -681,6 +699,7 @@
 		64F44AB91E569B24009D1135 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
+		77A8CB77FB515831A17D019F /* Pods-summer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-summer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-summer/Pods-summer.debug.xcconfig"; sourceTree = "<group>"; };
 		9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
@@ -716,6 +735,7 @@
 				6407BF341E54037D0073C297 /* SystemConfiguration.framework in Frameworks */,
 				64F2B88C1E53F4F800E287AA /* libWeChatSDK.a in Frameworks */,
 				64F415241E55A97300FDAAC6 /* libtesseract_all.a in Frameworks */,
+				5A11399DBC011AD18708D81E /* Pods_summer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,6 +756,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		288713D91F2202720004FBA5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				288713D61F21F0D30004FBA5 /* Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		288713DA1F2596340004FBA5 /* Camaro */ = {
+			isa = PBXGroup;
+			children = (
+				288713DB1F2596B20004FBA5 /* CamaroViewController.swift */,
+			);
+			path = Camaro;
+			sourceTree = "<group>";
+		};
 		6407BF321E54037D0073C297 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -756,6 +792,7 @@
 				6407BF371E54039C0073C297 /* libsqlite3.0.tbd */,
 				6407BF351E5403920073C297 /* libz.tbd */,
 				6407BF331E54037D0073C297 /* SystemConfiguration.framework */,
+				3F9EC5178940DF8C181E4AC2 /* Pods_summer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -911,6 +948,7 @@
 				64EFE3A01E4D5EC8006A1455 /* summerUITests */,
 				64EFE37F1E4D5EC8006A1455 /* Products */,
 				6407BF321E54037D0073C297 /* Frameworks */,
+				8C29DF60C6EFDA32022E35F2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -928,11 +966,12 @@
 			isa = PBXGroup;
 			children = (
 				64F44ABD1E569B51009D1135 /* summer.entitlements */,
+				288713D91F2202720004FBA5 /* Extension */,
 				6407BF411E542DB60073C297 /* Library-oc */,
 				64EFE3C11E4D9C80006A1455 /* Utils */,
 				64EFE3B11E4D5F5B006A1455 /* Library */,
-				64EFE3B01E4D5F5B006A1455 /* Category */,
 				64EFE3B31E4D5F5B006A1455 /* ToolClass */,
+				288713DA1F2596340004FBA5 /* Camaro */,
 				64EFE3AF1E4D5F5B006A1455 /* BaseController */,
 				64EFE3B21E4D5F5B006A1455 /* MainController */,
 				64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */,
@@ -943,6 +982,7 @@
 				64EFE38D1E4D5EC8006A1455 /* Info.plist */,
 				64EFE3CA1E4DBD5C006A1455 /* Images.xcassets */,
 				64F2B8961E53F7F600E287AA /* summer-Bridging-Header.h */,
+				288713E31F25D7B70004FBA5 /* Localizable.strings */,
 			);
 			path = summer;
 			sourceTree = "<group>";
@@ -951,6 +991,7 @@
 			isa = PBXGroup;
 			children = (
 				64EFE3961E4D5EC8006A1455 /* summerTests.swift */,
+				286CDBFF1F20AE2A00FEAF8D /* ProviderTests.swift */,
 				64EFE3981E4D5EC8006A1455 /* Info.plist */,
 			);
 			path = summerTests;
@@ -972,13 +1013,6 @@
 				64EFE3B81E4D6B09006A1455 /* BaseNavViewController.swift */,
 			);
 			path = BaseController;
-			sourceTree = "<group>";
-		};
-		64EFE3B01E4D5F5B006A1455 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Category;
 			sourceTree = "<group>";
 		};
 		64EFE3B11E4D5F5B006A1455 /* Library */ = {
@@ -1017,6 +1051,8 @@
 				64EFE3C41E4D9CC6006A1455 /* UserDefaultsUtils.swift */,
 				64EFE3CC1E4DC65F006A1455 /* DisplayUtils.swift */,
 				64EFE3C81E4DB8CD006A1455 /* MyConfig.swift */,
+				286CDBF91F20915200FEAF8D /* DebugLogTool.swift */,
+				286CDBFD1F2098F200FEAF8D /* Provider.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1566,6 +1602,15 @@
 			path = Lib;
 			sourceTree = "<group>";
 		};
+		8C29DF60C6EFDA32022E35F2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				77A8CB77FB515831A17D019F /* Pods-summer.debug.xcconfig */,
+				2172F24DD5E97503D58B9868 /* Pods-summer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1573,9 +1618,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64EFE3A61E4D5EC8006A1455 /* Build configuration list for PBXNativeTarget "summer" */;
 			buildPhases = (
+				212E51BD313DDEE27474D816 /* [CP] Check Pods Manifest.lock */,
 				64EFE37A1E4D5EC8006A1455 /* Sources */,
 				64EFE37B1E4D5EC8006A1455 /* Frameworks */,
 				64EFE37C1E4D5EC8006A1455 /* Resources */,
+				EA1E0A75283B52DE245EA3F7 /* [CP] Embed Pods Frameworks */,
+				EF64D8C5254CE5E6750C4A60 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1634,7 +1682,7 @@
 				TargetAttributes = {
 					64EFE37D1E4D5EC8006A1455 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 35SG99VZ4S;
+						DevelopmentTeam = TX8X4G99PU;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1696,6 +1744,7 @@
 				64EFE3CB1E4DBD5C006A1455 /* Images.xcassets in Resources */,
 				64EFE3891E4D5EC8006A1455 /* Assets.xcassets in Resources */,
 				64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */,
+				288713E11F25D7B70004FBA5 /* Localizable.strings in Resources */,
 				6407BF631E542DD00073C297 /* LICENSE in Resources */,
 				64F4137F1E55A8CD00FDAAC6 /* lightSelect.png in Resources */,
 			);
@@ -1716,6 +1765,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		212E51BD313DDEE27474D816 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EA1E0A75283B52DE245EA3F7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-summer/Pods-summer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF64D8C5254CE5E6750C4A60 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-summer/Pods-summer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		64EFE37A1E4D5EC8006A1455 /* Sources */ = {
@@ -1747,6 +1844,7 @@
 				64EFE3B91E4D6B09006A1455 /* BaseNavViewController.swift in Sources */,
 				6407BF661E542DD00073C297 /* SDImageCache.m in Sources */,
 				6407BF651E542DD00073C297 /* NSData+ImageContentType.m in Sources */,
+				288713DC1F2596B20004FBA5 /* CamaroViewController.swift in Sources */,
 				64F413601E55528400FDAAC6 /* MJRefreshComponent.m in Sources */,
 				6407BFA51E542DDF0073C297 /* AFURLSessionManager.m in Sources */,
 				6407BF641E542DD00073C297 /* README.md in Sources */,
@@ -1754,6 +1852,7 @@
 				6407BF681E542DD00073C297 /* SDWebImageDecoder.m in Sources */,
 				64F415351E55B3FE00FDAAC6 /* CustemNavItemOC.m in Sources */,
 				64EFE3841E4D5EC8006A1455 /* ViewController.swift in Sources */,
+				286CDBFA1F20915200FEAF8D /* DebugLogTool.swift in Sources */,
 				64EFE3CD1E4DC65F006A1455 /* DisplayUtils.swift in Sources */,
 				64F4138A1E55A93E00FDAAC6 /* FLCodeView.m in Sources */,
 				64F415261E55A97300FDAAC6 /* UIImage+G8FixOrientation.m in Sources */,
@@ -1762,6 +1861,7 @@
 				6407BF671E542DD00073C297 /* SDWebImageCompat.m in Sources */,
 				64F4136F1E55528400FDAAC6 /* UIScrollView+MJExtension.m in Sources */,
 				6407BFAE1E542DDF0073C297 /* UIRefreshControl+AFNetworking.m in Sources */,
+				286CDBFE1F2098F200FEAF8D /* Provider.swift in Sources */,
 				64F413711E55528400FDAAC6 /* UIView+MJExtension.m in Sources */,
 				64F4135F1E55528400FDAAC6 /* MJRefreshBackFooter.m in Sources */,
 				6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */,
@@ -1771,6 +1871,7 @@
 				64EFE3821E4D5EC8006A1455 /* AppDelegate.swift in Sources */,
 				6407BF721E542DD00073C297 /* UIView+WebCacheOperation.m in Sources */,
 				6407BF6E1E542DD00073C297 /* UIImage+GIF.m in Sources */,
+				288713D71F21F0D30004FBA5 /* Extension.swift in Sources */,
 				6407BFAD1E542DDF0073C297 /* UIProgressView+AFNetworking.m in Sources */,
 				6407BFA41E542DDF0073C297 /* AFURLResponseSerialization.m in Sources */,
 				6407BF6F1E542DD00073C297 /* UIImage+MultiFormat.m in Sources */,
@@ -1810,6 +1911,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				286CDC001F20AE2A00FEAF8D /* ProviderTests.swift in Sources */,
 				64EFE3971E4D5EC8006A1455 /* summerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1838,10 +1940,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		288713E31F25D7B70004FBA5 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				288713E21F25D7B70004FBA5 /* zh-Hans */,
+				288713E41F25D7C30004FBA5 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		64EFE3851E4D5EC8006A1455 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				64EFE3861E4D5EC8006A1455 /* Base */,
+				288713DD1F25D71D0004FBA5 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1850,6 +1962,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				64EFE38B1E4D5EC8006A1455 /* Base */,
+				288713DE1F25D71E0004FBA5 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1861,6 +1974,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1897,7 +2011,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1910,6 +2024,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1940,7 +2055,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1950,13 +2065,14 @@
 		};
 		64EFE3A71E4D5EC8006A1455 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77A8CB77FB515831A17D019F /* Pods-summer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 35SG99VZ4S;
+				DEVELOPMENT_TEAM = TX8X4G99PU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1976,24 +2092,27 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vineBBBBBB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "“$(PODS_ROOT)”/**";
 			};
 			name = Debug;
 		};
 		64EFE3A81E4D5EC8006A1455 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2172F24DD5E97503D58B9868 /* Pods-summer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 35SG99VZ4S;
+				DEVELOPMENT_TEAM = TX8X4G99PU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2013,11 +2132,13 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vineBBBBBB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "“$(PODS_ROOT)”/**";
 			};
 			name = Release;
 		};

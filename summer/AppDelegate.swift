@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageManagerDelegate {
@@ -29,12 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         //配置信息
         getImageData()
         //沉睡
-        Thread.sleep(forTimeInterval: 1.2)
+//        Thread.sleep(forTimeInterval: 1.2)
+        
+        //let testVC = CamaroViewController(mediaType: .camaro)
+        
         
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:mainVC!)
+        //self.mainNav = BaseNavViewController(rootViewController:CamaroViewController(mediaType: .photo))
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
         
@@ -120,17 +125,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     
     func getImageData() {
-        AFNetworkManager.get(URLPATH_CONFIG, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
-            print(responseObject)
-            if (responseObject != nil) {
-                UserDefaultsUtils.saveStringValue(value: responseObject?["rootSite"] as! String, key: "rootSite")
-                UserDefaultsUtils.saveStringValue(value: responseObject?["msgManage"] as! String, key: "msgManage")
-                self.uploadAddImage(imageArr: responseObject?["adImages"] as! Array)
+        
+        //发送网络请求
+        provider.request(.UrlPathConfig(nil)) { (result) in
+            switch result {
+            case .success(let response):
+                self.realRequestData(result:response.data.toJson() as? [String : Any])
+            case .failure(let error):
+                DebugLogTool.XLPrintWithDescription(item: error)
             }
-            
-        })  { (operation:AFHTTPRequestOperation?, error:Error?) in
-            print(error)
         }
+/*
+        Alamofire.request(URLPATH_CONFIG).responseJSON { (result) in
+            result.result.ifSuccess {
+                if let response = (result.value as? [AnyHashable : Any]) {
+                    UserDefaultsUtils.saveStringValue(value: response["rootSite"] as! String, key: "rootSite")
+                    UserDefaultsUtils.saveStringValue(value: response["msgManage"] as! String, key: "msgManage")
+                    let imageArr = response["adImages"] as! [String]
+                    self.uploadAddImage(imageArr: imageArr)
+                }
+            }
+        }
+*/
+    }
+    //处理网络请求结果
+    func realRequestData(result: [String : Any]?) {
+        guard let resultDic = result else {
+            return
+        }
+        //let str = resultDic["adImages"] as! String
+        UserDefaultsUtils.saveStringValue(value: resultDic["rootSite"] as! String, key: "rootSite")
+        UserDefaultsUtils.saveStringValue(value: resultDic["msgManage"] as! String, key: "msgManage")
+        let imageArr = resultDic["adImages"] as! [String]
+        self.uploadAddImage(imageArr: imageArr)
     }
     
     func uploadAddImage(imageArr:Array<String>) {
@@ -142,8 +169,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             manager?.delegate = self
             _ = manager?.imageDownloader.downloadImage(with: URL.init(string: imageUrl), options: .continueInBackground, progress: { (receivedSize:Int, expectedSize:Int) in
                 
-                }, completed: { (image:UIImage?, data:Data?, error:Error?, finished:Bool) in
-                    manager?.imageCache.store(image, forKey: String(format:"adImage%d",i), toDisk: true)
+            }, completed: { (image, data, error, finished) in
+                manager?.imageCache.store(image, forKey: String(format:"adImage%d",i), toDisk: true)
             })
         }
     }
@@ -229,7 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         /// Required - 注册 DeviceToken
         JPUSHService.registerDeviceToken(deviceToken)
     }
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         print("did Fail To Register For Remote Notifications With Error: %@", error);
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
