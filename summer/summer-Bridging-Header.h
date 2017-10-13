@@ -11,8 +11,8 @@
 #import "AFNetworking.h"
 #import "MJRefresh.h"
 
-#import "lhScanQCodeViewController.h"
-#import "ScanViewController.h"
+//#import "lhScanQCodeViewController.h"
+//#import "ScanViewController.h"
 
 // 引入JPush功能所需头文件
 #import "JPUSHService.h"
