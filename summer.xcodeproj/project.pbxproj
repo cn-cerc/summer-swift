@@ -104,8 +104,6 @@
 		64F413871E55A8E900FDAAC6 /* lhScanQCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413861E55A8E900FDAAC6 /* lhScanQCodeViewController.m */; };
 		64F4138A1E55A93E00FDAAC6 /* FLCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413891E55A93E00FDAAC6 /* FLCodeView.m */; };
 		64F4138D1E55A94900FDAAC6 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F4138C1E55A94900FDAAC6 /* ScanViewController.m */; };
-		64F415081E55A97300FDAAC6 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F4138F1E55A97200FDAAC6 /* opencv2.framework */; };
-		64F415091E55A97300FDAAC6 /* RecogizeCardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 64F413911E55A97200FDAAC6 /* RecogizeCardManager.mm */; };
 		64F4151F1E55A97300FDAAC6 /* G8RecognitionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413AB1E55A97200FDAAC6 /* G8RecognitionOperation.m */; };
 		64F415201E55A97300FDAAC6 /* G8RecognizedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413AD1E55A97200FDAAC6 /* G8RecognizedBlock.m */; };
 		64F415211E55A97300FDAAC6 /* G8Tesseract.mm in Sources */ = {isa = PBXBuildFile; fileRef = 64F413AF1E55A97200FDAAC6 /* G8Tesseract.mm */; };
@@ -316,9 +314,6 @@
 		64F413891E55A93E00FDAAC6 /* FLCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCodeView.m; sourceTree = "<group>"; };
 		64F4138B1E55A94900FDAAC6 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		64F4138C1E55A94900FDAAC6 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
-		64F4138F1E55A97200FDAAC6 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		64F413901E55A97200FDAAC6 /* RecogizeCardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecogizeCardManager.h; sourceTree = "<group>"; };
-		64F413911E55A97200FDAAC6 /* RecogizeCardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecogizeCardManager.mm; sourceTree = "<group>"; };
 		64F413A91E55A97200FDAAC6 /* G8Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G8Constants.h; sourceTree = "<group>"; };
 		64F413AA1E55A97200FDAAC6 /* G8RecognitionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G8RecognitionOperation.h; sourceTree = "<group>"; };
 		64F413AB1E55A97200FDAAC6 /* G8RecognitionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G8RecognitionOperation.m; sourceTree = "<group>"; };
@@ -707,7 +702,6 @@
 				6407BF401E5403BD0073C297 /* CFNetwork.framework in Frameworks */,
 				6407BF3E1E5403B60073C297 /* CoreTelephony.framework in Frameworks */,
 				6407BF3C1E5403AE0073C297 /* Security.framework in Frameworks */,
-				64F415081E55A97300FDAAC6 /* opencv2.framework in Frameworks */,
 				6407BF3A1E5403A40073C297 /* libc++.tbd in Frameworks */,
 				9AF3BAAF1E9CB2EA00C3C643 /* AlipaySDK.framework in Frameworks */,
 				6407BF381E54039C0073C297 /* libsqlite3.0.tbd in Frameworks */,
@@ -1163,9 +1157,6 @@
 			isa = PBXGroup;
 			children = (
 				64F415281E55A9A300FDAAC6 /* tessdata */,
-				64F4138F1E55A97200FDAAC6 /* opencv2.framework */,
-				64F413901E55A97200FDAAC6 /* RecogizeCardManager.h */,
-				64F413911E55A97200FDAAC6 /* RecogizeCardManager.mm */,
 				64F413A81E55A97200FDAAC6 /* TesseractOCR */,
 			);
 			path = RecognizeCardManager;
@@ -1735,7 +1726,6 @@
 				64F415321E55B3ED00FDAAC6 /* BaseOCViewController.m in Sources */,
 				64F413871E55A8E900FDAAC6 /* lhScanQCodeViewController.m in Sources */,
 				64F413701E55528400FDAAC6 /* UIScrollView+MJRefresh.m in Sources */,
-				64F415091E55A97300FDAAC6 /* RecogizeCardManager.mm in Sources */,
 				6407BFA81E542DDF0073C297 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				64F4136B1E55528400FDAAC6 /* MJRefreshStateHeader.m in Sources */,
 				6407BF6D1E542DD00073C297 /* UIButton+WebCache.m in Sources */,

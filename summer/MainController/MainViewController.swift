@@ -301,7 +301,13 @@ extension MainViewController: WKNavigationDelegate{
         //隐藏错误视图
         self.errorImageView.isHidden = true
         //设置标题
-        self .setNavTitle(title: webView.title!)
+        let Titlebtn = UIButton(type:.system)
+        Titlebtn.setTitle(webView.title!, for: .normal)
+        Titlebtn.frame = CGRect.init(x: 0, y: 0, width: 60, height: 40)
+        self.navigationItem.titleView = Titlebtn;
+        Titlebtn.tintColor = UIColor.white;
+        Titlebtn.addTarget(self, action: #selector(titleClick), for: .touchUpInside)
+        
         //判断是否需要返回按钮
         var isMainStr:String
         if UserDefaultsUtils.valueWithKey(key: "MainUrlStr").stringValue == nil {
@@ -337,6 +343,44 @@ extension MainViewController: WKNavigationDelegate{
             self.webView.reload()
         }
     }
+    //标题按钮
+    func titleClick() {
+        let dataDict = [(icon:"",title:"转到首页")
+                    ];
+        
+        popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH/2-75), y: 51, width: 150, height: dataDict.count*40),arrowMargin:17)
+        //数据
+        popMenu.popData = dataDict
+        //点击菜单的回调
+        popMenu.didSelectMenuBlock = {[weak self](index:Int)->Void in self?.popMenu.dismiss()
+            let myApp = MyApp.getInstance()
+            let msgUrl = "\(URL_APP_ROOT)/\(UserDefaultsUtils.valueWithKey(key: "msgManage"))"
+           
+            print(msgUrl)
+            
+            if index == 0 {
+                self?.loadUrl(urlStr: myApp.getFormUrl("WebDefault"))
+            }else if index == 1 {
+                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: "\(msgUrl)"))
+            }else if index == 2 {
+                let settingVC = SettingViewController()
+                settingVC.delegate = self
+                self?.navigationController?.pushViewController(settingVC, animated: true)
+            }else if index == 3 {
+                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: BACK_MAIN))
+            }else if index == 4 {
+                UserDefaultsUtils.deleteValueWithKey(key: "userName")
+                UserDefaultsUtils.deleteValueWithKey(key: "pwd")
+                self?.webView.evaluateJavaScript("exit()", completionHandler: { (item:Any?, error:Error?) in
+                    
+                })
+                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: EXIT_URL_PATH))
+            }
+        }
+        popMenu.show()
+
+    }
+
     
     //跳转失败的时候调用
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -402,11 +446,11 @@ extension MainViewController:CustemBBI,SettingDelegate{
         }else if infoStr == "second" {
             
         }else{
-            let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
-                            (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
-                            (icon:"iconfont-shezhi-3",title:"设置"),
-                            (icon:"iconfont-zhuye-2",title:"返回首页"),
-                            (icon:"退出",title:"退出登录")]
+            let dataDict = [(icon:"",title:"设置"),
+                            (icon:"",title:"退出系统"),
+                            (icon:"",title:"动态菜单"),
+                            (icon:"",title:"返回首页"),
+                            (icon:"",title:"退出登录")]
             
             popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH-155), y: 51, width: 150, height: dataDict.count*40),arrowMargin:17)
             //数据
