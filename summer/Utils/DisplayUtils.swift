@@ -39,6 +39,7 @@ class DisplayUtils: NSObject {
         UIApplication.shared.openURL(NSURL.init(string: allString) as! URL)
     }
     
+    // MARK: - 这边的不需要使用
     class func configUrl(urlStr:String) -> String {
         return "\(urlStr)?device=iphone&CLIENTID=\(DisplayUtils.uuid())"
     }

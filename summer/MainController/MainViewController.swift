@@ -249,16 +249,18 @@ extension MainViewController: WKScriptMessageHandler {
             let pinVC = PingImageViewController()
             pinVC.imageStr = imageUrl
             self.navigationController?.pushViewController(pinVC, animated: true)
-        }else if type == "scan" {//扫描卡号
-            let scanVC = ScanViewController()
-            scanVC.delegate = self
-            self.navigationController?.pushViewController(scanVC, animated: true)
-        }else if type == "scanPay" {//二维码扫描
-            let sqVC = lhScanQCodeViewController()
-            sqVC.delegate = self
-            let navVC = UINavigationController.init(rootViewController: sqVC)
-            self.present(navVC, animated: true, completion: nil)
-        }else{//微信支付
+        }
+//        else if type == "scan" {//扫描卡号
+//            let scanVC = ScanViewController()
+//            scanVC.delegate = self
+//            self.navigationController?.pushViewController(scanVC, animated: true)
+//        }else if type == "scanPay" {//二维码扫描
+//            let sqVC = lhScanQCodeViewController()
+//            sqVC.delegate = self
+//            let navVC = UINavigationController.init(rootViewController: sqVC)
+//            self.present(navVC, animated: true, completion: nil)
+//        }
+        else{//微信支付
             WXApi.registerApp((message.body as! Dictionary<String,String>)["appid"])
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -301,7 +303,13 @@ extension MainViewController: WKNavigationDelegate{
         //隐藏错误视图
         self.errorImageView.isHidden = true
         //设置标题
-        self .setNavTitle(title: webView.title!)
+        let Titlebtn = UIButton(type:.system)
+        Titlebtn.setTitle(webView.title!, for: .normal)
+        Titlebtn.frame = CGRect.init(x: 0, y: 0, width: 60, height: 40)
+        self.navigationItem.titleView = Titlebtn;
+        Titlebtn.tintColor = UIColor.white;
+        Titlebtn.addTarget(self, action: #selector(titleClick), for: .touchUpInside)
+        
         //判断是否需要返回按钮
         var isMainStr:String
         if UserDefaultsUtils.valueWithKey(key: "MainUrlStr").stringValue == nil {
@@ -337,7 +345,43 @@ extension MainViewController: WKNavigationDelegate{
             self.webView.reload()
         }
     }
-    
+    //标题按钮
+    func titleClick() {
+        let dataDict = [(icon:"",title:"转到首页")
+                    ];
+        
+        popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH/2-75), y: 51, width: 150, height: dataDict.count*40),arrowMargin:17)
+        //数据
+        popMenu.popData = dataDict
+        //点击菜单的回调
+        popMenu.didSelectMenuBlock = {[weak self](index:Int)->Void in self?.popMenu.dismiss()
+            let myApp = shareedMyApp.getInstance()
+            let msgUrl = "\(URL_APP_ROOT)/\(UserDefaultsUtils.valueWithKey(key: "msgManage"))"
+           
+            print(msgUrl)
+            
+            if index == 0 {
+                self?.loadUrl(urlStr: myApp.getFormUrl("WebDefault"))
+            }else if index == 1 {
+                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: "\(msgUrl)"))
+            }else if index == 2 {
+                let settingVC = SettingViewController()
+                settingVC.delegate = self
+                self?.navigationController?.pushViewController(settingVC, animated: true)
+            }else if index == 3 {
+                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: BACK_MAIN))
+            }else if index == 4 {
+                UserDefaultsUtils.deleteValueWithKey(key: "userName")
+                UserDefaultsUtils.deleteValueWithKey(key: "pwd")
+                self?.webView.evaluateJavaScript("exit()", completionHandler: { (item:Any?, error:Error?) in
+                    
+                })
+                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: EXIT_URL_PATH))
+            }
+        }
+        popMenu.show()
+
+    }
     //跳转失败的时候调用
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print(#function)
@@ -402,11 +446,9 @@ extension MainViewController:CustemBBI,SettingDelegate{
         }else if infoStr == "second" {
             
         }else{
-            let dataDict = [(icon:"iconfont-978weiduxinxi",title:"未读消息"),
-                            (icon:"iconfont-xiaoxiguanli",title:"消息管理"),
-                            (icon:"iconfont-shezhi-3",title:"设置"),
-                            (icon:"iconfont-zhuye-2",title:"返回首页"),
-                            (icon:"退出",title:"退出登录")]
+            let dataDict = [(icon:"",title:"设置"),
+                            (icon:"",title:"退出系统")
+                            ]
             
             popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH-155), y: 51, width: 150, height: dataDict.count*40),arrowMargin:17)
             //数据
@@ -417,9 +459,11 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 let msgUrl = "\(URL_APP_ROOT)/\(UserDefaultsUtils.valueWithKey(key: "msgManage"))"
                 print(msgUrl)
                 if index == 0 {
-                    self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: "\(msgUrl).unread"))
+                    let settingVC = SettingViewController()
+                    settingVC.delegate = self
+                    self?.navigationController?.pushViewController(settingVC, animated: true)
                 }else if index == 1 {
-                    self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: "\(msgUrl)"))
+                    exit(0)
                 }else if index == 2 {
                     let settingVC = SettingViewController()
                     settingVC.delegate = self
@@ -448,26 +492,26 @@ extension MainViewController:CustemBBI,SettingDelegate{
     }
 }
 
-extension MainViewController:ScanViewControllerProtocol {
-    func scanCardReturn(_ urlStr: String!) {
-        let strUrl = urlStr.replacingOccurrences(of: "\n", with: "")
-        let js_fit_code = String(format:"scanCall('%@')",strUrl)
-        self.webView.evaluateJavaScript(js_fit_code) { (item:Any?, error:Error?) in
-            
-        }
-    }
-    
-    func backBar() {
-        self.webView.reload()
-    }
-}
-
-extension MainViewController:lhScanQCodeViewControllerProtocol {
-    func scanCodeReturn(_ urlStr: String!) {
-        let js_fit_code = String(format:"appRichScan('%@')",urlStr)
-        self.webView.evaluateJavaScript(js_fit_code) { (item:Any?, error:Error?) in
-            
-        }
-    }
-}
+//extension MainViewController:ScanViewControllerProtocol {
+//    func scanCardReturn(_ urlStr: String!) {
+//        let strUrl = urlStr.replacingOccurrences(of: "\n", with: "")
+//        let js_fit_code = String(format:"scanCall('%@')",strUrl)
+//        self.webView.evaluateJavaScript(js_fit_code) { (item:Any?, error:Error?) in
+//            
+//        }
+//    }
+//    
+//    func backBar() {
+//        self.webView.reload()
+//    }
+//}
+//
+//extension MainViewController:lhScanQCodeViewControllerProtocol {
+//    func scanCodeReturn(_ urlStr: String!) {
+//        let js_fit_code = String(format:"appRichScan('%@')",urlStr)
+//        self.webView.evaluateJavaScript(js_fit_code) { (item:Any?, error:Error?) in
+//            
+//        }
+//    }
+//}
 
