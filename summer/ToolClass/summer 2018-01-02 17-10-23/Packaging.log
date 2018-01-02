@@ -1,0 +1,853 @@
+2018-01-02 09:09:53 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x7fa4dce64700; archive(resolved)='<IDEArchive: 0x7fa4d6ad7fd0>', distributionTask(resolved)='2', distributionMethod(resolved)='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team(resolved)='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	Chain (11, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x7fa4dce64700; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionProcessingPipelineContext: 0x7fa4dbb575b0; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4dadc8740; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4c121cb70; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4db07c9f0; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4dd074d90; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4d894f3d0; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4c252cd00; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4c29122a0; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='<IDEProvisioningBasicTeam 0x7fa4dd00f910: teamID: 35SG99VZ4S, teamName: SHENZHEN HWASOFT INFO-TECH CO.,LTD>'>
+	<IDEDistributionContext: 0x7fa4dd020510; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='<IDEDistributionMethodiOSAppStoreExport: 0x7fa4c082ef30>', team='(null)'>
+	<IDEDistributionContext: 0x7fa4db649b90; archive = '<IDEArchive: 0x7fa4d6ad7fd0>', distributionMethod='(null)', team='(null)'>
+</IDEDistributionProcessingPipelineContext: 0x7fa4dce64700>
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionCreateDestRootStep
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionCopyItemStep
+2018-01-02 09:09:53 +0000  Running /usr/bin/ditto '-V' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app'
+2018-01-02 09:09:53 +0000  >>> Copying /Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app 
+2018-01-02 09:09:53 +0000  copying file ./_CodeSignature/CodeResources ... 
+2018-01-02 09:09:53 +0000  15870 bytes for ./_CodeSignature/CodeResources
+2018-01-02 09:09:53 +0000  copying file ./AlipaySDK.bundle/bar@2x.png ... 
+2018-01-02 09:09:53 +0000  1011 bytes for ./AlipaySDK.bundle/bar@2x.png
+copying file ./AlipaySDK.bundle/refresh@2x.png ... 
+2018-01-02 09:09:53 +0000  605 bytes for ./AlipaySDK.bundle/refresh@2x.png
+copying file ./AlipaySDK.bundle/refresh_click@2x.png ... 
+2018-01-02 09:09:53 +0000  1824 bytes for ./AlipaySDK.bundle/refresh_click@2x.png
+2018-01-02 09:09:53 +0000  copying file ./AlipaySDK.bundle/shutdown@2x.png ... 
+2018-01-02 09:09:53 +0000  222 bytes for ./AlipaySDK.bundle/shutdown@2x.png
+copying file ./AlipaySDK.bundle/shutdown_click@2x.png ... 
+2018-01-02 09:09:53 +0000  1319 bytes for ./AlipaySDK.bundle/shutdown_click@2x.png
+2018-01-02 09:09:53 +0000  copying file ./AppIcon20x20@2x.png ... 
+2018-01-02 09:09:53 +0000  4863 bytes for ./AppIcon20x20@2x.png
+2018-01-02 09:09:53 +0000  copying file ./AppIcon20x20@3x.png ... 
+2018-01-02 09:09:53 +0000  8564 bytes for ./AppIcon20x20@3x.png
+copying file ./AppIcon29x29@2x.png ... 
+2018-01-02 09:09:53 +0000  8198 bytes for ./AppIcon29x29@2x.png
+copying file ./AppIcon29x29@3x.png ... 
+2018-01-02 09:09:53 +0000  15699 bytes for ./AppIcon29x29@3x.png
+2018-01-02 09:09:53 +0000  copying file ./AppIcon40x40@2x.png ... 
+2018-01-02 09:09:53 +0000  13623 bytes for ./AppIcon40x40@2x.png
+copying file ./AppIcon40x40@3x.png ... 
+2018-01-02 09:09:53 +0000  26090 bytes for ./AppIcon40x40@3x.png
+2018-01-02 09:09:53 +0000  copying file ./AppIcon60x60@2x.png ... 
+2018-01-02 09:09:53 +0000  26090 bytes for ./AppIcon60x60@2x.png
+2018-01-02 09:09:53 +0000  copying file ./AppIcon60x60@3x.png ... 
+2018-01-02 09:09:53 +0000  50261 bytes for ./AppIcon60x60@3x.png
+2018-01-02 09:09:53 +0000  copying file ./archived-expanded-entitlements.xcent ... 
+246 bytes for ./archived-expanded-entitlements.xcent
+copying file ./Assets.car ... 
+2018-01-02 09:09:53 +0000  888920 bytes for ./Assets.car
+2018-01-02 09:09:53 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+1790 bytes for ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+2018-01-02 09:09:53 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+2018-01-02 09:09:53 +0000  258 bytes for ./Base.lproj/LaunchScreen.storyboardc/Info.plist
+2018-01-02 09:09:53 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2018-01-02 09:09:53 +0000  832 bytes for ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+2018-01-02 09:09:53 +0000  copying file ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib ... 
+2018-01-02 09:09:53 +0000  1792 bytes for ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+2018-01-02 09:09:53 +0000  copying file ./Base.lproj/Main.storyboardc/Info.plist ... 
+2018-01-02 09:09:53 +0000  258 bytes for ./Base.lproj/Main.storyboardc/Info.plist
+2018-01-02 09:09:53 +0000  copying file ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib ... 
+2018-01-02 09:09:53 +0000  929 bytes for ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+2018-01-02 09:09:53 +0000  copying file ./embedded.mobileprovision ... 
+2018-01-02 09:09:53 +0000  15616 bytes for ./embedded.mobileprovision
+2018-01-02 09:09:53 +0000  copying file ./Frameworks/libswiftCore.dylib ... 
+2018-01-02 09:09:53 +0000  21079584 bytes for ./Frameworks/libswiftCore.dylib
+copying file ./Frameworks/libswiftCoreFoundation.dylib ... 
+2018-01-02 09:09:53 +0000  208288 bytes for ./Frameworks/libswiftCoreFoundation.dylib
+copying file ./Frameworks/libswiftCoreGraphics.dylib ... 
+577760 bytes for ./Frameworks/libswiftCoreGraphics.dylib
+copying file ./Frameworks/libswiftCoreImage.dylib ... 
+2018-01-02 09:09:53 +0000  208864 bytes for ./Frameworks/libswiftCoreImage.dylib
+copying file ./Frameworks/libswiftDarwin.dylib ... 
+2018-01-02 09:09:53 +0000  303072 bytes for ./Frameworks/libswiftDarwin.dylib
+copying file ./Frameworks/libswiftDispatch.dylib ... 
+2018-01-02 09:09:53 +0000  1009248 bytes for ./Frameworks/libswiftDispatch.dylib
+2018-01-02 09:09:53 +0000  copying file ./Frameworks/libswiftFoundation.dylib ... 
+2018-01-02 09:09:53 +0000  8425312 bytes for ./Frameworks/libswiftFoundation.dylib
+copying file ./Frameworks/libswiftMetal.dylib ... 
+2018-01-02 09:09:53 +0000  251248 bytes for ./Frameworks/libswiftMetal.dylib
+copying file ./Frameworks/libswiftObjectiveC.dylib ... 
+258944 bytes for ./Frameworks/libswiftObjectiveC.dylib
+copying file ./Frameworks/libswiftos.dylib ... 
+2018-01-02 09:09:53 +0000  248912 bytes for ./Frameworks/libswiftos.dylib
+copying file ./Frameworks/libswiftQuartzCore.dylib ... 
+212208 bytes for ./Frameworks/libswiftQuartzCore.dylib
+copying file ./Frameworks/libswiftUIKit.dylib ... 
+2018-01-02 09:09:53 +0000  361488 bytes for ./Frameworks/libswiftUIKit.dylib
+copying file ./Info.plist ... 
+2001 bytes for ./Info.plist
+copying file ./LaunchImage-700-568h@2x.png ... 
+140396 bytes for ./LaunchImage-700-568h@2x.png
+copying file ./LaunchImage@2x.png ... 
+129790 bytes for ./LaunchImage@2x.png
+copying file ./LICENSE ... 
+1082 bytes for ./LICENSE
+copying file ./MJRefresh.bundle/arrow@2x.png ... 
+1033 bytes for ./MJRefresh.bundle/arrow@2x.png
+copying file ./MJRefresh.bundle/en.lproj/Localizable.strings ... 
+1372 bytes for ./MJRefresh.bundle/en.lproj/Localizable.strings
+copying file ./MJRefresh.bundle/zh-Hans.lproj/Localizable.strings ... 
+1194 bytes for ./MJRefresh.bundle/zh-Hans.lproj/Localizable.strings
+copying file ./MJRefresh.bundle/zh-Hant.lproj/Localizable.strings ... 
+773 bytes for ./MJRefresh.bundle/zh-Hant.lproj/Localizable.strings
+copying file ./PkgInfo ... 
+8 bytes for ./PkgInfo
+copying file ./summer ... 
+2018-01-02 09:09:53 +0000  4531552 bytes for ./summer
+2018-01-02 09:09:53 +0000  /usr/bin/ditto exited with 0
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionEmbedProfileStep
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4dd691480 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fa4bf78fc10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCore.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4bf99ca40 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fa4c0c9c840:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreFoundation.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4c1ba69b0 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fa4da8b3570:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreGraphics.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4c22ebae0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fa4bf2900a0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreImage.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4dbc58d90 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fa4db4bcb80:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDarwin.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4c1d399f0 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fa4c0f36c70:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDispatch.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4dd24d680 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fa4db328d50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftFoundation.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4c23adf30 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fa4c006b790:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftMetal.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4c2251b00 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fa4db389a50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftObjectiveC.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4daea3270 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fa4d56daa10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftQuartzCore.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4c2b3d3e0 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fa4bfec46f0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftUIKit.dylib'>'>
+2018-01-02 09:09:53 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fa4c0ba5d10 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fa4c0646b30:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftos.dylib'>'>
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionItemRemovalStep
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2018-01-02 09:09:53 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2018-01-02 09:09:53 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2018-01-02 09:09:53 +0000  Processing step: IDEDistributionSymbolsStep
+2018-01-02 09:09:53 +0000  Processing symbols for libswiftCore.dylib
+2018-01-02 09:09:53 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCore.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:53 +0000  building file list ... 
+2018-01-02 09:09:53 +0000   0 files...2018-01-02 09:09:53 +0000  1 file to consider
+2018-01-02 09:09:53 +0000  
+2018-01-02 09:09:53 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:53 +0000  sent 89 bytes  received 20 bytes  218.00 bytes/sec
+total size is 20.10M  speedup is 193390.68
+2018-01-02 09:09:53 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:53 +0000  building file list ... 
+2018-01-02 09:09:53 +0000   0 files...2018-01-02 09:09:53 +0000  7 files to consider
+2018-01-02 09:09:53 +0000  ./
+2018-01-02 09:09:53 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:53 +0000  
+2018-01-02 09:09:53 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:53 +0000  sent 222 bytes  received 50 bytes  544.00 bytes/sec
+total size is 6.51M  speedup is 25093.88
+2018-01-02 09:09:53 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCore.dylib'
+2018-01-02 09:09:54 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCore.dylib [armv7, 0.500387 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCore.dylib [armv7s, 0.500387 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCore.dylib [arm64, 0.500387 seconds]:
+2018-01-02 09:09:54 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:54 +0000  Processing symbols for libswiftCoreFoundation.dylib
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreFoundation.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  1 file to consider
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 99 bytes  received 20 bytes  238.00 bytes/sec
+total size is 203.41K  speedup is 1750.32
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  7 files to consider
+2018-01-02 09:09:54 +0000  ./
+2018-01-02 09:09:54 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreFoundation.dylib'
+2018-01-02 09:09:54 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreFoundation.dylib [armv7, 0.001484 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreFoundation.dylib [armv7s, 0.001484 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreFoundation.dylib [arm64, 0.001484 seconds]:
+2018-01-02 09:09:54 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:54 +0000  Processing symbols for libswiftCoreGraphics.dylib
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreGraphics.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  1 file to consider
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 97 bytes  received 20 bytes  234.00 bytes/sec
+total size is 564.22K  speedup is 4938.12
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  7 files to consider
+2018-01-02 09:09:54 +0000  ./
+summer.app.dSYM/
+2018-01-02 09:09:54 +0000  summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:54 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreGraphics.dylib'
+2018-01-02 09:09:54 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreGraphics.dylib [armv7, 0.008758 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreGraphics.dylib [armv7s, 0.008758 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreGraphics.dylib [arm64, 0.008758 seconds]:
+2018-01-02 09:09:54 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:54 +0000  Processing symbols for libswiftCoreImage.dylib
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreImage.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  1 file to consider
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 94 bytes  received 20 bytes  228.00 bytes/sec
+total size is 203.97K  speedup is 1832.14
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  7 files to consider
+2018-01-02 09:09:54 +0000  ./
+2018-01-02 09:09:54 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:54 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreImage.dylib'
+2018-01-02 09:09:54 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreImage.dylib [armv7, 0.001191 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreImage.dylib [armv7s, 0.001191 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftCoreImage.dylib [arm64, 0.001191 seconds]:
+2018-01-02 09:09:54 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:54 +0000  Processing symbols for libswiftDarwin.dylib
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDarwin.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  1 file to consider
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 91 bytes  received 20 bytes  222.00 bytes/sec
+total size is 295.97K  speedup is 2730.38
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  7 files to consider
+2018-01-02 09:09:54 +0000  ./
+2018-01-02 09:09:54 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:54 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDarwin.dylib'
+2018-01-02 09:09:54 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDarwin.dylib [armv7, 0.004521 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDarwin.dylib [armv7s, 0.004521 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDarwin.dylib [arm64, 0.004521 seconds]:
+2018-01-02 09:09:54 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:54 +0000  Processing symbols for libswiftDispatch.dylib
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDispatch.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  1 file to consider
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 93 bytes  received 20 bytes  226.00 bytes/sec
+total size is 985.59K  speedup is 8931.40
+2018-01-02 09:09:54 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:54 +0000  building file list ... 
+2018-01-02 09:09:54 +0000   0 files...2018-01-02 09:09:54 +0000  7 files to consider
+2018-01-02 09:09:54 +0000  ./
+2018-01-02 09:09:54 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:54 +0000  
+2018-01-02 09:09:54 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:54 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:54 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDispatch.dylib'
+2018-01-02 09:09:55 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDispatch.dylib [armv7, 0.020389 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDispatch.dylib [armv7s, 0.020389 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftDispatch.dylib [arm64, 0.020389 seconds]:
+2018-01-02 09:09:55 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:55 +0000  Processing symbols for libswiftFoundation.dylib
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftFoundation.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  1 file to consider
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 95 bytes  received 20 bytes  230.00 bytes/sec
+total size is 8.04M  speedup is 73263.58
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  7 files to consider
+2018-01-02 09:09:55 +0000  ./
+2018-01-02 09:09:55 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:55 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftFoundation.dylib'
+2018-01-02 09:09:55 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftFoundation.dylib [armv7, 0.165628 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftFoundation.dylib [armv7s, 0.165628 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftFoundation.dylib [arm64, 0.165628 seconds]:
+2018-01-02 09:09:55 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:55 +0000  Processing symbols for libswiftMetal.dylib
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftMetal.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  1 file to consider
+2018-01-02 09:09:55 +0000  
+sent 90 bytes  received 20 bytes  220.00 bytes/sec
+total size is 245.36K  speedup is 2284.07
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  7 files to consider
+2018-01-02 09:09:55 +0000  ./
+2018-01-02 09:09:55 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftMetal.dylib'
+2018-01-02 09:09:55 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftMetal.dylib [armv7, 0.002083 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftMetal.dylib [armv7s, 0.002083 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftMetal.dylib [arm64, 0.002083 seconds]:
+2018-01-02 09:09:55 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:55 +0000  Processing symbols for libswiftObjectiveC.dylib
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftObjectiveC.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  1 file to consider
+2018-01-02 09:09:55 +0000  
+sent 95 bytes  received 20 bytes  230.00 bytes/sec
+total size is 252.88K  speedup is 2251.69
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  7 files to consider
+2018-01-02 09:09:55 +0000  ./
+2018-01-02 09:09:55 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:55 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftObjectiveC.dylib'
+2018-01-02 09:09:55 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftObjectiveC.dylib [armv7, 0.003250 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftObjectiveC.dylib [armv7s, 0.003250 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftObjectiveC.dylib [arm64, 0.003250 seconds]:
+2018-01-02 09:09:55 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:55 +0000  Processing symbols for libswiftQuartzCore.dylib
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftQuartzCore.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  1 file to consider
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 95 bytes  received 20 bytes  230.00 bytes/sec
+total size is 207.23K  speedup is 1845.29
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  7 files to consider
+2018-01-02 09:09:55 +0000  ./
+2018-01-02 09:09:55 +0000  summer.app.dSYM/
+summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:55 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftQuartzCore.dylib'
+2018-01-02 09:09:55 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftQuartzCore.dylib [armv7, 0.001636 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftQuartzCore.dylib [armv7s, 0.001636 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftQuartzCore.dylib [arm64, 0.001636 seconds]:
+2018-01-02 09:09:55 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:55 +0000  Processing symbols for libswiftUIKit.dylib
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftUIKit.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  1 file to consider
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 90 bytes  received 20 bytes  220.00 bytes/sec
+total size is 353.02K  speedup is 3286.25
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  7 files to consider
+2018-01-02 09:09:55 +0000  ./
+summer.app.dSYM/
+2018-01-02 09:09:55 +0000  summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:55 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftUIKit.dylib'
+2018-01-02 09:09:55 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftUIKit.dylib [armv7, 0.005469 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftUIKit.dylib [armv7s, 0.005469 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftUIKit.dylib [arm64, 0.005469 seconds]:
+2018-01-02 09:09:55 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:55 +0000  Processing symbols for libswiftos.dylib
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftos.dylib' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  1 file to consider
+2018-01-02 09:09:55 +0000  
+sent 87 bytes  received 20 bytes  214.00 bytes/sec
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  total size is 243.08K  speedup is 2326.28
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  7 files to consider
+2018-01-02 09:09:55 +0000  ./
+summer.app.dSYM/
+2018-01-02 09:09:55 +0000  summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftos.dylib'
+2018-01-02 09:09:55 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftos.dylib [armv7, 0.002259 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftos.dylib [armv7s, 0.002259 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/libswiftos.dylib [arm64, 0.002259 seconds]:
+2018-01-02 09:09:55 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:55 +0000  Processing symbols for summer.app
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  56 files to consider
+2018-01-02 09:09:55 +0000  summer.app/
+2018-01-02 09:09:55 +0000  summer.app/AlipaySDK.bundle/
+2018-01-02 09:09:55 +0000  summer.app/Base.lproj/
+summer.app/Base.lproj/LaunchScreen.storyboardc/
+summer.app/Base.lproj/Main.storyboardc/
+summer.app/Frameworks/
+summer.app/MJRefresh.bundle/
+summer.app/MJRefresh.bundle/en.lproj/
+summer.app/MJRefresh.bundle/zh-Hans.lproj/
+summer.app/MJRefresh.bundle/zh-Hant.lproj/
+summer.app/_CodeSignature/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 1.62K bytes  received 86 bytes  3.40K bytes/sec
+total size is 37.22M  speedup is 22419.85
+2018-01-02 09:09:55 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '--link-dest' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/dSYMs/' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD'
+2018-01-02 09:09:55 +0000  building file list ... 
+2018-01-02 09:09:55 +0000   0 files...2018-01-02 09:09:55 +0000  7 files to consider
+2018-01-02 09:09:55 +0000  ./
+summer.app.dSYM/
+2018-01-02 09:09:55 +0000  summer.app.dSYM/Contents/
+summer.app.dSYM/Contents/Resources/
+summer.app.dSYM/Contents/Resources/DWARF/
+2018-01-02 09:09:55 +0000  
+2018-01-02 09:09:55 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:09:55 +0000  sent 234 bytes  received 62 bytes  592.00 bytes/sec
+total size is 6.51M  speedup is 23059.24
+2018-01-02 09:09:55 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/summer.app.dSYM/Contents/Resources/Dwarf/summer'
+2018-01-02 09:09:56 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/summer.app.dSYM/Contents/Resources/Dwarf/summer [armv7, 0.167952 seconds]:
+/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/summer.app.dSYM/Contents/Resources/Dwarf/summer [arm64, 0.167952 seconds]:
+2018-01-02 09:09:56 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-01-02 09:09:56 +0000  Processing step: IDEDistributionCopyAppleProvidedContentStep
+2018-01-02 09:09:56 +0000  Running /usr/bin/ditto '-V' '/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/SwiftSupport' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/SwiftSupport'
+2018-01-02 09:09:56 +0000  >>> Copying /Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/SwiftSupport 
+2018-01-02 09:09:56 +0000  copying file ./iphoneos/libswiftCore.dylib ... 
+2018-01-02 09:09:56 +0000  100105869 bytes for ./iphoneos/libswiftCore.dylib
+copying file ./iphoneos/libswiftCoreFoundation.dylib ... 
+2018-01-02 09:09:56 +0000  287519 bytes for ./iphoneos/libswiftCoreFoundation.dylib
+copying file ./iphoneos/libswiftCoreGraphics.dylib ... 
+2018-01-02 09:09:56 +0000  1736854 bytes for ./iphoneos/libswiftCoreGraphics.dylib
+copying file ./iphoneos/libswiftCoreImage.dylib ... 
+2018-01-02 09:09:56 +0000  300324 bytes for ./iphoneos/libswiftCoreImage.dylib
+copying file ./iphoneos/libswiftDarwin.dylib ... 
+2018-01-02 09:09:56 +0000  790347 bytes for ./iphoneos/libswiftDarwin.dylib
+2018-01-02 09:09:56 +0000  copying file ./iphoneos/libswiftDispatch.dylib ... 
+2018-01-02 09:09:56 +0000  3398327 bytes for ./iphoneos/libswiftDispatch.dylib
+copying file ./iphoneos/libswiftFoundation.dylib ... 
+2018-01-02 09:09:56 +0000  40949491 bytes for ./iphoneos/libswiftFoundation.dylib
+copying file ./iphoneos/libswiftMetal.dylib ... 
+2018-01-02 09:09:56 +0000  504006 bytes for ./iphoneos/libswiftMetal.dylib
+copying file ./iphoneos/libswiftObjectiveC.dylib ... 
+2018-01-02 09:09:56 +0000  681315 bytes for ./iphoneos/libswiftObjectiveC.dylib
+copying file ./iphoneos/libswiftos.dylib ... 
+2018-01-02 09:09:56 +0000  589732 bytes for ./iphoneos/libswiftos.dylib
+copying file ./iphoneos/libswiftQuartzCore.dylib ... 
+2018-01-02 09:09:56 +0000  370132 bytes for ./iphoneos/libswiftQuartzCore.dylib
+copying file ./iphoneos/libswiftUIKit.dylib ... 
+2018-01-02 09:09:56 +0000  1117164 bytes for ./iphoneos/libswiftUIKit.dylib
+2018-01-02 09:09:56 +0000  /usr/bin/ditto exited with 0
+2018-01-02 09:09:56 +0000  Processing step: IDEDistributionAppThinningStep
+2018-01-02 09:09:56 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2018-01-02 09:09:56 +0000  Processing step: IDEDistributionODRStep
+2018-01-02 09:09:56 +0000  Processing step: IDEDistributionStripXattrsStep
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4dd691480 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fa4bf78fc10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCore.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4bf99ca40 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fa4c0c9c840:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreFoundation.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4c1ba69b0 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fa4da8b3570:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreGraphics.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4c22ebae0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fa4bf2900a0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreImage.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4dbc58d90 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fa4db4bcb80:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDarwin.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4c1d399f0 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fa4c0f36c70:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDispatch.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4dd24d680 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fa4db328d50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftFoundation.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4c23adf30 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fa4c006b790:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftMetal.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4c2251b00 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fa4db389a50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftObjectiveC.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4daea3270 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fa4d56daa10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftQuartzCore.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4c2b3d3e0 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fa4bfec46f0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftUIKit.dylib'>'>
+2018-01-02 09:09:56 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fa4c0ba5d10 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fa4c0646b30:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftos.dylib'>'>
+2018-01-02 09:09:56 +0000  Running /usr/bin/xattr '-crs' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app'
+2018-01-02 09:09:57 +0000  /usr/bin/xattr exited with 0
+2018-01-02 09:09:57 +0000  Processing step: IDEDistributionCodesignStep
+2018-01-02 09:09:57 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4dd691480 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fa4bf78fc10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCore.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4c0494120>: {
+}
+2018-01-02 09:09:57 +0000  Entitlements for <IDEDistributionItem: 0x7fa4dd691480 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fa4bf78fc10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCore.dylib'>'>: {
+}
+2018-01-02 09:09:57 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4dd691480 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fa4bf78fc10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCore.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsaXvYu6
+2018-01-02 09:09:57 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsaXvYu6' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCore.dylib'
+2018-01-02 09:09:57 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCore.dylib: replacing existing signature
+2018-01-02 09:10:06 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCore.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCore]
+2018-01-02 09:10:06 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:06 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4bf99ca40 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fa4c0c9c840:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreFoundation.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4d41355e0>: {
+}
+2018-01-02 09:10:06 +0000  Entitlements for <IDEDistributionItem: 0x7fa4bf99ca40 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fa4c0c9c840:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreFoundation.dylib'>'>: {
+}
+2018-01-02 09:10:06 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4bf99ca40 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fa4c0c9c840:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreFoundation.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsAkiOZs
+2018-01-02 09:10:06 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsAkiOZs' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreFoundation.dylib'
+2018-01-02 09:10:06 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreFoundation.dylib: replacing existing signature
+2018-01-02 09:10:06 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreFoundation.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCoreFoundation]
+2018-01-02 09:10:06 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:06 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c1ba69b0 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fa4da8b3570:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreGraphics.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4c0b918c0>: {
+}
+2018-01-02 09:10:06 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c1ba69b0 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fa4da8b3570:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreGraphics.dylib'>'>: {
+}
+2018-01-02 09:10:06 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c1ba69b0 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fa4da8b3570:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreGraphics.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlements8rNFad
+2018-01-02 09:10:06 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlements8rNFad' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreGraphics.dylib'
+2018-01-02 09:10:06 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreGraphics.dylib: replacing existing signature
+2018-01-02 09:10:06 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreGraphics.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCoreGraphics]
+2018-01-02 09:10:06 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:06 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c22ebae0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fa4bf2900a0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreImage.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4c2f3d3f0>: {
+}
+2018-01-02 09:10:06 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c22ebae0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fa4bf2900a0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreImage.dylib'>'>: {
+}
+2018-01-02 09:10:06 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c22ebae0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fa4bf2900a0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftCoreImage.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsi8Cm8A
+2018-01-02 09:10:06 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsi8Cm8A' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreImage.dylib'
+2018-01-02 09:10:06 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreImage.dylib: replacing existing signature
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftCoreImage.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCoreImage]
+2018-01-02 09:10:07 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:07 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4dbc58d90 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fa4db4bcb80:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDarwin.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4bfb7dbd0>: {
+}
+2018-01-02 09:10:07 +0000  Entitlements for <IDEDistributionItem: 0x7fa4dbc58d90 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fa4db4bcb80:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDarwin.dylib'>'>: {
+}
+2018-01-02 09:10:07 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4dbc58d90 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fa4db4bcb80:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDarwin.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsegZffh
+2018-01-02 09:10:07 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsegZffh' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDarwin.dylib'
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDarwin.dylib: replacing existing signature
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDarwin.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftDarwin]
+2018-01-02 09:10:07 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:07 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c1d399f0 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fa4c0f36c70:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDispatch.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4c0428880>: {
+}
+2018-01-02 09:10:07 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c1d399f0 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fa4c0f36c70:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDispatch.dylib'>'>: {
+}
+2018-01-02 09:10:07 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c1d399f0 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fa4c0f36c70:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftDispatch.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsZJkI0A
+2018-01-02 09:10:07 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsZJkI0A' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDispatch.dylib'
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDispatch.dylib: replacing existing signature
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftDispatch.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftDispatch]
+2018-01-02 09:10:07 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:07 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4dd24d680 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fa4db328d50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftFoundation.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4dc3d6970>: {
+}
+2018-01-02 09:10:07 +0000  Entitlements for <IDEDistributionItem: 0x7fa4dd24d680 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fa4db328d50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftFoundation.dylib'>'>: {
+}
+2018-01-02 09:10:07 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4dd24d680 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fa4db328d50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftFoundation.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsjafS6z
+2018-01-02 09:10:07 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsjafS6z' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftFoundation.dylib'
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftFoundation.dylib: replacing existing signature
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftFoundation.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftFoundation]
+2018-01-02 09:10:07 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:07 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c23adf30 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fa4c006b790:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftMetal.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4c02dff20>: {
+}
+2018-01-02 09:10:07 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c23adf30 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fa4c006b790:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftMetal.dylib'>'>: {
+}
+2018-01-02 09:10:07 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c23adf30 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fa4c006b790:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftMetal.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsqFXjPL
+2018-01-02 09:10:07 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsqFXjPL' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftMetal.dylib'
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftMetal.dylib: replacing existing signature
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftMetal.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftMetal]
+2018-01-02 09:10:07 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:07 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c2251b00 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fa4db389a50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftObjectiveC.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4dc3cb5e0>: {
+}
+2018-01-02 09:10:07 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c2251b00 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fa4db389a50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftObjectiveC.dylib'>'>: {
+}
+2018-01-02 09:10:07 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c2251b00 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fa4db389a50:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftObjectiveC.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsG8Krvx
+2018-01-02 09:10:07 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsG8Krvx' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftObjectiveC.dylib'
+2018-01-02 09:10:07 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftObjectiveC.dylib: replacing existing signature
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftObjectiveC.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftObjectiveC]
+2018-01-02 09:10:08 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:08 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4daea3270 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fa4d56daa10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftQuartzCore.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4db750220>: {
+}
+2018-01-02 09:10:08 +0000  Entitlements for <IDEDistributionItem: 0x7fa4daea3270 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fa4d56daa10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftQuartzCore.dylib'>'>: {
+}
+2018-01-02 09:10:08 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4daea3270 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fa4d56daa10:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftQuartzCore.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsHwMuFP
+2018-01-02 09:10:08 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsHwMuFP' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftQuartzCore.dylib'
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftQuartzCore.dylib: replacing existing signature
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftQuartzCore.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftQuartzCore]
+2018-01-02 09:10:08 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:08 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c2b3d3e0 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fa4bfec46f0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftUIKit.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4dcd5a000>: {
+}
+2018-01-02 09:10:08 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c2b3d3e0 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fa4bfec46f0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftUIKit.dylib'>'>: {
+}
+2018-01-02 09:10:08 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c2b3d3e0 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fa4bfec46f0:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftUIKit.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsxaZ1Bp
+2018-01-02 09:10:08 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsxaZ1Bp' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftUIKit.dylib'
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftUIKit.dylib: replacing existing signature
+2018-01-02 09:10:08 +0000  
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftUIKit.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftUIKit]
+2018-01-02 09:10:08 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:08 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c0ba5d10 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fa4c0646b30:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftos.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4d528a750>: {
+}
+2018-01-02 09:10:08 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c0ba5d10 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fa4c0646b30:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftos.dylib'>'>: {
+}
+2018-01-02 09:10:08 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c0ba5d10 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fa4c0646b30:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app/Frameworks/libswiftos.dylib'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsJ7pSB6
+2018-01-02 09:10:08 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlementsJ7pSB6' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftos.dylib'
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftos.dylib: replacing existing signature
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app/Frameworks/libswiftos.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftos]
+2018-01-02 09:10:08 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:08 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fa4c12698f0 'com.mimrc.vine' '<DVTFilePath:0x7fa4db67c520:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app'>'> from <IDEiCloudEntitlementsProcessor: 0x7fa4c31812e0>: {
+}
+2018-01-02 09:10:08 +0000  Entitlements for <IDEDistributionItem: 0x7fa4c12698f0 'com.mimrc.vine' '<DVTFilePath:0x7fa4db67c520:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app'>'>: {
+    "application-identifier" = "35SG99VZ4S.com.mimrc.vine";
+    "aps-environment" = production;
+    "beta-reports-active" = 1;
+    "com.apple.developer.team-identifier" = 35SG99VZ4S;
+    "get-task-allow" = 0;
+}
+2018-01-02 09:10:08 +0000  Writing entitlements for <IDEDistributionItem: 0x7fa4c12698f0 'com.mimrc.vine' '<DVTFilePath:0x7fa4db67c520:'/Users/wolf/Library/Developer/Xcode/Archives/2018-01-02/summer 2018-1-2 16.59.xcarchive/Products/Applications/summer.app'>'> to: /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlements4byxJ0
+2018-01-02 09:10:08 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '308B6F49EBE0E554EDA8B06C2F5E8E5AD79B5562' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/entitlements4byxJ0' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app'
+2018-01-02 09:10:08 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app: replacing existing signature
+2018-01-02 09:10:09 +0000  /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root/Payload/summer.app: signed app bundle with Mach-O universal (armv7 arm64) [com.mimrc.vine]
+2018-01-02 09:10:09 +0000  /usr/bin/codesign exited with 0
+2018-01-02 09:10:09 +0000  Processing step: IDEDistributionStreamingZipItemStep
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-01-02 09:10:09 +0000  Processing step: IDEDistributionCreateIPAStep
+2018-01-02 09:10:09 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Symbols' '--link-dest' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root'
+2018-01-02 09:10:09 +0000  building file list ... 
+2018-01-02 09:10:09 +0000   0 files...2018-01-02 09:10:09 +0000  39 files to consider
+2018-01-02 09:10:09 +0000  Symbols/
+2018-01-02 09:10:09 +0000  
+2018-01-02 09:10:09 +0000  /usr/bin/rsync exited with 0
+2018-01-02 09:10:09 +0000  sent 2.07K bytes  received 26 bytes  4.18K bytes/sec
+total size is 22.33M  speedup is 10929.18
+2018-01-02 09:10:09 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root' '/var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Packages/summer.ipa'
+2018-01-02 09:10:09 +0000  >>> Copying /var/folders/f4/2075n_8n6hq668rdv4fxl4q80000gn/T/XcodeDistPipeline.MjD/Root 
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/_CodeSignature/CodeResources ... 
+2018-01-02 09:10:09 +0000  15870 bytes for ./Payload/summer.app/_CodeSignature/CodeResources
+copying file ./Payload/summer.app/AlipaySDK.bundle/bar@2x.png ... 
+1011 bytes for ./Payload/summer.app/AlipaySDK.bundle/bar@2x.png
+copying file ./Payload/summer.app/AlipaySDK.bundle/refresh@2x.png ... 
+605 bytes for ./Payload/summer.app/AlipaySDK.bundle/refresh@2x.png
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/AlipaySDK.bundle/refresh_click@2x.png ... 
+2018-01-02 09:10:09 +0000  1824 bytes for ./Payload/summer.app/AlipaySDK.bundle/refresh_click@2x.png
+copying file ./Payload/summer.app/AlipaySDK.bundle/shutdown@2x.png ... 
+2018-01-02 09:10:09 +0000  222 bytes for ./Payload/summer.app/AlipaySDK.bundle/shutdown@2x.png
+copying file ./Payload/summer.app/AlipaySDK.bundle/shutdown_click@2x.png ... 
+2018-01-02 09:10:09 +0000  1319 bytes for ./Payload/summer.app/AlipaySDK.bundle/shutdown_click@2x.png
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/AppIcon20x20@2x.png ... 
+2018-01-02 09:10:09 +0000  4863 bytes for ./Payload/summer.app/AppIcon20x20@2x.png
+copying file ./Payload/summer.app/AppIcon20x20@3x.png ... 
+2018-01-02 09:10:09 +0000  8564 bytes for ./Payload/summer.app/AppIcon20x20@3x.png
+copying file ./Payload/summer.app/AppIcon29x29@2x.png ... 
+2018-01-02 09:10:09 +0000  8198 bytes for ./Payload/summer.app/AppIcon29x29@2x.png
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/AppIcon29x29@3x.png ... 
+2018-01-02 09:10:09 +0000  15699 bytes for ./Payload/summer.app/AppIcon29x29@3x.png
+copying file ./Payload/summer.app/AppIcon40x40@2x.png ... 
+2018-01-02 09:10:09 +0000  13623 bytes for ./Payload/summer.app/AppIcon40x40@2x.png
+copying file ./Payload/summer.app/AppIcon40x40@3x.png ... 
+2018-01-02 09:10:09 +0000  26090 bytes for ./Payload/summer.app/AppIcon40x40@3x.png
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/AppIcon60x60@2x.png ... 
+2018-01-02 09:10:09 +0000  26090 bytes for ./Payload/summer.app/AppIcon60x60@2x.png
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/AppIcon60x60@3x.png ... 
+2018-01-02 09:10:09 +0000  50261 bytes for ./Payload/summer.app/AppIcon60x60@3x.png
+copying file ./Payload/summer.app/archived-expanded-entitlements.xcent ... 
+2018-01-02 09:10:09 +0000  246 bytes for ./Payload/summer.app/archived-expanded-entitlements.xcent
+copying file ./Payload/summer.app/Assets.car ... 
+2018-01-02 09:10:09 +0000  888920 bytes for ./Payload/summer.app/Assets.car
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+1790 bytes for ./Payload/summer.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+copying file ./Payload/summer.app/Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+258 bytes for ./Payload/summer.app/Base.lproj/LaunchScreen.storyboardc/Info.plist
+copying file ./Payload/summer.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+832 bytes for ./Payload/summer.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+copying file ./Payload/summer.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib ... 
+1792 bytes for ./Payload/summer.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+copying file ./Payload/summer.app/Base.lproj/Main.storyboardc/Info.plist ... 
+258 bytes for ./Payload/summer.app/Base.lproj/Main.storyboardc/Info.plist
+copying file ./Payload/summer.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib ... 
+2018-01-02 09:10:09 +0000  929 bytes for ./Payload/summer.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+copying file ./Payload/summer.app/embedded.mobileprovision ... 
+2018-01-02 09:10:09 +0000  9567 bytes for ./Payload/summer.app/embedded.mobileprovision
+2018-01-02 09:10:09 +0000  copying file ./Payload/summer.app/Frameworks/libswiftCore.dylib ... 
+2018-01-02 09:10:10 +0000  21079968 bytes for ./Payload/summer.app/Frameworks/libswiftCore.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftCoreFoundation.dylib ... 
+2018-01-02 09:10:10 +0000  208672 bytes for ./Payload/summer.app/Frameworks/libswiftCoreFoundation.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftCoreGraphics.dylib ... 
+2018-01-02 09:10:10 +0000  578128 bytes for ./Payload/summer.app/Frameworks/libswiftCoreGraphics.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftCoreImage.dylib ... 
+2018-01-02 09:10:10 +0000  209232 bytes for ./Payload/summer.app/Frameworks/libswiftCoreImage.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftDarwin.dylib ... 
+2018-01-02 09:10:10 +0000  303440 bytes for ./Payload/summer.app/Frameworks/libswiftDarwin.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftDispatch.dylib ... 
+2018-01-02 09:10:10 +0000  1009632 bytes for ./Payload/summer.app/Frameworks/libswiftDispatch.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftFoundation.dylib ... 
+2018-01-02 09:10:10 +0000  8425696 bytes for ./Payload/summer.app/Frameworks/libswiftFoundation.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftMetal.dylib ... 
+2018-01-02 09:10:10 +0000  251632 bytes for ./Payload/summer.app/Frameworks/libswiftMetal.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftObjectiveC.dylib ... 
+2018-01-02 09:10:10 +0000  259312 bytes for ./Payload/summer.app/Frameworks/libswiftObjectiveC.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftos.dylib ... 
+2018-01-02 09:10:10 +0000  249280 bytes for ./Payload/summer.app/Frameworks/libswiftos.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftQuartzCore.dylib ... 
+2018-01-02 09:10:10 +0000  212592 bytes for ./Payload/summer.app/Frameworks/libswiftQuartzCore.dylib
+copying file ./Payload/summer.app/Frameworks/libswiftUIKit.dylib ... 
+2018-01-02 09:10:10 +0000  361872 bytes for ./Payload/summer.app/Frameworks/libswiftUIKit.dylib
+2018-01-02 09:10:10 +0000  copying file ./Payload/summer.app/Info.plist ... 
+2001 bytes for ./Payload/summer.app/Info.plist
+copying file ./Payload/summer.app/LaunchImage-700-568h@2x.png ... 
+2018-01-02 09:10:10 +0000  140396 bytes for ./Payload/summer.app/LaunchImage-700-568h@2x.png
+2018-01-02 09:10:10 +0000  copying file ./Payload/summer.app/LaunchImage@2x.png ... 
+2018-01-02 09:10:10 +0000  129790 bytes for ./Payload/summer.app/LaunchImage@2x.png
+2018-01-02 09:10:10 +0000  copying file ./Payload/summer.app/LICENSE ... 
+1082 bytes for ./Payload/summer.app/LICENSE
+copying file ./Payload/summer.app/MJRefresh.bundle/arrow@2x.png ... 
+1033 bytes for ./Payload/summer.app/MJRefresh.bundle/arrow@2x.png
+copying file ./Payload/summer.app/MJRefresh.bundle/en.lproj/Localizable.strings ... 
+1372 bytes for ./Payload/summer.app/MJRefresh.bundle/en.lproj/Localizable.strings
+2018-01-02 09:10:10 +0000  copying file ./Payload/summer.app/MJRefresh.bundle/zh-Hans.lproj/Localizable.strings ... 
+1194 bytes for ./Payload/summer.app/MJRefresh.bundle/zh-Hans.lproj/Localizable.strings
+2018-01-02 09:10:10 +0000  copying file ./Payload/summer.app/MJRefresh.bundle/zh-Hant.lproj/Localizable.strings ... 
+2018-01-02 09:10:10 +0000  773 bytes for ./Payload/summer.app/MJRefresh.bundle/zh-Hant.lproj/Localizable.strings
+2018-01-02 09:10:10 +0000  copying file ./Payload/summer.app/PkgInfo ... 
+8 bytes for ./Payload/summer.app/PkgInfo
+copying file ./Payload/summer.app/summer ... 
+2018-01-02 09:10:10 +0000  4531616 bytes for ./Payload/summer.app/summer
+2018-01-02 09:10:10 +0000  copying file ./SwiftSupport/iphoneos/libswiftCore.dylib ... 
+2018-01-02 09:10:14 +0000  68838832 bytes for ./SwiftSupport/iphoneos/libswiftCore.dylib
+copying file ./SwiftSupport/iphoneos/libswiftCoreFoundation.dylib ... 
+2018-01-02 09:10:14 +0000  257584 bytes for ./SwiftSupport/iphoneos/libswiftCoreFoundation.dylib
+copying file ./SwiftSupport/iphoneos/libswiftCoreGraphics.dylib ... 
+2018-01-02 09:10:14 +0000  1268736 bytes for ./SwiftSupport/iphoneos/libswiftCoreGraphics.dylib
+copying file ./SwiftSupport/iphoneos/libswiftCoreImage.dylib ... 
+2018-01-02 09:10:14 +0000  258160 bytes for ./SwiftSupport/iphoneos/libswiftCoreImage.dylib
+copying file ./SwiftSupport/iphoneos/libswiftDarwin.dylib ... 
+2018-01-02 09:10:14 +0000  599168 bytes for ./SwiftSupport/iphoneos/libswiftDarwin.dylib
+copying file ./SwiftSupport/iphoneos/libswiftDispatch.dylib ... 
+2018-01-02 09:10:15 +0000  2440624 bytes for ./SwiftSupport/iphoneos/libswiftDispatch.dylib
+copying file ./SwiftSupport/iphoneos/libswiftFoundation.dylib ... 
+2018-01-02 09:10:16 +0000  27922864 bytes for ./SwiftSupport/iphoneos/libswiftFoundation.dylib
+copying file ./SwiftSupport/iphoneos/libswiftMetal.dylib ... 
+2018-01-02 09:10:16 +0000  399264 bytes for ./SwiftSupport/iphoneos/libswiftMetal.dylib
+copying file ./SwiftSupport/iphoneos/libswiftObjectiveC.dylib ... 
+2018-01-02 09:10:16 +0000  505680 bytes for ./SwiftSupport/iphoneos/libswiftObjectiveC.dylib
+copying file ./SwiftSupport/iphoneos/libswiftos.dylib ... 
+2018-01-02 09:10:16 +0000  446288 bytes for ./SwiftSupport/iphoneos/libswiftos.dylib
+copying file ./SwiftSupport/iphoneos/libswiftQuartzCore.dylib ... 
+2018-01-02 09:10:16 +0000  310864 bytes for ./SwiftSupport/iphoneos/libswiftQuartzCore.dylib
+copying file ./SwiftSupport/iphoneos/libswiftUIKit.dylib ... 
+2018-01-02 09:10:16 +0000  789072 bytes for ./SwiftSupport/iphoneos/libswiftUIKit.dylib
+2018-01-02 09:10:16 +0000  copying file ./Symbols/0DCA260A-ADF7-3BB0-BCA9-ACC9A8717C99.symbols ... 
+2018-01-02 09:10:16 +0000  7288 bytes for ./Symbols/0DCA260A-ADF7-3BB0-BCA9-ACC9A8717C99.symbols
+2018-01-02 09:10:16 +0000  copying file ./Symbols/1CD043A2-CD22-3163-8F98-B468EEC2892E.symbols ... 
+2018-01-02 09:10:17 +0000  4424912 bytes for ./Symbols/1CD043A2-CD22-3163-8F98-B468EEC2892E.symbols
+copying file ./Symbols/1D7154AC-BD75-3E84-B0AD-621A11D37063.symbols ... 
+2018-01-02 09:10:17 +0000  38456 bytes for ./Symbols/1D7154AC-BD75-3E84-B0AD-621A11D37063.symbols
+copying file ./Symbols/298A74FE-C787-378E-B614-8BEE4A7F65C3.symbols ... 
+2018-01-02 09:10:17 +0000  12208 bytes for ./Symbols/298A74FE-C787-378E-B614-8BEE4A7F65C3.symbols
+copying file ./Symbols/2A830D61-12AC-3410-841D-0EAA98D30420.symbols ... 
+2018-01-02 09:10:17 +0000  23856 bytes for ./Symbols/2A830D61-12AC-3410-841D-0EAA98D30420.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/33DF7B2D-DFB7-3E44-B9B2-2860E0BCE993.symbols ... 
+2018-01-02 09:10:17 +0000  12024 bytes for ./Symbols/33DF7B2D-DFB7-3E44-B9B2-2860E0BCE993.symbols
+copying file ./Symbols/3440193D-01A2-3A2E-B814-E6082BEAF3FC.symbols ... 
+2018-01-02 09:10:17 +0000  2352 bytes for ./Symbols/3440193D-01A2-3A2E-B814-E6082BEAF3FC.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/4687A4F0-CD49-30D9-AC8D-0343DF250E0C.symbols ... 
+2018-01-02 09:10:17 +0000  12960 bytes for ./Symbols/4687A4F0-CD49-30D9-AC8D-0343DF250E0C.symbols
+copying file ./Symbols/4A28F23A-0431-31AB-9E8A-EE07AA8784E0.symbols ... 
+2018-01-02 09:10:17 +0000  55600 bytes for ./Symbols/4A28F23A-0431-31AB-9E8A-EE07AA8784E0.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/4B736565-3876-324D-B702-34FD4857D667.symbols ... 
+2018-01-02 09:10:17 +0000  24280 bytes for ./Symbols/4B736565-3876-324D-B702-34FD4857D667.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/513C98C9-23B0-3EF1-9886-79E3006E92FF.symbols ... 
+2018-01-02 09:10:17 +0000  1591480 bytes for ./Symbols/513C98C9-23B0-3EF1-9886-79E3006E92FF.symbols
+copying file ./Symbols/54028052-4A70-307B-BFF2-CC759A40A625.symbols ... 
+2018-01-02 09:10:17 +0000  12960 bytes for ./Symbols/54028052-4A70-307B-BFF2-CC759A40A625.symbols
+copying file ./Symbols/5435BF46-A740-3C5B-808D-73786E32B4DC.symbols ... 
+2018-01-02 09:10:17 +0000  2042160 bytes for ./Symbols/5435BF46-A740-3C5B-808D-73786E32B4DC.symbols
+copying file ./Symbols/607F837C-AAE9-37A3-BDE5-CA7F6F8D083B.symbols ... 
+2018-01-02 09:10:17 +0000  7288 bytes for ./Symbols/607F837C-AAE9-37A3-BDE5-CA7F6F8D083B.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/61BB3809-7A1E-31F7-ADC9-95D06C80577B.symbols ... 
+2018-01-02 09:10:17 +0000  55560 bytes for ./Symbols/61BB3809-7A1E-31F7-ADC9-95D06C80577B.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/68056500-6DC4-366C-95BF-C0F0DA3240D9.symbols ... 
+2018-01-02 09:10:17 +0000  13128 bytes for ./Symbols/68056500-6DC4-366C-95BF-C0F0DA3240D9.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/6BDC6B0B-294C-34F6-80DF-96AD95556D9D.symbols ... 
+2018-01-02 09:10:17 +0000  2640 bytes for ./Symbols/6BDC6B0B-294C-34F6-80DF-96AD95556D9D.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/8CBF4442-EC83-3195-9AA6-162ACA7C70D8.symbols ... 
+2018-01-02 09:10:17 +0000  96512 bytes for ./Symbols/8CBF4442-EC83-3195-9AA6-162ACA7C70D8.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/8ECBCD9C-85EE-3DA3-B89D-16C15C9652D5.symbols ... 
+2018-01-02 09:10:17 +0000  231936 bytes for ./Symbols/8ECBCD9C-85EE-3DA3-B89D-16C15C9652D5.symbols
+copying file ./Symbols/B1EC1A59-54E0-3567-8985-6DBD962AFCA3.symbols ... 
+2018-01-02 09:10:17 +0000  55600 bytes for ./Symbols/B1EC1A59-54E0-3567-8985-6DBD962AFCA3.symbols
+copying file ./Symbols/B82BAD0E-530C-3E9F-AFA7-99ABCB7DE318.symbols ... 
+2018-01-02 09:10:17 +0000  2720 bytes for ./Symbols/B82BAD0E-530C-3E9F-AFA7-99ABCB7DE318.symbols
+copying file ./Symbols/BC4CE972-AA93-39B1-AD07-1F154DFE84AB.symbols ... 
+2018-01-02 09:10:17 +0000  234176 bytes for ./Symbols/BC4CE972-AA93-39B1-AD07-1F154DFE84AB.symbols
+copying file ./Symbols/BD37ACF3-A8D0-38B2-93EC-7961B8617604.symbols ... 
+2018-01-02 09:10:17 +0000  4443880 bytes for ./Symbols/BD37ACF3-A8D0-38B2-93EC-7961B8617604.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/C2CF886B-6E9C-3D16-AE67-F6C2F6A97D97.symbols ... 
+2018-01-02 09:10:17 +0000  12208 bytes for ./Symbols/C2CF886B-6E9C-3D16-AE67-F6C2F6A97D97.symbols
+copying file ./Symbols/C2F136C9-F96B-320A-8F63-5432156DDD31.symbols ... 
+2018-01-02 09:10:17 +0000  7552 bytes for ./Symbols/C2F136C9-F96B-320A-8F63-5432156DDD31.symbols
+copying file ./Symbols/C35B43BC-2D3C-3CD0-8BED-6C9CAA92F143.symbols ... 
+2018-01-02 09:10:17 +0000  96288 bytes for ./Symbols/C35B43BC-2D3C-3CD0-8BED-6C9CAA92F143.symbols
+copying file ./Symbols/C5E5A346-09FC-35F7-A627-77A33F39CA0C.symbols ... 
+2018-01-02 09:10:17 +0000  2640 bytes for ./Symbols/C5E5A346-09FC-35F7-A627-77A33F39CA0C.symbols
+copying file ./Symbols/C99C131E-EDA3-3F9A-9633-9D108703F344.symbols ... 
+2018-01-02 09:10:17 +0000  1591632 bytes for ./Symbols/C99C131E-EDA3-3F9A-9633-9D108703F344.symbols
+copying file ./Symbols/CE43E435-BB9F-3C78-8019-D2A13B9DAFD0.symbols ... 
+2018-01-02 09:10:17 +0000  96448 bytes for ./Symbols/CE43E435-BB9F-3C78-8019-D2A13B9DAFD0.symbols
+copying file ./Symbols/D744E904-BA3F-3BCD-82EE-B8756DBB2171.symbols ... 
+2018-01-02 09:10:17 +0000  2256 bytes for ./Symbols/D744E904-BA3F-3BCD-82EE-B8756DBB2171.symbols
+copying file ./Symbols/D7C9EE68-E7AC-3AF8-9F6F-8C70A96A98E7.symbols ... 
+2018-01-02 09:10:17 +0000  37848 bytes for ./Symbols/D7C9EE68-E7AC-3AF8-9F6F-8C70A96A98E7.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/DEA8A23F-8C8D-3737-B7BD-47623B1BE8C4.symbols ... 
+2018-01-02 09:10:17 +0000  234032 bytes for ./Symbols/DEA8A23F-8C8D-3737-B7BD-47623B1BE8C4.symbols
+copying file ./Symbols/EBA0EA5E-7316-3472-98BE-385B3E5F0AEB.symbols ... 
+2018-01-02 09:10:17 +0000  38456 bytes for ./Symbols/EBA0EA5E-7316-3472-98BE-385B3E5F0AEB.symbols
+copying file ./Symbols/F04E0EF2-C398-3CB0-82E7-CF3C71A04773.symbols ... 
+2018-01-02 09:10:17 +0000  2256 bytes for ./Symbols/F04E0EF2-C398-3CB0-82E7-CF3C71A04773.symbols
+copying file ./Symbols/F0965F4E-3BB0-383E-87F0-60AFE69C248B.symbols ... 
+2018-01-02 09:10:17 +0000  4443296 bytes for ./Symbols/F0965F4E-3BB0-383E-87F0-60AFE69C248B.symbols
+copying file ./Symbols/F147851F-9FA5-30A0-A1C8-03C062AD6EE6.symbols ... 
+2018-01-02 09:10:17 +0000  23856 bytes for ./Symbols/F147851F-9FA5-30A0-A1C8-03C062AD6EE6.symbols
+2018-01-02 09:10:17 +0000  copying file ./Symbols/FACCD862-6C3A-3C99-AB9D-EC64A54107E6.symbols ... 
+2018-01-02 09:10:17 +0000  1587936 bytes for ./Symbols/FACCD862-6C3A-3C99-AB9D-EC64A54107E6.symbols
+copying file ./Symbols/FC9A5BF9-CBFB-30BC-B75C-205A4D33E52D.symbols ... 
+2018-01-02 09:10:17 +0000  1829616 bytes for ./Symbols/FC9A5BF9-CBFB-30BC-B75C-205A4D33E52D.symbols
+2018-01-02 09:10:17 +0000  /usr/bin/ditto exited with 0
+2018-01-02 09:10:17 +0000  Processing step: IDEDistributionCreateManifestStep
+2018-01-02 09:10:17 +0000  Skipping step: IDEDistributionCreateManifestStep because it said so

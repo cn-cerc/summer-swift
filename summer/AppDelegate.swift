@@ -120,13 +120,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     
     func getImageData() {
-        AFNetworkManager.get(URLPATH_CONFIG, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
+        var paremDict:Dictionary<String, Any>?
+        //获取版本号
+        var infoDict = Bundle.main.infoDictionary
+        let appVersion = infoDict?["CFBundleShortVersionString"]
+        paremDict = ["curVersion":appVersion as Any,"appCode":"vine-iphone-standard"]
+        
+        AFNetworkManager.get(URLPATH_CONFIG, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
             print(responseObject)
-            if (responseObject != nil) {
-                UserDefaultsUtils.saveStringValue(value: responseObject?["rootSite"] as! String, key: "rootSite")
-                UserDefaultsUtils.saveStringValue(value: responseObject?["msgManage"] as! String, key: "msgManage")
-                self.uploadAddImage(imageArr: responseObject?["adImages"] as! Array)
-            }
+//            if (responseObject != nil) {
+//                UserDefaultsUtils.saveStringValue(value: responseObject?["rootSite"] as! String, key: "rootSite")
+//                UserDefaultsUtils.saveStringValue(value: responseObject?["msgManage"] as! String, key: "msgManage")
+//                self.uploadAddImage(imageArr: responseObject?["adImages"] as! Array)
+//            }
             
         })  { (operation:AFHTTPRequestOperation?, error:Error?) in
             print(error)

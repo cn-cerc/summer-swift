@@ -293,14 +293,6 @@ extension MainViewController: WKScriptMessageHandler {
             }else {
                 tag = false
             }
-            
-//            var status :Bool = dict["status"]
-        
-//            if status=="1" {
-//                tag = true
-//            }else {
-//                tag = false
-//            }
 //
             let token:String = dict["token"] as! String
             UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
@@ -319,7 +311,6 @@ extension MainViewController: WKScriptMessageHandler {
                     timer?.invalidate()
                     timer = nil
                 print("结束计时器")
-                    
                 }
             }
             
@@ -358,7 +349,7 @@ extension MainViewController: WKScriptMessageHandler {
 //            let navVC = UINavigationController.init(rootViewController: sqVC)
 //            self.present(navVC, animated: true, completion: nil)
 //        }
-        else{//微信支付
+        else if type == "FrmWeChatPay"{//微信支付
             WXApi.registerApp((message.body as! Dictionary<String,String>)["appid"])
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
