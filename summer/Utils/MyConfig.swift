@@ -7,9 +7,9 @@
 //
 
 import UIKit
+let URL_APP_ROOT = "https://m.knowall.cn"//master版
+//let URL_APP_ROOT = "https://c1.knowall.cn"//Beta版
 
-let URL_APP_ROOT = "https://m.knowall.cn"//域名地址//内测版
-//let URL_APP_ROOT = "http://192.168.9.133"//域名地址//内测版
 let WELCOME_IMAGES_COUNT = 3
 let FORMS = "form"
 let SERVICES = "services"
