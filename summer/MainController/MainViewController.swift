@@ -165,7 +165,7 @@ class MainViewController: BaseViewController {
 }
 
 extension MainViewController{
-    //心跳请求
+    //MARK: ---心跳请求
     @objc func Heartbeat(){
     let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
     let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
@@ -263,7 +263,7 @@ extension MainViewController{
 
 
 extension MainViewController: WKScriptMessageHandler {
-    //js交互回调
+    //MARK: --- js交互回调
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
 //        let type = (message.body as! Dictionary<String,String>)["type"]
         print(message.body)
