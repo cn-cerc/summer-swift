@@ -23,9 +23,11 @@ class AdViewController: UIViewController {
     var timer : Timer?
     /** 跳过按钮 */
     var skipButton : UIButton?
-    
+    /** 协议 */
     weak var delegate : StartAppDelegate?
-
+    /** 工具类 */
+    var adTool : AdOnlineTool? = AdOnlineTool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -52,21 +54,21 @@ extension AdViewController {
         scrollView?.showsHorizontalScrollIndicator = false
         view.addSubview(scrollView!)
         //给scrollview添加照片
-        let adImages : [UIImage]? = []
-        let adImageURLs : [String]? = []
+        let adImages : [UIImage]? = adTool?.getImages(type: .PhotoTypeAd) as? [UIImage]
+        let adImageURLs : [String]? = adTool?.getAdImageURLs() as? [String]
         let imageWidth = scrollView?.frame.size.width
         let imageHeight = scrollView?.frame.size.height
         for i in 0..<adImageURLs!.count {
             let filePath = adImageURLs![i]
             let imageData = NSData.init(contentsOfFile: filePath)
-            let imageType : String = ""
+            let imageType : String = adTool!.contentTypeForImageData(imageData!)
             let imageView = UIImageView.init()
             imageView.frame = CGRect(x: CGFloat(i)*imageWidth!, y: 0, width: imageWidth!, height: imageHeight!)
             imageView.isUserInteractionEnabled = true
             imageView.image = adImages?[i]
             scrollView?.addSubview(imageView)
             if imageType == "gif" {
-                
+                setGifImageWithImageView(gifImgPath: filePath, imageView: imageView)
             }else {
                 imageView.image = UIImage.init(contentsOfFile: filePath)
             }
@@ -74,8 +76,28 @@ extension AdViewController {
                 setupSkipButton(imageView)
             }
             if i == (adImages?.count)! - 1 {
+                //在最后一张图片上添加开始按钮
                 setupStartButton(imageView)
             }
+        }
+        
+        //设置其他属性
+        scrollView?.contentSize = CGSize(width: imageWidth! * CGFloat(adImages!.count), height: 0)
+        scrollView?.bounces = false
+        scrollView?.isPagingEnabled = true
+        //图片数量超过一张时添加一个pagecontrol
+        if adImages!.count > 1 {
+            pageControl = UIPageControl.init()
+            let pageControlW : CGFloat = 150
+            let pageControlH : CGFloat = 20
+            let pageControlX : CGFloat = (view.frame.size.width - 150) / 2
+            let pageControlY : CGFloat =  view.frame.size.height - 30
+            pageControl?.frame = CGRect(x: pageControlX, y: pageControlY, width: pageControlW, height: pageControlH)
+            pageControl?.currentPageIndicatorTintColor = UIColor.white
+            pageControl?.pageIndicatorTintColor = UIColor.init(white: 1.0, alpha: 0.3)
+            pageControl?.numberOfPages = adImages!.count
+            pageControl?.currentPage = 0
+            view.addSubview(pageControl!)
         }
     }
 
@@ -155,7 +177,7 @@ extension AdViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pagewidth : CGFloat = scrollView.frame.size.width
         let page = Int(floor((scrollView.contentOffset.x - pagewidth/2)/pagewidth) + 1)
-        self.pageControl?.currentPage = page
+        pageControl?.currentPage = page
     }
 }
 extension AdViewController {

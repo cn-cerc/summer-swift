@@ -13,7 +13,7 @@ class MainViewController: BaseViewController {
     
     fileprivate var webView: WKWebView!
     fileprivate var progressView: UIProgressView!//进度条
-    fileprivate var adVC : AdViewController!
+    fileprivate lazy var adVC : AdViewController = AdViewController()
     
     var popMenu: SwiftPopMenu!//导航栏右边菜单
     
@@ -429,7 +429,6 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
-        print(webView.url?.relativePath)
         // TODO alipay需要刷新唤起支付宝客户端，临时解决方案，待进一步改进
         if webView.url?.relativePath == "/cashier/mobilepay.htm" {
             self.webView.reload()
@@ -611,7 +610,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
 extension MainViewController {
     func addAdVC() {
         //判断是否显示广告界面
-        let isShow = UserDefaults.standard.bool(forKey: "showAdVC")
+        var isShow = UserDefaults.standard.bool(forKey: "showAdVC")
         if isShow {
             adVC.view.frame = view.frame
             adVC.view.isUserInteractionEnabled = true

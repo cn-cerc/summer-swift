@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var window: UIWindow?
     var mainVC: MainViewController?
     var mainNav: BaseNavViewController?
+    var adTool : AdOnlineTool? = AdOnlineTool()
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
@@ -125,15 +126,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         var infoDict = Bundle.main.infoDictionary
         let appVersion = infoDict?["CFBundleShortVersionString"]
         paremDict = ["curVersion":appVersion as Any,"appCode":"vine-iphone-standard"]
-        
+        //检测版本更新
         AFNetworkManager.get(URLPATH_CONFIG, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
-            print(responseObject)
-//            if (responseObject != nil) {
-//                UserDefaultsUtils.saveStringValue(value: responseObject?["rootSite"] as! String, key: "rootSite")
-//                UserDefaultsUtils.saveStringValue(value: responseObject?["msgManage"] as! String, key: "msgManage")
-//                self.uploadAddImage(imageArr: responseObject?["adImages"] as! Array)
-//            }
+            print(responseObject as! [String : Any])
+            let launchImageUrlStr = responseObject!["startupImage"] as? String
+            var launchImageVersion = ""
+            var launchUrl = ""
+            if (launchImageUrlStr!.count == 0) {
+                return
+            }
+            if launchImageUrlStr!.contains(";") {
+                let arr : [String] = launchImageUrlStr!.components(separatedBy: ";")
+                launchImageVersion = arr[0]
+                launchUrl = arr[1]
+            } else{
+                launchImageVersion = "0"
+                launchUrl = launchImageUrlStr!
+            }
+            self.checkImageVersion(imageVersion: launchImageVersion, imageUrls: [launchUrl], type: .PhotoTypeLaunch)
+            //2.判断广告页图片是否更新、下载
+            var adImageVersion = ""
+            var adUrl = ""
+            var adImageUrls : [String]?
             
+            //获取广告图片数据的数组
+            guard let adImageUrlStrs = responseObject!["adImages"] as? [String] else{return}
+            if(adImageUrlStrs.count == 0) {
+                return;
+            }
+            for adImageUrlStr in adImageUrlStrs {
+                if adImageUrlStr.contains(";") {
+                    let arr : [String] = adImageUrlStr.components(separatedBy: ";")
+                    adImageVersion = arr[0];
+                    adUrl = arr[1];
+                } else {
+                    adImageVersion = "0";
+                    adUrl = adImageUrlStr;
+                }
+                adImageUrls?.append(adUrl)
+            }
+            self.checkImageVersion(imageVersion: adImageVersion, imageUrls: adImageUrls!, type: .PhotoTypeAd)
+            
+        
         })  { (operation:AFHTTPRequestOperation?, error:Error?) in
             print(error)
         }
@@ -171,6 +205,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             return false
         }
     }
+    //MARK: - 检查启动图片和广告图片的版本并进行下载操作
+    func checkImageVersion(imageVersion : String, imageUrls : [String], type : PhotoType) {
+        //与之前本地保存作比较
+        var lastImageVersion : String?
+        if (type == .PhotoTypeAd) {
+            lastImageVersion = UserDefaults.standard.object(forKey: "adImageVersion") as? String
+        } else{
+            lastImageVersion = UserDefaults.standard.object(forKey: "launchImageVersion") as? String
+        }
+        
+        if(lastImageVersion?.count == 0 || lastImageVersion != imageVersion){
+            //进行下载操作
+            for i in 0..<imageUrls.count {
+                adTool?.downloadAdOnlineData(urlStr: imageUrls[i], num: i, type: type, block: { (data : Any) in
+                    print("下载启动或广告图片成功")
+                    //将最新的版本号保存本地
+                    UserDefaults.standard.set(imageVersion, forKey: (type == .PhotoTypeAd) ?"adImageVersion" :"launchImageVersion")
+                    if type == .PhotoTypeAd {
+                        UserDefaults.standard.set(true, forKey: "showAdVC")
+                    }
+                })
+            }
+        }else{
+           UserDefaults.standard.set(false, forKey: "showAdVC")
+        }
+    }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
