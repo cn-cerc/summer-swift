@@ -1,0 +1,165 @@
+//
+//  AdViewController.swift
+//  summer
+//
+//  Created by 王雨 on 2018/1/2.
+//  Copyright © 2018年 FangLin. All rights reserved.
+//
+
+import UIKit
+//MARK: - 定义协议
+protocol StartAppDelegate : class {
+    func startApp()
+    
+}
+class AdViewController: UIViewController {
+    /**存放图片的数组*/
+    fileprivate lazy var images = [String]()
+    /**滑动控制器*/
+    var scrollView : UIScrollView? = UIScrollView()
+    /**图片页码*/
+    var pageControl : UIPageControl?
+    /** 4秒的定时器 */
+    var timer : Timer?
+    /** 跳过按钮 */
+    var skipButton : UIButton?
+    
+    weak var delegate : StartAppDelegate?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+//MARK: - 设置UI界面
+extension AdViewController {
+    func setupUI() {
+        setupScrollView()
+        
+    
+    }
+}
+//MARK: - 初始化scrollview
+extension AdViewController {
+    fileprivate func setupScrollView() {
+        scrollView?.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+        scrollView?.delegate = self
+        scrollView?.showsHorizontalScrollIndicator = false
+        view.addSubview(scrollView!)
+        //给scrollview添加照片
+        let adImages : [UIImage]? = []
+        let adImageURLs : [String]? = []
+        let imageWidth = scrollView?.frame.size.width
+        let imageHeight = scrollView?.frame.size.height
+        for i in 0..<adImageURLs!.count {
+            let filePath = adImageURLs![i]
+            let imageData = NSData.init(contentsOfFile: filePath)
+            let imageType : String = ""
+            let imageView = UIImageView.init()
+            imageView.frame = CGRect(x: CGFloat(i)*imageWidth!, y: 0, width: imageWidth!, height: imageHeight!)
+            imageView.isUserInteractionEnabled = true
+            imageView.image = adImages?[i]
+            scrollView?.addSubview(imageView)
+            if imageType == "gif" {
+                
+            }else {
+                imageView.image = UIImage.init(contentsOfFile: filePath)
+            }
+            if i == 0 && (adImageURLs?.count)! > 1{
+                setupSkipButton(imageView)
+            }
+            if i == (adImages?.count)! - 1 {
+                setupStartButton(imageView)
+            }
+        }
+    }
+
+}
+extension AdViewController {
+    fileprivate func setupSkipButton(_ imageView : UIImageView) {
+        let skipButton = UIButton.init(type: .custom)
+        skipButton.frame = CGRect(x: SCREEN_WIDTH-85, y: 20, width: 70, height: 35)
+        skipButton.setTitle("跳过", for: .normal)
+        skipButton.setTitleColor(UIColor.white, for: .normal)
+        skipButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        skipButton.addTarget(self, action: #selector(skip), for: .touchUpInside)
+        skipButton.backgroundColor = UIColor.init(white: 1.0, alpha: 0.4)
+        skipButton.layer.cornerRadius = 35/2
+        skipButton.addSubview(skipButton)
+    }
+    
+    fileprivate func setupStartButton(_ imageView : UIImageView) {
+        //1.添加开始按钮
+        let startBtn = UIButton.init(type: .custom)
+        //2.设置按钮属性
+        let startBtnY : CGFloat = view.bounds.size.height - 30 - 80;
+        let startBtnW : CGFloat = SCREEN_WIDTH/2 ;
+        let startBtnH : CGFloat = 50;
+        let startBtnX : CGFloat = (view.bounds.size.width - startBtnW) / 2;
+        startBtn.frame = CGRect(x: startBtnX, y: startBtnY, width: startBtnW, height: startBtnH)
+        startBtn.setBackgroundImage(UIImage.init(named: "start_app_kuang"), for: .normal)
+        startBtn.addTarget(self, action: #selector(start), for: .touchUpInside)
+        startBtn.setTitle("开始使用", for: .normal)
+        startBtn.setTitleColor(COLOR_WITH_HEX(0xe7dba7), for: .normal)
+        startBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        imageView.addSubview(startBtn)
+        
+    }
+    
+}
+
+extension AdViewController {
+    fileprivate func setGifImageWithImageView(gifImgPath : String, imageView : UIImageView) {
+        //1.获取gif的数据
+        let source : CGImageSource = CGImageSourceCreateWithURL(URL.init(fileURLWithPath: gifImgPath) as CFURL, nil)!
+        //2.获取gif中图片的个数
+        let count : size_t = CGImageSourceGetCount(source)
+        var images : [UIImage]?
+        for i in 0..<count {
+            let image : CGImageSource = CGImageSourceCreateImageAtIndex(source, i, nil) as! CGImageSource
+            images?.append(UIImage.init(cgImage: image as! CGImage))
+        }
+        imageView.animationImages = images
+        imageView.animationDuration = 3.0
+        imageView.animationRepeatCount = Int(MAXFLOAT)
+        imageView.startAnimating()
+    }
+}
+
+//MARK: - Action
+extension AdViewController {
+    //开启APP
+    @objc fileprivate func start() {
+        delegate?.startApp()
+    }
+    //点击pagecontrol
+    @objc fileprivate func change(pageControl: UIPageControl?) {
+        let page = pageControl?.currentPage
+        var frame : CGRect = self.scrollView!.frame
+        frame.origin.y = 0
+        frame.origin.x = frame.size.width * CGFloat(page!)
+        self.scrollView?.scrollRectToVisible(frame, animated: true)
+    }
+    //跳过按钮
+    @objc fileprivate func skip() {
+        start()
+    }
+}
+//MARK: - UIScrollViewDelegate
+extension AdViewController : UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pagewidth : CGFloat = scrollView.frame.size.width
+        let page = Int(floor((scrollView.contentOffset.x - pagewidth/2)/pagewidth) + 1)
+        self.pageControl?.currentPage = page
+    }
+}
+extension AdViewController {
+    func COLOR_WITH_HEX(_ hex : Int) -> UIColor {
+        return UIColor(red: CGFloat(Float(((hex & 0xFF0000) >> 16)) / 255.0), green: CGFloat(Float(((hex & 0xFF00) >> 16)) / 255.0), blue: CGFloat(Float(((hex & 0xFF) >> 16)) / 255.0), alpha: 1.0)
+    }
+}

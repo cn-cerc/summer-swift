@@ -13,6 +13,7 @@ class MainViewController: BaseViewController {
     
     fileprivate var webView: WKWebView!
     fileprivate var progressView: UIProgressView!//进度条
+    fileprivate var adVC : AdViewController!
     
     var popMenu: SwiftPopMenu!//导航栏右边菜单
     
@@ -437,10 +438,13 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
-        
+        print(webView.url?.relativePath)
         // TODO alipay需要刷新唤起支付宝客户端，临时解决方案，待进一步改进
         if webView.url?.relativePath == "/cashier/mobilepay.htm" {
             self.webView.reload()
+        }
+        if webView.url?.relativePath == "/forms/TFrmWelcome" {
+            addAdVC()
         }
     }
     //标题按钮
@@ -612,4 +616,37 @@ extension MainViewController:CustemBBI,SettingDelegate{
 //        }
 //    }
 //}
-
+//MARK: - 广告界面
+extension MainViewController {
+    func addAdVC() {
+        //判断是否显示广告界面
+        let isShow = UserDefaults.standard.bool(forKey: "showAdVC")
+        if isShow {
+            adVC.view.frame = view.frame
+            adVC.view.isUserInteractionEnabled = true
+            adVC.delegate = self
+            addChildViewController(adVC)
+            view.addSubview(adVC.view)
+            self.navigationController?.navigationBar.isHidden = true
+            self.tabBarController?.tabBar.isHidden = true
+            UserDefaults.standard.set(false, forKey: "showAdVC")
+        } else{
+            self.navigationController?.navigationBar.isHidden = false
+            
+        }
+        
+    }
+}
+extension MainViewController :StartAppDelegate {
+    func startApp() {
+        //广告页面消失
+        adVC.removeFromParentViewController()
+        UIView.animate(withDuration: 0.5) {
+            self.adVC.view.alpha = 0
+        }
+        adVC.view.removeFromSuperview()
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        
+    }
+}
