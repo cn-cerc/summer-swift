@@ -26,7 +26,7 @@ class AdOnlineTool: NSObject {
             filePath = filePath + "AdImage_\(num)\(self.contentTypeForImageData(data as! NSData))"
             if (image != nil) {
                 //开始存储
-                
+//                photos.ad
             }
             
             
