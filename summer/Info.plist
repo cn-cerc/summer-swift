@@ -37,7 +37,7 @@
 			<string>alisdk</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>alipay</string>
+				<string>summer</string>
 			</array>
 		</dict>
 	</array>

@@ -484,7 +484,7 @@ extension MainViewController: WKNavigationDelegate{
         print(#function)
     }
     
-    //内容加载失败的时候调用
+    //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
         self.setNavTitle(title: "出错了")
@@ -507,9 +507,10 @@ extension MainViewController: WKUIDelegate{
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
-            AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "alipay", callback: { (result:[AnyHashable : Any]?) in
+            AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "summer", callback: { (result:[AnyHashable : Any]?) in
                 if result?["resultCode"] as! String == "9000"{
                     let urlStr = result?["returnUrl"]
+                    print("urlStr\(String(describing: urlStr))")
                     self.loadUrl(urlStr: urlStr as! String)
                 }else{
                     if self.webView.canGoBack {
