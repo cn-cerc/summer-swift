@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var window: UIWindow?
     var mainVC: MainViewController?
     var mainNav: BaseNavViewController?
+    var adTool : AdOnlineTool? = AdOnlineTool()
+    var launchView : UIView?
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
@@ -59,13 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 let image = UIImage.init(named: String(format:"welcome%d",i+1))
                 array.append(image!)
             }
-            LaunchIntroductionView.shared(withImages: array, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: false)
+            //LaunchIntroductionView.shared(withImages: array, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: false)
         }else{
             if self.addArr.count == 0 {
                 UIApplication.shared.statusBarStyle = .lightContent
                 UIApplication.shared.isStatusBarHidden = false
             }else{
-                LaunchIntroductionView.shared(withImages: self.addArr, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: true)
+               // LaunchIntroductionView.shared(withImages: self.addArr, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: true)
             }
         }
         
@@ -94,7 +96,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
         let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
         JPUSHService.setup(withOption: launchOptions, appKey: appkey, channel: channel, apsForProduction: isProduction, advertisingIdentifier: advertisingId)
+        //设置启动页
+        getLaunchImage()
         return true
+    }
+    //MARK:--- 设置启动页
+    func getLaunchImage(){
+        let launchVC = UIStoryboard.init(name: "LaunchScreen", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreen")
+        self.launchView = launchVC.view
+        self.launchView?.backgroundColor = UIColor.orange
+        let mainWindow = UIApplication.shared.keyWindow
+        self.launchView?.frame = (mainWindow?.frame)!
+        mainWindow?.addSubview(self.launchView!)
+        //启动页图片
+        let imgView = UIImageView()
+        imgView.frame = (self.launchView?.bounds)!
+        launchView?.addSubview(imgView)
+        let getImgTool = AdOnlineTool()
+        let imgArray = getImgTool.getImages(type: PhotoType.PhotoTypeLaunch)
+        if imgArray.count == 0 {
+            imgView.image = UIImage.init(named: "启动页")
+        } else {
+            let imgFilePath = AdOnlineTool().getLaunchImageURL()
+            let imgData = NSData.init(contentsOfFile: imgFilePath)
+            let imgType = getImgTool.contentTypeForImageData(imgData!)
+            
+            if imgType == "gif"{
+                self.gifImageAnimationFilePath(gifImgPath: imgFilePath, imgView: imgView)
+            }else{
+                imgView.image = imgArray[0] as? UIImage
+            }
+        }
+        
+        //当前版本号展示
+        let versionLbl = UILabel()
+        versionLbl.frame = CGRect(x: 0, y: SCREEN_HEIGHT - 50, width: SCREEN_WIDTH, height: 50)
+        versionLbl.backgroundColor = UIColor.clear
+        versionLbl.textAlignment = NSTextAlignment.center
+        versionLbl.textColor = UIColor.white
+        versionLbl.font = UIFont.systemFont(ofSize: 18)
+        //获取版本号
+        let infoDict = Bundle.main.infoDictionary
+        versionLbl.text = "V" + (infoDict?["CFBundleShortVersionString"] as! String)
+        self.launchView?.addSubview(versionLbl)
+        //启动页显示时间
+        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(removeLaunchView), userInfo: nil, repeats: false)
+    }
+    //移除启动页
+    func removeLaunchView(){
+        self.launchView?.removeFromSuperview()
+    }
+    //MARK:启动页Gif
+    func gifImageAnimationFilePath(gifImgPath : String,imgView : UIImageView){
+        //1.获取gif文件数据
+        let cfUrl = URL.init(fileURLWithPath: gifImgPath)
+        let source = CGImageSourceCreateWithURL(cfUrl as CFURL, nil)
+        //2.获取gif文件中图片的个数
+        let count = CGImageSourceGetCount(source!)
+        var imageArray = [UIImage]()
+        //遍历gif
+        for i in 0..<count{
+            
+            let cgimage = CGImageSourceCreateImageAtIndex(source!, i, nil)
+            let uiImage = UIImage.init(cgImage: cgimage!)
+            imageArray.append(uiImage)
+        }
+        imgView.animationImages = imageArray
+        imgView.animationDuration = 3.0
+        imgView.animationRepeatCount = Int(MAXFLOAT)
+        imgView.startAnimating()
     }
     
     func statusBarHiddenNotfi() {
@@ -125,15 +195,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         var infoDict = Bundle.main.infoDictionary
         let appVersion = infoDict?["CFBundleShortVersionString"]
         paremDict = ["curVersion":appVersion as Any,"appCode":"vine-iphone-standard"]
-        
+        //检测版本更新
         AFNetworkManager.get(URLPATH_CONFIG, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
-            print(responseObject)
-//            if (responseObject != nil) {
-//                UserDefaultsUtils.saveStringValue(value: responseObject?["rootSite"] as! String, key: "rootSite")
-//                UserDefaultsUtils.saveStringValue(value: responseObject?["msgManage"] as! String, key: "msgManage")
-//                self.uploadAddImage(imageArr: responseObject?["adImages"] as! Array)
-//            }
+            print(responseObject as! [String : Any])
+            let launchImageUrlStr = responseObject!["startupImage"] as? String
+            var launchImageVersion = ""
+            var launchUrl = ""
+            if (launchImageUrlStr!.count == 0) {
+                return
+            }
+            if launchImageUrlStr!.contains(";") {
+                let arr : [String] = launchImageUrlStr!.components(separatedBy: ";")
+                launchImageVersion = arr[0]
+                launchUrl = arr[1]
+            } else{
+                launchImageVersion = "0"
+                launchUrl = launchImageUrlStr!
+            }
+            self.checkImageVersion(imageVersion: launchImageVersion, imageUrls: [launchUrl], type: .PhotoTypeLaunch)
+            //2.判断广告页图片是否更新、下载
+            var adImageVersion = ""
+            var adUrl = ""
+            var adImageUrls : [String]?
             
+            //获取广告图片数据的数组
+            guard let adImageUrlStrs = responseObject!["adImages"] as? [String] else{return}
+            if(adImageUrlStrs.count == 0) {
+                return;
+            }
+            for adImageUrlStr in adImageUrlStrs {
+                if adImageUrlStr.contains(";") {
+                    let arr : [String] = adImageUrlStr.components(separatedBy: ";")
+                    adImageVersion = arr[0];
+                    adUrl = arr[1];
+                } else {
+                    adImageVersion = "0";
+                    adUrl = adImageUrlStr;
+                }
+                adImageUrls?.append(adUrl)
+            }
+            self.checkImageVersion(imageVersion: adImageVersion, imageUrls: adImageUrls!, type: .PhotoTypeAd)
+            
+        
         })  { (operation:AFHTTPRequestOperation?, error:Error?) in
             print(error)
         }
@@ -171,6 +274,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             return false
         }
     }
+    //MARK: - 检查启动图片和广告图片的版本并进行下载操作
+    func checkImageVersion(imageVersion : String, imageUrls : [String], type : PhotoType) {
+        //与之前本地保存作比较
+        var lastImageVersion : String?
+        if (type == .PhotoTypeAd) {
+            lastImageVersion = UserDefaults.standard.object(forKey: "adImageVersion") as? String
+        } else{
+            lastImageVersion = UserDefaults.standard.object(forKey: "launchImageVersion") as? String
+        }
+        
+        if(lastImageVersion?.count == 0 || lastImageVersion != imageVersion){
+            //进行下载操作
+            for i in 0..<imageUrls.count {
+                adTool?.downloadAdOnlineData(urlStr: imageUrls[i], num: i, type: type, block: { (data : Any) in
+                    print("下载启动或广告图片成功")
+                    //将最新的版本号保存本地
+                    UserDefaults.standard.set(imageVersion, forKey: (type == .PhotoTypeAd) ?"adImageVersion" :"launchImageVersion")
+                    if type == .PhotoTypeAd {
+                        UserDefaults.standard.set(true, forKey: "showAdVC")
+                    }
+                })
+            }
+        }else{
+           UserDefaults.standard.set(false, forKey: "showAdVC")
+        }
+    }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

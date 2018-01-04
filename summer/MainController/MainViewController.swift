@@ -13,6 +13,7 @@ class MainViewController: BaseViewController {
     
     fileprivate var webView: WKWebView!
     fileprivate var progressView: UIProgressView!//进度条
+    fileprivate lazy var adVC : AdViewController = AdViewController()
     
     var popMenu: SwiftPopMenu!//导航栏右边菜单
     
@@ -428,10 +429,12 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
-        
         // TODO alipay需要刷新唤起支付宝客户端，临时解决方案，待进一步改进
         if webView.url?.relativePath == "/cashier/mobilepay.htm" {
             self.webView.reload()
+        }
+        if webView.url?.relativePath == "/forms/TFrmWelcome" {
+            addAdVC()
         }
     }
     //标题按钮
@@ -481,7 +484,7 @@ extension MainViewController: WKNavigationDelegate{
         print(#function)
     }
     
-    //内容加载失败的时候调用
+    //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
         self.setNavTitle(title: "出错了")
@@ -504,9 +507,10 @@ extension MainViewController: WKUIDelegate{
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
-            AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "alipay", callback: { (result:[AnyHashable : Any]?) in
+            AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "summer", callback: { (result:[AnyHashable : Any]?) in
                 if result?["resultCode"] as! String == "9000"{
                     let urlStr = result?["returnUrl"]
+                    print("urlStr\(String(describing: urlStr))")
                     self.loadUrl(urlStr: urlStr as! String)
                 }else{
                     if self.webView.canGoBack {
@@ -603,4 +607,37 @@ extension MainViewController:CustemBBI,SettingDelegate{
 //        }
 //    }
 //}
-
+//MARK: - 广告界面
+extension MainViewController {
+    func addAdVC() {
+        //判断是否显示广告界面
+        let isShow = UserDefaults.standard.bool(forKey: "showAdVC")
+        if isShow {
+            adVC.view.frame = view.frame
+            adVC.view.isUserInteractionEnabled = true
+            adVC.delegate = self
+            addChildViewController(adVC)
+            view.addSubview(adVC.view)
+            self.navigationController?.navigationBar.isHidden = true
+            self.tabBarController?.tabBar.isHidden = true
+            UserDefaults.standard.set(false, forKey: "showAdVC")
+        } else{
+            self.navigationController?.navigationBar.isHidden = false
+            
+        }
+        
+    }
+}
+extension MainViewController :StartAppDelegate {
+    func startApp() {
+        //广告页面消失
+        adVC.removeFromParentViewController()
+        UIView.animate(withDuration: 0.5) {
+            self.adVC.view.alpha = 0
+        }
+        adVC.view.removeFromSuperview()
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        
+    }
+}
