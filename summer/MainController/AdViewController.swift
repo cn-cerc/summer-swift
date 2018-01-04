@@ -95,38 +95,45 @@ extension AdViewController {
             pageControl?.pageIndicatorTintColor = UIColor.init(white: 1.0, alpha: 0.3)
             pageControl?.numberOfPages = adImages!.count
             pageControl?.currentPage = 0
-            view.addSubview(pageControl!)
+            //view.addSubview(pageControl!)
         }
     }
 
 }
 extension AdViewController {
+    //MARK: - 添加跳过按钮
     fileprivate func setupSkipButton(_ imageView : UIImageView) {
         let skipButton = UIButton.init(type: .custom)
-        skipButton.frame = CGRect(x: SCREEN_WIDTH-85, y: 20, width: 70, height: 35)
+        skipButton.frame = CGRect(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20)
         skipButton.setTitle("跳过", for: .normal)
-        skipButton.setTitleColor(UIColor.white, for: .normal)
-        skipButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        skipButton.setTitleColor(UIColor.black, for: .normal)
+        skipButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         skipButton.addTarget(self, action: #selector(skip), for: .touchUpInside)
-        skipButton.backgroundColor = UIColor.init(white: 1.0, alpha: 0.4)
-        skipButton.layer.cornerRadius = 35/2
-        skipButton.addSubview(skipButton)
+        skipButton.layer.borderWidth = 1.0
+        skipButton.layer.borderColor = UIColor.black.cgColor
+        skipButton.layer.cornerRadius = 10.0
+        skipButton.layer.masksToBounds = true
+        imageView.addSubview(skipButton)
     }
     
     fileprivate func setupStartButton(_ imageView : UIImageView) {
         //1.添加开始按钮
         let startBtn = UIButton.init(type: .custom)
         //2.设置按钮属性
-        let startBtnY : CGFloat = view.bounds.size.height - 30 - 80;
-        let startBtnW : CGFloat = SCREEN_WIDTH/2 ;
-        let startBtnH : CGFloat = 50;
-        let startBtnX : CGFloat = (view.bounds.size.width - startBtnW) / 2;
+        let startBtnY : CGFloat = 20
+        let startBtnW : CGFloat = SCREEN_WIDTH/4 - 10
+        let startBtnH : CGFloat = 20;
+        let startBtnX : CGFloat = SCREEN_WIDTH-SCREEN_WIDTH/4
         startBtn.frame = CGRect(x: startBtnX, y: startBtnY, width: startBtnW, height: startBtnH)
-        startBtn.setBackgroundImage(UIImage.init(named: "start_app_kuang"), for: .normal)
+        startBtn.setBackgroundImage(UIImage.init(named: "login"), for: .normal)
         startBtn.addTarget(self, action: #selector(start), for: .touchUpInside)
-        startBtn.setTitle("开始使用", for: .normal)
-        startBtn.setTitleColor(COLOR_WITH_HEX(0xe7dba7), for: .normal)
-        startBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        startBtn.setTitle("进入系统", for: .normal)
+        startBtn.setTitleColor(UIColor.black, for: .normal)
+        startBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        startBtn.layer.borderWidth = 1.0
+        startBtn.layer.borderColor = UIColor.black.cgColor
+        startBtn.layer.cornerRadius = 10.0
+        startBtn.layer.masksToBounds = true
         imageView.addSubview(startBtn)
         
     }

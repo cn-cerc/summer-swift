@@ -68,6 +68,7 @@ class AdOnlineTool: NSObject {
         if !filePthType {
             return ""
         }
+        print("沙盒中启动图片路径：\(filePath)")
         //启动图就一张图片
         guard let launchImageNames = try? FileManager.default.subpathsOfDirectory(atPath: filePath) else {return ""}
         filePath = (filePath as NSString).appendingPathComponent(launchImageNames.last!)
@@ -83,7 +84,7 @@ class AdOnlineTool: NSObject {
         var adImageUrls:Array<Any> = []
         let adImageNames = try?FileManager.default.subpathsOfDirectory(atPath: filePath)
         for i in 0..<adImageNames!.count{
-            let url = filePath.appending(adImageNames![i])
+            let url = (filePath as NSString).appendingPathComponent(adImageNames![i])
             adImageUrls.append(url)
         }
         return adImageUrls

@@ -610,8 +610,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
 extension MainViewController {
     func addAdVC() {
         //判断是否显示广告界面
-        var isShow = UserDefaults.standard.bool(forKey: "showAdVC")
-        isShow = true
+        let isShow = UserDefaults.standard.bool(forKey: "showAdVC")
         if isShow {
             adVC.view.frame = view.frame
             adVC.view.isUserInteractionEnabled = true
