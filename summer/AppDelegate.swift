@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var mainVC: MainViewController?
     var mainNav: BaseNavViewController?
     var adTool : AdOnlineTool? = AdOnlineTool()
+    var launchView : UIView?
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
@@ -95,7 +96,74 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
         let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
         JPUSHService.setup(withOption: launchOptions, appKey: appkey, channel: channel, apsForProduction: isProduction, advertisingIdentifier: advertisingId)
+        //设置启动页
+        getLaunchImage()
         return true
+    }
+    //MARK:--- 设置启动页
+    func getLaunchImage(){
+        let launchVC = UIStoryboard.init(name: "LaunchScreen", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreen")
+        self.launchView = launchVC.view
+        self.launchView?.backgroundColor = UIColor.orange
+        let mainWindow = UIApplication.shared.keyWindow
+        self.launchView?.frame = (mainWindow?.frame)!
+        mainWindow?.addSubview(self.launchView!)
+        //启动页图片
+        let imgView = UIImageView()
+        imgView.frame = (self.launchView?.bounds)!
+        let getImgTool = AdOnlineTool()
+        let imgArray = getImgTool.getImages(type: PhotoType.PhotoTypeLaunch)
+        if imgArray.count == 0 {
+            imgView.image = UIImage.init(named: "启动页")
+        } else {
+            let imgFilePath = AdOnlineTool().getLaunchImageURL()
+            let imgData = NSData.init(contentsOfFile: imgFilePath)
+            let imgType = getImgTool.contentTypeForImageData(imgData!)
+            
+            if imgType == "gif"{
+                self.gifImageAnimationFilePath(gifImgPath: imgFilePath, imgView: imgView)
+            }else{
+                imgView.image = imgArray[0] as? UIImage
+            }
+        }
+        
+        //当前版本号展示
+        let versionLbl = UILabel()
+        versionLbl.frame = CGRect(x: 0, y: SCREEN_HEIGHT - 50, width: SCREEN_WIDTH, height: 50)
+        versionLbl.backgroundColor = UIColor.clear
+        versionLbl.textAlignment = NSTextAlignment.center
+        versionLbl.textColor = UIColor.white
+        versionLbl.font = UIFont.systemFont(ofSize: 18)
+        //获取版本号
+        let infoDict = Bundle.main.infoDictionary
+        versionLbl.text = "V" + (infoDict?["CFBundleShortVersionString"] as! String)
+        self.launchView?.addSubview(versionLbl)
+        //启动页显示时间
+        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(removeLaunchView), userInfo: nil, repeats: false)
+    }
+    //移除启动页
+    func removeLaunchView(){
+        self.launchView?.removeFromSuperview()
+    }
+    //MARK:启动页Gif
+    func gifImageAnimationFilePath(gifImgPath : String,imgView : UIImageView){
+        //1.获取gif文件数据
+        let cfUrl = URL.init(fileURLWithPath: gifImgPath)
+        let source = CGImageSourceCreateWithURL(cfUrl as CFURL, nil)
+        //2.获取gif文件中图片的个数
+        let count = CGImageSourceGetCount(source!)
+        var imageArray = [UIImage]()
+        //遍历gif
+        for i in 0..<count{
+            
+            let cgimage = CGImageSourceCreateImageAtIndex(source!, i, nil)
+            let uiImage = UIImage.init(cgImage: cgimage!)
+            imageArray.append(uiImage)
+        }
+        imgView.animationImages = imageArray
+        imgView.animationDuration = 3.0
+        imgView.animationRepeatCount = Int(MAXFLOAT)
+        imgView.startAnimating()
     }
     
     func statusBarHiddenNotfi() {

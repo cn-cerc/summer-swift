@@ -88,7 +88,7 @@ class AdOnlineTool: NSObject {
         }
         return adImageUrls
     }
-    func contentTypeForImageData(_ data:NSData) -> String {
+    func contentTypeForImageData(_ data : NSData) -> String {
         var c : UInt = 0
         data.getBytes(&c, length: 1)
         switch c {

@@ -44,7 +44,7 @@ var URLPATH = URL_APP_ROOT+"?device=iphone&CLIENTID="+DisplayUtils.uuid()//url
 //var URLPATH_CONFIG = URL_APP_ROOT+"/MobileConfig?device=iphone&CLIENTID="+DisplayUtils.uuid()//配置信息的url
 //install.client
 
-var URLPATH_CONFIG = URL_APP_ROOT+"/forms/install.client"//检测版本更新
+var URLPATH_CONFIG = URL_APP_ROOT+"/forms/install.client"//获取启动图片、广告图片及检测版本更新
 
 var EXIT_URL_PATH = URL_APP_ROOT+"/form/TFrmLogout"
 
