@@ -23,7 +23,7 @@ class AdOnlineTool: NSObject {
         SDWebImageDownloader.shared().downloadImage(with: url, options: SDWebImageDownloaderOptions.lowPriority, progress: nil) { (image : UIImage?, data : Data?, error : Error?, finished : Bool?) in
             let imageType = self.contentTypeForImageData(data! as NSData)
             var filePath = (type == .PhotoTypeAd) ? self.adFilePath : self.launchFilePath
-            filePath = filePath + "AdImage_\(num)\(self.contentTypeForImageData(data! as NSData))"
+            filePath = (filePath as NSString).appendingPathComponent("AdImage_\(num).\(self.contentTypeForImageData(data! as NSData))")
             if (image != nil) {
                 //开始存储图片
                 photos.append(image as Any)
@@ -55,7 +55,7 @@ class AdOnlineTool: NSObject {
         let adImageNamesType = (adImageNames!.count > 0) ? true : false
         if adImageNamesType {
             for i in 0..<adImageNames!.count {
-                let imageFilePath = filePath.appending(adImageNames![i])
+                let imageFilePath = (filePath as NSString).appendingPathComponent(adImageNames![i])
                 let image : UIImage = UIImage.init(contentsOfFile: imageFilePath)!
                 adImages.append(image)            }
         }
@@ -69,8 +69,8 @@ class AdOnlineTool: NSObject {
             return ""
         }
         //启动图就一张图片
-        let launchImageNames = try?FileManager.default.subpathsOfDirectory(atPath: filePath)
-        filePath = filePath + (launchImageNames?.last)!
+        guard let launchImageNames = try? FileManager.default.subpathsOfDirectory(atPath: filePath) else {return ""}
+        filePath = (filePath as NSString).appendingPathComponent(launchImageNames.last!)
         return filePath
     }
     //mark: ---获取广告图片
@@ -106,11 +106,11 @@ class AdOnlineTool: NSObject {
     //MARK: ---懒加载
     /** 存放广告页图片的文件路径 */
     lazy var adFilePath: String = {
-        let filePath:String = self.pathWithDocumentName(documentName: "AdImage")
+        let filePath : String = self.pathWithDocumentName(documentName: "AdImage")
         return filePath
     }()
     /** 存放启动页图片的文件路径 */
-    lazy var launchFilePath: String = {
+    lazy var launchFilePath : String = {
         let filePath = self.pathWithDocumentName(documentName: "LaunchImage")
         return filePath
     }()
@@ -119,9 +119,9 @@ class AdOnlineTool: NSObject {
     func pathWithDocumentName(documentName:String) -> String {
         //获取沙盒路径
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
-        let documentDirectory:String = paths[0] as String
+        let documentDirectory = paths[0] as NSString
         //拼接文件夹路径
-        let path = documentDirectory+documentName
+        let path = documentDirectory.appendingPathComponent(documentName)
         //判断文件夹是否存在
         let fileManager = FileManager.default
         if !(fileManager.fileExists(atPath: path)){

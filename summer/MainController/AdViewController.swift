@@ -42,8 +42,6 @@ class AdViewController: UIViewController {
 extension AdViewController {
     func setupUI() {
         setupScrollView()
-        
-    
     }
 }
 //MARK: - 初始化scrollview

@@ -61,13 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 let image = UIImage.init(named: String(format:"welcome%d",i+1))
                 array.append(image!)
             }
-            LaunchIntroductionView.shared(withImages: array, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: false)
+            //LaunchIntroductionView.shared(withImages: array, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: false)
         }else{
             if self.addArr.count == 0 {
                 UIApplication.shared.statusBarStyle = .lightContent
                 UIApplication.shared.isStatusBarHidden = false
             }else{
-                LaunchIntroductionView.shared(withImages: self.addArr, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: true)
+               // LaunchIntroductionView.shared(withImages: self.addArr, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: true)
             }
         }
         
@@ -111,6 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         //启动页图片
         let imgView = UIImageView()
         imgView.frame = (self.launchView?.bounds)!
+        launchView?.addSubview(imgView)
         let getImgTool = AdOnlineTool()
         let imgArray = getImgTool.getImages(type: PhotoType.PhotoTypeLaunch)
         if imgArray.count == 0 {
