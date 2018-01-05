@@ -299,7 +299,7 @@ extension MainViewController: WKScriptMessageHandler {
             UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
             
             var time:NSInteger = dict["time"] as! NSInteger
-                time *= 10
+                time *= 60
             if tag {
                 if !isTimer{
                     isTimer = true
