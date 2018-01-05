@@ -487,7 +487,14 @@ extension MainViewController: WKNavigationDelegate{
     //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
+        print("请求失败的URL)" + (webView.url?.absoluteString)!)
+        let urlBool = webView.url?.absoluteString.contains("FrmPayRequest")
+        let aliBool = webView.url?.absoluteString.contains("mclient.alipay.com/cashier/mobilepay.htm")
+        if aliBool! || urlBool!{
+            return
+        }
         self.setNavTitle(title: "出错了")
+        //https://c1.knowall.cn/forms/FrmPayRequest
         self.errorImageView.isHidden = false
         DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
             print("刷新")
