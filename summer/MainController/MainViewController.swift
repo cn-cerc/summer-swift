@@ -494,7 +494,6 @@ extension MainViewController: WKNavigationDelegate{
             return
         }
         self.setNavTitle(title: "出错了")
-        //https://c1.knowall.cn/forms/FrmPayRequest
         self.errorImageView.isHidden = false
         DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
             print("刷新")
