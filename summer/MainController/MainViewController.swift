@@ -110,7 +110,7 @@ class MainViewController: BaseViewController {
         }else{
             self.webView.scrollView.mj_header = MJRefreshNormalHeader.init(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
         }
-        removeWKWebViewCookies()
+//        removeWKWebViewCookies()
     }
     
     //清除缓存
@@ -181,7 +181,7 @@ extension MainViewController{
     //加载url
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
-        print(URLPATH)
+//        print(URLPATH)
         let request = URLRequest.init(url: urlStr!)
         webView.load(request)
     }
