@@ -27,6 +27,7 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
+        
         //添加WkWebView
         addWebView()
         //添加错误视图
@@ -41,7 +42,13 @@ class MainViewController: BaseViewController {
         //设置别名
         JPUSHService.setAlias(DisplayUtils.uuid(), callbackSelector: nil, object: nil)
     }
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let scanVC : STScanViewController = STScanViewController()
+        scanVC.scanData { (result, error) in
+            print("scanFinish回调的值：\(String(describing: result)),\(String(describing: error))")
+        }
+        self.navigationController?.pushViewController(scanVC, animated: true)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.automaticallyAdjustsScrollViewInsets = false
@@ -212,6 +219,9 @@ extension MainViewController{
         //内容自适应
         webView.sizeToFit()
         view.addSubview(webView!)
+        
+        //let bridge : WKWebViewJavascriptBridge = WKWebViewJavascriptBridge.init(for: webView)
+        //bridge?.setWebViewDelegate(self)
     }
     
     //添加进度条
