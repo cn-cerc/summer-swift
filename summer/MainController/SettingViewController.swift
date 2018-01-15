@@ -8,7 +8,7 @@
 
 import UIKit
 @objc(SettingDelegate)
-protocol SettingDelegate : NSObjectProtocol {
+protocol SettingDelegate:NSObjectProtocol {
     func perverseInfo(scale:Float)
 }
 

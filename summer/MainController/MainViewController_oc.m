@@ -11,6 +11,7 @@
 #import "summer-Swift.h"
 #import "GlobalFile_oc.h"
 #import "MJRefresh.h"
+
 @interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebViewJavascriptBridge *bridge;
@@ -438,7 +439,30 @@
     }
     return _errorImageView;
 }
+
 //**************************************************************************
+#pragma mark - WKUIDelegate代理方法
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView{
+    [webView reload];
+}
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+   NSString *orderInfo = [[AlipaySDK defaultService] fetchOrderInfoFromH5PayUrl:webView.URL.absoluteString];
+    if (orderInfo == nil && orderInfo.length <= 0) {
+        return;
+    }
+    [[AlipaySDK defaultService] payUrlOrder:orderInfo fromScheme:@"summer" callback:^(NSDictionary *resultDic) {
+        NSString *result = resultDic[@"resultCode"];
+        if ([result isEqualToString:@"9000"]) {
+            NSString *urlStr = resultDic[@"returnUrl"];
+            [self loadUrl:urlStr];
+        }else{
+            if ([self.webView canGoBack]) {
+                [self.webView goBack];
+            }
+        }
+    }];
+}
+#pragma mark - CustemBBI代理方法、SettingDelegate代理方法
 //CustemBBI代理方法
 - (void)BBIdidClickWithName:(NSString *)infoStr{
     if ([infoStr isEqualToString:@"first"]) {
@@ -460,8 +484,31 @@
         __weak typeof(self)weakSelf = self;
         self.popMenu.didSelectMenuBlock = ^(NSInteger index){
             NSString *msgUrl = [NSString stringWithFormat:@"%@/%@",URL_APP_ROOT,[UserDefaultsUtils valueWithKeyWithKey:@"msgManage"]];
+            
+            if (index == 0) {
+                SettingViewController *settingVC = [[SettingViewController alloc]init];
+                settingVC.delegate = weakSelf;
+                [weakSelf.navigationController pushViewController:settingVC animated:YES];
+            }else if (index == 1){
+                exit(0);
+            }else if (index == 2){
+                SettingViewController *settingVC = [[SettingViewController alloc]init];
+                settingVC.delegate = weakSelf;
+                [weakSelf.navigationController pushViewController:settingVC animated:YES];
+            }else if (index == 3){
+                NSString *urlStr = [DisplayUtils configUrlWithUrlStr:BACK_MAIN];
+                [weakSelf loadUrl:urlStr];
+            }else if (index == 4){
+                [UserDefaultsUtils deleteValueWithKeyWithKey:@"userName"];
+                [UserDefaultsUtils deleteValueWithKeyWithKey:@"pwd"];
+                [weakSelf.webView evaluateJavaScript:@"exit()" completionHandler:^(id _Nullable item, NSError * _Nullable error) {
+                    
+                }];
+                NSString *exitUrl = [DisplayUtils configUrlWithUrlStr:EXIT_URL_PATH];
+                [weakSelf loadUrl:exitUrl];
+            }
         };
-        
+        [self.popMenu show];
     }
 }
 //SettingDelegate代理方法
