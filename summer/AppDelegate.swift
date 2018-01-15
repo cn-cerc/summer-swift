@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageManagerDelegate {
     
     var window: UIWindow?
-    var mainVC: MainViewController?
+    var mainVC: MainViewController_oc?
     var mainNav: BaseNavViewController?
     var adTool : AdOnlineTool? = AdOnlineTool()
     var launchView : UIView?
@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
-        self.mainVC = MainViewController()
+        self.mainVC = MainViewController_oc()
         self.mainNav = BaseNavViewController(rootViewController:mainVC!)
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()

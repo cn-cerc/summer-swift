@@ -116,6 +116,7 @@ class MainViewController: BaseViewController {
             }
         }else{
             self.webView.scrollView.mj_header = MJRefreshNormalHeader.init(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
+            
         }
         removeWKWebViewCookies()
     }
@@ -220,8 +221,10 @@ extension MainViewController{
         webView.sizeToFit()
         view.addSubview(webView!)
         
-        //let bridge : WKWebViewJavascriptBridge = WKWebViewJavascriptBridge.init(for: webView)
-        //bridge?.setWebViewDelegate(self)
+        //let bridge = WKWebViewJavascriptBridge.init(for: webView)
+       // bridge?.setWebViewDelegate(self)
+        
+       // webView.load(URLRequest.init(url: URL.init(string: "www.baidu.com")!))
     }
     
     //添加进度条
@@ -241,6 +244,7 @@ extension MainViewController{
     override func viewWillDisappear(_ animated: Bool) {
         //        webView.configuration.userContentController.removeScriptMessageHandler(forName: "webViewApp")
         NotificationCenter.default.removeObserver(self)
+    
     }
     
     //KVO监听进度条变化

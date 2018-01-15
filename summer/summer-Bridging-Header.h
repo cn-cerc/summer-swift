@@ -10,6 +10,8 @@
 #import "LaunchIntroductionView.h"
 #import "AFNetworking.h"
 #import "MJRefresh.h"
+#import "WKWebViewJavascriptBridge.h"
+#import "MainViewController_oc.h"
 
 //#import "lhScanQCodeViewController.h"
 //#import "ScanViewController.h"

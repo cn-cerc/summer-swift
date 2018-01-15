@@ -19,7 +19,7 @@ let appkey = "cc92570c841a688af5adc5b0"
 let channel = "Publish channel"
 let isProduction = true
 
-class shareedMyApp {
+class shareedMyApp : NSObject {
     static var instance: shareedMyApp!
     
     static func getInstance() -> shareedMyApp{
