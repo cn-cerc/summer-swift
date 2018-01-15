@@ -45,7 +45,7 @@ public class SwiftPopMenu: UIView {
 //            initViews()
 //        }
 //    }
-    public var popData : [Any]! = [Any]() {
+    public var popData : [Any] = [Any]() {
         didSet{
         //计算行高
             rowHeightValue = (self.myFrame.height - arrowViewHeight)/CGFloat(popData.count)
@@ -184,7 +184,10 @@ extension SwiftPopMenu : UITableViewDataSource{
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if popData.count>indexPath.row {
             let cell = tableView.dequeueReusableCell(withIdentifier: SwiftPopMenu.cellID) as! SwiftPopMenuCell
-            let model = popData[indexPath.row] as! (icon:String,title:String)
+            let modelDic : [String : Any] = popData[indexPath.row] as! [String : Any]
+            let model : PopMenuModel = PopMenuModel.init(dic: modelDic)
+            //let model = popData[indexPath.row] as! (icon:String,title:String)
+            print("\(model.icon), \(model.title)")
             if indexPath.row == popData.count - 1 {
                 cell.fill(iconImage: model.icon, title: model.title,textColor: popTextColor, islast: true)
             }else{

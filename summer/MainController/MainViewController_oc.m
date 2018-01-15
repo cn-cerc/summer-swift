@@ -12,7 +12,7 @@
 #import "GlobalFile_oc.h"
 #import "MJRefresh.h"
 
-@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate>
+@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate, CustemBBI>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebViewJavascriptBridge *bridge;
 @property (nonatomic, strong) UIProgressView *progressView;//进度条
@@ -23,7 +23,7 @@
 @property (nonatomic, assign) CGFloat scale;//缩放比例
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL isTimer;
-
+@property (nonatomic, strong) CustemNavItem *custemNavItem;
 @end
 
 @implementation MainViewController_oc
@@ -78,8 +78,8 @@
     //添加一个名称，js通过这个名称发送消息
     [config.userContentController addScriptMessageHandler:self name:@"nativeMethod"];
     
-    _webView = [[WKWebView alloc]init];
-    _webView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) configuration:config];
+    
     _webView.allowsBackForwardNavigationGestures = YES;
     _webView.navigationDelegate = self;
     _webView.UIDelegate = self;
@@ -224,7 +224,7 @@
 #pragma mark - WKScriptMessageHandler
 //js交互回调
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSDictionary *dict = message.body;
+    NSDictionary *dict = (NSDictionary *)message.body;
     NSString *type = dict[@"classCode"];
     if ([type isEqualToString:@"SetAppliedTitle"]) {
         CGRect frame = self.webView.frame;
@@ -239,7 +239,8 @@
             self.webView.frame = frame;
         }
     } else if ([type isEqualToString:@"HeartbeatCheck"]) {
-        BOOL tag = ([dict[@"status"] isEqualToString:@"0"]) ?NO :YES;
+        
+        BOOL tag = ([[dict[@"status"]stringValue] isEqualToString:@"0"]) ?NO :YES;
         NSString *token = dict[@"token"];
         [UserDefaultsUtils saveValueWithValue:token key:@"TOKEN"];
         NSInteger time = [dict[@"time"]integerValue];
@@ -330,7 +331,9 @@
         if ([isMainStr containsString:(webView.URL.relativePath)] && [webView.URL.absoluteString containsString:URL_APP_ROOT]) {
             self.navigationItem.leftBarButtonItem = nil;
         }else {
-            self.navigationItem.leftBarButtonItem = [[CustemNavItem alloc]initWithImageWithImage:[UIImage imageNamed:@"ic_nav_back"] infoStr:@"first"];
+            _custemNavItem = [[CustemNavItem alloc]initWithImageWithImage:[UIImage imageNamed:@"ic_nav_back"] infoStr:@"first"];
+            _custemNavItem.myDelegate = self;
+            self.navigationItem.leftBarButtonItem = _custemNavItem;
         }
         //高度适应
         NSString *isChangeStr = [UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"];
@@ -341,7 +344,9 @@
             self.navigationItem.rightBarButtonItem = nil;
         }else {
             //设置导航栏按钮
-            self.navigationItem.rightBarButtonItem = [[CustemNavItem alloc]initWithImageWithImage:[UIImage imageNamed:@"ic_nav_classify"] infoStr:@"third"];
+            _custemNavItem = [[CustemNavItem alloc]initWithImageWithImage:[UIImage imageNamed:@"ic_nav_classify"] infoStr:@"third"];
+            _custemNavItem.myDelegate = self;
+            self.navigationItem.rightBarButtonItem = _custemNavItem;
             NSString *js_fit_code = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.zoom='%f'", self.scale];
             [webView evaluateJavaScript:js_fit_code completionHandler:^(id _Nullable item, NSError * _Nullable error) {
                 
@@ -458,7 +463,7 @@
 }
 #pragma mark - CustemBBI代理方法、SettingDelegate代理方法
 //CustemBBI代理方法
-- (void)BBIdidClickWithName:(NSString *)infoStr{
+- (void)BBIdidClickWithNameWithInfoStr:(NSString *)infoStr {
     if ([infoStr isEqualToString:@"first"]) {
         if ([self.webView canGoBack]) {
             [self.webView goBack];

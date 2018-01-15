@@ -112,6 +112,7 @@
 		DC0C9F542007584300E8D1A6 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C9F4C2007584200E8D1A6 /* WebViewJavascriptBridge.m */; };
 		DC0C9F552007584300E8D1A6 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C9F4F2007584200E8D1A6 /* WebViewJavascriptBridge_JS.m */; };
 		DC0C9F582008535500E8D1A6 /* MainViewController_oc.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C9F572008535500E8D1A6 /* MainViewController_oc.m */; };
+		DC0C9F5D200C9E3500E8D1A6 /* PopMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C9F5C200C9E3500E8D1A6 /* PopMenuModel.swift */; };
 		DCEE22F32003659E004D5870 /* STScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEE22F22003659E004D5870 /* STScanView.swift */; };
 		DCEE22F5200365B4004D5870 /* STScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEE22F4200365B4004D5870 /* STScanViewController.swift */; };
 /* End PBXBuildFile section */
@@ -314,6 +315,7 @@
 		DC0C9F562008535500E8D1A6 /* MainViewController_oc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController_oc.h; sourceTree = "<group>"; };
 		DC0C9F572008535500E8D1A6 /* MainViewController_oc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController_oc.m; sourceTree = "<group>"; };
 		DC0C9F592008907600E8D1A6 /* GlobalFile_oc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile_oc.h; sourceTree = "<group>"; };
+		DC0C9F5C200C9E3500E8D1A6 /* PopMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMenuModel.swift; sourceTree = "<group>"; };
 		DCEE22F22003659E004D5870 /* STScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanView.swift; sourceTree = "<group>"; };
 		DCEE22F4200365B4004D5870 /* STScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STScanViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -638,6 +640,7 @@
 				794038B11FFB34E80036A8BB /* AdOnlineTool.swift */,
 				DCEE22F22003659E004D5870 /* STScanView.swift */,
 				DCEE22F4200365B4004D5870 /* STScanViewController.swift */,
+				DC0C9F5C200C9E3500E8D1A6 /* PopMenuModel.swift */,
 			);
 			path = ToolClass;
 			sourceTree = "<group>";
@@ -938,6 +941,7 @@
 				64F4136E1E55528400FDAAC6 /* NSBundle+MJRefresh.m in Sources */,
 				6407BFA01E542DDF0073C297 /* AFNetworkReachabilityManager.m in Sources */,
 				DC0C9F552007584300E8D1A6 /* WebViewJavascriptBridge_JS.m in Sources */,
+				DC0C9F5D200C9E3500E8D1A6 /* PopMenuModel.swift in Sources */,
 				6407BFAF1E542DDF0073C297 /* UIWebView+AFNetworking.m in Sources */,
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
