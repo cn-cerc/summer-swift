@@ -21,8 +21,8 @@ static const NSString * appkey = @"cc92570c841a688af5adc5b0";
 static const NSString * channel = @"Publish channel";
 static const BOOL isProduction = YES;
 //屏幕的宽高
-#define SCREEN_WIDTH  UIScreen.main.bounds.width
-#define SCREEN_HEIGHT UIScreen.main.bounds.height
+#define SCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 NSString *const isBackStr = @"/forms/FrmIndex,/forms/Login,/forms/VerificationLogin";
 NSString *const isRefrushStr = @"/forms/Default,/,/forms/Login?device=iphone,/forms/FrmPhoneRegistered,/forms/VerificationLogin,/forms/Login,/forms/FrmLossPassword";
 
@@ -48,3 +48,5 @@ NSString *const JPushMessage = @"JPushMessage";//极光推送
 #define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 #endif /* GlobalFile_oc_h */
+
+

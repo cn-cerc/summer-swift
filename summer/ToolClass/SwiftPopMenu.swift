@@ -38,9 +38,16 @@ public class SwiftPopMenu: UIView {
     public var popMenuBgColor:UIColor = UIColor.white
     
     var tableView:UITableView! = nil
-    public var popData:[(icon:String,title:String)]! = [(icon:String,title:String)](){
+//    public var popData:[(icon:String,title:String)]! = [(icon:String,title:String)](){
+//        didSet{
+//            //计算行高
+//            rowHeightValue = (self.myFrame.height - arrowViewHeight)/CGFloat(popData.count)
+//            initViews()
+//        }
+//    }
+    public var popData : [Any]! = [Any]() {
         didSet{
-            //计算行高
+        //计算行高
             rowHeightValue = (self.myFrame.height - arrowViewHeight)/CGFloat(popData.count)
             initViews()
         }
@@ -177,7 +184,7 @@ extension SwiftPopMenu : UITableViewDataSource{
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if popData.count>indexPath.row {
             let cell = tableView.dequeueReusableCell(withIdentifier: SwiftPopMenu.cellID) as! SwiftPopMenuCell
-            let model = popData[indexPath.row]
+            let model = popData[indexPath.row] as! (icon:String,title:String)
             if indexPath.row == popData.count - 1 {
                 cell.fill(iconImage: model.icon, title: model.title,textColor: popTextColor, islast: true)
             }else{

@@ -8,7 +8,8 @@
 
 import UIKit
 //MARK: - 定义协议
-protocol StartAppDelegate : class {
+@objc(StartAppDelegate)
+protocol StartAppDelegate : NSObjectProtocol {
     func startApp()
     
 }
