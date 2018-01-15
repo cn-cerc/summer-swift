@@ -476,7 +476,7 @@
         
     }else{
         NSArray *dataDict = @[@{@"icon":@"",@"title":@"设置"},@{@"icon":@"",@"title":@"退出系统"}];
-        self.popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(SCREEN_WIDTH, 51, 150, dataDict.count * 40) arrowMargin:17];
+        self.popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 158, 51, 150, dataDict.count * 40) arrowMargin:17];
         //菜单数据
         self.popMenu.popData = dataDict;
         //点击菜单的回调
@@ -509,7 +509,7 @@
     }
 }
 //SettingDelegate代理方法
-- (void)perverseInfo:(CGFloat)scale{
+- (void)perverseInfoWithScale:(float)scale{
     self.scale = scale;
     NSString *js_fit_code = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.zoom=%f",scale];
     [self.webView evaluateJavaScript:js_fit_code completionHandler:^(id _Nullable item, NSError * _Nullable error) {

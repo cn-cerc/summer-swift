@@ -22,12 +22,11 @@ class SettingViewController: BaseViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
         self.setNavTitle(title: "设置")
+        custemNavItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, infoStr: "first")
         custemNavItem.myDelegate = self
-        self.navigationItem.leftBarButtonItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, infoStr: "first")
-        
+        self.navigationItem.leftBarButtonItem = custemNavItem
         createUI()
     }
-    
     //懒加载
     fileprivate lazy var slider:UISlider = {
         let slider = UISlider.init(frame: CGRect.init(x: 40, y: 120, width: SCREEN_WIDTH-80, height: 30))
