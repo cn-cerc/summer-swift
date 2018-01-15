@@ -11,7 +11,7 @@
 #import "summer-Swift.h"
 #import "GlobalFile_oc.h"
 #import "MJRefresh.h"
-@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler>
+@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebViewJavascriptBridge *bridge;
 @property (nonatomic, strong) UIProgressView *progressView;//进度条
@@ -58,7 +58,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getLoadDataBase) name:KLoadDataBase object:nil];
     //推送
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jpushMessage) name:JPushMessage object:nil];
-    
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -381,7 +381,70 @@
     }
     return _errorImageView;
 }
+//**************************************************************************
+//CustemBBI代理方法
+- (void)BBIdidClickWithName:(NSString *)infoStr{
+    if ([infoStr isEqualToString:@"first"]) {
+        if ([self.webView canGoBack]) {
+            [self.webView goBack];
+        }else{
+            [self.webView evaluateJavaScript:@"ReturnBtnClick()" completionHandler:^(id _Nullable item, NSError * _Nullable error) {
+                
+            }];
+        }
+    }else if ([infoStr isEqualToString:@"second"]){
+        
+    }else{
+        NSArray *dataDict = @[@{@"icon":@"",@"title":@"设置"},@{@"icon":@"",@"title":@"退出系统"}];
+        self.popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(SCREEN_WIDTH, 51, 150, dataDict.count * 40) arrowMargin:17];
+        //菜单数据
+        self.popMenu.popData = dataDict;
+        //点击菜单的回调
+        __weak typeof(self)weakSelf = self;
+        self.popMenu.didSelectMenuBlock = ^(NSInteger index){
+            NSString *msgUrl = [NSString stringWithFormat:@"%@/%@",URL_APP_ROOT,[UserDefaultsUtils valueWithKeyWithKey:@"msgManage"]];
+        };
+        
+    }
+}
+//SettingDelegate代理方法
+- (void)perverseInfo:(CGFloat)scale{
+    self.scale = scale;
+    NSString *js_fit_code = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.zoom=%f",scale];
+    [self.webView evaluateJavaScript:js_fit_code completionHandler:^(id _Nullable item, NSError * _Nullable error) {
+        
+    }];
+}
+#pragma mark - 添加广告页
+- (void)addAdVC{
+    BOOL isShow = [[NSUserDefaults standardUserDefaults] boolForKey:@"showAdVC"];
+    if (isShow) {
+        self.adVC = [[AdViewController alloc]init];
+        self.adVC.view.frame = self.view.frame;
+        [self.adVC.view setIsAccessibilityElement:YES];
+        self.adVC.delegate = self;
+        [self addChildViewController:self.adVC];
+        [self.view addSubview:self.adVC.view];
+        self.navigationController.navigationBar.hidden = YES;
+        self.tabBarController.tabBar.hidden = YES;
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"showAdVC"];
+    }else
+    {
+        self.navigationController.navigationBar.hidden = NO;
+    }
+}
 
+#pragma mark - 广告业代理StartAppDelegate
+- (void)startApp{
+    [self.adVC removeFromParentViewController];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.adVC.view.alpha = 0;
+    }];
+    [self.adVC.view removeFromSuperview];
+    self.navigationController.navigationBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = NO;
+    
+}
 
 @end
 
