@@ -15,13 +15,15 @@ protocol SettingDelegate:NSObjectProtocol {
 class SettingViewController: BaseViewController {
     
     weak var delegate:SettingDelegate?
+    var custemNavItem : CustemNavItem! = CustemNavItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
         self.setNavTitle(title: "设置")
-        self.navigationItem.leftBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, target: self as CustemBBI, infoStr: "first")
+        custemNavItem.delegate = self
+        self.navigationItem.leftBarButtonItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, infoStr: "first")
         
         createUI()
     }

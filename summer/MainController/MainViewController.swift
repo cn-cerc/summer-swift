@@ -16,7 +16,7 @@ class MainViewController: BaseViewController {
     fileprivate lazy var adVC : AdViewController = AdViewController()
     
     var popMenu: SwiftPopMenu!//导航栏右边菜单
-    
+    var custemNavItem : CustemNavItem! = CustemNavItem()
     var isNavHidden = false
     var scale:Float!//缩放比例
     var timer:Timer?
@@ -424,7 +424,7 @@ extension MainViewController: WKNavigationDelegate{
         if isMainStr.contains((webView.url?.relativePath)!) && (webView.url?.absoluteString.contains(URL_APP_ROOT))! {
             self.navigationItem.leftBarButtonItem = nil
         }else{
-            self.navigationItem.leftBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, target: self as CustemBBI, infoStr: "first")
+            self.navigationItem.leftBarButtonItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, infoStr: "first")
         }
         //高度自适应
         var isChangeStr:String
@@ -437,7 +437,7 @@ extension MainViewController: WKNavigationDelegate{
             self.navigationItem.rightBarButtonItem = nil
         }else{
             //设置导航栏按钮
-            self.navigationItem.rightBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third")
+            self.navigationItem.rightBarButtonItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, infoStr: "third")
             let js_fit_code = "document.getElementsByTagName('body')[0].style.zoom= '\(self.scale!)'"
             webView .evaluateJavaScript(js_fit_code, completionHandler: { (item:Any?, error:Error?) in
                 

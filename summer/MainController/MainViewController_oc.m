@@ -227,20 +227,148 @@
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *dict = message.body;
     NSString *type = dict[@"classCode"];
-  
-    
-    
+    if ([type isEqualToString:@"SetAppliedTitle"]) {
+        CGRect frame = self.webView.frame;
+        BOOL visibility = [dict[@"visibility"]boolValue];
+        if (visibility) {
+            self.navigationController.navigationBar.hidden = YES;
+            frame.origin.y = -20;
+            frame.size.height = kScreen_height + 20;
+            self.webView.frame = frame;
+        }else {
+            self.navigationController.navigationBar.hidden = NO;
+            self.webView.frame = frame;
+        }
+    } else if ([type isEqualToString:@"HeartbeatCheck"]) {
+        BOOL tag = ([dict[@"status"] isEqualToString:@"0"]) ?NO :YES;
+        NSString *token = dict[@"token"];
+        [UserDefaultsUtils saveValueWithValue:token key:@"TOKEN"];
+        NSInteger time = [dict[@"time"]integerValue];
+        time = time * 60;
+        if (tag) {
+            if (!_isTimer) {
+                _isTimer = YES;
+                _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(Heartbeat) userInfo:nil repeats:YES];
+            }else {
+                if (_isTimer) {
+                    _isTimer = NO;
+                    [_timer invalidate];
+                    _timer = nil;
+                }
+            }
+        }else if([type isEqualToString:@"login"]){
+            //自动登录
+            NSString *userName = dict[@"u"];
+            NSString *pwd = dict[@"p"];
+            [UserDefaultsUtils saveValueWithValue:userName key:@"userName"];
+            [UserDefaultsUtils saveValueWithValue:pwd key:@"pwd"];
+        }else if ([type isEqualToString:@"clearLogin"]) {
+            //退出登录
+            [UserDefaultsUtils deleteValueWithKeyWithKey:@"userName"];
+            [UserDefaultsUtils deleteValueWithKeyWithKey:@"pwd"];
+        }else if ([type isEqualToString:@"call"]) {
+            //拔打电话
+            NSString *title = (NSString *)dict[@"t"];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [DisplayUtils dialphoneNumberWithNumber:dict[@"t"]];
+            }];
+            [alertController addAction:cancelAction];
+            [alertController addAction:okAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+    }else if([type isEqualToString:@"showimage"]) {
+        NSString *imageUrl = (NSString *)dict[@"url"];
+        PingImageViewController *pinVC = [[PingImageViewController alloc]init];
+        pinVC.imageStr = imageUrl;
+        [self.navigationController pushViewController:pinVC animated:YES];
+    }else if ([type isEqualToString:@"FrmWeChatPay"]) {
+        //微信支付
+        NSString *appid  = dict[@"appid"];
+        [WXApi registerApp:appid];
+        PayReq *request = [[PayReq alloc]init];
+        request.openID = appid;
+        request.nonceStr = dict[@"nonceStr"];
+        request.package = @"Sign=WXPay";
+        request.partnerId = dict[@"mch_id"];
+        request.prepayId = dict[@"prepay_id"];
+        request.timeStamp = [dict[@"timestamp"]unsignedIntValue];
+        request.sign = dict[@"sign"];
+        [WXApi sendReq:request];
+    }
 }
 
+#pragma mark - WKNavigationDelegate
+//网页加载完成
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    //是否自动登录
+    NSString *userName = [UserDefaultsUtils valueWithKeyWithKey:@"userName"];
+    NSString *pwd = [UserDefaultsUtils valueWithKeyWithKey:@"pwd"];
+    if (!userName && !pwd) {
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"iosLogin(%@,%@)", userName, pwd] completionHandler:^(id _Nullable item, NSError * _Nullable error) {
+            
+        }];
+    }
+        //加载完成后结束刷新
+        [self endRefresh];
+        //设置下拉刷新
+        [self addRefreshView];
+        //隐藏错误视图
+        self.errorImageView.hidden = YES;
+        //设置标题
+        UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        titleBtn.frame = CGRectMake(0, 0, 60, 40);
+        [titleBtn setTitle:webView.title forState:UIControlStateNormal];
+        self.navigationItem.titleView = titleBtn;
+        titleBtn.tintColor = [UIColor whiteColor];
+        [titleBtn addTarget:self action:@selector(titleClick) forControlEvents:UIControlEventTouchUpInside];
+        //判断是否需要返回按钮
+        NSString *isMainStr = @"";
+        if (![UserDefaultsUtils valueWithKeyWithKey:@"MainUrlStr"]) {
+            isMainStr = isBackStr;
+        }else {
+            isMainStr = [UserDefaultsUtils valueWithKeyWithKey:@"MainUrlStr"];
+        }
+        if ([isMainStr containsString:(webView.URL.relativePath)] && [webView.URL.absoluteString containsString:URL_APP_ROOT]) {
+            self.navigationItem.leftBarButtonItem = nil;
+        }else {
+            self.navigationItem.leftBarButtonItem = [[CustemNavItem alloc]initWithImageWithImage:[UIImage imageNamed:@"ic_nav_back"] infoStr:@"first"];
+        }
+        //高度适应
+        NSString *isChangeStr = @"";
+        if (![UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"]) {
+            isChangeStr = isRefrushStr;
+        }else {
+            isChangeStr = [UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"];
+        }
+        if ([isChangeStr containsString:webView.URL.relativePath]) {
+            self.navigationItem.rightBarButtonItem = nil;
+        }else {
+            //设置导航栏按钮
+            self.navigationItem.rightBarButtonItem = [[CustemNavItem alloc]initWithImageWithImage:[UIImage imageNamed:@"ic_nav_classify"] infoStr:@"third"];
+            NSString *js_fit_code = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.zoom='%f'", self.scale];
+            [webView evaluateJavaScript:js_fit_code completionHandler:^(id _Nullable item, NSError * _Nullable error) {
+                
+            }];
+            
+        }
 
+    // TODO alipay需要刷新唤起支付宝客户端，临时解决方案，待进一步改进
+    if ([webView.URL.relativePath isEqualToString: @"/cashier/mobilepay.htm"]) {
+        [self.webView reload];
+    }
+    if ([webView.URL.relativePath isEqualToString: @"/forms/TFrmWelcome"]) {
+        //[self addAdVC];
+    }
+}
 
-
-
-
-
-
-
-
+#pragma mark - 标题按钮
+- (void)titleClick {
+    NSDictionary *dataDict = @{@"icon" : @"", @"title" : @"转到首页"};
+    _popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(kScreen_width/2-75, 51, 150, dataDict.count * 40) arrowMargin:17];
+    
+}
 
 #pragma mark - getter
 //添加错误视图
@@ -253,4 +381,7 @@
     }
     return _errorImageView;
 }
+
+
 @end
+

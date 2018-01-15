@@ -13,13 +13,15 @@ class PingImageViewController: UIViewController,UIGestureRecognizerDelegate {
     var imageView:UIImageView?
     var imageStr:String?
     var size:CGSize?
+    var custemNavItem : CustemNavItem! = CustemNavItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.black
         self.view.contentMode = .center
-        self.navigationItem.leftBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, target: self as CustemBBI, infoStr: "first")
+        custemNavItem.delegate = self;
+        self.navigationItem.leftBarButtonItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, infoStr: "first")
         let data = try! NSURLConnection.sendSynchronousRequest(URLRequest.init(url: URL.init(string: imageStr!)!), returning: nil)
         let image = UIImage.init(data: data as Data)
         if (image != nil) {
