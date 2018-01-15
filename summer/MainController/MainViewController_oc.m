@@ -54,11 +54,11 @@
         self.navigationController.navigationBarHidden = NO;
     }
     //支付成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(paySucceed) name:WXPaySuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(paySucceed:) name:WXPaySuccessNotification object:nil];
     //网络监听
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getLoadDataBase) name:KLoadDataBase object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getLoadDataBase:) name:KLoadDataBase object:nil];
     //推送
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jpushMessage) name:JPushMessage object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jpushMessage:) name:JPushMessage object:nil];
 
 }
 
@@ -87,15 +87,15 @@
     [_webView sizeToFit];
     [self.view addSubview:_webView];
     
-    [_webView loadRequest: [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.9.154:8020/House/xg_test.html"]]];
-    //[_webView loadRequest: [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
-    _bridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
-    [_bridge setWebViewDelegate:self];
-    [_bridge registerHandler:@"_app_setTitle" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"******%@", data);
-        responseCallback(@"1323");
-        
-    }];
+//    [_webView loadRequest: [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.9.154:8020/House/xg_test.html"]]];
+//
+//    _bridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
+//    [_bridge setWebViewDelegate:self];
+//    [_bridge registerHandler:@"_app_setTitle" handler:^(id data, WVJBResponseCallback responseCallback) {
+//        NSLog(@"******%@", data);
+//        responseCallback(@"1323");
+//        
+//    }];
 }
 #pragma mark - 添加进度条
 - (void)addProgressView {
@@ -128,7 +128,7 @@
 #pragma mark - 网络监测
 - (void)getLoadDataBase:(NSNotification *)notifi {
     NSString *network = notifi.userInfo[@"netType"];
-    if (![network isEqualToString:@"NotReachable"] || ![network isEqualToString:@"Unknown"]) {
+    if ([network isEqualToString:@"NotReachable"] || [network isEqualToString:@"Unknown"]) {
         [DisplayUtils alertControllerDisplayWithStr:@"网络出现异常，请检查网络连接！" viewController:self confirmBlock:^{
             NSLog(@"刷新");
             [self.webView reload];
@@ -146,11 +146,9 @@
 
 #pragma mark - 添加下拉刷新
 - (void)addRefreshView {
-    NSString *isChangeStr = @"";
-    if ([UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"]==nil){
+    NSString *isChangeStr = [UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"];
+    if (!isChangeStr || [isChangeStr isKindOfClass:[NSNull class]]){
         isChangeStr = isRefrushStr;
-    }else {
-        isChangeStr = [UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"];
     }
     
     if ([isChangeStr containsString:self.webView.URL.relativePath]) {
@@ -325,11 +323,9 @@
         titleBtn.tintColor = [UIColor whiteColor];
         [titleBtn addTarget:self action:@selector(titleClick) forControlEvents:UIControlEventTouchUpInside];
         //判断是否需要返回按钮
-        NSString *isMainStr = @"";
-        if (![UserDefaultsUtils valueWithKeyWithKey:@"MainUrlStr"]) {
+        NSString *isMainStr = [UserDefaultsUtils valueWithKeyWithKey:@"MainUrlStr"];
+        if (!isMainStr || [isMainStr isKindOfClass:[NSNull class]]) {
             isMainStr = isBackStr;
-        }else {
-            isMainStr = [UserDefaultsUtils valueWithKeyWithKey:@"MainUrlStr"];
         }
         if ([isMainStr containsString:(webView.URL.relativePath)] && [webView.URL.absoluteString containsString:URL_APP_ROOT]) {
             self.navigationItem.leftBarButtonItem = nil;
@@ -337,11 +333,9 @@
             self.navigationItem.leftBarButtonItem = [[CustemNavItem alloc]initWithImageWithImage:[UIImage imageNamed:@"ic_nav_back"] infoStr:@"first"];
         }
         //高度适应
-        NSString *isChangeStr = @"";
-        if (![UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"]) {
+        NSString *isChangeStr = [UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"];
+        if (!isChangeStr || [isChangeStr isKindOfClass:[NSNull class]]) {
             isChangeStr = isRefrushStr;
-        }else {
-            isChangeStr = [UserDefaultsUtils valueWithKeyWithKey:@"ChangeStr"];
         }
         if ([isChangeStr containsString:webView.URL.relativePath]) {
             self.navigationItem.rightBarButtonItem = nil;
@@ -483,8 +477,6 @@
         //点击菜单的回调
         __weak typeof(self)weakSelf = self;
         self.popMenu.didSelectMenuBlock = ^(NSInteger index){
-            NSString *msgUrl = [NSString stringWithFormat:@"%@/%@",URL_APP_ROOT,[UserDefaultsUtils valueWithKeyWithKey:@"msgManage"]];
-            
             if (index == 0) {
                 SettingViewController *settingVC = [[SettingViewController alloc]init];
                 settingVC.delegate = weakSelf;
@@ -550,6 +542,7 @@
     
 }
 
+#pragma mark - 设置导航栏的标题
 - (void) setNavTitle:(NSString *)title {
     UILabel *label = [[UILabel alloc]init];
     label.frame = CGRectMake(0, 0, 60, 44);
