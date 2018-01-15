@@ -365,7 +365,7 @@
 
 #pragma mark - 标题按钮
 - (void)titleClick {
-    NSArray *dataDict = @[@{@"icon" : @""}, @{@"title" : @"转到首页"}];
+    NSArray *dataDict = @[@{@"icon" : @"", @"title" : @"转到首页"}];
     _popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(kScreen_width/2-75, 51, 150, dataDict.count * 40) arrowMargin:17];
     //数据
     _popMenu.popData = dataDict;
