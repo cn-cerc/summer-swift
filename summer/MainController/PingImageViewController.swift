@@ -20,7 +20,7 @@ class PingImageViewController: UIViewController,UIGestureRecognizerDelegate {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.black
         self.view.contentMode = .center
-        custemNavItem.delegate = self;
+        custemNavItem.myDelegate = self;
         self.navigationItem.leftBarButtonItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, infoStr: "first")
         let data = try! NSURLConnection.sendSynchronousRequest(URLRequest.init(url: URL.init(string: imageStr!)!), returning: nil)
         let image = UIImage.init(data: data as Data)

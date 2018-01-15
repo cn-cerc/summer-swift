@@ -11,7 +11,7 @@
 #import "summer-Swift.h"
 #import "GlobalFile_oc.h"
 #import "MJRefresh.h"
-@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate>
+@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebViewJavascriptBridge *bridge;
 @property (nonatomic, strong) UIProgressView *progressView;//进度条
@@ -359,16 +359,73 @@
         [self.webView reload];
     }
     if ([webView.URL.relativePath isEqualToString: @"/forms/TFrmWelcome"]) {
-        //[self addAdVC];
+        [self addAdVC];
     }
 }
 
 #pragma mark - 标题按钮
 - (void)titleClick {
-    NSDictionary *dataDict = @{@"icon" : @"", @"title" : @"转到首页"};
+    NSArray *dataDict = @[@{@"icon" : @""}, @{@"title" : @"转到首页"}];
     _popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(kScreen_width/2-75, 51, 150, dataDict.count * 40) arrowMargin:17];
+    //数据
+    _popMenu.popData = dataDict;
+    //点击菜单的回调
+    __weak __typeof(self)weakSelf = self;
+    _popMenu.didSelectMenuBlock = ^(NSInteger index) {
+        [weakSelf.popMenu dismiss];
+        shareedMyApp *myApp = [shareedMyApp getInstance];
+        NSString *msgUrl = [NSString stringWithFormat:@"%@/%@", URL_APP_ROOT, [UserDefaultsUtils valueWithKeyWithKey:@"msgManage"]];
+        if (index == 0) {
+            [weakSelf loadUrl:[myApp getFormUrl:@"WebDefault"]];
+        }else if (index == 1) {
+            [weakSelf loadUrl:[DisplayUtils configUrlWithUrlStr:msgUrl]];
+        }else if (index == 2) {
+            SettingViewController *settingVC = [[SettingViewController alloc]init];
+            settingVC.delegate = weakSelf;
+            [weakSelf.navigationController pushViewController:settingVC animated:YES];
+        }else if (index == 3) {
+            [weakSelf loadUrl:[DisplayUtils configUrlWithUrlStr:BACK_MAIN]];
+        }else if (index == 4) {
+            [UserDefaultsUtils deleteValueWithKeyWithKey:@"userName"];
+            [UserDefaultsUtils deleteValueWithKeyWithKey:@"pwd"];
+            [weakSelf.webView evaluateJavaScript:@"exit()" completionHandler:^(id _Nullable item, NSError * _Nullable error) {
+                
+            }];
+            [weakSelf loadUrl:[DisplayUtils configUrlWithUrlStr:EXIT_URL_PATH]];
+        }
+    };
+    [_popMenu show];
+}
+
+#pragma mark - 跳转失败的时候调用
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"跳转失败:%s", __func__);
+}
+
+#pragma mark - 服务器请求跳转的时候调用
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation {
+    NSLog(@"服务器请求跳转:%s", __func__);
+}
+
+#pragma mark - 内容加载失败的时候调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"请求失败的URL：%@", webView.URL.absoluteString);
+    BOOL urlBool = [webView.URL.absoluteString containsString:@"FrmPayRequest"];
+    BOOL aliBool = [webView.URL.absoluteString containsString:@"mclient.alipay.com/cashier/mobilepay.htm"];
+    if (urlBool || aliBool) {
+        return;
+    }
+    [self setNavTitle:@"出错了"];
+    self.errorImageView.hidden = NO;
+    [DisplayUtils alertControllerDisplayWithStr:@"加载失败，请稍后再试" viewController:self confirmBlock:^{
+        NSLog(@"刷新");
+        [self.webView reload];
+    } cancelBlock:^{
+        NSLog(@"取消");
+    }];
     
 }
+
 
 #pragma mark - getter
 //添加错误视图
@@ -444,6 +501,16 @@
     self.navigationController.navigationBar.hidden = NO;
     self.tabBarController.tabBar.hidden = NO;
     
+}
+
+- (void) setNavTitle:(NSString *)title {
+    UILabel *label = [[UILabel alloc]init];
+    label.frame = CGRectMake(0, 0, 60, 44);
+    label.text = title;
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:19];
+    self.navigationItem.titleView = label;
 }
 
 @end

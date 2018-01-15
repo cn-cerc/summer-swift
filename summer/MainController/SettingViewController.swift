@@ -7,14 +7,14 @@
 //
 
 import UIKit
-
-protocol SettingDelegate:NSObjectProtocol {
+@objc(SettingDelegate)
+protocol SettingDelegate : NSObjectProtocol {
     func perverseInfo(scale:Float)
 }
 
 class SettingViewController: BaseViewController {
     
-    weak var delegate:SettingDelegate?
+    weak var delegate : SettingDelegate?
     var custemNavItem : CustemNavItem! = CustemNavItem()
     
     override func viewDidLoad() {
@@ -22,7 +22,7 @@ class SettingViewController: BaseViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
         self.setNavTitle(title: "设置")
-        custemNavItem.delegate = self
+        custemNavItem.myDelegate = self
         self.navigationItem.leftBarButtonItem = custemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, infoStr: "first")
         
         createUI()

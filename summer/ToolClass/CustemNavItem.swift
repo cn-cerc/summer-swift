@@ -7,14 +7,14 @@
 //
 
 import UIKit
-
-protocol CustemBBI : class {
+@objc(CustemBBI)
+protocol CustemBBI : NSObjectProtocol {
     func BBIdidClickWithName(infoStr:String)
 }
 
 public class CustemNavItem: UIBarButtonItem {
     
-    weak var delegate : CustemBBI?
+    weak var myDelegate : CustemBBI?
     var infoStr : String?
    
     func initWithImage(image: UIImage, infoStr: String) -> CustemNavItem! {
@@ -34,13 +34,13 @@ public class CustemNavItem: UIBarButtonItem {
         btn.frame = CGRect.init(x: 0, y: 0, width: 60, height: 40)
         let BBI = CustemNavItem(customView:btn)
         btn.addTarget(BBI, action: #selector(BBIdidClick), for: .touchUpInside)
-        BBI.delegate = target
+        BBI.myDelegate = target
         BBI.infoStr = infoStr
         return BBI
     }
     
     func BBIdidClick() {
-        self.delegate?.BBIdidClickWithName(infoStr: self.infoStr!)
+        self.myDelegate?.BBIdidClickWithName(infoStr: self.infoStr!)
     }
     
 }

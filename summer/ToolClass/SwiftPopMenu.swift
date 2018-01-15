@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-public protocol SwiftPopMenuDelegate {
+@objc(SwiftPopMenuDelegate)
+public protocol SwiftPopMenuDelegate : NSObjectProtocol{
     func swiftPopMenuDidSelectIndex(index:Int)
 }
 
