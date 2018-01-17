@@ -226,8 +226,7 @@
     }
 }
 
-#pragma mark - WKScriptMessageHandler
-//js交互回调
+#pragma mark - WKScriptMessageHandler js交互回调
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *dict = (NSDictionary *)message.body;
     NSLog(@"JS传过来的数据:%@",dict);
@@ -372,7 +371,7 @@
 #pragma mark - 标题按钮
 - (void)titleClick {
     NSArray *dataDict = @[@{@"icon" : @"", @"title" : @"转到首页"}];
-    _popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(kScreen_width/2-75, 51, 150, dataDict.count * 40) arrowMargin:17];
+    _popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(kScreen_width/2-75, 51 + iPhoneX ?20 :0, 150, dataDict.count * 40) arrowMargin:17];
     //数据
     _popMenu.popData = dataDict;
     //点击菜单的回调

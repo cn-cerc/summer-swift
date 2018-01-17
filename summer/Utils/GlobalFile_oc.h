@@ -23,6 +23,15 @@ static const BOOL isProduction = YES;
 //屏幕的宽高
 #define SCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+//iPhoneX
+//判断是否iPhone X
+#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kStatusBarHeight (iPhoneX ?44 :20)
+#define kNavigationBarHeight 44
+#define kTabbarHeight (iPhoneX ?(49 + 34) :49)
+#define kTabbarSafeBottomMargin (iPhoneX ?34 :0)
+#define kStatusBarAndNavigationBarHeight (iPhoneX ?88 :64)
+
 NSString *const isBackStr = @"/forms/FrmIndex,/forms/Login,/forms/VerificationLogin";
 NSString *const isRefrushStr = @"/forms/Default,/,/forms/Login?device=iphone,/forms/FrmPhoneRegistered,/forms/VerificationLogin,/forms/Login,/forms/FrmLossPassword";
 
