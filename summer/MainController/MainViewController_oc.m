@@ -93,9 +93,14 @@
 //    [_bridge setWebViewDelegate:self];
 //    [_bridge registerHandler:@"_app_setTitle" handler:^(id data, WVJBResponseCallback responseCallback) {
 //        NSLog(@"******%@", data);
+//        [self setNavTitle:data];
 //        responseCallback(@"1323");
-//        
+//
 //    }];
+    
+    
+    
+    
 }
 #pragma mark - 添加进度条
 - (void)addProgressView {
@@ -225,6 +230,7 @@
 //js交互回调
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *dict = (NSDictionary *)message.body;
+    NSLog(@"JS传过来的数据:%@",dict);
     NSString *type = dict[@"classCode"];
     if ([type isEqualToString:@"SetAppliedTitle"]) {
         CGRect frame = self.webView.frame;
@@ -289,7 +295,7 @@
         [WXApi registerApp:appid];
         PayReq *request = [[PayReq alloc]init];
         request.openID = appid;
-        request.nonceStr = dict[@"nonceStr"];
+        request.nonceStr = dict[@"nonce_str"];
         request.package = @"Sign=WXPay";
         request.partnerId = dict[@"mch_id"];
         request.prepayId = dict[@"prepay_id"];
@@ -556,6 +562,20 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont systemFontOfSize:19];
     self.navigationItem.titleView = label;
+}
+
+#pragma mark - WKWebView接收到JS的aler弹窗
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提醒***" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSLog(@"***** success *****");
+        completionHandler();
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 @end

@@ -75,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         
         //判断网络
         monitorNetworkState()
-        
         //极光推送
         if #available(iOS 10.0, *){
             let entiity = JPUSHRegisterEntity()
@@ -374,8 +373,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         JPUSHService.handleRemoteNotification(userInfo)
-        //        application.applicationIconBadgeNumber = 0
-        //        JPUSHService.resetBadge()
+                application.applicationIconBadgeNumber = 0
+                JPUSHService.resetBadge()
     }
     
 }

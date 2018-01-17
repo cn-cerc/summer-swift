@@ -10,10 +10,10 @@
 #define GlobalFile_oc_h
 #import "summer-Swift.h"
 static NSString *URL_APP_ROOT = @"https://m.knowall.cn";//master版
-//let URL_APP_ROOT = "https://c1.knowall.cn"//Beta版
+//static NSString *URL_APP_ROOT = @"https://c1.knowall.cn";//Beta版
 
 #define WELCOME_IMAGES_COUNT = 3
-static const NSString *FORMS = @"form";
+static const NSString *FORMS = @"forms";
 static const NSString *SERVICES = @"services";
 
 //推送
