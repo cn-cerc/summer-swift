@@ -12,7 +12,7 @@
 #import "GlobalFile_oc.h"
 #import "MJRefresh.h"
 
-@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate, CustemBBI>
+@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate, CustemBBI, STPagesCollectionViewDataSource>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebViewJavascriptBridge *bridge;
 @property (nonatomic, strong) UIProgressView *progressView;//进度条
@@ -24,6 +24,10 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL isTimer;
 @property (nonatomic, strong) CustemNavItem *custemNavItem;
+@property (nonatomic, strong) STPagesCollectionView *collectionView;
+@property (nonatomic, strong) UIToolbar *toolBar;
+@property (nonatomic, strong) NSMutableArray *pagesArr;
+
 @end
 
 @implementation MainViewController_oc
@@ -38,6 +42,8 @@
     _scale = 1.0;
     //设置别名
     [JPUSHService setAlias:[DisplayUtils uuid] callbackSelector:nil object:nil];
+    //注册cell
+    [self.collectionView registerClass:[STPagesCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -364,6 +370,7 @@
 
 #pragma mark - 标题按钮
 - (void)titleClick {
+    /*
     NSArray *dataDict = @[@{@"icon" : @"", @"title" : @"转到首页"}];
     _popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(kScreen_width/2-75, 51 + iPhoneX ?20 :0, 150, dataDict.count * 40) arrowMargin:17];
     //数据
@@ -394,6 +401,9 @@
         }
     };
     [_popMenu show];
+     */
+    
+    [self showPagesCollectionView];
 }
 
 #pragma mark - 跳转失败的时候调用
@@ -437,7 +447,42 @@
     }
     return _errorImageView;
 }
-
+- (STPagesCollectionView *)collectionView {
+    if (!_collectionView) {
+        //创建pageCollectionView
+        STPagesCollectionViewFlowLayout *layout = [[STPagesCollectionViewFlowLayout alloc]init];
+        _collectionView = [[STPagesCollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) collectionViewLayout:layout];
+        _collectionView.backgroundColor = [UIColor clearColor];
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.dataSource = self;
+        _collectionView.hidden = YES;
+        [self.view addSubview:_collectionView];
+    }
+    return _collectionView;
+}
+- (UIToolbar *)toolBar {
+    if (!_toolBar) {
+        _toolBar = [[UIToolbar alloc]init];
+        _toolBar.frame = CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50);
+        _toolBar.barStyle = UIBarStyleBlackTranslucent;
+        _toolBar.translucent = YES;
+        _toolBar.tintColor = [UIColor whiteColor];
+        UIBarButtonItem *addItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageAction:)];
+        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        _toolBar.items = @[spaceItem, addItem, spaceItem];
+        [self.view addSubview:_toolBar];
+    }
+    return _toolBar;
+}
+- (NSMutableArray *)pagesArr {
+    if (!_pagesArr) {
+        _pagesArr = [NSMutableArray array];
+        for (NSInteger i = 0; i < 10; i++) {
+             [_pagesArr addObject:[NSString stringWithFormat:@"button %zd",i]];
+        }
+    }
+    return _pagesArr;
+}
 //**************************************************************************
 #pragma mark - WKUIDelegate代理方法
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView{
@@ -557,5 +602,53 @@
     self.navigationItem.titleView = label;
 }
 
+#pragma mark - 添加多窗口
+- (void)showPagesCollectionView {
+    self.collectionView.hidden = NO;
+    self.toolBar.hidden = NO;
+   
+}
+#pragma mark - UICollectionViewDataSource and UICollectionViewDelegate
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.pagesArr.count;
+}
+-(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    //    NSLog(@"cellForItemAtIndexPath:%d",indexPath.row);
+    static NSString* identity = @"cell";
+    STPagesCollectionViewCell *cell = (STPagesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
+    cell.collectionView = collectionView;
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"weather-default-bg"]];
+    imageView.frame = self.view.bounds;
+    [cell.cellContentView addSubview:imageView];
+    cell.cellContentView.userInteractionEnabled = YES;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, (indexPath.row+1)*10+100, 320, 50.0f);
+    button.backgroundColor = [UIColor whiteColor];
+    [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [button setTitle:self.pagesArr[indexPath.row] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(dismissFromHighLightAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.cellContentView addSubview:button];
+    return cell;
+}
+#pragma mark - Action
+- (void)addPageAction:(id)sender {
+    [self.collectionView addPageCell];
+    self.toolBar.hidden = YES;
+}
+- (void)dismissFromHighLightAction:(id)sender {
+    NSLog(@"button");
+    [self.collectionView dismissFromHighLightWithCompletion:^(BOOL finished) {
+        NSLog(@"dismiss completed");
+    }];
+}
+#pragma mark - STPagesCollectionViewDataSource
+//移除窗口
+- (void)removeCellWithCollectionView:(STPagesCollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
+    [self.pagesArr removeObjectAtIndex:indexPath.row];
+}
+//新建窗口
+- (void)addCellWithCollectionView:(STPagesCollectionView *)collectionView {
+    [self.pagesArr addObject:@"1"];
+}
 @end
 
