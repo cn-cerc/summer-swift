@@ -15,27 +15,32 @@ protocol STPagesCollectionViewDataSource : UICollectionViewDataSource {
     //新建cell
     func addCell(collectionView : STPagesCollectionView)
 }
-
+@objc(STPagesCollectionViewDelegate)
+protocol STPagesCollectionViewDelegate : UICollectionViewDelegate {
+    func showHighLightCell(collectionView : STPagesCollectionView, indexPath : IndexPath)
+}
 
 class STPagesCollectionView: UICollectionView {
     var canRemove : Bool?
     var isHighLight : Bool?
+
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         let layout = STPagesCollectionViewFlowLayout()
         super.init(frame: frame, collectionViewLayout: layout)
-        NotificationCenter.default.addObserver(self, selector: #selector(dismissFromHighLight(completion:)), name: NSNotification.Name("ShowPagesCell"), object: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-   
+    
     
 }
 
 extension STPagesCollectionView {
+
     //显示状态
     func showCellToHighLightAtIndexPath(index : IndexPath, completion : @escaping(_ finished : Bool) -> ()) {
         if isHighLight == true {
@@ -108,7 +113,7 @@ extension STPagesCollectionView {
                 print("添加之后总的cell数量是\(self.numberOfItems(inSection: 0))")
             }, completion: { (finished : Bool) in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.reloadData()
+                    self.reloadItems(at: [lastIndex])
                     //从3D立体显示回到正常显示
 //                    self.showCellToHighLightAtIndexPath(index: lastIndex, completion: { (finished : Bool) in
 //                        
@@ -117,21 +122,6 @@ extension STPagesCollectionView {
             })
         }
     }
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard let view = super.hitTest(point, with: event) else{return nil}
-        
-        if view == self{
-            for cell in self.visibleCells {
-                if (cell as! STPagesCollectionViewCell).showState == .highlight{
-                    return (cell as! STPagesCollectionViewCell).cellContentView///要把事件传递到这一层才可以
-                }
-            }
-        }
-        return view;
-        
-    }
-    
-    
-    
+   
 }
 

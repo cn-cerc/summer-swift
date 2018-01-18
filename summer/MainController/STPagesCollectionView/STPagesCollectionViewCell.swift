@@ -39,6 +39,7 @@ class STPagesCollectionViewCell: UICollectionViewCell {
                 switch state {
                 case .highlight:
                     self.deleteBtn.isHidden = true
+                    self.clickBtn.isHidden = true
                     normalTransform = layer.transform//先记录原来的位置
                     scrollView.isScrollEnabled = false
                     let indexPath = collectionView.indexPath(for: self)!
@@ -49,11 +50,13 @@ class STPagesCollectionViewCell: UICollectionViewCell {
                     
                 case .normal:
                     self.deleteBtn.isHidden = false
+                    self.clickBtn.isHidden = false
                     layer.transform = normalTransform
                     scrollView.isScrollEnabled = true
                     
                 case .top:
                     self.deleteBtn.isHidden = false
+                    self.clickBtn.isHidden = false
                     normalTransform = layer.transform//先记录原来的位置
                     scrollView.isScrollEnabled = false
                     let moveTransform = CATransform3DMakeTranslation(0, -1 * pageHeight, 0)
@@ -61,6 +64,7 @@ class STPagesCollectionViewCell: UICollectionViewCell {
                     
                 case .bottom:
                     self.deleteBtn.isHidden = false
+                    self.clickBtn.isHidden = false
                     normalTransform = layer.transform//先记录原来的位置
                     scrollView.isScrollEnabled = false
                     let moveTransform = CATransform3DMakeTranslation(0, pageHeight, 0)
@@ -93,12 +97,21 @@ class STPagesCollectionViewCell: UICollectionViewCell {
         deleteBtn.isHidden = true
         return deleteBtn
     }()
+    fileprivate lazy var clickBtn : UIButton = {
+        let clickBtn = UIButton.init(type: .custom)
+        clickBtn.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+        clickBtn.backgroundColor = UIColor.clear
+        clickBtn.addTarget(self, action: #selector(showCellToHighLightAtIndexPath), for: .touchUpInside)
+        //clickBtn.isHidden = true
+        return clickBtn
+    }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
         clipsToBounds = false
         setupUI()
         showState = .normal
+        self.addGestureRecognizer(self.tapGes)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -111,19 +124,27 @@ class STPagesCollectionViewCell: UICollectionViewCell {
 
 extension STPagesCollectionViewCell {
    fileprivate func setupUI() {
-        //contentView.bringSubview(toFront: self.deleteBtn)
         contentView.addSubview(self.scrollView)
         self.scrollView.addSubview(self.cellContentView)
-        self.scrollView.addGestureRecognizer(self.tapGes)
+        self.scrollView.addSubview(self.clickBtn)
         self.scrollView.addSubview(self.deleteBtn)
-    }
     
+    }
 }
 //
 extension STPagesCollectionViewCell {
+    @objc func showCellToHighLightAtIndexPath() {
+        let selectedIndex = collectionView.indexPath(for: self)
+        let delegate = collectionView.delegate as! STPagesCollectionViewDelegate
+        delegate.showHighLightCell(collectionView: collectionView as! STPagesCollectionView, indexPath: selectedIndex!)
+       
+    }
     @objc func onTapGes() {
-        guard let selectedIndex = collectionView.indexPath(for: self) else{return}
-        (collectionView as! STPagesCollectionView).showCellToHighLightAtIndexPath(index: selectedIndex) { (finished : Bool) in
+        var selectedIndex = collectionView.indexPath(for: self)
+        if selectedIndex == nil {
+            selectedIndex = IndexPath.init(row: 0, section: 0)
+        }
+        (collectionView as! STPagesCollectionView).showCellToHighLightAtIndexPath(index: selectedIndex!) { (finished : Bool) in
             print("highlight completed")
         }
     }
@@ -141,6 +162,7 @@ extension STPagesCollectionViewCell {
     }
 }
 
+
 //MARK: - UIScrollViewDelegate
 extension STPagesCollectionViewCell : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -154,4 +176,15 @@ extension STPagesCollectionViewCell : UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
     }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard let view = super.hitTest(point, with: event) else{return nil}
+        if view.isKind(of: STPagesCollectionView.self) == true {
+            if showState == .highlight{
+                return cellContentView///要把事件传递到这一层才可以
+            }
+        }
+        return view
+    }
 }
+

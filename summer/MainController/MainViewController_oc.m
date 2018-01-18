@@ -12,7 +12,7 @@
 #import "GlobalFile_oc.h"
 #import "MJRefresh.h"
 
-@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate, CustemBBI, STPagesCollectionViewDataSource>
+@interface MainViewController_oc ()<WKUIDelegate, WKNavigationDelegate, WebViewJavascriptBridgeBaseDelegate, WKScriptMessageHandler,StartAppDelegate, SettingDelegate, CustemBBI, STPagesCollectionViewDataSource, STPagesCollectionViewDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebViewJavascriptBridge *bridge;
 @property (nonatomic, strong) UIProgressView *progressView;//进度条
@@ -36,15 +36,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self addWebView];//添加WkWebView
+    //[self addWebView];//添加WkWebView
+    [self.view addSubview:self.pageCollectionView];
     [self.view addSubview:self.errorImageView];//添加错误视图
     [self addProgressView];//添加ProgressView
-    [self loadUrl: URLPATH];//加载网页
     _scale = 1.0;
     //设置别名
     [JPUSHService setAlias:[DisplayUtils uuid] callbackSelector:nil object:nil];
     //注册cell
     [self.pageCollectionView registerClass:[STPagesCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.pageCollectionView showCellToHighLightAtIndexPathWithIndex:indexPath completion:^(BOOL finished) {
+            
+        }];
+    });
     
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,7 +80,7 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 #pragma mark - 添加webview
-- (void)addWebView {
+- (void)addWebViewTo:(UIView *)view {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
     config.preferences = [[WKPreferences alloc]init];
     config.preferences.minimumFontSize = 10;
@@ -85,15 +91,19 @@
     //添加一个名称，js通过这个名称发送消息
     [config.userContentController addScriptMessageHandler:self name:@"nativeMethod"];
     
-    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64) configuration:config];
+    _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, view.bounds.size.width,view.bounds.size.height) configuration:config];
     
     _webView.allowsBackForwardNavigationGestures = YES;
     _webView.navigationDelegate = self;
     _webView.UIDelegate = self;
     _webView.customUserAgent = @"iphone";
     [_webView sizeToFit];
-    [self.view addSubview:_webView];
-    
+    [view addSubview:_webView];
+    [self loadUrl: URLPATH];//加载网页
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(aaa)];
+    tapGes.delegate = self;
+    _webView.userInteractionEnabled = YES;
+   // [_webView addGestureRecognizer:tapGes];
 //    [_webView loadRequest: [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.9.154:8020/House/xg_test.html"]]];
 //
 //    _bridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
@@ -103,6 +113,13 @@
 //        responseCallback(@"1323");
 //        
 //    }];
+}
+#pragma mark -
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer {
+    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        return YES;
+    }
+    return NO;
 }
 #pragma mark - 添加进度条
 - (void)addProgressView {
@@ -403,12 +420,9 @@
     };
     [_popMenu show];
      */
-    if (_isShowPages == NO) {
-        [self showPagesCollectionView];
-        _isShowPages = YES;
-    } else {
-       // [[NSNotificationCenter defaultCenter]postNotificationName:@"ShowPagesCell" object:nil];
-    }
+   
+    [self showPagesCollectionView];
+ 
     
 }
 
@@ -461,8 +475,7 @@
         _pageCollectionView.backgroundColor = [UIColor clearColor];
         _pageCollectionView.showsVerticalScrollIndicator = NO;
         _pageCollectionView.dataSource = self;
-        _pageCollectionView.hidden = YES;
-        [self.view addSubview:_pageCollectionView];
+        _pageCollectionView.delegate = self;
     }
     return _pageCollectionView;
 }
@@ -483,7 +496,7 @@
 - (NSMutableArray *)pagesArr {
     if (!_pagesArr) {
         _pagesArr = [NSMutableArray array];
-        for (NSInteger i = 0; i < 10; i++) {
+        for (NSInteger i = 0; i < 2; i++) {
              [_pagesArr addObject:[NSString stringWithFormat:@"button %zd",i]];
         }
     }
@@ -612,6 +625,9 @@
 - (void)showPagesCollectionView {
     self.pageCollectionView.hidden = NO;
     self.toolBar.hidden = NO;
+    [self.pageCollectionView dismissFromHighLightWithCompletion:^(BOOL finished) {
+        
+    }];
 }
 #pragma mark - UICollectionViewDataSource and UICollectionViewDelegate
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -622,24 +638,18 @@
     STPagesCollectionViewCell *cell = (STPagesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
     [cell setIsShowDeleteBtn:YES];
     cell.collectionView = collectionView;
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"weather-default-bg"]];
-    imageView.frame = self.view.bounds;
-    [cell.cellContentView addSubview:imageView];
     cell.cellContentView.userInteractionEnabled = YES;
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, (indexPath.row+1)*10+100, 320, 50.0f);
-    button.backgroundColor = [UIColor whiteColor];
-    [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [button setTitle:self.pagesArr[indexPath.row] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(dismissFromHighLightAction:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.cellContentView addSubview:button];
+    [self addWebViewTo:cell.cellContentView];
     return cell;
 }
 #pragma mark - Action
+
+// 创建新窗口
 - (void)addPageAction:(id)sender {
     [self.pageCollectionView addPageCell];
     
 }
+// 从3D显示变为正常显示
 - (void)dismissFromHighLightAction:(id)sender {
     NSLog(@"button");
     [self.pageCollectionView dismissFromHighLightWithCompletion:^(BOOL finished) {
@@ -654,6 +664,21 @@
 //新建窗口
 - (void)addCellWithCollectionView:(STPagesCollectionView *)collectionView {
     [self.pagesArr addObject:@"1"];
+}
+#pragma mark - STPagesCollectionViewDelegate
+//从3D显示转换为正常显示
+- (void)showHighLightCellWithCollectionView:(STPagesCollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
+    self.toolBar.hidden = YES;
+    [self.pageCollectionView showCellToHighLightAtIndexPathWithIndex:indexPath completion:^(BOOL finished) {
+        NSLog(@"highlight completed");
+    }];
+}
+- (UIImage *)snapshot:(UIView *)view {
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size,YES,0);
+    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 @end
 
