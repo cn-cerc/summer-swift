@@ -65,12 +65,12 @@ extension STPagesCollectionViewFlowLayout {
     
     override func finalizeCollectionViewUpdates() {
         super.finalizeCollectionViewUpdates()
-        deleteIndexPaths.removeAll()
-        insertIndexPaths.removeAll()
+//        deleteIndexPaths.removeAll()
+//        insertIndexPaths.removeAll()
     }
     
     override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        var attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)?.copy() as? UICollectionViewLayoutAttributes
+        var attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
         if (insertIndexPaths.contains(itemIndexPath)) {
             if attributes == nil {
                 attributes = layoutAttributesForItem(at: itemIndexPath)
@@ -82,7 +82,7 @@ extension STPagesCollectionViewFlowLayout {
     }
     
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        var attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)?.copy() as? UICollectionViewLayoutAttributes
+        var attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
         if (deleteIndexPaths.contains(itemIndexPath)) {
             if attributes == nil {
                 attributes = layoutAttributesForItem(at: itemIndexPath)
@@ -103,9 +103,8 @@ extension STPagesCollectionViewFlowLayout {
         attributes.transform3D = STCATransform3DPerspectSimpleWithRotate(degree : rotate)
     }
 }
-
+ //MARK: - 3D显示的函数
 extension STPagesCollectionViewFlowLayout {
-    //MARK: - 3D显示的函数
     fileprivate func STCATransform3DMakePerspective(center : CGPoint, disZ : CGFloat) -> CATransform3D {
         let transToCenter = CATransform3DMakeTranslation(-center.x, -center.y, -300)
         let transBack = CATransform3DMakeTranslation(center.x, center.y, 300)

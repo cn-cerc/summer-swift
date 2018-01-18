@@ -24,9 +24,10 @@
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL isTimer;
 @property (nonatomic, strong) CustemNavItem *custemNavItem;
-@property (nonatomic, strong) STPagesCollectionView *collectionView;
+@property (nonatomic, strong) STPagesCollectionView *pageCollectionView;
 @property (nonatomic, strong) UIToolbar *toolBar;
 @property (nonatomic, strong) NSMutableArray *pagesArr;
+@property (nonatomic, assign) BOOL isShowPages;
 
 @end
 
@@ -43,7 +44,7 @@
     //设置别名
     [JPUSHService setAlias:[DisplayUtils uuid] callbackSelector:nil object:nil];
     //注册cell
-    [self.collectionView registerClass:[STPagesCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    [self.pageCollectionView registerClass:[STPagesCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -402,8 +403,13 @@
     };
     [_popMenu show];
      */
+    if (_isShowPages == NO) {
+        [self showPagesCollectionView];
+        _isShowPages = YES;
+    } else {
+       // [[NSNotificationCenter defaultCenter]postNotificationName:@"ShowPagesCell" object:nil];
+    }
     
-    [self showPagesCollectionView];
 }
 
 #pragma mark - 跳转失败的时候调用
@@ -447,18 +453,18 @@
     }
     return _errorImageView;
 }
-- (STPagesCollectionView *)collectionView {
-    if (!_collectionView) {
+- (STPagesCollectionView *)pageCollectionView {
+    if (!_pageCollectionView) {
         //创建pageCollectionView
         STPagesCollectionViewFlowLayout *layout = [[STPagesCollectionViewFlowLayout alloc]init];
-        _collectionView = [[STPagesCollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) collectionViewLayout:layout];
-        _collectionView.backgroundColor = [UIColor clearColor];
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.dataSource = self;
-        _collectionView.hidden = YES;
-        [self.view addSubview:_collectionView];
+        _pageCollectionView = [[STPagesCollectionView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64) collectionViewLayout:layout];
+        _pageCollectionView.backgroundColor = [UIColor clearColor];
+        _pageCollectionView.showsVerticalScrollIndicator = NO;
+        _pageCollectionView.dataSource = self;
+        _pageCollectionView.hidden = YES;
+        [self.view addSubview:_pageCollectionView];
     }
-    return _collectionView;
+    return _pageCollectionView;
 }
 - (UIToolbar *)toolBar {
     if (!_toolBar) {
@@ -604,18 +610,17 @@
 
 #pragma mark - 添加多窗口
 - (void)showPagesCollectionView {
-    self.collectionView.hidden = NO;
+    self.pageCollectionView.hidden = NO;
     self.toolBar.hidden = NO;
-   
 }
 #pragma mark - UICollectionViewDataSource and UICollectionViewDelegate
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.pagesArr.count;
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    //    NSLog(@"cellForItemAtIndexPath:%d",indexPath.row);
     static NSString* identity = @"cell";
     STPagesCollectionViewCell *cell = (STPagesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
+    [cell setIsShowDeleteBtn:YES];
     cell.collectionView = collectionView;
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"weather-default-bg"]];
     imageView.frame = self.view.bounds;
@@ -632,12 +637,12 @@
 }
 #pragma mark - Action
 - (void)addPageAction:(id)sender {
-    [self.collectionView addPageCell];
-    self.toolBar.hidden = YES;
+    [self.pageCollectionView addPageCell];
+    
 }
 - (void)dismissFromHighLightAction:(id)sender {
     NSLog(@"button");
-    [self.collectionView dismissFromHighLightWithCompletion:^(BOOL finished) {
+    [self.pageCollectionView dismissFromHighLightWithCompletion:^(BOOL finished) {
         NSLog(@"dismiss completed");
     }];
 }

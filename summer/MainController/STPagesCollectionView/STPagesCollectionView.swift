@@ -24,11 +24,14 @@ class STPagesCollectionView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         let layout = STPagesCollectionViewFlowLayout()
         super.init(frame: frame, collectionViewLayout: layout)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissFromHighLight(completion:)), name: NSNotification.Name("ShowPagesCell"), object: nil)
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+   
     
 }
 
@@ -40,7 +43,7 @@ extension STPagesCollectionView {
         }
         self.isScrollEnabled = false
         print(self.visibleCells.count)
-        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.visibleCells.forEach({ (cell : UICollectionViewCell) in
                 let visibleIndexPath = self.indexPath(for: cell)!
                 let pageCell = cell as! STPagesCollectionViewCell
@@ -66,7 +69,7 @@ extension STPagesCollectionView {
             return
         }
         print(self.visibleCells.count)
-        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.visibleCells.forEach({ (cell : UICollectionViewCell) in
                 (cell as! STPagesCollectionViewCell).showState = .normal
             })
@@ -116,15 +119,16 @@ extension STPagesCollectionView {
     }
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard let view = super.hitTest(point, with: event) else{return nil}
-        if(view.isKind(of: UIButton.self)){
-            for cell in visibleCells {
-                let pageCell = cell as! STPagesCollectionViewCell
-                if pageCell.showState == .highlight {
-                    return pageCell.cellContentView
+        
+        if view == self{
+            for cell in self.visibleCells {
+                if (cell as! STPagesCollectionViewCell).showState == .highlight{
+                    return (cell as! STPagesCollectionViewCell).cellContentView///要把事件传递到这一层才可以
                 }
             }
         }
-        return view
+        return view;
+        
     }
     
     
