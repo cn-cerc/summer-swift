@@ -18,6 +18,9 @@ class MainViewController: BaseViewController {
     
     var isNavHidden = false
     var scale:Float!//缩放比例
+    var timer:Timer?
+    var isTimer:Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,7 +109,33 @@ class MainViewController: BaseViewController {
         }else{
             self.webView.scrollView.mj_header = MJRefreshNormalHeader.init(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
         }
+        removeWKWebViewCookies()
     }
+    
+    //清除缓存
+    func removeWKWebViewCookies(){
+        if #available(iOS 9.0, *) {
+            let dataStore = WKWebsiteDataStore.default()
+            dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), completionHandler: { (records) in
+                for record in records{
+                    //清除本站的cookie
+                    if record.displayName.contains("http://192.168.9.133"){//这个判断注释掉的话是清理所有的cookie
+                        WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {
+                            //清除成功
+                            print("清除成功\(record)")
+                        })
+                    }
+                }
+            })
+        } else {
+            //ios8.0以上使用的方法
+            let libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
+            let cookiesPath = libraryPath! + "/Cookies"
+            try!FileManager.default.removeItem(atPath: cookiesPath)
+        }
+    }
+    
+    
     
     func headerRefresh() {
         self.webView.reload()
@@ -136,7 +165,18 @@ class MainViewController: BaseViewController {
 }
 
 extension MainViewController{
-    
+    //心跳请求
+    @objc func Heartbeat(){
+    let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
+    let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
+    AFNetworkManager.get(HeartBeat_URL, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
+        print("心跳请求返回数据")
+        print(responseObject)
+        
+    })  { (operation:AFHTTPRequestOperation?, error:Error?) in
+        print(error)
+    }
+}
     //加载url
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
@@ -159,13 +199,13 @@ extension MainViewController{
         //通过js与webview内容交互配置
         configuretion.userContentController = WKUserContentController()
         //添加一个名称，js通过这个名称发送消息
-        configuretion.userContentController.add(self, name: "webViewApp")
+        configuretion.userContentController.add(self, name: "nativeMethod")
         
         webView = WKWebView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64),configuration:configuretion)
         webView.allowsBackForwardNavigationGestures = true
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
-        
+        webView?.customUserAgent = "iphone"
         //监听支持KVO的属性
         webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         //内容自适应
@@ -221,11 +261,69 @@ extension MainViewController{
     }
 }
 
+
 extension MainViewController: WKScriptMessageHandler {
     //js交互回调
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        let type = (message.body as! Dictionary<String,String>)["type"]
-        if type == "login" {//自动登录
+//        let type = (message.body as! Dictionary<String,String>)["type"]
+        print(message.body)
+        guard let dict = message.body as? [String : Any] else{return}
+        print(dict["classCode"] as Any)
+        let type:String = dict["classCode"] as! String
+        print("type"+type)
+        
+        if type == "SetAppliedTitle" {
+            var Frame = self.webView.frame
+            let visibility:Bool = (dict["visibility"] != nil)
+            if visibility {
+                self.navigationController?.navigationBar.isHidden = true
+                Frame.origin.y = -20
+                Frame.size.height = SCREEN_HEIGHT + 20;
+                self.webView.frame = Frame
+            }else{
+                self.navigationController?.navigationBar.isHidden = false
+                self.webView.frame = Frame
+            }
+        }else if type == "HeartbeatCheck"{
+            let a = dict["status"] as! NSNumber
+            let aString:String = a.stringValue
+            var tag : Bool
+            if aString == "1" {
+                tag = true
+            }else {
+                tag = false
+            }
+            
+//            var status :Bool = dict["status"]
+        
+//            if status=="1" {
+//                tag = true
+//            }else {
+//                tag = false
+//            }
+//
+            let token:String = dict["token"] as! String
+            UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
+            
+            var time:NSInteger = dict["time"] as! NSInteger
+                time *= 10
+            if tag {
+                if !isTimer{
+                    isTimer = true
+                print("在这里开启心跳")
+                timer = Timer.scheduledTimer(timeInterval: TimeInterval(time), target: self, selector: #selector(Heartbeat), userInfo: nil, repeats: true)
+                }
+            }else{
+                if isTimer{
+                    isTimer = false
+                    timer?.invalidate()
+                    timer = nil
+                print("结束计时器")
+                    
+                }
+            }
+            
+        }else if type == "login" {//自动登录
             let u = (message.body as! Dictionary<String,String>)["u"]! as String
             let p = (message.body as! Dictionary<String,String>)["p"]! as String
             UserDefaultsUtils.saveValue(value: u as AnyObject, key: "userName")
