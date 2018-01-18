@@ -62,7 +62,6 @@
 		64EFE3971E4D5EC8006A1455 /* summerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3961E4D5EC8006A1455 /* summerTests.swift */; };
 		64EFE3A21E4D5EC8006A1455 /* summerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3A11E4D5EC8006A1455 /* summerUITests.swift */; };
 		64EFE3B51E4D5FA3006A1455 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3B41E4D5FA3006A1455 /* BaseViewController.swift */; };
-		64EFE3B71E4D6667006A1455 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3B61E4D6667006A1455 /* MainViewController.swift */; };
 		64EFE3B91E4D6B09006A1455 /* BaseNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3B81E4D6B09006A1455 /* BaseNavViewController.swift */; };
 		64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3C21E4D9CA3006A1455 /* GlobalFile.swift */; };
 		64EFE3C51E4D9CC6006A1455 /* UserDefaultsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3C41E4D9CC6006A1455 /* UserDefaultsUtils.swift */; };
@@ -70,7 +69,6 @@
 		64EFE3CB1E4DBD5C006A1455 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64EFE3CA1E4DBD5C006A1455 /* Images.xcassets */; };
 		64EFE3CD1E4DC65F006A1455 /* DisplayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFE3CC1E4DC65F006A1455 /* DisplayUtils.swift */; };
 		64F196BE1E515B67005B80F8 /* CustemNavItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F196BD1E515B67005B80F8 /* CustemNavItem.swift */; };
-		64F21B9B1E52E93B009342E0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F21B9A1E52E93B009342E0 /* SettingViewController.swift */; };
 		64F2B88C1E53F4F800E287AA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F2B8891E53F4F800E287AA /* libWeChatSDK.a */; };
 		64F3A4CA1E5D2D290083E73D /* SwiftPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F3A4C91E5D2D290083E73D /* SwiftPopMenu.swift */; };
 		64F4135E1E55528400FDAAC6 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413321E55528400FDAAC6 /* MJRefreshAutoFooter.m */; };
@@ -93,7 +91,6 @@
 		64F4136F1E55528400FDAAC6 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F413591E55528400FDAAC6 /* UIScrollView+MJExtension.m */; };
 		64F413701E55528400FDAAC6 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F4135B1E55528400FDAAC6 /* UIScrollView+MJRefresh.m */; };
 		64F413711E55528400FDAAC6 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F4135D1E55528400FDAAC6 /* UIView+MJExtension.m */; };
-		64F413731E555A5000FDAAC6 /* PingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F413721E555A5000FDAAC6 /* PingImageViewController.swift */; };
 		64F44AAD1E569A92009D1135 /* jcore-ios-1.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AAA1E569A92009D1135 /* jcore-ios-1.1.1.a */; };
 		64F44AAE1E569A92009D1135 /* jpush-ios-3.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AAB1E569A92009D1135 /* jpush-ios-3.0.2.a */; };
 		64F44AB01E569AC8009D1135 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AAF1E569AC8009D1135 /* CoreFoundation.framework */; };
@@ -103,9 +100,14 @@
 		64F44AB81E569B14009D1135 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB71E569B14009D1135 /* AdSupport.framework */; };
 		64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB91E569B24009D1135 /* UserNotifications.framework */; };
 		64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44ABB1E569B3A009D1135 /* libresolv.tbd */; };
+		794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794038B11FFB34E80036A8BB /* AdOnlineTool.swift */; };
 		9AF3BAAF1E9CB2EA00C3C643 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */; };
 		9AF3BAB01E9CB2EA00C3C643 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */; };
 		C7B089CB1E5C502A00BE0D43 /* PDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */; };
+		DC0B06181FFDD8F8004A3A49 /* AdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06141FFDD8F8004A3A49 /* AdViewController.swift */; };
+		DC0B06191FFDD8F8004A3A49 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06151FFDD8F8004A3A49 /* MainViewController.swift */; };
+		DC0B061A1FFDD8F8004A3A49 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06161FFDD8F8004A3A49 /* SettingViewController.swift */; };
+		DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,7 +226,6 @@
 		64EFE3A11E4D5EC8006A1455 /* summerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = summerUITests.swift; sourceTree = "<group>"; };
 		64EFE3A31E4D5EC8006A1455 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64EFE3B41E4D5FA3006A1455 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		64EFE3B61E4D6667006A1455 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		64EFE3B81E4D6B09006A1455 /* BaseNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavViewController.swift; sourceTree = "<group>"; };
 		64EFE3C21E4D9CA3006A1455 /* GlobalFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFile.swift; sourceTree = "<group>"; };
 		64EFE3C41E4D9CC6006A1455 /* UserDefaultsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsUtils.swift; sourceTree = "<group>"; };
@@ -232,7 +233,6 @@
 		64EFE3CA1E4DBD5C006A1455 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		64EFE3CC1E4DC65F006A1455 /* DisplayUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayUtils.swift; sourceTree = "<group>"; };
 		64F196BD1E515B67005B80F8 /* CustemNavItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustemNavItem.swift; sourceTree = "<group>"; };
-		64F21B9A1E52E93B009342E0 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		64F2B8891E53F4F800E287AA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		64F2B88A1E53F4F800E287AA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		64F2B88B1E53F4F800E287AA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -278,7 +278,6 @@
 		64F4135B1E55528400FDAAC6 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		64F4135C1E55528400FDAAC6 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		64F4135D1E55528400FDAAC6 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
-		64F413721E555A5000FDAAC6 /* PingImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingImageViewController.swift; sourceTree = "<group>"; };
 		64F44AAA1E569A92009D1135 /* jcore-ios-1.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.1.a"; sourceTree = "<group>"; };
 		64F44AAB1E569A92009D1135 /* jpush-ios-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.2.a"; sourceTree = "<group>"; };
 		64F44AAC1E569A92009D1135 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
@@ -290,10 +289,15 @@
 		64F44AB91E569B24009D1135 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
+		794038B11FFB34E80036A8BB /* AdOnlineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdOnlineTool.swift; sourceTree = "<group>"; };
 		9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
 		C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeyChain.m; sourceTree = "<group>"; };
+		DC0B06141FFDD8F8004A3A49 /* AdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdViewController.swift; sourceTree = "<group>"; };
+		DC0B06151FFDD8F8004A3A49 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		DC0B06161FFDD8F8004A3A49 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -598,9 +602,10 @@
 		64EFE3B21E4D5F5B006A1455 /* MainController */ = {
 			isa = PBXGroup;
 			children = (
-				64EFE3B61E4D6667006A1455 /* MainViewController.swift */,
-				64F21B9A1E52E93B009342E0 /* SettingViewController.swift */,
-				64F413721E555A5000FDAAC6 /* PingImageViewController.swift */,
+				DC0B06141FFDD8F8004A3A49 /* AdViewController.swift */,
+				DC0B06151FFDD8F8004A3A49 /* MainViewController.swift */,
+				DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */,
+				DC0B06161FFDD8F8004A3A49 /* SettingViewController.swift */,
 			);
 			path = MainController;
 			sourceTree = "<group>";
@@ -610,6 +615,7 @@
 			children = (
 				64F3A4C91E5D2D290083E73D /* SwiftPopMenu.swift */,
 				64F196BD1E515B67005B80F8 /* CustemNavItem.swift */,
+				794038B11FFB34E80036A8BB /* AdOnlineTool.swift */,
 			);
 			path = ToolClass;
 			sourceTree = "<group>";
@@ -895,7 +901,9 @@
 				6407BFAF1E542DDF0073C297 /* UIWebView+AFNetworking.m in Sources */,
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
+				DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */,
 				64F4136A1E55528400FDAAC6 /* MJRefreshNormalHeader.m in Sources */,
+				DC0B06191FFDD8F8004A3A49 /* MainViewController.swift in Sources */,
 				64F413701E55528400FDAAC6 /* UIScrollView+MJRefresh.m in Sources */,
 				6407BFA81E542DDF0073C297 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				64F4136B1E55528400FDAAC6 /* MJRefreshStateHeader.m in Sources */,
@@ -905,6 +913,7 @@
 				6407BFB21E5435700073C297 /* AFNetworkManager.m in Sources */,
 				6407BF6A1E542DD00073C297 /* SDWebImageDownloaderOperation.m in Sources */,
 				64EFE3B91E4D6B09006A1455 /* BaseNavViewController.swift in Sources */,
+				794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */,
 				6407BF661E542DD00073C297 /* SDImageCache.m in Sources */,
 				6407BF651E542DD00073C297 /* NSData+ImageContentType.m in Sources */,
 				64F413601E55528400FDAAC6 /* MJRefreshComponent.m in Sources */,
@@ -924,11 +933,11 @@
 				6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */,
 				6407BF711E542DD00073C297 /* UIImageView+WebCache.m in Sources */,
 				6407BFAC1E542DDF0073C297 /* UIImageView+AFNetworking.m in Sources */,
-				64F413731E555A5000FDAAC6 /* PingImageViewController.swift in Sources */,
 				64EFE3821E4D5EC8006A1455 /* AppDelegate.swift in Sources */,
 				6407BF721E542DD00073C297 /* UIView+WebCacheOperation.m in Sources */,
 				6407BF6E1E542DD00073C297 /* UIImage+GIF.m in Sources */,
 				6407BFAD1E542DDF0073C297 /* UIProgressView+AFNetworking.m in Sources */,
+				DC0B061A1FFDD8F8004A3A49 /* SettingViewController.swift in Sources */,
 				6407BFA41E542DDF0073C297 /* AFURLResponseSerialization.m in Sources */,
 				6407BF6F1E542DD00073C297 /* UIImage+MultiFormat.m in Sources */,
 				6407BFAA1E542DDF0073C297 /* UIAlertView+AFNetworking.m in Sources */,
@@ -953,10 +962,9 @@
 				6407BFAB1E542DDF0073C297 /* UIButton+AFNetworking.m in Sources */,
 				64F413621E55528400FDAAC6 /* MJRefreshHeader.m in Sources */,
 				6407BF9F1E542DDF0073C297 /* AFHTTPSessionManager.m in Sources */,
+				DC0B06181FFDD8F8004A3A49 /* AdViewController.swift in Sources */,
 				64F413631E55528400FDAAC6 /* MJRefreshAutoGifFooter.m in Sources */,
-				64EFE3B71E4D6667006A1455 /* MainViewController.swift in Sources */,
 				64F4135E1E55528400FDAAC6 /* MJRefreshAutoFooter.m in Sources */,
-				64F21B9B1E52E93B009342E0 /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,7 +1114,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;
@@ -1143,7 +1150,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = summer/summer.entitlements;
 				DEFINES_MODULE = YES;

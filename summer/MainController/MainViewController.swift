@@ -13,6 +13,7 @@ class MainViewController: BaseViewController {
     
     fileprivate var webView: WKWebView!
     fileprivate var progressView: UIProgressView!//进度条
+    fileprivate lazy var adVC : AdViewController = AdViewController()
     
     var popMenu: SwiftPopMenu!//导航栏右边菜单
     
@@ -165,7 +166,7 @@ class MainViewController: BaseViewController {
 }
 
 extension MainViewController{
-    //心跳请求
+    //MARK: ---心跳请求
     @objc func Heartbeat(){
     let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
     let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
@@ -263,7 +264,7 @@ extension MainViewController{
 
 
 extension MainViewController: WKScriptMessageHandler {
-    //js交互回调
+    //MARK: --- js交互回调
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
 //        let type = (message.body as! Dictionary<String,String>)["type"]
         print(message.body)
@@ -293,6 +294,7 @@ extension MainViewController: WKScriptMessageHandler {
             }else {
                 tag = false
             }
+
             
 //            var status :Bool = dict["status"]
         
@@ -301,12 +303,13 @@ extension MainViewController: WKScriptMessageHandler {
 //            }else {
 //                tag = false
 //            }
+
 //
             let token:String = dict["token"] as! String
             UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
             
             var time:NSInteger = dict["time"] as! NSInteger
-                time *= 10
+                time *= 60
             if tag {
                 if !isTimer{
                     isTimer = true
@@ -319,7 +322,6 @@ extension MainViewController: WKScriptMessageHandler {
                     timer?.invalidate()
                     timer = nil
                 print("结束计时器")
-                    
                 }
             }
             
@@ -358,7 +360,7 @@ extension MainViewController: WKScriptMessageHandler {
 //            let navVC = UINavigationController.init(rootViewController: sqVC)
 //            self.present(navVC, animated: true, completion: nil)
 //        }
-        else{//微信支付
+        else if type == "FrmWeChatPay"{//微信支付
             WXApi.registerApp((message.body as! Dictionary<String,String>)["appid"])
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -437,10 +439,12 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
-        
         // TODO alipay需要刷新唤起支付宝客户端，临时解决方案，待进一步改进
         if webView.url?.relativePath == "/cashier/mobilepay.htm" {
             self.webView.reload()
+        }
+        if webView.url?.relativePath == "/forms/TFrmWelcome" {
+            addAdVC()
         }
     }
     //标题按钮
@@ -490,9 +494,15 @@ extension MainViewController: WKNavigationDelegate{
         print(#function)
     }
     
-    //内容加载失败的时候调用
+    //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
+        print("请求失败的URL)" + (webView.url?.absoluteString)!)
+        let urlBool = webView.url?.absoluteString.contains("FrmPayRequest")
+        let aliBool = webView.url?.absoluteString.contains("mclient.alipay.com/cashier/mobilepay.htm")
+        if aliBool! || urlBool!{
+            return
+        }
         self.setNavTitle(title: "出错了")
         self.errorImageView.isHidden = false
         DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
@@ -513,9 +523,10 @@ extension MainViewController: WKUIDelegate{
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
-            AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "alipay", callback: { (result:[AnyHashable : Any]?) in
+            AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "summer", callback: { (result:[AnyHashable : Any]?) in
                 if result?["resultCode"] as! String == "9000"{
                     let urlStr = result?["returnUrl"]
+                    print("urlStr\(String(describing: urlStr))")
                     self.loadUrl(urlStr: urlStr as! String)
                 }else{
                     if self.webView.canGoBack {
@@ -612,4 +623,37 @@ extension MainViewController:CustemBBI,SettingDelegate{
 //        }
 //    }
 //}
-
+//MARK: - 广告界面
+extension MainViewController {
+    func addAdVC() {
+        //判断是否显示广告界面
+        let isShow = UserDefaults.standard.bool(forKey: "showAdVC")
+        if isShow {
+            adVC.view.frame = view.frame
+            adVC.view.isUserInteractionEnabled = true
+            adVC.delegate = self
+            addChildViewController(adVC)
+            view.addSubview(adVC.view)
+            self.navigationController?.navigationBar.isHidden = true
+            self.tabBarController?.tabBar.isHidden = true
+            UserDefaults.standard.set(false, forKey: "showAdVC")
+        } else{
+            self.navigationController?.navigationBar.isHidden = false
+            
+        }
+        
+    }
+}
+extension MainViewController :StartAppDelegate {
+    func startApp() {
+        //广告页面消失
+        adVC.removeFromParentViewController()
+        UIView.animate(withDuration: 0.5) {
+            self.adVC.view.alpha = 0
+        }
+        adVC.view.removeFromSuperview()
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        
+    }
+}
