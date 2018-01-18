@@ -91,7 +91,7 @@
 //
 //    _bridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
 //    [_bridge setWebViewDelegate:self];
-//    [_bridge registerHandler:@"_app_setTitle" handler:^(id data, WVJBResponseCallback responseCallback) {
+//    [_bridge registerHandler:@"SetTitle" handler:^(id data, WVJBResponseCallback responseCallback) {
 //        NSLog(@"******%@", data);
 //        [self setNavTitle:data];
 //        responseCallback(@"1323");
@@ -163,24 +163,32 @@
     }else {
         self.webView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     }
-    [self removeWKWebViewCookies];
 }
 #pragma mark - 清除缓存
 - (void)removeWKWebViewCookies {
     if (@available(iOS 9.0, *)) {
+        NSSet *websiteDataTypes = [NSSet setWithArray:@[WKWebsiteDataTypeDiskCache,WKWebsiteDataTypeMemoryCache]];
+        NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
         WKWebsiteDataStore *dataStore = [WKWebsiteDataStore defaultDataStore];
-        [dataStore fetchDataRecordsOfTypes:[WKWebsiteDataStore allWebsiteDataTypes] completionHandler:^(NSArray<WKWebsiteDataRecord *> *records) {
-            for (WKWebsiteDataRecord *record in records) {
-                //清除本站的cookies
-                if ([record.displayName containsString:@"http://192.168.9.133"]) {
-                    [[WKWebsiteDataStore defaultDataStore]removeDataOfTypes:record.dataTypes forDataRecords:@[record] completionHandler:^{
-                        NSLog(@"清除成功%@", record);
-                    }];
-                }
-            }
+        [dataStore removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+            UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 80)/2, 170, 80, 20)];
+            lab.text = @"刷新成功";
+            lab.textColor = [UIColor whiteColor];
+            lab.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1];
+            lab.textAlignment = NSTextAlignmentCenter;
+            lab.layer.cornerRadius = 5;
+            lab.layer.masksToBounds = YES;
+            [self.popMenu  addSubview:lab];
+            
+            [UIView animateWithDuration:0.4 animations:^{
+                lab.alpha = 0;
+            } completion:^(BOOL finished) {
+                [lab removeFromSuperview];
+                [self.popMenu removeFromSuperview];
+                NSLog(@"删除成功");
+            }];
         }];
-    }else { //ios8.0以上使用的方法
-       //获取Library目录路径
+    }else {
         NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)firstObject];
         NSString *cookiesPath = [libraryPath stringByAppendingPathComponent:@"Cookies"];
         [[NSFileManager defaultManager]removeItemAtPath:cookiesPath error:nil];
@@ -307,6 +315,14 @@
 #pragma mark - WKNavigationDelegate
 //网页加载完成
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    
+//    _bridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
+//    [_bridge setWebViewDelegate:self];
+//    [_bridge registerHandler:@"SetTitle" handler:^(id data, WVJBResponseCallback responseCallback) {
+//        NSLog(@"******%@", data);
+//        [self setNavTitle:data];
+//        responseCallback(@"1323");
+//    }];
     //是否自动登录
     NSString *userName = [UserDefaultsUtils valueWithKeyWithKey:@"userName"];
     NSString *pwd = [UserDefaultsUtils valueWithKeyWithKey:@"pwd"];
@@ -480,8 +496,8 @@
     }else if ([infoStr isEqualToString:@"second"]){
         
     }else{
-        NSArray *dataDict = @[@{@"icon":@"",@"title":@"设置"},@{@"icon":@"",@"title":@"退出系统"}];
-        self.popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 158, 51, 150, dataDict.count * 40) arrowMargin:17];
+        NSArray *dataDict = @[@{@"icon":@"",@"title":@"设置"},@{@"icon":@"",@"title":@"刷新"},@{@"icon":@"",@"title":@"退出系统"}];
+        self.popMenu = [[SwiftPopMenu alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 158, 51 + iPhoneX ?20 :0, 150, dataDict.count * 40) arrowMargin:17];
         //菜单数据
         self.popMenu.popData = dataDict;
         //点击菜单的回调
@@ -491,12 +507,13 @@
                 SettingViewController *settingVC = [[SettingViewController alloc]init];
                 settingVC.delegate = weakSelf;
                 [weakSelf.navigationController pushViewController:settingVC animated:YES];
+                [weakSelf.popMenu removeFromSuperview];
             }else if (index == 1){
-                exit(0);
+                NSLog(@"%ld",index);
+                //这里刷新，清除缓存
+                [weakSelf removeWKWebViewCookies];
             }else if (index == 2){
-                SettingViewController *settingVC = [[SettingViewController alloc]init];
-                settingVC.delegate = weakSelf;
-                [weakSelf.navigationController pushViewController:settingVC animated:YES];
+                    exit(0);
             }else if (index == 3){
                 NSString *urlStr = [DisplayUtils configUrlWithUrlStr:BACK_MAIN];
                 [weakSelf loadUrl:urlStr];
@@ -568,7 +585,6 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提醒***" message:message preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
         NSLog(@"***** success *****");
         completionHandler();
     }]];
