@@ -27,8 +27,8 @@
 @property (nonatomic, strong) STPagesCollectionView *pageCollectionView;
 @property (nonatomic, strong) UIToolbar *toolBar;
 @property (nonatomic, strong) NSMutableArray *pagesArr;
-@property (nonatomic, assign) BOOL isShowPages;
-
+@property (nonatomic, strong) NSString *lastUrlStr;//上一次加载的URL
+@property (nonatomic, strong) NSIndexPath *lastIndexPath;//记录上一次的indexPath
 @end
 
 @implementation MainViewController_oc
@@ -43,6 +43,8 @@
     _scale = 1.0;
     //设置别名
     [JPUSHService setAlias:[DisplayUtils uuid] callbackSelector:nil object:nil];
+    //初始化
+    _lastIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     //注册cell
     [self.pageCollectionView registerClass:[STPagesCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -80,7 +82,7 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 #pragma mark - 添加webview
-- (void)addWebViewTo:(UIView *)view {
+- (void)addWebView:(NSString *)urlStr to:(UIView *)view {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
     config.preferences = [[WKPreferences alloc]init];
     config.preferences.minimumFontSize = 10;
@@ -99,10 +101,8 @@
     _webView.customUserAgent = @"iphone";
     [_webView sizeToFit];
     [view addSubview:_webView];
-    [self loadUrl: URLPATH];//加载网页
-    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(aaa)];
-    tapGes.delegate = self;
-    _webView.userInteractionEnabled = YES;
+    [self loadUrl: urlStr];//加载网页
+
    // [_webView addGestureRecognizer:tapGes];
 //    [_webView loadRequest: [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.9.154:8020/House/xg_test.html"]]];
 //
@@ -245,7 +245,8 @@
     }
 }
 
-#pragma mark - WKScriptMessageHandler js交互回调
+#pragma mark - WKScriptMessageHandler
+//MARK: - js交互回调
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *dict = (NSDictionary *)message.body;
     NSString *type = dict[@"classCode"];
@@ -289,6 +290,8 @@
             //退出登录
             [UserDefaultsUtils deleteValueWithKeyWithKey:@"userName"];
             [UserDefaultsUtils deleteValueWithKeyWithKey:@"pwd"];
+            //清空多窗口数组
+            self.pagesArr = nil;
         }else if ([type isEqualToString:@"call"]) {
             //拔打电话
             NSString *title = (NSString *)dict[@"t"];
@@ -486,9 +489,10 @@
         _toolBar.barStyle = UIBarStyleBlackTranslucent;
         _toolBar.translucent = YES;
         _toolBar.tintColor = [UIColor whiteColor];
-        UIBarButtonItem *addItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageAction:)];
-        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        _toolBar.items = @[spaceItem, addItem, spaceItem];
+        UIBarButtonItem *addItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageAction:)];//加号
+        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];//空格
+        UIBarButtonItem *doneItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePagesAction:)];//完成
+        _toolBar.items = @[spaceItem, addItem, spaceItem, doneItem];
         [self.view addSubview:_toolBar];
     }
     return _toolBar;
@@ -496,9 +500,8 @@
 - (NSMutableArray *)pagesArr {
     if (!_pagesArr) {
         _pagesArr = [NSMutableArray array];
-        for (NSInteger i = 0; i < 2; i++) {
-             [_pagesArr addObject:[NSString stringWithFormat:@"button %zd",i]];
-        }
+        //默认值
+        [_pagesArr addObject:URLPATH];
     }
     return _pagesArr;
 }
@@ -507,7 +510,9 @@
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView{
     [webView reload];
 }
+#pragma mark - 网页内容开始加载
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+    _lastUrlStr = webView.URL.relativeString;
    NSString *orderInfo = [[AlipaySDK defaultService] fetchOrderInfoFromH5PayUrl:webView.URL.absoluteString];
     if (orderInfo == nil && orderInfo.length <= 0) {
         return;
@@ -639,19 +644,22 @@
     [cell setIsShowDeleteBtn:YES];
     cell.collectionView = collectionView;
     cell.cellContentView.userInteractionEnabled = YES;
-    [self addWebViewTo:cell.cellContentView];
+    [self addWebView:self.pagesArr[indexPath.row] to:cell.cellContentView];
     return cell;
 }
 #pragma mark - Action
-
+- (void)donePagesAction:(id)sender {
+    self.toolBar.hidden = YES;
+    [self.pageCollectionView showCellToHighLightAtIndexPathWithIndex:_lastIndexPath completion:^(BOOL finished) {
+        
+    }];
+}
 // 创建新窗口
 - (void)addPageAction:(id)sender {
     [self.pageCollectionView addPageCell];
-    
 }
-// 从3D显示变为正常显示
+// 从正常显示变为3D显示
 - (void)dismissFromHighLightAction:(id)sender {
-    NSLog(@"button");
     [self.pageCollectionView dismissFromHighLightWithCompletion:^(BOOL finished) {
         NSLog(@"dismiss completed");
     }];
@@ -662,12 +670,15 @@
     [self.pagesArr removeObjectAtIndex:indexPath.row];
 }
 //新建窗口
-- (void)addCellWithCollectionView:(STPagesCollectionView *)collectionView {
-    [self.pagesArr addObject:@"1"];
+- (void)addCellWithCollectionView:(STPagesCollectionView *)collectionView indexPath:(NSIndexPath *)indexPath{
+    _lastIndexPath = indexPath;
+    NSString *urlStr = [DisplayUtils configUrlWithUrlStr:_lastUrlStr];
+    [self.pagesArr addObject:urlStr];
 }
 #pragma mark - STPagesCollectionViewDelegate
 //从3D显示转换为正常显示
 - (void)showHighLightCellWithCollectionView:(STPagesCollectionView *)collectionView indexPath:(NSIndexPath *)indexPath {
+    _lastIndexPath = indexPath;
     self.toolBar.hidden = YES;
     [self.pageCollectionView showCellToHighLightAtIndexPathWithIndex:indexPath completion:^(BOOL finished) {
         NSLog(@"highlight completed");

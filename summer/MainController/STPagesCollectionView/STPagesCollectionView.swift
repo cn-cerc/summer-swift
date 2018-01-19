@@ -13,7 +13,7 @@ protocol STPagesCollectionViewDataSource : UICollectionViewDataSource {
     //删除cell
     func removeCell(collectionView : STPagesCollectionView, indexPath : IndexPath)
     //新建cell
-    func addCell(collectionView : STPagesCollectionView)
+    func addCell(collectionView : STPagesCollectionView, indexPath : IndexPath)
 }
 @objc(STPagesCollectionViewDelegate)
 protocol STPagesCollectionViewDelegate : UICollectionViewDelegate {
@@ -106,18 +106,19 @@ extension STPagesCollectionView {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             // 添加数据
             weak var dataSource = self.dataSource as? STPagesCollectionViewDataSource
-            dataSource?.addCell(collectionView: self)
+            //最后一条数据的index
             let lastIndex = IndexPath.init(row: total, section: 0)
+            dataSource?.addCell(collectionView: self, indexPath: lastIndex)
             self.performBatchUpdates({
                 self.insertItems(at: [lastIndex])
                 print("添加之后总的cell数量是\(self.numberOfItems(inSection: 0))")
             }, completion: { (finished : Bool) in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.reloadItems(at: [lastIndex])
-                    //从3D立体显示回到正常显示
+                    //新建一个窗口后，从3D立体显示回到正常显示
 //                    self.showCellToHighLightAtIndexPath(index: lastIndex, completion: { (finished : Bool) in
-//                        
-//                    })
+//
+//                   })
                 }
             })
         }
