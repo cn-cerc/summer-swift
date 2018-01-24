@@ -101,6 +101,10 @@
 		64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB91E569B24009D1135 /* UserNotifications.framework */; };
 		64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44ABB1E569B3A009D1135 /* libresolv.tbd */; };
 		794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794038B11FFB34E80036A8BB /* AdOnlineTool.swift */; };
+		79797BE32016B7B0003D9572 /* HAFieldClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */; };
+		79797BE42016B7B0003D9572 /* HAShowMapAndImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BE02016B7AF003D9572 /* HAShowMapAndImageController.swift */; };
+		79797BE52016B7B0003D9572 /* custonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BE12016B7B0003D9572 /* custonAnnotation.swift */; };
+		79797BE62016B7B0003D9572 /* HAShowMapAndImageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79797BE22016B7B0003D9572 /* HAShowMapAndImageController.xib */; };
 		9AF3BAAF1E9CB2EA00C3C643 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */; };
 		9AF3BAB01E9CB2EA00C3C643 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */; };
 		C7B089CB1E5C502A00BE0D43 /* PDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */; };
@@ -290,6 +294,10 @@
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
 		794038B11FFB34E80036A8BB /* AdOnlineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdOnlineTool.swift; sourceTree = "<group>"; };
+		79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAFieldClockController.swift; sourceTree = "<group>"; };
+		79797BE02016B7AF003D9572 /* HAShowMapAndImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAShowMapAndImageController.swift; sourceTree = "<group>"; };
+		79797BE12016B7B0003D9572 /* custonAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = custonAnnotation.swift; sourceTree = "<group>"; };
+		79797BE22016B7B0003D9572 /* HAShowMapAndImageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HAShowMapAndImageController.xib; sourceTree = "<group>"; };
 		9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
@@ -542,6 +550,7 @@
 				64EFE3B01E4D5F5B006A1455 /* Category */,
 				64EFE3B31E4D5F5B006A1455 /* ToolClass */,
 				64EFE3AF1E4D5F5B006A1455 /* BaseController */,
+				79797BDE2016B749003D9572 /* ClockMap */,
 				64EFE3B21E4D5F5B006A1455 /* MainController */,
 				64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */,
 				64EFE3831E4D5EC8006A1455 /* ViewController.swift */,
@@ -746,6 +755,17 @@
 			path = Lib;
 			sourceTree = "<group>";
 		};
+		79797BDE2016B749003D9572 /* ClockMap */ = {
+			isa = PBXGroup;
+			children = (
+				79797BE12016B7B0003D9572 /* custonAnnotation.swift */,
+				79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */,
+				79797BE02016B7AF003D9572 /* HAShowMapAndImageController.swift */,
+				79797BE22016B7B0003D9572 /* HAShowMapAndImageController.xib */,
+			);
+			path = ClockMap;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -868,6 +888,7 @@
 				64EFE38C1E4D5EC8006A1455 /* LaunchScreen.storyboard in Resources */,
 				64F4136C1E55528400FDAAC6 /* MJRefresh.bundle in Resources */,
 				64EFE3CB1E4DBD5C006A1455 /* Images.xcassets in Resources */,
+				79797BE62016B7B0003D9572 /* HAShowMapAndImageController.xib in Resources */,
 				64EFE3891E4D5EC8006A1455 /* Assets.xcassets in Resources */,
 				64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */,
 				6407BF631E542DD00073C297 /* LICENSE in Resources */,
@@ -913,13 +934,16 @@
 				6407BFB21E5435700073C297 /* AFNetworkManager.m in Sources */,
 				6407BF6A1E542DD00073C297 /* SDWebImageDownloaderOperation.m in Sources */,
 				64EFE3B91E4D6B09006A1455 /* BaseNavViewController.swift in Sources */,
+				79797BE42016B7B0003D9572 /* HAShowMapAndImageController.swift in Sources */,
 				794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */,
 				6407BF661E542DD00073C297 /* SDImageCache.m in Sources */,
 				6407BF651E542DD00073C297 /* NSData+ImageContentType.m in Sources */,
 				64F413601E55528400FDAAC6 /* MJRefreshComponent.m in Sources */,
 				6407BFA51E542DDF0073C297 /* AFURLSessionManager.m in Sources */,
 				6407BF641E542DD00073C297 /* README.md in Sources */,
+				79797BE52016B7B0003D9572 /* custonAnnotation.swift in Sources */,
 				6407BFA91E542DDF0073C297 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				79797BE32016B7B0003D9572 /* HAFieldClockController.swift in Sources */,
 				6407BF681E542DD00073C297 /* SDWebImageDecoder.m in Sources */,
 				64EFE3841E4D5EC8006A1455 /* ViewController.swift in Sources */,
 				64EFE3CD1E4DC65F006A1455 /* DisplayUtils.swift in Sources */,
