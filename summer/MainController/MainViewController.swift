@@ -834,7 +834,7 @@ extension MainViewController : UICollectionViewDataSource {
         cell.setIsShowDeleteBtn(true)
         cell.collectionView = collectionView
         cell.contentView.isUserInteractionEnabled = true
-        addWebView(urlStr:self.pagesArr[indexPath.row], to: cell.contentView)
+        addWebView(urlStr:self.pagesArr[indexPath.row], to: cell.cellContentView)
         return cell
     }
 }
