@@ -437,7 +437,7 @@ extension MainViewController: WKScriptMessageHandler {
             WXApi.send(request)
         }else{
             
-        // ***************************************************************************************
+        // ************************* 新增方法调用  ******************************
             jsCallOcMethod(dict: dict)
         }
     }
