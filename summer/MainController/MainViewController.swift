@@ -21,7 +21,7 @@ class MainViewController: BaseViewController {
     var scale:Float!//缩放比例
     var timer:Timer?
     var isTimer:Bool = false
-    
+    var scanVC = STScanViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,6 +163,10 @@ class MainViewController: BaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
 }
 
 extension MainViewController{
@@ -267,31 +271,20 @@ extension MainViewController{
     
     func jsCallOcMethod(dict: Dictionary<String, Any>){
         
-        let callBackStr = String()
-        if dict.keys.contains("_callback_") {
-            guard callBackStr == dict["_callback_"] as! String else {
-                print("_callback_的值为空")
-                return
-            }
-        }else{
-            print("没有_callback_忽略掉")
-        }
-        
-        let classCode = dict["classCode"] as! String
+        guard let classCode = dict["classCode"] else {return}
+        let callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
+
         //***********  下面判断需要调用的方法是否存在
-        if classCode == "photo" {
-            photo(dict: dict, callback: { (data: String) in
-                let backStr = callBackString(type: true, message: "success", callBack: callBackStr)
+        if classCode as! String == "ScanBarcode" {
+            //扫一扫
+            scan(dict: dict, callback: { (result : String?) in
+                let backStr = self.callBackString(type: true, message: result!, callBack: callBackStr)
                 self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
                     if error != nil{
                         print("***错误\(String(describing: error))")
                     }
-                    
                 })
-                
-                
             })
-            
         }
         
         
@@ -303,20 +296,25 @@ extension MainViewController{
         let failBackString = "(new Function('return \( callBackStr)') ()) (\( failJsonString))"
         print(failBackString)
         self.webView.evaluateJavaScript(failBackString) { (item: Any?, error: Error?) in
-            
+
             if error != nil {
                 print("***错误\(String(describing: error))")
             }
         }
-        
+
         
         
     }
+    
   //具体执行的方法
-    func photo(dict:Dictionary<String, Any>,callback:(String)->()){
-        
-        
-        
+    //MARK: - 扫一扫（二维码/条形码）
+    func scan(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
+        scanVC.scanData(finish: { (result : String?, error : Error?) in
+            print(result!)
+            callback(result)
+            self.dismiss(animated: true, completion: nil)
+        })
+        present(scanVC, animated: true, completion: nil)
     }
   
     
@@ -604,17 +602,24 @@ extension MainViewController: WKUIDelegate{
             })
         }
     }
+
+//    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+//        print("runJavaScriptConfirmPanelWithMessage")
+//        completionHandler(true)
+//    }
     
-    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-        
-        let alertVC = UIAlertController.init(title: "***提示***", message: message, preferredStyle: .alert)
-        let alerAction = UIAlertAction.init(title: "确定", style: .cancel) { (action: UIAlertAction) in
-            completionHandler()
-        }
-        alertVC.addAction(alerAction)
-        
-        self.present(alertVC, animated: true, completion: nil)
-    }
+   
+//    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+//
+//        let alertVC = UIAlertController.init(title: "***提示***", message: message, preferredStyle: .alert)
+//        let alerAction = UIAlertAction.init(title: "确定", style: .cancel) { (action: UIAlertAction) in
+//            completionHandler()
+//        }
+//
+//        alertVC.addAction(alerAction)
+//
+//        self.present(alertVC, animated: true, completion: nil)
+//    }
     
 }
 
@@ -737,3 +742,5 @@ extension MainViewController :StartAppDelegate {
         
     }
 }
+
+
