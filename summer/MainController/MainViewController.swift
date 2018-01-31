@@ -274,36 +274,69 @@ extension MainViewController{
                 return
             }
         }else{
+            print("没有_callback_忽略掉")
+        }
+        
+        let classCode = dict["classCode"] as! String
+        //***********  下面判断需要调用的方法是否存在
+        if classCode == "photo" {
+            photo(dict: dict, callback: { (data: String) in
+                let backStr = callBackString(type: true, message: "success", callBack: callBackStr)
+                self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
+                    if error != nil{
+                        print("***错误\(String(describing: error))")
+                    }
+                    
+                })
+                
+                
+            })
             
         }
         
         
-        guard callBackStr == dict["_callback_"] as! String else {return}
-        let backData = ["result": true,"data":"098"] as [String : Any]
-        let jsonData = try? JSONSerialization.data(withJSONObject: backData, options: .prettyPrinted)
-        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)!
-        let backString = "(new Function('return \( callBackStr)') ()) (\( jsonString))"
-        print(backString)
-        self.webView.evaluateJavaScript(backString) { (item: Any?, error: Error?) in
+   //*******************  有_callback_值但，没有classCode所传方法的时候调用  ***************************
+        
+        let failBackData = ["result": false,"data":"没有所要调用的方法"] as [String : Any]
+        let failJsonData = try? JSONSerialization.data(withJSONObject: failBackData, options: .prettyPrinted)
+        let failJsonString = String(data: failJsonData!, encoding: String.Encoding.utf8)!
+        let failBackString = "(new Function('return \( callBackStr)') ()) (\( failJsonString))"
+        print(failBackString)
+        self.webView.evaluateJavaScript(failBackString) { (item: Any?, error: Error?) in
             
-            let errBool = error != nil;
-            if errBool {
+            if error != nil {
                 print("***错误\(String(describing: error))")
             }
         }
+        
+        
+        
     }
+  //具体执行的方法
+    func photo(dict:Dictionary<String, Any>,callback:(String)->()){
+        
+        
+        
+    }
+  
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ //返回给服务器的字符串
+    /// 返回给服务器的信息函数
+    ///
+    /// - Parameters:
+    ///   - type: 是否调用成功，true成功，false失败
+    ///   - message: 传递的参数
+    ///   - callBack: 服务器返回来_callback_
+    /// - Returns: 返回给服务器的信息
+    func callBackString(type: Bool,message: String,callBack:String) -> String {
+        let backData = ["result": type,"data":message] as [String : Any]
+        let jsonData = try? JSONSerialization.data(withJSONObject: backData, options: .prettyPrinted)
+        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)!
+        let backString = "(new Function('return \( callBack)') ()) (\( jsonString))"
+        return backString
+    }
     
 }
 
@@ -312,23 +345,7 @@ extension MainViewController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print(message.body)
         guard let dict = message.body as? [String : Any] else{return}
-        jsCallOcMethod(dict: dict)
-//********************************************************************************************
         print(dict["classCode"] as Any)
-        guard let callBackStr = dict["_callback_"] else {return}
-        let backData = ["result": true,"data":"098"] as [String : Any]
-        let jsonData = try? JSONSerialization.data(withJSONObject: backData, options: .prettyPrinted)
-        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)!
-        let backString = "(new Function('return \( callBackStr)') ()) (\( jsonString))"
-        print(backString)
-        self.webView.evaluateJavaScript(backString) { (item: Any?, error: Error?) in
-            
-            let errBool = error != nil;
-            if errBool {
-                 print("***错误\(String(describing: error))")
-            }
-        }
-        
         let type:String = dict["classCode"] as! String
         print("type"+type)
         if type == "SetAppliedTitle" {
@@ -352,17 +369,6 @@ extension MainViewController: WKScriptMessageHandler {
             }else {
                 tag = false
             }
-
-            
-//            var status :Bool = dict["status"]
-        
-//            if status=="1" {
-//                tag = true
-//            }else {
-//                tag = false
-//            }
-
-//
             let token:String = dict["token"] as! String
             UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
             
@@ -429,6 +435,10 @@ extension MainViewController: WKScriptMessageHandler {
             request.timeStamp = UInt32((message.body as! Dictionary<String,String>)["timestamp"]!)!
             request.sign = (message.body as! Dictionary<String,String>)["sign"]
             WXApi.send(request)
+        }else{
+            
+        // ***************************************************************************************
+            jsCallOcMethod(dict: dict)
         }
     }
 }
