@@ -112,6 +112,8 @@
 		DC0B06191FFDD8F8004A3A49 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06151FFDD8F8004A3A49 /* MainViewController.swift */; };
 		DC0B061A1FFDD8F8004A3A49 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06161FFDD8F8004A3A49 /* SettingViewController.swift */; };
 		DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */; };
+		DCAD2846202161E2009AA8E0 /* STScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD2844202161E2009AA8E0 /* STScanViewController.swift */; };
+		DCAD2847202161E2009AA8E0 /* STScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD2845202161E2009AA8E0 /* STScanView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +308,8 @@
 		DC0B06151FFDD8F8004A3A49 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DC0B06161FFDD8F8004A3A49 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingImageViewController.swift; sourceTree = "<group>"; };
+		DCAD2844202161E2009AA8E0 /* STScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STScanViewController.swift; sourceTree = "<group>"; };
+		DCAD2845202161E2009AA8E0 /* STScanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STScanView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,6 +626,8 @@
 		64EFE3B31E4D5F5B006A1455 /* ToolClass */ = {
 			isa = PBXGroup;
 			children = (
+				DCAD2845202161E2009AA8E0 /* STScanView.swift */,
+				DCAD2844202161E2009AA8E0 /* STScanViewController.swift */,
 				64F3A4C91E5D2D290083E73D /* SwiftPopMenu.swift */,
 				64F196BD1E515B67005B80F8 /* CustemNavItem.swift */,
 				794038B11FFB34E80036A8BB /* AdOnlineTool.swift */,
@@ -922,6 +928,7 @@
 				6407BFAF1E542DDF0073C297 /* UIWebView+AFNetworking.m in Sources */,
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
+				DCAD2846202161E2009AA8E0 /* STScanViewController.swift in Sources */,
 				DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */,
 				64F4136A1E55528400FDAAC6 /* MJRefreshNormalHeader.m in Sources */,
 				DC0B06191FFDD8F8004A3A49 /* MainViewController.swift in Sources */,
@@ -952,6 +959,7 @@
 				6407BF671E542DD00073C297 /* SDWebImageCompat.m in Sources */,
 				64F4136F1E55528400FDAAC6 /* UIScrollView+MJExtension.m in Sources */,
 				6407BFAE1E542DDF0073C297 /* UIRefreshControl+AFNetworking.m in Sources */,
+				DCAD2847202161E2009AA8E0 /* STScanView.swift in Sources */,
 				64F413711E55528400FDAAC6 /* UIView+MJExtension.m in Sources */,
 				64F4135F1E55528400FDAAC6 /* MJRefreshBackFooter.m in Sources */,
 				6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */,
