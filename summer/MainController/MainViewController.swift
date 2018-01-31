@@ -262,17 +262,75 @@ extension MainViewController{
     }
 }
 
+//MARK: - JS交互调用方法
+extension MainViewController{
+    
+    func jsCallOcMethod(dict: Dictionary<String, Any>){
+        
+        let callBackStr = String()
+        if dict.keys.contains("_callback_") {
+            guard callBackStr == dict["_callback_"] as! String else {
+                print("_callback_的值为空")
+                return
+            }
+        }else{
+            
+        }
+        
+        
+        guard callBackStr == dict["_callback_"] as! String else {return}
+        let backData = ["result": true,"data":"098"] as [String : Any]
+        let jsonData = try? JSONSerialization.data(withJSONObject: backData, options: .prettyPrinted)
+        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)!
+        let backString = "(new Function('return \( callBackStr)') ()) (\( jsonString))"
+        print(backString)
+        self.webView.evaluateJavaScript(backString) { (item: Any?, error: Error?) in
+            
+            let errBool = error != nil;
+            if errBool {
+                print("***错误\(String(describing: error))")
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
 
 extension MainViewController: WKScriptMessageHandler {
     //MARK: --- js交互回调
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-//        let type = (message.body as! Dictionary<String,String>)["type"]
         print(message.body)
         guard let dict = message.body as? [String : Any] else{return}
+        jsCallOcMethod(dict: dict)
+//********************************************************************************************
         print(dict["classCode"] as Any)
+        guard let callBackStr = dict["_callback_"] else {return}
+        let backData = ["result": true,"data":"098"] as [String : Any]
+        let jsonData = try? JSONSerialization.data(withJSONObject: backData, options: .prettyPrinted)
+        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)!
+        let backString = "(new Function('return \( callBackStr)') ()) (\( jsonString))"
+        print(backString)
+        self.webView.evaluateJavaScript(backString) { (item: Any?, error: Error?) in
+            
+            let errBool = error != nil;
+            if errBool {
+                 print("***错误\(String(describing: error))")
+            }
+        }
+        
         let type:String = dict["classCode"] as! String
         print("type"+type)
-        
         if type == "SetAppliedTitle" {
             var Frame = self.webView.frame
             let visibility:Bool = (dict["visibility"] != nil)
@@ -376,7 +434,7 @@ extension MainViewController: WKScriptMessageHandler {
 }
 
 extension MainViewController: WKNavigationDelegate{
-    //网页加载完成
+    //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         //是否自动登录
         //方法一
@@ -536,6 +594,18 @@ extension MainViewController: WKUIDelegate{
             })
         }
     }
+    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        
+        let alertVC = UIAlertController.init(title: "***提示***", message: message, preferredStyle: .alert)
+        let alerAction = UIAlertAction.init(title: "确定", style: .cancel) { (action: UIAlertAction) in
+            completionHandler()
+        }
+        alertVC.addAction(alerAction)
+        
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
 }
 
 //导航栏按钮
