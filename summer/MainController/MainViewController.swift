@@ -22,24 +22,75 @@ class MainViewController: BaseViewController {
     var timer:Timer?
     var isTimer:Bool = false
     var scanVC = STScanViewController()
+    var pageCollectionView : STPagesCollectionView = {
+        let layout = STPagesCollectionViewFlowLayout()
+        let pageCollectionView = STPagesCollectionView.init(frame: CGRect(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64), collectionViewLayout: layout)
+        pageCollectionView.backgroundColor = UIColor.clear
+        pageCollectionView.showsVerticalScrollIndicator = false
+    
+        return pageCollectionView
+    }()
+    fileprivate lazy var toolBar : UIToolbar = {
+        let toolBar = UIToolbar()
+        toolBar.frame = CGRect(x: 0, y: SCREEN_HEIGHT - 50, width: SCREEN_WIDTH, height: 50)
+        toolBar.barStyle = .blackTranslucent
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.white
+        toolBar.isHidden = true
+        let addItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addPageAction))//加号
+        let spaceItem = UIBarButtonItem.init(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//空格
+        let doneItem = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(donePagesAction))//完成
+        toolBar.items = [spaceItem, addItem, spaceItem, doneItem]
+        
+        return toolBar
+    }()
+    
+    fileprivate var pagesArr : [String] = {
+        var pagesArr = [String]()
+        pagesArr.append(URLPATH)
+        return pagesArr
+    }()
+    
+    var lastUrlStr : String?//上一次加载的URL
+    
+    var lastIndexPath : IndexPath!//记录上一次的indexPath
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
+        /*
         //添加WkWebView
         addWebView()
         //添加错误视图
         view.addSubview(self.errorImageView)
+         */
+        self.pageCollectionView.dataSource = self
+        self.pageCollectionView.delegate = self
+        view.addSubview(self.pageCollectionView)
+        view.addSubview(self.errorImageView)
+        view.addSubview(self.toolBar)
         //添加ProgressView
         addProgressView()
-        //加载网页
-        loadUrl(urlStr: URLPATH)
-        
+       
         self.scale = 1.0
         
         //设置别名
         JPUSHService.setAlias(DisplayUtils.uuid(), callbackSelector: nil, object: nil)
+        
+        //初始化
+        lastIndexPath = IndexPath.init(row: 0, section: 0)
+        //注册cell
+        self.pageCollectionView.register(STPagesCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
+          
+            DispatchQueue.main.async {
+                self.pageCollectionView.showCellToHighLightAtIndexPath(index: indexPath) { (finished : Bool) in
+                }
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -170,6 +221,18 @@ class MainViewController: BaseViewController {
 }
 
 extension MainViewController{
+    //新建窗口
+    @objc func addPageAction() {
+       self.pageCollectionView.addPageCell()
+    }
+    //从3D窗口显示回到正常显示
+    @objc func donePagesAction() {
+        self.toolBar.isHidden = true
+        self.pageCollectionView.showCellToHighLightAtIndexPath(index: lastIndexPath) { (finished : Bool) in
+            
+        }
+    }
+    
     //MARK: ---心跳请求
     @objc func Heartbeat(){
     let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
@@ -191,7 +254,7 @@ extension MainViewController{
     }
     
     //MARK: - 添加wkwebview
-    fileprivate func addWebView() {
+    fileprivate func addWebView(urlStr: String, to parentView : UIView) {
         //创建webview
         //创建一个webview的配置项
         let configuretion = WKWebViewConfiguration()
@@ -206,7 +269,7 @@ extension MainViewController{
         //添加一个名称，js通过这个名称发送消息
         configuretion.userContentController.add(self, name: "nativeMethod")
         
-        webView = WKWebView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64),configuration:configuretion)
+        webView = WKWebView(frame:CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT),configuration:configuretion)
         webView.allowsBackForwardNavigationGestures = true
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
@@ -215,7 +278,8 @@ extension MainViewController{
         webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         //内容自适应
         webView.sizeToFit()
-        view.addSubview(webView!)
+        parentView.addSubview(webView!)
+        loadUrl(urlStr: urlStr)
     }
     
     //添加进度条
@@ -353,12 +417,12 @@ extension MainViewController: WKScriptMessageHandler {
                 self.navigationController?.navigationBar.isHidden = true
                 Frame.origin.y = -20
                 Frame.size.height = SCREEN_HEIGHT + 20;
-                self.webView.frame = Frame
+                self.pageCollectionView.frame = Frame
             }else{
                 self.navigationController?.navigationBar.isHidden = false
                 Frame.origin.y = 64
                 Frame.size.height = SCREEN_HEIGHT - 64;
-                self.webView.frame = Frame
+                self.pageCollectionView.frame = Frame
             }
         }else if type == "HeartbeatCheck"{
             let a = dict["status"] as! NSNumber
@@ -517,6 +581,7 @@ extension MainViewController: WKNavigationDelegate{
     }
     //标题按钮
     func titleClick() {
+        /*
         let dataDict = [(icon:"",title:"转到首页")
                     ];
         
@@ -550,6 +615,8 @@ extension MainViewController: WKNavigationDelegate{
             }
         }
         popMenu.show()
+ */
+        showPagesCollectionView()
 
     }
     //跳转失败的时候调用
@@ -589,6 +656,7 @@ extension MainViewController: WKUIDelegate{
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        lastUrlStr = webView.url?.relativeString
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
             AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "summer", callback: { (result:[AnyHashable : Any]?) in
@@ -745,4 +813,53 @@ extension MainViewController :StartAppDelegate {
     }
 }
 
+//MARK: - 添加多窗口
+extension MainViewController {
+    func showPagesCollectionView() {
+        self.pageCollectionView.isHidden = false
+        self.toolBar.isHidden = false
+        self.pageCollectionView.dismissFromHighLight { (finished : Bool) in
+            
+        }
+    }
+}
 
+extension MainViewController : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.pagesArr.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let identity = "cell"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identity, for: indexPath) as! STPagesCollectionViewCell
+        cell.setIsShowDeleteBtn(true)
+        cell.collectionView = collectionView
+        cell.contentView.isUserInteractionEnabled = true
+        addWebView(urlStr:self.pagesArr[indexPath.row], to: cell.contentView)
+        return cell
+    }
+}
+extension MainViewController : STPagesCollectionViewDataSource {
+
+    //MARK: - 移除窗口
+    func removeCell(collectionView: STPagesCollectionView, indexPath: IndexPath) {
+        self.pagesArr.remove(at: indexPath.row)
+    }
+    //MARK: - 新建窗口
+    func addCell(collectionView: STPagesCollectionView, indexPath: IndexPath) {
+        lastIndexPath = indexPath
+        let urlStr = DisplayUtils.configUrl(urlStr: lastUrlStr!)
+        self.pagesArr.append(urlStr)
+    }
+   
+}
+extension MainViewController : STPagesCollectionViewDelegate {
+    //MARK: - 从3D显示转换为正常显示
+    func showHighLightCell(collectionView: STPagesCollectionView, indexPath: IndexPath) {
+        lastIndexPath = indexPath
+        self.toolBar.isHidden = true
+        self.pageCollectionView.showCellToHighLightAtIndexPath(index: indexPath) { (finished : Bool) in
+            print("highlight completed")
+        }
+    }
+  
+}
