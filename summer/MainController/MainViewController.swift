@@ -190,7 +190,7 @@ extension MainViewController{
         webView.load(request)
     }
     
-    //添加wkwebview
+    //MARK: - 添加wkwebview
     fileprivate func addWebView() {
         //创建webview
         //创建一个webview的配置项
@@ -348,14 +348,16 @@ extension MainViewController: WKScriptMessageHandler {
         print("type"+type)
         if type == "SetAppliedTitle" {
             var Frame = self.webView.frame
-            let visibility:Bool = (dict["visibility"] != nil)
-            if visibility {
+            let visibility = dict["visibility"] as! Bool
+            if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
                 Frame.origin.y = -20
                 Frame.size.height = SCREEN_HEIGHT + 20;
                 self.webView.frame = Frame
             }else{
                 self.navigationController?.navigationBar.isHidden = false
+                Frame.origin.y = 64
+                Frame.size.height = SCREEN_HEIGHT - 64;
                 self.webView.frame = Frame
             }
         }else if type == "HeartbeatCheck"{
@@ -723,7 +725,7 @@ extension MainViewController {
             self.tabBarController?.tabBar.isHidden = true
             UserDefaults.standard.set(false, forKey: "showAdVC")
         } else{
-            self.navigationController?.navigationBar.isHidden = false
+//            self.navigationController?.navigationBar.isHidden = false
             
         }
         
