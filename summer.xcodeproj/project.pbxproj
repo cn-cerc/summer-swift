@@ -110,6 +110,9 @@
 		DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */; };
 		DCAD2846202161E2009AA8E0 /* STScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD2844202161E2009AA8E0 /* STScanViewController.swift */; };
 		DCAD2847202161E2009AA8E0 /* STScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD2845202161E2009AA8E0 /* STScanView.swift */; };
+		DCAD284C20219A53009AA8E0 /* STPagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD284920219A53009AA8E0 /* STPagesCollectionViewCell.swift */; };
+		DCAD284D20219A53009AA8E0 /* STPagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD284A20219A53009AA8E0 /* STPagesCollectionView.swift */; };
+		DCAD284E20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD284B20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,6 +305,9 @@
 		DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingImageViewController.swift; sourceTree = "<group>"; };
 		DCAD2844202161E2009AA8E0 /* STScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STScanViewController.swift; sourceTree = "<group>"; };
 		DCAD2845202161E2009AA8E0 /* STScanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STScanView.swift; sourceTree = "<group>"; };
+		DCAD284920219A53009AA8E0 /* STPagesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		DCAD284A20219A53009AA8E0 /* STPagesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPagesCollectionView.swift; sourceTree = "<group>"; };
+		DCAD284B20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPagesCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -606,6 +612,7 @@
 		64EFE3B21E4D5F5B006A1455 /* MainController */ = {
 			isa = PBXGroup;
 			children = (
+				DCAD284820219A53009AA8E0 /* STPagesCollectionView */,
 				DC0B06141FFDD8F8004A3A49 /* AdViewController.swift */,
 				DC0B06151FFDD8F8004A3A49 /* MainViewController.swift */,
 				DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */,
@@ -750,6 +757,16 @@
 				64F44AAC1E569A92009D1135 /* JPUSHService.h */,
 			);
 			path = Lib;
+			sourceTree = "<group>";
+		};
+		DCAD284820219A53009AA8E0 /* STPagesCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				DCAD284920219A53009AA8E0 /* STPagesCollectionViewCell.swift */,
+				DCAD284A20219A53009AA8E0 /* STPagesCollectionView.swift */,
+				DCAD284B20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift */,
+			);
+			path = STPagesCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -908,6 +925,7 @@
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
 				DCAD2846202161E2009AA8E0 /* STScanViewController.swift in Sources */,
+				DCAD284C20219A53009AA8E0 /* STPagesCollectionViewCell.swift in Sources */,
 				DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */,
 				64F4136A1E55528400FDAAC6 /* MJRefreshNormalHeader.m in Sources */,
 				DC0B06191FFDD8F8004A3A49 /* MainViewController.swift in Sources */,
@@ -936,6 +954,7 @@
 				64F4136F1E55528400FDAAC6 /* UIScrollView+MJExtension.m in Sources */,
 				6407BFAE1E542DDF0073C297 /* UIRefreshControl+AFNetworking.m in Sources */,
 				DCAD2847202161E2009AA8E0 /* STScanView.swift in Sources */,
+				DCAD284E20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift in Sources */,
 				64F413711E55528400FDAAC6 /* UIView+MJExtension.m in Sources */,
 				64F4135F1E55528400FDAAC6 /* MJRefreshBackFooter.m in Sources */,
 				6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */,
@@ -966,6 +985,7 @@
 				6407BF6B1E542DD00073C297 /* SDWebImageManager.m in Sources */,
 				6407BFA31E542DDF0073C297 /* AFURLRequestSerialization.m in Sources */,
 				64F413691E55528400FDAAC6 /* MJRefreshGifHeader.m in Sources */,
+				DCAD284D20219A53009AA8E0 /* STPagesCollectionView.swift in Sources */,
 				6407BFA11E542DDF0073C297 /* AFSecurityPolicy.m in Sources */,
 				6407BFAB1E542DDF0073C297 /* UIButton+AFNetworking.m in Sources */,
 				64F413621E55528400FDAAC6 /* MJRefreshHeader.m in Sources */,
