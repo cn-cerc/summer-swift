@@ -13,7 +13,7 @@ let SCREENWIDTH = UIScreen.main.bounds.size.width
 /** 屏幕高 */
 let SCREENHEIGHT = UIScreen.main.bounds.size.height
 
-class HAFieldClockController: UIViewController {
+class HAFieldClockController: BaseViewController {
     /** 地图 */
     var mapView = MKMapView()
     /** 选择的地址title */
@@ -35,11 +35,14 @@ class HAFieldClockController: UIViewController {
     var myLocation = CLLocation()
     var distance : Double = 0.0
     var imageView = UIImageView()
-    
+    /** 经纬度，经度在前 */
+    var Position = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
+        setNavTitle(title: "考勤打卡")
+        self.navigationItem.leftBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_back")!, target: self as CustemBBI , infoStr: "HA")
         myLocation = CLLocation.init()
         creatUI()
         
@@ -179,6 +182,7 @@ extension HAFieldClockController{
     //MARK: - 添加大头针
     func addAnnotationToMapView(coorinate2D: CLLocationCoordinate2D){
         AnnotationType = true
+        Position = "\(coorinate2D.longitude),\(coorinate2D.latitude)"
         map.removeAnnotations(map.annotations)
         let custonAnno = custonAnnotation.init()
         custonAnno.coordinate = coorinate2D
@@ -231,6 +235,7 @@ extension HAFieldClockController: MKMapViewDelegate{
         }
         if  !AnnotationType {
             Pin?.image = UIImage.init(named: "bluePin")
+            Position = "\(annotation.coordinate.longitude),\(annotation.coordinate.latitude)"
         }else{
             Pin?.image = UIImage.init(named: "redPin")
             AnnotationType = false
@@ -273,39 +278,44 @@ extension HAFieldClockController{
         }else{
             print("找不到相机")
         }
-        
     }
     //MARK: - 打卡按钮点击方法
     @objc func clockButtonAction(sender: UIButton){
         print("点击了** 打卡按钮")
-        let showMapImageVC = HAShowMapAndImageController()
-        self.navigationController?.pushViewController(showMapImageVC, animated: true)
-        
         if self.imageView.image == nil{
             print("图片为空")
             return;
         }
-        
+        let Myapp = shareedMyApp.init()
+        var urlString = Myapp.getFormUrl("FrmAttendance.clockIn")
+        let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
+        urlString = urlString + "&sid=\(token)"
         let imgData = UIImageJPEGRepresentation(self.imageView.image!, 0.0001)
-        
-        AFNetworkManager.post("上传图片的URL", parameters: nil, formData: { (formData: AFMultipartFormData?) in
-            
-            formData?.appendPart(withForm: imgData!, name: "打卡图片")
-            
+        let paramet = ["Address_" : self.addressLbl.text,"Position_" : Position]
+        AFNetworkManager.post(urlString, parameters: paramet, formData: { (formData: AFMultipartFormData?) in
+            let fileManager = FileManager.default
+            var path =  NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+            try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            path = path + "/image.jpg"
+            if  fileManager.createFile(atPath: path, contents: imgData, attributes: nil){
+                let fileURL = URL.init(fileURLWithPath: path)
+                try? formData?.appendPart(withFileURL: fileURL, name: "FileUrl_")
+            }
         } , success: { (operation : AFHTTPRequestOperation?, responseObject : [AnyHashable: Any]?) in
             print("上传图片成功\(String(describing: responseObject))")
             
         } ) { (operation: AFHTTPRequestOperation?, error: Error?) in
-            print("上传图片失败")
+            print("上传图片失败:\(String(describing: error))")
         }
+ 
     }
     //MARK: - 记录按钮点击方法
     @objc func recordButtonAction(){
         print("点击了记录按钮")
     }
 }
-
-extension HAFieldClockController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+//MARK: - 相机及导航栏按钮的代理方法
+extension HAFieldClockController:UIImagePickerControllerDelegate,UINavigationControllerDelegate,CustemBBI{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print(info)
@@ -318,14 +328,13 @@ extension HAFieldClockController:UIImagePickerControllerDelegate,UINavigationCon
             self.showView.addSubview(self.imageView)
         }
     }
+   
+    func BBIdidClickWithName(infoStr: String) {
+        self.navigationController?.popViewController(animated: true)
+    }
+   
 }
 
-//MARK: - 自定义大头针
-//class custonAnnotation: NSObject,MKAnnotation {
-//    var coordinate = CLLocationCoordinate2D()
-//    var title: String?
-//    var subtitle: String?
-//}
 
 
 

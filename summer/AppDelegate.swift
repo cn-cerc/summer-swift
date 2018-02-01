@@ -35,9 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
-//        self.mainVC = MainViewController()
-        let clockVC = HAFieldClockController()
-        self.mainNav = BaseNavViewController(rootViewController:clockVC)
+        self.mainVC = MainViewController()
+        self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
         

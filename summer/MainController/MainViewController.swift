@@ -285,6 +285,14 @@ extension MainViewController{
                     }
                 })
             })
+            return
+        }
+        
+        if classCode as! String == "clockIn"{
+            
+            clockIn(dict: dict, callback: { (result : String?) in
+                print("打卡成功")
+            })
         }
         
         
@@ -295,15 +303,6 @@ extension MainViewController{
         let failJsonString = String(data: failJsonData!, encoding: String.Encoding.utf8)!
         let failBackString = "(new Function('return \( callBackStr)') ()) (\( failJsonString))"
         print(failBackString)
-        self.webView.evaluateJavaScript(failBackString) { (item: Any?, error: Error?) in
-
-            if error != nil {
-                print("***错误\(String(describing: error))")
-            }
-        }
-
-        
-        
     }
     
   //具体执行的方法
@@ -317,6 +316,13 @@ extension MainViewController{
         present(scanVC, animated: true, completion: nil)
     }
   
+    //MARK: - 外勤打卡
+    //classCode = clockIn
+    func clockIn(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
+        let clockVC = HAFieldClockController()
+        self.navigationController?.pushViewController(clockVC, animated: true)
+    }
+    
     
     
     
