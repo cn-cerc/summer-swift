@@ -13,6 +13,11 @@ let SCREENWIDTH = UIScreen.main.bounds.size.width
 /** 屏幕高 */
 let SCREENHEIGHT = UIScreen.main.bounds.size.height
 
+protocol HAFieldClockControllerDelegate: NSObjectProtocol{
+    func toClockRecordInterface()
+    
+}
+
 class HAFieldClockController: BaseViewController {
     /** 地图 */
     var mapView = MKMapView()
@@ -37,6 +42,8 @@ class HAFieldClockController: BaseViewController {
     var imageView = UIImageView()
     /** 经纬度，经度在前 */
     var Position = String()
+    /** 打卡界面代理 */
+    var delegate : HAFieldClockControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +128,7 @@ extension HAFieldClockController{
         view.addSubview(addNameLbl)
         
         addressLbl = UILabel.init(frame: CGRect(x: addNameLbl.frame.maxX, y: Y - 5, width: SCREENWIDTH - addNameLbl.frame.maxX, height: 30))
-        addressLbl.text = "这里展示反地理编译过来的地址"
+        addressLbl.text = ""
         addressLbl.numberOfLines = 2
         addressLbl.textColor = UIColor(displayP3Red: 18/255.0, green: 18/255.0, blue: 18/255.0, alpha: 1.0)
         addressLbl.font = UIFont.boldSystemFont(ofSize: 12)
@@ -194,7 +201,7 @@ extension HAFieldClockController{
             
            let err =  (error != nil) || (placemarks?.count == 0)
             if err {
-                self.addressLbl.text = ""
+                self.addressLbl.text = "未获取到地址"
                 return
             }
             let placeMark = placemarks?.first
@@ -236,6 +243,20 @@ extension HAFieldClockController: MKMapViewDelegate{
         if  !AnnotationType {
             Pin?.image = UIImage.init(named: "bluePin")
             Position = "\(annotation.coordinate.longitude),\(annotation.coordinate.latitude)"
+           let location = CLLocation.init(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+            geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks: [CLPlacemark]?, error: Error?) in
+                let err =  (error != nil) || (placemarks?.count == 0)
+                if err {
+                    self.addressLbl.text = "未获取到地址"
+                    return
+                }
+                let placeMark = placemarks?.first
+                let AddressLinesArray = placeMark?.addressDictionary!["FormattedAddressLines"] as! [String]
+                let Name = placeMark?.addressDictionary!["Name"] as! String
+                let addressString = AddressLinesArray[0] + Name
+                self.addressLbl.text = addressString
+                
+            })
         }else{
             Pin?.image = UIImage.init(named: "redPin")
             AnnotationType = false
@@ -243,12 +264,6 @@ extension HAFieldClockController: MKMapViewDelegate{
         Pin?.annotation = annotation
         return Pin;
     }
-//    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-//        print("当MKMapView加载数据完成时激发该方法")
-//    }
-//    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
-//        print("MKMapView渲染地图完成时调用该方法")
-//    }
 }
 //MARK: - CLLocationManager 代理
 extension HAFieldClockController: CLLocationManagerDelegate{
@@ -283,13 +298,12 @@ extension HAFieldClockController{
     @objc func clockButtonAction(sender: UIButton){
         print("点击了** 打卡按钮")
         if self.imageView.image == nil{
-            print("图片为空")
+            MBProgressHUD.showText("图片为空")
             return;
         }
+        let Hud = MBProgressHUD.show(in: view, message: "打卡中")
         let Myapp = shareedMyApp.init()
-        var urlString = Myapp.getFormUrl("FrmAttendance.clockIn")
-        let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
-        urlString = urlString + "&sid=\(token)"
+        let urlString = Myapp.getFormUrl("FrmAttendance.clockIn")
         let imgData = UIImageJPEGRepresentation(self.imageView.image!, 0.0001)
         let paramet = ["Address_" : self.addressLbl.text,"Position_" : Position]
         AFNetworkManager.post(urlString, parameters: paramet, formData: { (formData: AFMultipartFormData?) in
@@ -302,16 +316,34 @@ extension HAFieldClockController{
                 try? formData?.appendPart(withFileURL: fileURL, name: "FileUrl_")
             }
         } , success: { (operation : AFHTTPRequestOperation?, responseObject : [AnyHashable: Any]?) in
+            Hud?.hide(true)
+
             print("上传图片成功\(String(describing: responseObject))")
-            
+            guard var result = responseObject?["result"] as? Bool else{
+                return;
+            }
+            if result{
+                MBProgressHUD.showText("打卡成功！")
+                self.navigationController?.popViewController(animated: true)
+            }else{
+                MBProgressHUD.showText("\(String(describing: responseObject!["message"]))")
+            }
         } ) { (operation: AFHTTPRequestOperation?, error: Error?) in
-            print("上传图片失败:\(String(describing: error))")
+            Hud?.hide(true)
+            MBProgressHUD.showText("打卡失败")
         }
  
     }
     //MARK: - 记录按钮点击方法
     @objc func recordButtonAction(){
         print("点击了记录按钮")
+        if delegate != nil{
+            delegate?.toClockRecordInterface()
+          self.navigationController?.popViewController(animated: true)
+        }else{
+            print("没有HAFieldClockControllerDelegate对象")
+        }
+        
     }
 }
 //MARK: - 相机及导航栏按钮的代理方法

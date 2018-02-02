@@ -31,6 +31,6 @@ class shareedMyApp {
     }
     
     func getFormUrl(_ formCode: String) -> String{
-        return "\(URL_APP_ROOT)/\(FORMS)/\(formCode)?device=iphone&CLIENTID=\(DisplayUtils.uuid())"
+        return "\(URL_APP_ROOT)/\(FORMS)/\(formCode)?device=iphone&CLIENTID=\(DisplayUtils.uuid())&sid=\(UserDefaultsUtils.valueWithKey(key: "TOKEN"))"
     }
 }

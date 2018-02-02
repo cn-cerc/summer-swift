@@ -185,7 +185,7 @@ extension MainViewController{
     //加载url
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
-        print(URLPATH)
+//        print(URLPATH)
         let request = URLRequest.init(url: urlStr!)
         webView.load(request)
     }
@@ -320,12 +320,9 @@ extension MainViewController{
     //classCode = clockIn
     func clockIn(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
         let clockVC = HAFieldClockController()
+        clockVC.delegate = self
         self.navigationController?.pushViewController(clockVC, animated: true)
     }
-    
-    
-    
-    
  //返回给服务器的字符串
     /// 返回给服务器的信息函数
     ///
@@ -750,5 +747,12 @@ extension MainViewController :StartAppDelegate {
         
     }
 }
-
+//MARK: - HAFieldClockControllerDelegate
+extension MainViewController: HAFieldClockControllerDelegate{
+    func toClockRecordInterface() {
+        let Myapp = shareedMyApp.init()
+        let urlString = Myapp.getFormUrl("FrmAttendance.attendance")
+        loadUrl(urlStr: urlString)
+    }
+}
 

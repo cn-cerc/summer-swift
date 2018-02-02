@@ -103,6 +103,10 @@
 		794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794038B11FFB34E80036A8BB /* AdOnlineTool.swift */; };
 		79797BE32016B7B0003D9572 /* HAFieldClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */; };
 		79797BE52016B7B0003D9572 /* custonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BE12016B7B0003D9572 /* custonAnnotation.swift */; };
+		79797C3F2022F559003D9572 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 79797C392022F559003D9572 /* LICENSE */; };
+		79797C402022F559003D9572 /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3B2022F559003D9572 /* MBProgressHUD+Add.m */; };
+		79797C412022F559003D9572 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3D2022F559003D9572 /* MBProgressHUD.m */; };
+		79797C422022F559003D9572 /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 79797C3E2022F559003D9572 /* README.mdown */; };
 		9AF3BAAF1E9CB2EA00C3C643 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */; };
 		9AF3BAB01E9CB2EA00C3C643 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */; };
 		C7B089CB1E5C502A00BE0D43 /* PDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */; };
@@ -296,6 +300,12 @@
 		794038B11FFB34E80036A8BB /* AdOnlineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdOnlineTool.swift; sourceTree = "<group>"; };
 		79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAFieldClockController.swift; sourceTree = "<group>"; };
 		79797BE12016B7B0003D9572 /* custonAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = custonAnnotation.swift; sourceTree = "<group>"; };
+		79797C392022F559003D9572 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		79797C3A2022F559003D9572 /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
+		79797C3B2022F559003D9572 /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
+		79797C3C2022F559003D9572 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		79797C3D2022F559003D9572 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		79797C3E2022F559003D9572 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
 		9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
@@ -381,6 +391,7 @@
 		6407BF411E542DB60073C297 /* Library-oc */ = {
 			isa = PBXGroup;
 			children = (
+				79797C382022F559003D9572 /* MBProgressHUD */,
 				C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */,
 				C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */,
 				64F4132F1E55528400FDAAC6 /* MJRefresh */,
@@ -766,6 +777,19 @@
 			path = ClockMap;
 			sourceTree = "<group>";
 		};
+		79797C382022F559003D9572 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				79797C392022F559003D9572 /* LICENSE */,
+				79797C3A2022F559003D9572 /* MBProgressHUD+Add.h */,
+				79797C3B2022F559003D9572 /* MBProgressHUD+Add.m */,
+				79797C3C2022F559003D9572 /* MBProgressHUD.h */,
+				79797C3D2022F559003D9572 /* MBProgressHUD.m */,
+				79797C3E2022F559003D9572 /* README.mdown */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -889,8 +913,10 @@
 				64F4136C1E55528400FDAAC6 /* MJRefresh.bundle in Resources */,
 				64EFE3CB1E4DBD5C006A1455 /* Images.xcassets in Resources */,
 				64EFE3891E4D5EC8006A1455 /* Assets.xcassets in Resources */,
+				79797C3F2022F559003D9572 /* LICENSE in Resources */,
 				64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */,
 				6407BF631E542DD00073C297 /* LICENSE in Resources */,
+				79797C422022F559003D9572 /* README.mdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +948,7 @@
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
 				DCAD2846202161E2009AA8E0 /* STScanViewController.swift in Sources */,
+				79797C412022F559003D9572 /* MBProgressHUD.m in Sources */,
 				DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */,
 				64F4136A1E55528400FDAAC6 /* MJRefreshNormalHeader.m in Sources */,
 				DC0B06191FFDD8F8004A3A49 /* MainViewController.swift in Sources */,
@@ -952,6 +979,7 @@
 				64F4136F1E55528400FDAAC6 /* UIScrollView+MJExtension.m in Sources */,
 				6407BFAE1E542DDF0073C297 /* UIRefreshControl+AFNetworking.m in Sources */,
 				DCAD2847202161E2009AA8E0 /* STScanView.swift in Sources */,
+				79797C402022F559003D9572 /* MBProgressHUD+Add.m in Sources */,
 				64F413711E55528400FDAAC6 /* UIView+MJExtension.m in Sources */,
 				64F4135F1E55528400FDAAC6 /* MJRefreshBackFooter.m in Sources */,
 				6407BFB61E5447D40073C297 /* LaunchIntroductionView.m in Sources */,
