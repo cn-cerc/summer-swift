@@ -44,6 +44,7 @@ class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        view.backgroundColor = UIColor.red
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.navigationBar.barTintColor = RGBA(r: 72, g: 178, b: 189, a: 1.0)
         
@@ -160,7 +161,8 @@ extension MainViewController{
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
 //        print(URLPATH)
-        let request = URLRequest.init(url: urlStr!)
+        let request = URLRequest.init(url: urlStr!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
+//        let request = URLRequest.init(url: urlStr!)
         webView.load(request)
     }
     
@@ -215,7 +217,6 @@ extension MainViewController{
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "estimatedProgress"{
-            
             progressView.alpha = 1.0
             let animated = Float(webView.estimatedProgress) > progressView.progress;
             
@@ -247,36 +248,46 @@ extension MainViewController{
         
         guard let classCode = dict["classCode"] else {return}
         let callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
-
+        print("_callback_:\(callBackStr)")
         //***********  下面判断需要调用的方法是否存在
         if classCode as! String == "ScanBarcode" {
             //扫一扫
             scan(dict: dict, callback: { (result : String?) in
-                let backStr = self.callBackString(type: true, message: result!, callBack: callBackStr)
+                var backStr: String
+//                let boo = result?.isEmpty
+                if result != nil{
+                    backStr = self.callBackString(type: true, message: result!, callBack: callBackStr)
+                }else{
+                    backStr = self.callBackString(type: false, message: result!, callBack: callBackStr)
+                }
                 self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
                     if error != nil{
-                        print("***错误\(String(describing: error))")
+                        print("***callBackJS错误\(String(describing: error))")
                     }
                 })
             })
             return
         }
-        
+        //跳转到打卡界面
         if classCode as! String == "clockIn"{
-            
-            clockIn(dict: dict, callback: { (result : String?) in
-                print("打卡成功")
+            clockIn(dict: dict, callback: {
+                let backStr = self.callBackString(type: true, message: "转到打卡界面成功", callBack: callBackStr)
+                self.callBackToJS(message: backStr)
             })
+            return
+        }
+        //js调刷新
+        if classCode as! String == "ReloadPage"{
+            ReloadPage(dict: dict, callback: {
+                let backStr = self.callBackString(type: true, message: "刷新成功", callBack: callBackStr)
+                self.callBackToJS(message: backStr)
+            })
+            return
         }
         
-        
    //*******************  有_callback_值但，没有classCode所传方法的时候调用  ***************************
-        
-        let failBackData = ["result": false,"data":"没有所要调用的方法"] as [String : Any]
-        let failJsonData = try? JSONSerialization.data(withJSONObject: failBackData, options: .prettyPrinted)
-        let failJsonString = String(data: failJsonData!, encoding: String.Encoding.utf8)!
-        let failBackString = "(new Function('return \( callBackStr)') ()) (\( failJsonString))"
-        print(failBackString)
+        let failBackStr = self.callBackString(type: false, message: "没有所要调用的方法", callBack: callBackStr)
+        self.callBackToJS(message: failBackStr)
     }
     
   //具体执行的方法
@@ -291,11 +302,24 @@ extension MainViewController{
     }
   
     //MARK: - 外勤打卡
-    //classCode = clockIn
-    func clockIn(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
+    func clockIn(dict:Dictionary<String, Any>,callback:@escaping()->()){
         let clockVC = HAFieldClockController()
         clockVC.delegate = self
         self.navigationController?.pushViewController(clockVC, animated: true)
+        callback()
+    }
+    //MARK: - JS调用刷新
+    func ReloadPage(dict: Dictionary<String, Any>,callback: @escaping()->()){
+        //?device=iphone&CLIENTID=\(DisplayUtils.uuid())
+        var currentUrlStr = try? String.init(contentsOf: self.webView.url!)
+        if (currentUrlStr?.contains("?"))! {
+            currentUrlStr = currentUrlStr! + "&device=iphone&CLIENTID=\(DisplayUtils.uuid())"
+        }else{
+            currentUrlStr = currentUrlStr! + "?device=iphone&CLIENTID=\(DisplayUtils.uuid())"
+        }
+        print("重刷新的URL\(String(describing: currentUrlStr))")
+        loadUrl(urlStr: currentUrlStr!)
+        callback()
     }
  //返回给服务器的字符串
     /// 返回给服务器的信息函数
@@ -306,13 +330,24 @@ extension MainViewController{
     ///   - callBack: 服务器返回来_callback_
     /// - Returns: 返回给服务器的信息
     func callBackString(type: Bool,message: String,callBack:String) -> String {
-        let backData = ["result": type,"data":message] as [String : Any]
-        let jsonData = try? JSONSerialization.data(withJSONObject: backData, options: .prettyPrinted)
-        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)!
-        let backString = "(new Function('return \( callBack)') ()) (\( jsonString))"
+        var backString: String
+        if type {
+            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"data\":\(message)}')"
+        } else {
+            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"message\":\(message)}')"
+        }
+        
         return backString
     }
-    
+    //返回信息给JS
+    func callBackToJS(message: String){
+        self.webView.evaluateJavaScript(message, completionHandler: { (item: Any?, error:Error?) in
+            if error != nil{
+                print("***callBackJS错误\(String(describing: error))")
+            }
+        })
+        
+    }
     //MARK: - 刷新清除缓存
     func removeWKWebViewCookies(){
         if #available(iOS 9.0, *) {
@@ -333,7 +368,7 @@ extension MainViewController{
 }
 
 extension MainViewController: WKScriptMessageHandler {
-    //MARK: --- js交互回调
+    //MARK: --- js交互回调userContentController
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print(message.body)
         guard let dict = message.body as? [String : Any] else{return}
@@ -341,18 +376,17 @@ extension MainViewController: WKScriptMessageHandler {
         let type:String = dict["classCode"] as! String
         print("type"+type)
         if type == "SetAppliedTitle" {
-            var Frame = self.webView.frame
+//            var Frame = self.webView.frame
             let visibility = dict["visibility"] as! Bool
             if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
-                Frame.origin.y = -20
-                Frame.size.height = SCREEN_HEIGHT + 20;
-                self.webView.frame = Frame
+                Thread.sleep(forTimeInterval: 1.0)
+                self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+                progressView.frame = CGRect.init(x: 0, y: 20, width: view.bounds.size.width, height: 3)
             }else{
                 self.navigationController?.navigationBar.isHidden = false
-                Frame.origin.y = 64
-                Frame.size.height = SCREEN_HEIGHT - 64;
-                self.webView.frame = Frame
+                self.webView.frame = CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT - 64)
+                progressView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.size.width, height: 3)
             }
         }else if type == "HeartbeatCheck"{
             let a = dict["status"] as! NSNumber
@@ -367,7 +401,7 @@ extension MainViewController: WKScriptMessageHandler {
             UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
             
             var time:NSInteger = dict["time"] as! NSInteger
-                time *= 60
+                time *= 1
             if tag {
                 if !isTimer{
                     isTimer = true
@@ -440,6 +474,7 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        removeWKWebViewCookies()
         //是否自动登录
         //方法一
         let userName:String? = UserDefaultsUtils.valueWithKey(key: "userName") as? String
@@ -583,6 +618,7 @@ extension MainViewController: WKUIDelegate{
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//        removeWKWebViewCookies()
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
             AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "summer", callback: { (result:[AnyHashable : Any]?) in
