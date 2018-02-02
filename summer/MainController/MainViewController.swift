@@ -110,33 +110,7 @@ class MainViewController: BaseViewController {
         }else{
             self.webView.scrollView.mj_header = MJRefreshNormalHeader.init(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
         }
-        removeWKWebViewCookies()
     }
-    
-    //清除缓存
-    func removeWKWebViewCookies(){
-        if #available(iOS 9.0, *) {
-            let dataStore = WKWebsiteDataStore.default()
-            dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), completionHandler: { (records) in
-                for record in records{
-                    //清除本站的cookie
-                    if record.displayName.contains("http://192.168.9.133"){//这个判断注释掉的话是清理所有的cookie
-                        WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {
-                            //清除成功
-                            print("清除成功\(record)")
-                        })
-                    }
-                }
-            })
-        } else {
-            //ios8.0以上使用的方法
-            let libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
-            let cookiesPath = libraryPath! + "/Cookies"
-            try!FileManager.default.removeItem(atPath: cookiesPath)
-        }
-    }
-    
-    
     
     func headerRefresh() {
         self.webView.reload()
@@ -339,6 +313,23 @@ extension MainViewController{
         return backString
     }
     
+    //MARK: - 刷新清除缓存
+    func removeWKWebViewCookies(){
+        if #available(iOS 9.0, *) {
+            
+            let websiteDataTypes : Set<String> = ["WKWebsiteDataTypeDiskCache","WKWebsiteDataTypeMemoryCache"]
+            let dateFrom = Date.init(timeIntervalSince1970: 0)
+            let dataStore = WKWebsiteDataStore.default()
+            dataStore.removeData(ofTypes: websiteDataTypes, modifiedSince: dateFrom, completionHandler: {
+                MBProgressHUD.showText("刷新成功")
+            })
+        } else {
+            let libraryPath = (NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first)! as NSString
+            
+            let cookiesPath = libraryPath.appendingPathComponent("Cookies")
+            try? FileManager.default.removeItem(atPath: cookiesPath)
+        }
+    }
 }
 
 extension MainViewController: WKScriptMessageHandler {
@@ -646,6 +637,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
             
         }else{
             let dataDict = [(icon:"",title:"设置"),
+                            (icon:"",title:"刷新"),
                             (icon:"",title:"退出系统")
                             ]
             
@@ -662,11 +654,11 @@ extension MainViewController:CustemBBI,SettingDelegate{
                     settingVC.delegate = self
                     self?.navigationController?.pushViewController(settingVC, animated: true)
                 }else if index == 1 {
-                    exit(0)
+//                    exit(0)
+                    self?.removeWKWebViewCookies()
+                    print("点击了刷新")
                 }else if index == 2 {
-                    let settingVC = SettingViewController()
-                    settingVC.delegate = self
-                    self?.navigationController?.pushViewController(settingVC, animated: true)
+                    exit(0)
                 }else if index == 3 {
                     self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: BACK_MAIN))
                 }else if index == 4 {
