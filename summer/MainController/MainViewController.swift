@@ -171,7 +171,7 @@ extension MainViewController{
         configuretion.userContentController.add(self, name: "nativeMethod")
         
         webView = WKWebView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64),configuration:configuretion)
-        webView.allowsBackForwardNavigationGestures = true
+        webView.allowsBackForwardNavigationGestures = false
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
         webView?.customUserAgent = "iphone"
@@ -436,7 +436,17 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        removeWKWebViewCookies()
+        /*
+         当前URL:https://c1.knowall.cn/forms/TFrmWelcome
+         当前URL:https://c1.knowall.cn/forms/WebDefault
+         */
+        let url = webView.url!
+        let urlStr = "\(url)"
+        if urlStr.contains("TFrmWelcome") {
+            self.navigationController?.navigationBar.isHidden = true
+            Thread.sleep(forTimeInterval: 1.0)
+            self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+        }
         //是否自动登录
         //方法一
         let userName:String? = UserDefaultsUtils.valueWithKey(key: "userName") as? String
@@ -617,7 +627,7 @@ extension MainViewController: WKUIDelegate{
     
 }
 
-//导航栏按钮
+//MARK: - 导航栏按钮
 extension MainViewController:CustemBBI,SettingDelegate{
     //CustemBBI代理方法
     func BBIdidClickWithName(infoStr: String) {
