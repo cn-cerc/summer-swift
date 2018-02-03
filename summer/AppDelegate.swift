@@ -470,7 +470,7 @@ extension AppDelegate {
         UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
         
         time = dict["time"] as! NSInteger
-        time *= 1
+        time *= 60
         if tag {
             if !isTimer{
                 isTimer = true
