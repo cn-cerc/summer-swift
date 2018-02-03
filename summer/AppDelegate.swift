@@ -413,5 +413,3 @@ extension AppDelegate : JPUSHRegisterDelegate{
         }
     }
 }
-
-

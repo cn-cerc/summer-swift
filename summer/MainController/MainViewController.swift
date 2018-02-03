@@ -416,13 +416,13 @@ extension MainViewController: WKScriptMessageHandler {
             if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
                 Frame.origin.y = -20
-                Frame.size.height = SCREEN_HEIGHT + 20;
-                self.pageCollectionView.frame = Frame
+                Frame.size.height = SCREEN_HEIGHT + 20
+                self.pageCollectionView.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
             }else{
                 self.navigationController?.navigationBar.isHidden = false
                 Frame.origin.y = 64
-                Frame.size.height = SCREEN_HEIGHT - 64;
-                self.pageCollectionView.frame = Frame
+                Frame.size.height = SCREEN_HEIGHT - 64
+                self.pageCollectionView.frame = CGRect(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
             }
         }else if type == "HeartbeatCheck"{
             let a = dict["status"] as! NSNumber
