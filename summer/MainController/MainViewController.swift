@@ -436,10 +436,6 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        /*
-         当前URL:https://c1.knowall.cn/forms/TFrmWelcome
-         当前URL:https://c1.knowall.cn/forms/WebDefault
-         */
         let url = webView.url!
         let urlStr = "\(url)"
         if urlStr.contains("TFrmWelcome") {
