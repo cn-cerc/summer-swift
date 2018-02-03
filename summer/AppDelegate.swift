@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AVFoundation
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageManagerDelegate {
     
@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var mainNav: BaseNavViewController?
     var adTool : AdOnlineTool? = AdOnlineTool()
     var launchView : UIView?
+    var timer:Timer?
+    var time : NSInteger = 0
+    var isTimer:Bool = false
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
@@ -36,14 +39,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
         self.mainVC = MainViewController()
-        self.mainNav = BaseNavViewController(rootViewController:mainVC!)
+        self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
         
         //接收通知
         let NotifyChatMsgRecv = NSNotification.Name(rawValue:"ShowBanner")
         NotificationCenter.default.addObserver(self, selector: #selector(statusBarHiddenNotfi), name: NotifyChatMsgRecv, object: nil)
-        
+        let NotifyHeartbeatCheck = NSNotification.Name(rawValue: "HeartbeatCheck")
+        NotificationCenter.default.addObserver(self, selector: #selector(heartBeatCheck(notifi:)), name: NotifyHeartbeatCheck, object: nil)
         /*
          * #pragma 欢迎页
          */
@@ -98,6 +102,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         JPUSHService.setup(withOption: launchOptions, appKey: appkey, channel: channel, apsForProduction: isProduction, advertisingIdentifier: advertisingId)
         //设置启动页
         getLaunchImage()
+        do {
+           try AVAudioSession.sharedInstance().setCategory("AVAudioSessionCategoryPlayback")
+        }catch{
+            return false
+            
+        }
+         do {
+            try AVAudioSession.sharedInstance().setActive(true)
+         }catch{
+            return false
+        }
         return true
     }
     //MARK:--- 设置启动页
@@ -310,6 +325,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        var bgTask : UIBackgroundTaskIdentifier?
+        
+        bgTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            DispatchQueue.main.async(execute: {
+                if bgTask != UIBackgroundTaskInvalid {
+                    bgTask = UIBackgroundTaskInvalid
+                }
+            })
+        })
+        DispatchQueue.global().async {
+            DispatchQueue.main.async(execute: {
+                if bgTask != UIBackgroundTaskInvalid {
+                    bgTask = UIBackgroundTaskInvalid
+                }
+            })
+        }
+        if isTimer{
+            print(time)
+            print("在这里开启心跳")
+            timer?.fireDate = .distantPast
+        }else {
+            timer?.fireDate = .distantFuture
+            timer = nil
+            print("结束计时器")
+        }
+        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -414,4 +455,48 @@ extension AppDelegate : JPUSHRegisterDelegate{
     }
 }
 
-
+extension AppDelegate {
+    @objc fileprivate func heartBeatCheck(notifi : Notification) {
+        let dict = notifi.userInfo!
+        let a = dict["status"] as! NSNumber
+        let aString:String = a.stringValue
+        var tag : Bool
+        if aString == "1" {
+            tag = true
+        }else {
+            tag = false
+        }
+        let token:String = dict["token"] as! String
+        UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
+        
+        time = dict["time"] as! NSInteger
+        time *= 60
+        if tag {
+            if !isTimer{
+                isTimer = true
+                print("在这里开启心跳")
+                timer = Timer.scheduledTimer(timeInterval: TimeInterval(time), target: self, selector: #selector(Heartbeat), userInfo: nil, repeats: true)
+            }
+        }else{
+            if isTimer{
+                isTimer = false
+                timer?.invalidate()
+                timer = nil
+                print("结束计时器")
+            }
+        }
+    }
+    
+    //MARK: ---心跳请求
+    @objc func Heartbeat(){
+        let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
+        let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
+        AFNetworkManager.get(HeartBeat_URL, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
+            print("心跳请求返回数据")
+            print(responseObject)
+            
+        })  { (operation:AFHTTPRequestOperation?, error:Error?) in
+            print(error)
+        }
+    }
+}

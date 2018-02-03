@@ -10,6 +10,8 @@
 #import "LaunchIntroductionView.h"
 #import "AFNetworking.h"
 #import "MJRefresh.h"
+//#import "MBProgressHUD.h"
+#import "MBProgressHUD+Add.h"
 
 //#import "lhScanQCodeViewController.h"
 //#import "ScanViewController.h"

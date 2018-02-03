@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -52,8 +54,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>需要使用相机</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>我们需要通过您的地理位置信息获取您周边的相关数据</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>我们需要通过您的地理位置信息获取您周边的相关数据</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -62,6 +62,7 @@
 	<string>需要使用相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

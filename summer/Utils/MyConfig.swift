@@ -10,7 +10,6 @@ import UIKit
 let URL_APP_ROOT = "https://m.knowall.cn"//master版
 //let URL_APP_ROOT = "https://c1.knowall.cn"//Beta版
 
-
 let WELCOME_IMAGES_COUNT = 3
 let FORMS = "forms"
 let SERVICES = "services"
@@ -31,6 +30,6 @@ class shareedMyApp {
     }
     
     func getFormUrl(_ formCode: String) -> String{
-        return "\(URL_APP_ROOT)/\(FORMS)/\(formCode)?device=iphone&CLIENTID=\(DisplayUtils.uuid())"
+        return "\(URL_APP_ROOT)/\(FORMS)/\(formCode)?device=iphone&CLIENTID=\(DisplayUtils.uuid())&sid=\(UserDefaultsUtils.valueWithKey(key: "TOKEN"))"
     }
 }
