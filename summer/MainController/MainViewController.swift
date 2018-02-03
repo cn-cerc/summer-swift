@@ -19,8 +19,7 @@ class MainViewController: BaseViewController {
     
     var isNavHidden = false
     var scale:Float!//缩放比例
-    var timer:Timer?
-    var isTimer:Bool = false
+    
     var scanVC = STScanViewController()
     
     override func viewDidLoad() {
@@ -145,18 +144,7 @@ class MainViewController: BaseViewController {
 }
 
 extension MainViewController{
-    //MARK: ---心跳请求
-    @objc func Heartbeat(){
-    let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
-    let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
-    AFNetworkManager.get(HeartBeat_URL, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
-        print("心跳请求返回数据")
-        print(responseObject)
-        
-    })  { (operation:AFHTTPRequestOperation?, error:Error?) in
-        print(error)
-    }
-}
+   
     //加载url
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
@@ -389,33 +377,7 @@ extension MainViewController: WKScriptMessageHandler {
                 progressView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.size.width, height: 3)
             }
         }else if type == "HeartbeatCheck"{
-            let a = dict["status"] as! NSNumber
-            let aString:String = a.stringValue
-            var tag : Bool
-            if aString == "1" {
-                tag = true
-            }else {
-                tag = false
-            }
-            let token:String = dict["token"] as! String
-            UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
-            
-            var time:NSInteger = dict["time"] as! NSInteger
-                time *= 1
-            if tag {
-                if !isTimer{
-                    isTimer = true
-                print("在这里开启心跳")
-                timer = Timer.scheduledTimer(timeInterval: TimeInterval(time), target: self, selector: #selector(Heartbeat), userInfo: nil, repeats: true)
-                }
-            }else{
-                if isTimer{
-                    isTimer = false
-                    timer?.invalidate()
-                    timer = nil
-                print("结束计时器")
-                }
-            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "HeartbeatCheck"), object: nil, userInfo: dict)
             
         }else if type == "login" {//自动登录
             let u = (message.body as! Dictionary<String,String>)["u"]! as String
