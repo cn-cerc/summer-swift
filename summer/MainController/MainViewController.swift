@@ -228,8 +228,10 @@ extension MainViewController{
     //从3D窗口显示回到正常显示
     @objc func donePagesAction() {
         self.toolBar.isHidden = true
-        self.pageCollectionView.showCellToHighLightAtIndexPath(index: lastIndexPath) { (finished : Bool) in
-            
+        DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
+            self.pageCollectionView.showCellToHighLightAtIndexPath(index: self.lastIndexPath) { (finished : Bool) in
+                
+            }
         }
     }
     
@@ -247,8 +249,7 @@ extension MainViewController{
 }
     //加载url
     func loadUrl(urlStr:String) {
-        let urlStr = URL.init(string: urlStr)
-        print(URLPATH)
+        let urlStr = URL.init(string: urlStr+"&sid="+(UserDefaultsUtils.valueWithKey(key: "TOKEN") as! String))
         let request = URLRequest.init(url: urlStr!)
         webView.load(request)
     }
@@ -632,10 +633,11 @@ extension MainViewController: WKNavigationDelegate{
     //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
-        print("请求失败的URL)" + (webView.url?.absoluteString)!)
-        let urlBool = webView.url?.absoluteString.contains("FrmPayRequest")
-        let aliBool = webView.url?.absoluteString.contains("mclient.alipay.com/cashier/mobilepay.htm")
-        if aliBool! || urlBool!{
+        guard let urlStr = webView.url?.absoluteString else{return}
+        print("请求失败的URL)" + urlStr)
+        let urlBool = urlStr.contains("FrmPayRequest")
+        let aliBool = urlStr.contains("mclient.alipay.com/cashier/mobilepay.htm")
+        if aliBool || urlBool{
             return
         }
         self.setNavTitle(title: "出错了")
@@ -846,8 +848,11 @@ extension MainViewController : STPagesCollectionViewDataSource {
     }
     //MARK: - 新建窗口
     func addCell(collectionView: STPagesCollectionView, indexPath: IndexPath) {
+        print(self.pagesArr.description)
+    
         lastIndexPath = indexPath
-        let urlStr = DisplayUtils.configUrl(urlStr: lastUrlStr!)
+        let urlStr = DisplayUtils.configUrl(urlStr: lastUrlStr!)+"&sid="+(UserDefaultsUtils.valueWithKey(key: "TOKEN") as! String)
+        
         self.pagesArr.append(urlStr)
     }
    
