@@ -364,8 +364,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+    //MARK: - 跳转处理
+    //低版本中9.0及以下会用到
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        print("openURL:\(url.absoluteString),\(url.host)")
+        
+        if url.scheme == WX_APPID {
+            return WXApi.handleOpen(url, delegate: self)
+        }
+        
+        //跳转支付宝钱包进行支付，处理支付结果
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result:[AnyHashable : Any]?) in
+                print(result)
+            })
+        }
+        if url.host == "platformapi" {
+            AlipaySDK.defaultService().processAuthResult(url) { (resultDic: [AnyHashable : Any]?) in
+                print(resultDic)
+            }
+        }
+        return true
+    }
+    //低版本中9.0会用到
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        print("openURL:\(url.absoluteString),\(url.host)")
+        
+        if url.scheme == WX_APPID {
+            return WXApi.handleOpen(url, delegate: self)
+        }
+        
+        //跳转支付宝钱包进行支付，处理支付结果
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result:[AnyHashable : Any]?) in
+                print(result)
+            })
+        }
+        if url.host == "platformapi" {
+            AlipaySDK.defaultService().processAuthResult(url) { (resultDic: [AnyHashable : Any]?) in
+                print(resultDic)
+            }
+        }
+        return true
+    }
+    
+    //新的方法
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print("openURL:\(url.absoluteString),\(url.host)")
         
         if url.scheme == WX_APPID {
