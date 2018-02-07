@@ -385,7 +385,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
         return true
     }
-    
+    //MARK: - 微信支付结果的回调
     func onResp(_ resp: BaseResp!) {
         if resp.isKind(of: PayResp.self) {
             var backCode = ""
