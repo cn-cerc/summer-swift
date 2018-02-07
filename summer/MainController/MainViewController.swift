@@ -19,6 +19,8 @@ class MainViewController: BaseViewController {
     
     var isNavHidden = false
     var scale:Float!//缩放比例
+    var CLASSCode: String!
+    var CallbackStr: String!
     
     var scanVC = STScanViewController()
     
@@ -234,9 +236,13 @@ extension MainViewController{
     
     func jsCallOcMethod(dict: Dictionary<String, Any>){
         
-        guard let classCode = dict["classCode"] else {return}
+        guard let classCode = dict["classCode"] else {
+            return
+        }
+        
         let callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
         print("_callback_:\(callBackStr)")
+        CallbackStr = callBackStr
         //***********  下面判断需要调用的方法是否存在
         if classCode as! String == "ScanBarcode" {
             //扫一扫
@@ -248,11 +254,17 @@ extension MainViewController{
                 }else{
                     backStr = self.callBackString(type: false, message: result!, callBack: callBackStr)
                 }
-                self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
-                    if error != nil{
-                        print("***callBackJS错误\(String(describing: error))")
-                    }
-                })
+                print("*******" + backStr)
+                if callBackStr != "" {
+                    self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
+                        if error != nil{
+                            print("***callBackJS错误\(String(describing: error))")
+                        }
+                    })
+                }else{
+                    print("_callback_为空")
+                }
+                
             })
             return
         }
@@ -281,6 +293,13 @@ extension MainViewController{
   //具体执行的方法
     //MARK: - 扫一扫（二维码/条形码）
     func scan(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
+        if dict.keys.contains("_callback_"){
+            
+        }else
+        {
+            MBProgressHUD.showText("该版本暂不支持此功能")
+            return
+        }
         scanVC.scanData(finish: { (result : String?, error : Error?) in
             print(result!)
             callback(result)
@@ -361,10 +380,18 @@ extension MainViewController: WKScriptMessageHandler {
         print(message.body)
         guard let dict = message.body as? [String : Any] else{return}
         print(dict["classCode"] as Any)
+        if dict.keys.contains("classCode") {
+            
+        }else{
+            return
+        }
         let type:String = dict["classCode"] as! String
         print("type"+type)
+        if type == ""{
+            return
+        }
+        CLASSCode = type
         if type == "SetAppliedTitle" {
-//            var Frame = self.webView.frame
             let visibility = dict["visibility"] as! Bool
             if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
@@ -378,7 +405,6 @@ extension MainViewController: WKScriptMessageHandler {
             }
         }else if type == "HeartbeatCheck"{
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "HeartbeatCheck"), object: nil, userInfo: dict)
-            
         }else if type == "login" {//自动登录
             let u = (message.body as! Dictionary<String,String>)["u"]! as String
             let p = (message.body as! Dictionary<String,String>)["p"]! as String
@@ -436,9 +462,10 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
         let url = webView.url!
         let urlStr = "\(url)"
-        if urlStr.contains("TFrmWelcome") {
+        if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
             self.navigationController?.navigationBar.isHidden = true
             Thread.sleep(forTimeInterval: 1.0)
             self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
