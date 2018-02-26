@@ -127,10 +127,24 @@ class MainViewController: BaseViewController {
         }
     }
     
-    //懒加载
-    fileprivate lazy var errorImageView:UIImageView = {
-        let errorImageView = UIImageView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
-        errorImageView.image = UIImage(named:"error.jpg")
+    //MARK: - 懒加载
+    fileprivate lazy var errorImageView:UIView = {
+        let errorImageView = UIView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
+        errorImageView.backgroundColor = UIColor.white
+//        errorImageView.image = UIImage(named:"error.jpg")
+        let X = SCREEN_WIDTH/4
+        let Y = (SCREEN_HEIGHT - 64)/4
+        let W = SCREEN_WIDTH/2
+        let H = W
+        let ImgView = UIImageView(frame: CGRect(x: X, y: Y, width: W, height: H))
+        ImgView.image = UIImage(named: "webError.jpg")
+        errorImageView.addSubview(ImgView)
+        let fram = ImgView.frame
+        let labY = fram.maxY + 20
+        let label = UILabel(frame: CGRect(x: 0, y: labY, width: SCREEN_WIDTH, height: 20))
+        label.textAlignment = NSTextAlignment.center
+        label.text =  "Hi~,真不巧，网页走丢了"
+        errorImageView.addSubview(label)
         errorImageView.isHidden = true
         return errorImageView
     }()
@@ -462,7 +476,7 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
+        errorImageView.isHidden = true
         let url = webView.url!
         let urlStr = "\(url)"
         if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
@@ -589,7 +603,18 @@ extension MainViewController: WKNavigationDelegate{
     //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
-        print("请求失败的URL)" + (webView.url?.absoluteString)!)
+        guard let webUrl = webView.url else {
+            self.setNavTitle(title: "出错了")
+            errorImageView.isHidden = false
+            DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
+                print("刷新")
+                self.webView.reload()
+            },cancelBlock: {
+                print("取消")
+            })
+            return
+        }
+        print("请求失败的URL)" + (webUrl.absoluteString))
         let urlBool = webView.url?.absoluteString.contains("FrmPayRequest")
         let aliBool = webView.url?.absoluteString.contains("mclient.alipay.com/cashier/mobilepay.htm")
         if aliBool! || urlBool!{
