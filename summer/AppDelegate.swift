@@ -12,6 +12,7 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageManagerDelegate {
     
     var window: UIWindow?
+    var loginVC : LoginViewController?
     var mainVC: MainViewController?
     var mainNav: BaseNavViewController?
     var adTool : AdOnlineTool? = AdOnlineTool()
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var timer:Timer?
     var time : NSInteger = 0
     var isTimer:Bool = false
+    var isLogin : Bool = false
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
@@ -38,9 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
-        self.mainVC = MainViewController()
-        self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
-        self.window?.rootViewController = mainNav
+        if isLogin == true {
+            self.mainVC = MainViewController()
+            self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
+            self.window?.rootViewController = mainNav
+            
+        } else {
+            loginVC = LoginViewController()
+            self.window?.rootViewController = loginVC
+        }
         self.window?.makeKeyAndVisible()
         
         //接收通知
