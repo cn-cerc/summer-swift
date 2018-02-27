@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Bugly.start(withAppId: "9430ce63c1")
         //保存uuid
         if isFirst() == true {
             PDKeyChain.keyChainSave(NSUUID().uuidString)

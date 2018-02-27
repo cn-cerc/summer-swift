@@ -12,6 +12,7 @@
 #import "MJRefresh.h"
 //#import "MBProgressHUD.h"
 #import "MBProgressHUD+Add.h"
+#import "Bugly/Bugly.h"
 
 //#import "lhScanQCodeViewController.h"
 //#import "ScanViewController.h"

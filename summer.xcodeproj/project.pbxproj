@@ -100,6 +100,7 @@
 		64F44AB81E569B14009D1135 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB71E569B14009D1135 /* AdSupport.framework */; };
 		64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB91E569B24009D1135 /* UserNotifications.framework */; };
 		64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44ABB1E569B3A009D1135 /* libresolv.tbd */; };
+		792975562045069600CF48FA /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792975552045069600CF48FA /* Bugly.framework */; };
 		794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794038B11FFB34E80036A8BB /* AdOnlineTool.swift */; };
 		79797BE32016B7B0003D9572 /* HAFieldClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */; };
 		79797BE52016B7B0003D9572 /* custonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BE12016B7B0003D9572 /* custonAnnotation.swift */; };
@@ -297,6 +298,7 @@
 		64F44AB91E569B24009D1135 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
+		792975552045069600CF48FA /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		794038B11FFB34E80036A8BB /* AdOnlineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdOnlineTool.swift; sourceTree = "<group>"; };
 		79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAFieldClockController.swift; sourceTree = "<group>"; };
 		79797BE12016B7B0003D9572 /* custonAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = custonAnnotation.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				6407BF3C1E5403AE0073C297 /* Security.framework in Frameworks */,
 				6407BF3A1E5403A40073C297 /* libc++.tbd in Frameworks */,
 				9AF3BAAF1E9CB2EA00C3C643 /* AlipaySDK.framework in Frameworks */,
+				792975562045069600CF48FA /* Bugly.framework in Frameworks */,
 				6407BF381E54039C0073C297 /* libsqlite3.0.tbd in Frameworks */,
 				64F44AAD1E569A92009D1135 /* jcore-ios-1.1.1.a in Frameworks */,
 				6407BF361E5403920073C297 /* libz.tbd in Frameworks */,
@@ -391,6 +394,7 @@
 		6407BF411E542DB60073C297 /* Library-oc */ = {
 			isa = PBXGroup;
 			children = (
+				792975552045069600CF48FA /* Bugly.framework */,
 				79797C382022F559003D9572 /* MBProgressHUD */,
 				C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */,
 				C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */,
@@ -1175,6 +1179,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/summer/Library-oc/ScanCard/RecognizeCardManager",
 					"$(PROJECT_DIR)/summer/Library/AliPay",
+					"$(PROJECT_DIR)/summer/Library-oc",
 				);
 				INFOPLIST_FILE = summer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -1211,6 +1216,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/summer/Library-oc/ScanCard/RecognizeCardManager",
 					"$(PROJECT_DIR)/summer/Library/AliPay",
+					"$(PROJECT_DIR)/summer/Library-oc",
 				);
 				INFOPLIST_FILE = summer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
