@@ -407,12 +407,9 @@
 		6407BF411E542DB60073C297 /* Library-oc */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				792975552045069600CF48FA /* Bugly.framework */,
-=======
 				DCCC0B812044FAD700B89CFC /* LMJDropdownMenu */,
 				DCF62FD62043DAC7002C245F /* YBPickerTool */,
->>>>>>> 8b1df6a6ab7d0f5fe59dc2c0a42aa9959f5fd72f
 				79797C382022F559003D9572 /* MBProgressHUD */,
 				C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */,
 				C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */,
