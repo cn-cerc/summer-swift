@@ -174,7 +174,12 @@ extension LoginViewController {
 
 
 }
-
+extension LoginViewController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        accountTF?.resignFirstResponder()
+        pwdTF?.resignFirstResponder()
+    }
+}
 //MARK: - Action
 extension LoginViewController {
     //选择服务器
@@ -249,3 +254,4 @@ extension LoginViewController : UITextViewDelegate {
         return true
     }
 }
+
