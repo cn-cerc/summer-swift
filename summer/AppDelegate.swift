@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var timer:Timer?
     var time : NSInteger = 0
     var isTimer:Bool = false
-    var isLogin : Bool = false
+    var isLogin : Bool = true
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
