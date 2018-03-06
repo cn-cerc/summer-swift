@@ -409,7 +409,12 @@ extension MainViewController: WKScriptMessageHandler {
             if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
                 Thread.sleep(forTimeInterval: 1.0)
-                self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+                
+                if SCREEN_HEIGHT < 736{
+                    self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+                }else{
+                    self.webView.frame = CGRect.init(x: 0, y: -20, width: SCREEN_WIDTH, height: SCREEN_HEIGHT + 20)
+                }
                 progressView.frame = CGRect.init(x: 0, y: 20, width: view.bounds.size.width, height: 3)
             }else{
                 self.navigationController?.navigationBar.isHidden = false
@@ -481,7 +486,12 @@ extension MainViewController: WKNavigationDelegate{
         if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
             self.navigationController?.navigationBar.isHidden = true
             Thread.sleep(forTimeInterval: 1.0)
-            self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+            if SCREEN_HEIGHT < 736{
+                self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+            }else{
+                self.webView.frame = CGRect.init(x: 0, y: -20, width: SCREEN_WIDTH, height: SCREEN_HEIGHT + 20)
+            }
+        
         }
         //是否自动登录
         //方法一
