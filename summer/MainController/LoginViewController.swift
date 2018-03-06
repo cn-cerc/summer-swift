@@ -40,12 +40,6 @@ class LoginViewController : UIViewController {
         super.viewWillAppear(animated)
 //        let alert = UIAlertView.init(title: "111", message: "444", delegate: self, cancelButtonTitle: "ggg")
 //        alert.show()
-        
-        #if DEBUG
-        showServerAlert()
-        #else
-        #endif
-        
         //读取本地存储的账号
         let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let path = (filePath as NSString).appendingPathComponent("LoginAccount.plist")
@@ -74,6 +68,13 @@ class LoginViewController : UIViewController {
         
     }
  
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        #if DEBUG
+        showServerAlert()
+        #else
+        #endif
+    }
 }
 extension LoginViewController {
     func setupUI() {
