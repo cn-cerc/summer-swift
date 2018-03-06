@@ -182,7 +182,7 @@ extension LoginViewController {
 }
 //MARK: - Action
 extension LoginViewController {
-    //选择服务器
+    //MARK: - 选择服务器
     func selectServer() {
         selectServerBtn?.isSelected = true
         YBPickerTool.show([self.servers], didSelect: { (indexPath) in
@@ -206,12 +206,12 @@ extension LoginViewController {
             self.selectServerBtn?.setTitle("登录主机:\(self.servers[self.selectedServer!])  >", for: .normal)
         }
     }
-    //记住密码
+    //MARK: - 记住密码
     func remeberPwd() {
         remeberPwdBtn?.isSelected = !(remeberPwdBtn?.isSelected)!
         isRemeberPwd = !(remeberPwdBtn?.isSelected)!
     }
-    //登录
+    //MARK: - 登录
     func login() {
         //判断输入为空
         guard accountTF?.text != nil else {return}
@@ -238,6 +238,7 @@ extension LoginViewController {
         
     }
 }
+//MARK: - 记录的历史账号
 extension LoginViewController : LMJDropdownMenuDelegate {
     func dropdownMenu(_ menu: LMJDropdownMenu!, selectedCellNumber number: Int) {
         accountTF?.text = accounts?[number]
