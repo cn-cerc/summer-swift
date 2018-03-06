@@ -34,9 +34,18 @@ class LoginViewController : UIViewController {
         isRemeberPwd = true
         selectedServer = UserDefaultsUtils.intValueWithKey(key: "selectedServer")
         setupUI()
+      
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        let alert = UIAlertView.init(title: "111", message: "444", delegate: self, cancelButtonTitle: "ggg")
+//        alert.show()
+        
+        #if DEBUG
+        showServerAlert()
+        #else
+        #endif
+        
         //读取本地存储的账号
         let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let path = (filePath as NSString).appendingPathComponent("LoginAccount.plist")
@@ -62,7 +71,9 @@ class LoginViewController : UIViewController {
             dropdownMenu?.setMenuTitles(accounts!, rowHeight: 35)
             dropdownMenu?.delegate = self
         }
+        
     }
+ 
 }
 extension LoginViewController {
     func setupUI() {
@@ -237,6 +248,30 @@ extension LoginViewController {
         tmpArr.write(toFile: path, atomically: true)
         
     }
+    
+    //MARK: - DEBUG下弹出手动输入服务器的弹框
+    fileprivate func showServerAlert() {
+        let alertVC = UIAlertController.init(title: "请输入服务器地址", message: "", preferredStyle: .alert)
+        alertVC.addTextField { (inputTF) in
+            inputTF.text = "https://m.knowall.cn"
+        }
+        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction.init(title: "确定", style: .default) { (action) in
+            var serverUrl = alertVC.textFields?.first?.text
+            if serverUrl?.count == 0{
+                serverUrl = "https://m.knowall.cn"
+            }
+            URL_APP_ROOT = serverUrl!
+            let mainVC = MainViewController()
+            self.navigationController?.pushViewController(mainVC, animated: true)
+            UIApplication.shared.keyWindow?.rootViewController = BaseNavViewController(rootViewController:mainVC)
+            
+        }
+        alertVC.addAction(cancelAction)
+        alertVC.addAction(okAction)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
+    }
+    
 }
 //MARK: - 记录的历史账号
 extension LoginViewController : LMJDropdownMenuDelegate {

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var timer:Timer?
     var time : NSInteger = 0
     var isTimer:Bool = false
-    var isLogin : Bool = true
+    var isLogin : Bool = false
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             loginVC = LoginViewController()
             self.window?.rootViewController = loginVC
         }
+    
         self.window?.makeKeyAndVisible()
         
         //接收通知
