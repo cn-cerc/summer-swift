@@ -608,7 +608,7 @@ extension MainViewController: WKNavigationDelegate{
         guard let webUrl = webView.url else {
             self.setNavTitle(title: "出错了")
             errorImageView.isHidden = false
-            DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
+            DisplayUtils.alertControllerDisplay(str: "网络连接失败，请检查网络连接", viewController: self, confirmBlock: {
                 print("刷新")
                 self.webView.reload()
             },cancelBlock: {
@@ -624,7 +624,7 @@ extension MainViewController: WKNavigationDelegate{
         }
         self.setNavTitle(title: "出错了")
         self.errorImageView.isHidden = false
-        DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
+        DisplayUtils.alertControllerDisplay(str: "网络连接失败，请检查网络连接", viewController: self, confirmBlock: {
             print("刷新")
             self.webView.reload()
             },cancelBlock: {
