@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var timer:Timer?
     var time : NSInteger = 0
     var isTimer:Bool = false
-    var isLogin : Bool = true
     
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
@@ -41,15 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
-        if isLogin == true {
-            self.mainVC = MainViewController()
-            self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
-            self.window?.rootViewController = mainNav
-            
-        } else {
-            loginVC = LoginViewController()
-            self.window?.rootViewController = loginVC
-        }
+        self.mainVC = MainViewController()
+        self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
+        self.window?.rootViewController = mainNav
     
         self.window?.makeKeyAndVisible()
         
@@ -545,6 +538,7 @@ extension AppDelegate {
     @objc func Heartbeat(){
         let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
         let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
+    
         AFNetworkManager.get(HeartBeat_URL, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
             print("心跳请求返回数据")
             print(responseObject)

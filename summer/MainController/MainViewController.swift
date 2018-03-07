@@ -249,7 +249,7 @@ extension MainViewController{
 extension MainViewController{
     
     func jsCallOcMethod(dict: Dictionary<String, Any>){
-        
+        print(URLPATH)
         guard let classCode = dict["classCode"] else {
             return
         }
@@ -258,6 +258,13 @@ extension MainViewController{
         print("_callback_:\(callBackStr)")
         CallbackStr = callBackStr
         //***********  下面判断需要调用的方法是否存在
+        if classCode as! String == "startVine" {
+            guard let urlStr = dict["host"] else {return}
+            guard let sid = dict["sid"] else{return}
+            UserDefaultsUtils.saveStringValue(value: urlStr as! String, key: "newHost")
+            UserDefaultsUtils.saveStringValue(value: sid as! String, key: "TOKEN")
+            loadUrl(urlStr: URLPATH)
+        }
         if classCode as! String == "ScanBarcode" {
             //扫一扫
             scan(dict: dict, callback: { (result : String?) in
@@ -447,18 +454,7 @@ extension MainViewController: WKScriptMessageHandler {
             let pinVC = PingImageViewController()
             pinVC.imageStr = imageUrl
             self.navigationController?.pushViewController(pinVC, animated: true)
-        }
-//        else if type == "scan" {//扫描卡号
-//            let scanVC = ScanViewController()
-//            scanVC.delegate = self
-//            self.navigationController?.pushViewController(scanVC, animated: true)
-//        }else if type == "scanPay" {//二维码扫描
-//            let sqVC = lhScanQCodeViewController()
-//            sqVC.delegate = self
-//            let navVC = UINavigationController.init(rootViewController: sqVC)
-//            self.present(navVC, animated: true, completion: nil)
-//        }
-        else if type == "FrmWeChatPay"{//微信支付
+        }else if type == "FrmWeChatPay"{//微信支付
             WXApi.registerApp((message.body as! Dictionary<String,String>)["appid"])
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
