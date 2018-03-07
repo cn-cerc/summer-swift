@@ -264,7 +264,7 @@ extension MainViewController{
             let userDefault = UserDefaults.standard
             userDefault.set(urlStr, forKey: "newHost")
             userDefault.set(sid, forKey: "TOKEN")
-            //loadUrl(urlStr: URLPATH)
+            loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
         }
         if classCode as! String == "ScanBarcode" {
             //扫一扫
