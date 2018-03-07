@@ -57,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         for i in 0..<UserDefaultsUtils.intValueWithKey(key: "addCount") {
             let manager = SDWebImageManager()
             let image1 = manager.imageCache.imageFromDiskCache(forKey: String(format:"adImage%d",i))
-            print(image1)
             if (image1 != nil) {
                 self.addArr.append(image1!)
             }
@@ -215,7 +214,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         paremDict = ["curVersion":appVersion as Any,"appCode":"vine-iphone-standard"]
         //检测版本更新
         AFNetworkManager.get(URLPATH_CONFIG, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
-            print(responseObject as! [String : Any])
+            //print(responseObject as! [String : Any])
             let launchImageUrlStr = responseObject!["startupImage"] as? String
             var launchImageVersion = ""
             var launchUrl = ""

@@ -261,9 +261,10 @@ extension MainViewController{
         if classCode as! String == "startVine" {
             guard let urlStr = dict["host"] else {return}
             guard let sid = dict["sid"] else{return}
-            UserDefaultsUtils.saveStringValue(value: urlStr as! String, key: "newHost")
-            UserDefaultsUtils.saveStringValue(value: sid as! String, key: "TOKEN")
-            loadUrl(urlStr: URLPATH)
+            let userDefault = UserDefaults.standard
+            userDefault.set(urlStr, forKey: "newHost")
+            userDefault.set(sid, forKey: "TOKEN")
+            //loadUrl(urlStr: URLPATH)
         }
         if classCode as! String == "ScanBarcode" {
             //扫一扫
