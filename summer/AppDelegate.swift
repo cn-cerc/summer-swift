@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var timer:Timer?
     var time : NSInteger = 0
     var isTimer:Bool = false
-    
+    var selectServerVC : STSelectServerViewController?
+    var selectServerNav : BaseNavViewController?
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
         return addArr
@@ -43,7 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
         self.window?.rootViewController = mainNav
-    
+        #if DEBUG
+        //在调试模式下，弹出手动输入服务器地址
+        self.selectServerVC = STSelectServerViewController()
+        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
+        self.window?.rootViewController = selectServerNav
+        #else
+        self.mainVC = MainViewController()
+        self.mainNav = BaseNavViewController(rootViewController:mainVC!)
+        self.window?.rootViewController = mainNav
+        #endif
         self.window?.makeKeyAndVisible()
         
         //接收通知
