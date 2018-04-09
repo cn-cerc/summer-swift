@@ -254,7 +254,7 @@ extension MainViewController{
 extension MainViewController{
     
     func jsCallOcMethod(dict: Dictionary<String, Any>){
-        print(URLPATH)
+        printLog(message: "JS内容json:\(dict)")
         guard let classCode = dict["classCode"] else {
             return
         }
@@ -269,6 +269,7 @@ extension MainViewController{
             let userDefault = UserDefaults.standard
             userDefault.set(urlStr, forKey: "newHost")
             userDefault.set(sid, forKey: "TOKEN")
+            URL_APP_ROOT = "https://\(urlStr)"
             loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
         }
         if classCode as! String == "ScanBarcode" {
@@ -285,7 +286,7 @@ extension MainViewController{
                 if callBackStr != "" {
                     self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
                         if error != nil{
-                            print("***callBackJS错误\(String(describing: error))")
+                            print("callBackJS错误\(String(describing: error))")
                         }
                     })
                 }else{

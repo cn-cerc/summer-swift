@@ -44,16 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
         self.window?.rootViewController = mainNav
-        #if DEBUG
-        //在调试模式下，弹出手动输入服务器地址
-        self.selectServerVC = STSelectServerViewController()
-        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
-        self.window?.rootViewController = selectServerNav
-        #else
+//        #if DEBUG
+//        //在调试模式下，弹出手动输入服务器地址
+//        self.selectServerVC = STSelectServerViewController()
+//        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
+//        self.window?.rootViewController = selectServerNav
+//        #else
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:mainVC!)
         self.window?.rootViewController = mainNav
-        #endif
+//        #endif
         self.window?.makeKeyAndVisible()
         
         //接收通知
@@ -476,11 +476,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     
 }
-
+//MARK: - ****** 极光代理
 extension AppDelegate : JPUSHRegisterDelegate{
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, willPresent notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {
-        print(">JPUSHRegisterDelegate jpushNotificationCenter willPresent");
+        print("极光01 >JPUSHRegisterDelegate jpushNotificationCenter willPresent");
         let userInfo = notification.request.content.userInfo
         if (notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))!{
             JPUSHService.handleRemoteNotification(userInfo)
@@ -490,7 +490,8 @@ extension AppDelegate : JPUSHRegisterDelegate{
     
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
-        print(">JPUSHRegisterDelegate jpushNotificationCenter didReceive");
+        print("极光02 >JPUSHRegisterDelegate jpushNotificationCenter didReceive");
+        printLog(message: "极光推送\(response)")
         let userInfo = response.notification.request.content.userInfo
         if (response.notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))!{
             JPUSHService.handleRemoteNotification(userInfo)
