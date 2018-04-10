@@ -110,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 UIRemoteNotificationType.alert.rawValue
             JPUSHService.register(forRemoteNotificationTypes: type, categories: nil)
         }
+        
         let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
         JPUSHService.setup(withOption: launchOptions, appKey: appkey, channel: channel, apsForProduction: isProduction, advertisingIdentifier: advertisingId)
         //设置启动页
@@ -457,11 +458,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
     }
     
-    //极光推送
+    //MARK: - 注册APNs成功并上报DeviceToken 极光推送
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         /// Required - 注册 DeviceToken
         JPUSHService.registerDeviceToken(deviceToken)
     }
+    //MARK: -  注册APNs失败接口
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("did Fail To Register For Remote Notifications With Error: %@", error);
     }
@@ -471,8 +473,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         JPUSHService.handleRemoteNotification(userInfo)
-        //        application.applicationIconBadgeNumber = 0
-        //        JPUSHService.resetBadge()
+//                application.applicationIconBadgeNumber = 0
+//                JPUSHService.resetBadge()
     }
     
 }
@@ -480,17 +482,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
 extension AppDelegate : JPUSHRegisterDelegate{
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, willPresent notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {
-        print("极光01 >JPUSHRegisterDelegate jpushNotificationCenter willPresent");
         let userInfo = notification.request.content.userInfo
         if (notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))!{
             JPUSHService.handleRemoteNotification(userInfo)
         }
+        printLog(message: "极光***\(userInfo)")
         completionHandler(Int(UNAuthorizationOptions.alert.rawValue))// 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
     }
     
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
-        print("极光02 >JPUSHRegisterDelegate jpushNotificationCenter didReceive");
         printLog(message: "极光推送\(response)")
         let userInfo = response.notification.request.content.userInfo
         if (response.notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))!{
@@ -502,8 +503,8 @@ extension AppDelegate : JPUSHRegisterDelegate{
         if currentNumber > 0 {
             currentNumber -= 1
         }
-        UIApplication.shared.applicationIconBadgeNumber = currentNumber
-        JPUSHService.setBadge(currentNumber)
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        JPUSHService.setBadge(0)
         
         print(userInfo.keys)
         if userInfo.keys.contains("msgId"){

@@ -21,6 +21,7 @@ class MainViewController: BaseViewController {
     var scale:Float!//缩放比例
     var CLASSCode: String!
     var CallbackStr: String!
+    var isNewHost = true
     
     var scanVC = STScanViewController()
     
@@ -97,7 +98,7 @@ class MainViewController: BaseViewController {
     //推送
     func jpushMessage(notifi:Notification) {
         let msgId:String? = notifi.userInfo?["msgId"] as! String?
-        self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
+        self.loadUrl(urlStr: String(format:"%@/forms/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
     }
     
     //添加下拉刷新
@@ -169,7 +170,7 @@ extension MainViewController{
     //加载url
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
-//        print(URLPATH)
+        printLog(message: "******>>>>>\(urlStr)")
         let request = URLRequest.init(url: urlStr!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
 //        let request = URLRequest.init(url: urlStr!)
         webView.load(request)
@@ -269,8 +270,14 @@ extension MainViewController{
             let userDefault = UserDefaults.standard
             userDefault.set(urlStr, forKey: "newHost")
             userDefault.set(sid, forKey: "TOKEN")
-            URL_APP_ROOT = "https://\(urlStr)"
-            loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+            if isNewHost {
+                printLog(message: "****" + URL_APP_ROOT)
+                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+                isNewHost = false
+            }else{
+                printLog(message: "\(URL_APP_ROOT)")
+            }
+            return
         }
         if classCode as! String == "ScanBarcode" {
             //扫一扫
