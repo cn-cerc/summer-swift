@@ -19,6 +19,9 @@ class MainViewController: BaseViewController {
     
     var isNavHidden = false
     var scale:Float!//缩放比例
+    var CLASSCode: String!
+    var CallbackStr: String!
+    var isNewHost = true
     
     var scanVC = STScanViewController()
     
@@ -44,6 +47,11 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.backgroundColor = UIColor.red
+        if #available(iOS 11.0, *) {
+            webView.scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.navigationBar.barTintColor = RGBA(r: 72, g: 178, b: 189, a: 1.0)
         
@@ -90,7 +98,7 @@ class MainViewController: BaseViewController {
     //推送
     func jpushMessage(notifi:Notification) {
         let msgId:String? = notifi.userInfo?["msgId"] as! String?
-        self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
+        self.loadUrl(urlStr: String(format:"%@/forms/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
     }
     
     //添加下拉刷新
@@ -125,10 +133,24 @@ class MainViewController: BaseViewController {
         }
     }
     
-    //懒加载
-    fileprivate lazy var errorImageView:UIImageView = {
-        let errorImageView = UIImageView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
-        errorImageView.image = UIImage(named:"error.jpg")
+    //MARK: - 懒加载
+    fileprivate lazy var errorImageView:UIView = {
+        let errorImageView = UIView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
+        errorImageView.backgroundColor = UIColor.white
+//        errorImageView.image = UIImage(named:"error.jpg")
+        let X = SCREEN_WIDTH/4
+        let Y = (SCREEN_HEIGHT - 64)/4
+        let W = SCREEN_WIDTH/2
+        let H = W
+        let ImgView = UIImageView(frame: CGRect(x: X, y: Y, width: W, height: H))
+        ImgView.image = UIImage(named: "webError.jpg")
+        errorImageView.addSubview(ImgView)
+        let fram = ImgView.frame
+        let labY = fram.maxY + 20
+        let label = UILabel(frame: CGRect(x: 0, y: labY, width: SCREEN_WIDTH, height: 20))
+        label.textAlignment = NSTextAlignment.center
+        label.text =  "Hi~,真不巧，网页走丢了"
+        errorImageView.addSubview(label)
         errorImageView.isHidden = true
         return errorImageView
     }()
@@ -148,7 +170,7 @@ extension MainViewController{
     //加载url
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr)
-//        print(URLPATH)
+        printLog(message: "******>>>>>\(urlStr)")
         let request = URLRequest.init(url: urlStr!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
 //        let request = URLRequest.init(url: urlStr!)
         webView.load(request)
@@ -233,11 +255,30 @@ extension MainViewController{
 extension MainViewController{
     
     func jsCallOcMethod(dict: Dictionary<String, Any>){
+        printLog(message: "JS内容json:\(dict)")
+        guard let classCode = dict["classCode"] else {
+            return
+        }
         
-        guard let classCode = dict["classCode"] else {return}
         let callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
         print("_callback_:\(callBackStr)")
+        CallbackStr = callBackStr
         //***********  下面判断需要调用的方法是否存在
+        if classCode as! String == "startVine" {
+            guard let urlStr = dict["host"] else {return}
+            guard let sid = dict["sid"] else{return}
+            let userDefault = UserDefaults.standard
+            userDefault.set(urlStr, forKey: "newHost")
+            userDefault.set(sid, forKey: "TOKEN")
+            if isNewHost {
+                printLog(message: "****" + URL_APP_ROOT)
+                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+                isNewHost = false
+            }else{
+                printLog(message: "\(URL_APP_ROOT)")
+            }
+            return
+        }
         if classCode as! String == "ScanBarcode" {
             //扫一扫
             scan(dict: dict, callback: { (result : String?) in
@@ -248,11 +289,16 @@ extension MainViewController{
                 }else{
                     backStr = self.callBackString(type: false, message: result!, callBack: callBackStr)
                 }
-                self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
-                    if error != nil{
-                        print("***callBackJS错误\(String(describing: error))")
-                    }
-                })
+                print("*******" + backStr)
+                if callBackStr != "" {
+                    self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
+                        if error != nil{
+                            print("callBackJS错误\(String(describing: error))")
+                        }
+                    })
+                }else{
+                    print("_callback_为空")
+                }
             })
             return
         }
@@ -281,6 +327,13 @@ extension MainViewController{
   //具体执行的方法
     //MARK: - 扫一扫（二维码/条形码）
     func scan(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
+        if dict.keys.contains("_callback_"){
+            
+        }else
+        {
+            MBProgressHUD.showText("该版本暂不支持此功能")
+            return
+        }
         scanVC.scanData(finish: { (result : String?, error : Error?) in
             print(result!)
             callback(result)
@@ -361,10 +414,18 @@ extension MainViewController: WKScriptMessageHandler {
         print(message.body)
         guard let dict = message.body as? [String : Any] else{return}
         print(dict["classCode"] as Any)
+        if dict.keys.contains("classCode") {
+            
+        }else{
+            return
+        }
         let type:String = dict["classCode"] as! String
         print("type"+type)
+        if type == ""{
+            return
+        }
+        CLASSCode = type
         if type == "SetAppliedTitle" {
-//            var Frame = self.webView.frame
             let visibility = dict["visibility"] as! Bool
             if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
@@ -378,7 +439,6 @@ extension MainViewController: WKScriptMessageHandler {
             }
         }else if type == "HeartbeatCheck"{
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "HeartbeatCheck"), object: nil, userInfo: dict)
-            
         }else if type == "login" {//自动登录
             let u = (message.body as! Dictionary<String,String>)["u"]! as String
             let p = (message.body as! Dictionary<String,String>)["p"]! as String
@@ -403,18 +463,7 @@ extension MainViewController: WKScriptMessageHandler {
             let pinVC = PingImageViewController()
             pinVC.imageStr = imageUrl
             self.navigationController?.pushViewController(pinVC, animated: true)
-        }
-//        else if type == "scan" {//扫描卡号
-//            let scanVC = ScanViewController()
-//            scanVC.delegate = self
-//            self.navigationController?.pushViewController(scanVC, animated: true)
-//        }else if type == "scanPay" {//二维码扫描
-//            let sqVC = lhScanQCodeViewController()
-//            sqVC.delegate = self
-//            let navVC = UINavigationController.init(rootViewController: sqVC)
-//            self.present(navVC, animated: true, completion: nil)
-//        }
-        else if type == "FrmWeChatPay"{//微信支付
+        }else if type == "FrmWeChatPay"{//微信支付
             WXApi.registerApp((message.body as! Dictionary<String,String>)["appid"])
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -436,12 +485,14 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        errorImageView.isHidden = true
         let url = webView.url!
         let urlStr = "\(url)"
-        if urlStr.contains("TFrmWelcome") {
+        if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
             self.navigationController?.navigationBar.isHidden = true
             Thread.sleep(forTimeInterval: 1.0)
-            self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+                self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+        
         }
         //是否自动登录
         //方法一
@@ -562,7 +613,18 @@ extension MainViewController: WKNavigationDelegate{
     //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
-        print("请求失败的URL)" + (webView.url?.absoluteString)!)
+        guard let webUrl = webView.url else {
+            self.setNavTitle(title: "出错了")
+            errorImageView.isHidden = false
+            DisplayUtils.alertControllerDisplay(str: "网络连接失败，请检查网络连接", viewController: self, confirmBlock: {
+                print("刷新")
+                self.webView.reload()
+            },cancelBlock: {
+                print("取消")
+            })
+            return
+        }
+        print("请求失败的URL)" + (webUrl.absoluteString))
         let urlBool = webView.url?.absoluteString.contains("FrmPayRequest")
         let aliBool = webView.url?.absoluteString.contains("mclient.alipay.com/cashier/mobilepay.htm")
         if aliBool! || urlBool!{
@@ -570,7 +632,7 @@ extension MainViewController: WKNavigationDelegate{
         }
         self.setNavTitle(title: "出错了")
         self.errorImageView.isHidden = false
-        DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
+        DisplayUtils.alertControllerDisplay(str: "网络连接失败，请检查网络连接", viewController: self, confirmBlock: {
             print("刷新")
             self.webView.reload()
             },cancelBlock: {

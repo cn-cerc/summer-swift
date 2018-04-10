@@ -40,6 +40,7 @@ class HAFieldClockController: BaseViewController {
     var myLocation = CLLocation()
     var distance : Double = 0.0
     var imageView = UIImageView()
+    var noteContentTF = UITextView()
     /** 经纬度，经度在前 */
     var Position = String()
     /** 打卡界面代理 */
@@ -85,7 +86,7 @@ class HAFieldClockController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     lazy var map: MKMapView = {
-        let myMap = MKMapView.init(frame: CGRect(x: 0, y: 64, width: SCREENWIDTH, height: self.lineView.frame.minY - 104))
+        let myMap = MKMapView.init(frame: CGRect(x: 0, y: 64, width: SCREENWIDTH, height: self.lineView.frame.minY - 144))
         //代理
         myMap.delegate = self
         //是否显示用户当前位置
@@ -112,7 +113,7 @@ class HAFieldClockController: BaseViewController {
 extension HAFieldClockController{
     func creatUI(){
         //分割线
-        lineView = UIView.init(frame: CGRect(x: 0, y: SCREENHEIGHT/2 + 20, width: SCREENWIDTH - 20, height: 1))
+        lineView = UIView.init(frame: CGRect(x: 0, y: SCREENHEIGHT/2 + 60, width: SCREENWIDTH - 20, height: 1))
         lineView.backgroundColor = UIColor(displayP3Red: 206/255.0, green: 206/255.0, blue: 206/255.0, alpha: 1.0)
         view.addSubview(lineView)
         var Y = lineView.frame.minY
@@ -133,6 +134,19 @@ extension HAFieldClockController{
         addressLbl.textColor = UIColor(displayP3Red: 18/255.0, green: 18/255.0, blue: 18/255.0, alpha: 1.0)
         addressLbl.font = UIFont.boldSystemFont(ofSize: 12)
         view.addSubview(addressLbl)
+        //备注label
+        Y = addNameLbl.frame.maxY + 10
+        let noteLbl = UILabel.init(frame: CGRect(x: 8, y: Y, width: 45, height: 20))
+        noteLbl.text = "备注:"
+        noteLbl.textColor = UIColor(displayP3Red: 20/255.0, green: 20/255.0, blue: 20/255.0, alpha: 1.0)
+        noteLbl.font = UIFont.systemFont(ofSize: 15)
+        view.addSubview(noteLbl)
+        noteContentTF = UITextView.init(frame: CGRect(x: noteLbl.frame.maxX, y: Y - 2, width: SCREENWIDTH - noteLbl.frame.maxX - 20, height: 40))
+        noteContentTF.layer.borderWidth = 2
+        noteContentTF.layer.borderColor = UIColor(displayP3Red: 206/255.0, green: 206/255.0, blue: 206/255.0, alpha: 1.0).cgColor
+        noteContentTF.text = ""
+        noteContentTF.font = UIFont.systemFont(ofSize: 14)
+        view.addSubview(noteContentTF)
         //照片展示view
         Y = lineView.frame.maxY
         showView = UIView.init(frame: CGRect(x: 40, y: Y + 40, width: SCREENWIDTH - 80, height: (SCREENWIDTH - 80)/2))
@@ -220,6 +234,9 @@ extension HAFieldClockController{
        
         
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.noteContentTF.resignFirstResponder()
+    }
     //点击屏幕店家校准位置的大头针
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = touches.first?.location(in: map)
@@ -305,7 +322,8 @@ extension HAFieldClockController{
         let Myapp = shareedMyApp.init()
         let urlString = Myapp.getFormUrl("FrmAttendance.clockIn")
         let imgData = UIImageJPEGRepresentation(self.imageView.image!, 0.0001)
-        let paramet = ["Address_" : self.addressLbl.text,"Position_" : Position]
+        let noteContent = noteContentTF.text
+        let paramet = ["Address_" : self.addressLbl.text,"Position_" : Position,"Remark_": noteContent]
         AFNetworkManager.post(urlString, parameters: paramet, formData: { (formData: AFMultipartFormData?) in
             let fileManager = FileManager.default
             var path =  NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!

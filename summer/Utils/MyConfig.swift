@@ -7,9 +7,10 @@
 //
 
 import UIKit
-let URL_APP_ROOT = "https://m.knowall.cn"//master版
-//let URL_APP_ROOT = "https://c1.knowall.cn"//Beta版
-
+var serverURL = "https://m.knowall.cn"//master版
+//var serverURL = "https://c1.knowall.cn"//Beta版
+//判断是否需要cdn转向
+var URL_APP_ROOT =  (UserDefaults.standard.value(forKey: "newHost")) != nil ? "https://" + (UserDefaults.standard.value(forKey: "newHost") as! String) :serverURL
 let WELCOME_IMAGES_COUNT = 3
 let FORMS = "forms"
 let SERVICES = "services"

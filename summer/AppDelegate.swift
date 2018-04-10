@@ -12,6 +12,7 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageManagerDelegate {
     
     var window: UIWindow?
+    var loginVC : LoginViewController?
     var mainVC: MainViewController?
     var mainNav: BaseNavViewController?
     var adTool : AdOnlineTool? = AdOnlineTool()
@@ -19,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     var timer:Timer?
     var time : NSInteger = 0
     var isTimer:Bool = false
-    
+    var selectServerVC : STSelectServerViewController?
+    var selectServerNav : BaseNavViewController?
     fileprivate lazy var addArr:Array<UIImage> = {
         let addArr = Array<UIImage>()
         return addArr
@@ -27,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Bugly.start(withAppId: "9430ce63c1")
         //保存uuid
         if isFirst() == true {
             PDKeyChain.keyChainSave(NSUUID().uuidString)
@@ -41,6 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
         self.window?.rootViewController = mainNav
+//        #if DEBUG
+//        //在调试模式下，弹出手动输入服务器地址
+//        self.selectServerVC = STSelectServerViewController()
+//        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
+//        self.window?.rootViewController = selectServerNav
+//        #else
+        self.mainVC = MainViewController()
+        self.mainNav = BaseNavViewController(rootViewController:mainVC!)
+        self.window?.rootViewController = mainNav
+//        #endif
         self.window?.makeKeyAndVisible()
         
         //接收通知
@@ -54,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         for i in 0..<UserDefaultsUtils.intValueWithKey(key: "addCount") {
             let manager = SDWebImageManager()
             let image1 = manager.imageCache.imageFromDiskCache(forKey: String(format:"adImage%d",i))
-            print(image1)
             if (image1 != nil) {
                 self.addArr.append(image1!)
             }
@@ -98,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
                 UIRemoteNotificationType.alert.rawValue
             JPUSHService.register(forRemoteNotificationTypes: type, categories: nil)
         }
+        
         let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
         JPUSHService.setup(withOption: launchOptions, appKey: appkey, channel: channel, apsForProduction: isProduction, advertisingIdentifier: advertisingId)
         //设置启动页
@@ -212,7 +225,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         paremDict = ["curVersion":appVersion as Any,"appCode":"vine-iphone-standard"]
         //检测版本更新
         AFNetworkManager.get(URLPATH_CONFIG, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
-            print(responseObject as! [String : Any])
+            //print(responseObject as! [String : Any])
             let launchImageUrlStr = responseObject!["startupImage"] as? String
             var launchImageVersion = ""
             var launchUrl = ""
@@ -364,7 +377,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+    //MARK: - 跳转处理
+    //低版本中9.0及以下会用到
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         print("openURL:\(url.absoluteString),\(url.host)")
         
@@ -385,7 +399,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
         return true
     }
+    //低版本中9.0会用到
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        print("openURL:\(url.absoluteString),\(url.host)")
+        
+        if url.scheme == WX_APPID {
+            return WXApi.handleOpen(url, delegate: self)
+        }
+        
+        //跳转支付宝钱包进行支付，处理支付结果
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result:[AnyHashable : Any]?) in
+                print(result)
+            })
+        }
+        if url.host == "platformapi" {
+            AlipaySDK.defaultService().processAuthResult(url) { (resultDic: [AnyHashable : Any]?) in
+                print(resultDic)
+            }
+        }
+        return true
+    }
     
+    //新的方法
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("openURL:\(url.absoluteString),\(url.host)")
+        
+        if url.scheme == WX_APPID {
+            return WXApi.handleOpen(url, delegate: self)
+        }
+        
+        //跳转支付宝钱包进行支付，处理支付结果
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (result:[AnyHashable : Any]?) in
+                print(result)
+            })
+        }
+        if url.host == "platformapi" {
+            AlipaySDK.defaultService().processAuthResult(url) { (resultDic: [AnyHashable : Any]?) in
+                print(resultDic)
+            }
+        }
+        return true
+    }
+    //MARK: - 微信支付结果的回调
     func onResp(_ resp: BaseResp!) {
         if resp.isKind(of: PayResp.self) {
             var backCode = ""
@@ -401,11 +458,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
     }
     
-    //极光推送
+    //MARK: - 注册APNs成功并上报DeviceToken 极光推送
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         /// Required - 注册 DeviceToken
         JPUSHService.registerDeviceToken(deviceToken)
     }
+    //MARK: -  注册APNs失败接口
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("did Fail To Register For Remote Notifications With Error: %@", error);
     }
@@ -415,26 +473,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         JPUSHService.handleRemoteNotification(userInfo)
-        //        application.applicationIconBadgeNumber = 0
-        //        JPUSHService.resetBadge()
+//                application.applicationIconBadgeNumber = 0
+//                JPUSHService.resetBadge()
     }
     
 }
-
+//MARK: - ****** 极光代理
 extension AppDelegate : JPUSHRegisterDelegate{
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, willPresent notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {
-        print(">JPUSHRegisterDelegate jpushNotificationCenter willPresent");
         let userInfo = notification.request.content.userInfo
         if (notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))!{
             JPUSHService.handleRemoteNotification(userInfo)
         }
+        printLog(message: "极光***\(userInfo)")
         completionHandler(Int(UNAuthorizationOptions.alert.rawValue))// 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
     }
     
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
-        print(">JPUSHRegisterDelegate jpushNotificationCenter didReceive");
+        printLog(message: "极光推送\(response)")
         let userInfo = response.notification.request.content.userInfo
         if (response.notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))!{
             JPUSHService.handleRemoteNotification(userInfo)
@@ -445,8 +503,8 @@ extension AppDelegate : JPUSHRegisterDelegate{
         if currentNumber > 0 {
             currentNumber -= 1
         }
-        UIApplication.shared.applicationIconBadgeNumber = currentNumber
-        JPUSHService.setBadge(currentNumber)
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        JPUSHService.setBadge(0)
         
         print(userInfo.keys)
         if userInfo.keys.contains("msgId"){
@@ -491,6 +549,7 @@ extension AppDelegate {
     @objc func Heartbeat(){
         let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
         let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
+    
         AFNetworkManager.get(HeartBeat_URL, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
             print("心跳请求返回数据")
             print(responseObject)
