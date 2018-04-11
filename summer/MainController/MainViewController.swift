@@ -19,8 +19,10 @@ class MainViewController: BaseViewController {
     
     var isNavHidden = false
     var scale:Float!//缩放比例
-    var timer:Timer?
-    var isTimer:Bool = false
+    var CLASSCode: String!
+    var CallbackStr: String!
+    var isNewHost = true
+    
     var scanVC = STScanViewController()
     var pageCollectionView : STPagesCollectionView = {
         let layout = STPagesCollectionViewFlowLayout()
@@ -95,6 +97,12 @@ class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        view.backgroundColor = UIColor.red
+        if #available(iOS 11.0, *) {
+            webView.scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.navigationBar.barTintColor = RGBA(r: 72, g: 178, b: 189, a: 1.0)
         
@@ -141,7 +149,7 @@ class MainViewController: BaseViewController {
     //推送
     func jpushMessage(notifi:Notification) {
         let msgId:String? = notifi.userInfo?["msgId"] as! String?
-        self.loadUrl(urlStr: String(format:"%@/form/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
+        self.loadUrl(urlStr: String(format:"%@/forms/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
     }
     
     //添加下拉刷新
@@ -161,33 +169,7 @@ class MainViewController: BaseViewController {
         }else{
             self.webView.scrollView.mj_header = MJRefreshNormalHeader.init(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
         }
-        removeWKWebViewCookies()
     }
-    
-    //清除缓存
-    func removeWKWebViewCookies(){
-        if #available(iOS 9.0, *) {
-            let dataStore = WKWebsiteDataStore.default()
-            dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), completionHandler: { (records) in
-                for record in records{
-                    //清除本站的cookie
-                    if record.displayName.contains("http://192.168.9.133"){//这个判断注释掉的话是清理所有的cookie
-                        WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {
-                            //清除成功
-                            print("清除成功\(record)")
-                        })
-                    }
-                }
-            })
-        } else {
-            //ios8.0以上使用的方法
-            let libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
-            let cookiesPath = libraryPath! + "/Cookies"
-            try!FileManager.default.removeItem(atPath: cookiesPath)
-        }
-    }
-    
-    
     
     func headerRefresh() {
         self.webView.reload()
@@ -202,10 +184,24 @@ class MainViewController: BaseViewController {
         }
     }
     
-    //懒加载
-    fileprivate lazy var errorImageView:UIImageView = {
-        let errorImageView = UIImageView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
-        errorImageView.image = UIImage(named:"error.jpg")
+    //MARK: - 懒加载
+    fileprivate lazy var errorImageView:UIView = {
+        let errorImageView = UIView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64))
+        errorImageView.backgroundColor = UIColor.white
+//        errorImageView.image = UIImage(named:"error.jpg")
+        let X = SCREEN_WIDTH/4
+        let Y = (SCREEN_HEIGHT - 64)/4
+        let W = SCREEN_WIDTH/2
+        let H = W
+        let ImgView = UIImageView(frame: CGRect(x: X, y: Y, width: W, height: H))
+        ImgView.image = UIImage(named: "webError.jpg")
+        errorImageView.addSubview(ImgView)
+        let fram = ImgView.frame
+        let labY = fram.maxY + 20
+        let label = UILabel(frame: CGRect(x: 0, y: labY, width: SCREEN_WIDTH, height: 20))
+        label.textAlignment = NSTextAlignment.center
+        label.text =  "Hi~,真不巧，网页走丢了"
+        errorImageView.addSubview(label)
         errorImageView.isHidden = true
         return errorImageView
     }()
@@ -221,6 +217,7 @@ class MainViewController: BaseViewController {
 }
 
 extension MainViewController{
+
     //新建窗口
     @objc func addPageAction() {
        self.pageCollectionView.addPageCell()
@@ -251,6 +248,15 @@ extension MainViewController{
     func loadUrl(urlStr:String) {
         let urlStr = URL.init(string: urlStr+"&sid="+(UserDefaultsUtils.valueWithKey(key: "TOKEN") as! String))
         let request = URLRequest.init(url: urlStr!)
+
+   
+//    //加载url
+//    func loadUrl(urlStr:String) {
+//        let urlStr = URL.init(string: urlStr)
+//        printLog(message: "******>>>>>\(urlStr)")
+//        let request = URLRequest.init(url: urlStr!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
+////        let request = URLRequest.init(url: urlStr!)
+
         webView.load(request)
     }
     
@@ -270,8 +276,13 @@ extension MainViewController{
         //添加一个名称，js通过这个名称发送消息
         configuretion.userContentController.add(self, name: "nativeMethod")
         
+
         webView = WKWebView(frame:CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT),configuration:configuretion)
         webView.allowsBackForwardNavigationGestures = true
+
+//        webView = WKWebView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64),configuration:configuretion)
+//        webView.allowsBackForwardNavigationGestures = false
+
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
         webView?.customUserAgent = "iphone"
@@ -306,7 +317,6 @@ extension MainViewController{
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "estimatedProgress"{
-            
             progressView.alpha = 1.0
             let animated = Float(webView.estimatedProgress) > progressView.progress;
             
@@ -335,45 +345,85 @@ extension MainViewController{
 extension MainViewController{
     
     func jsCallOcMethod(dict: Dictionary<String, Any>){
+        printLog(message: "JS内容json:\(dict)")
+        guard let classCode = dict["classCode"] else {
+            return
+        }
         
-        guard let classCode = dict["classCode"] else {return}
         let callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
-
+        print("_callback_:\(callBackStr)")
+        CallbackStr = callBackStr
         //***********  下面判断需要调用的方法是否存在
+        if classCode as! String == "startVine" {
+            guard let urlStr = dict["host"] else {return}
+            guard let sid = dict["sid"] else{return}
+            let userDefault = UserDefaults.standard
+            userDefault.set(urlStr, forKey: "newHost")
+            userDefault.set(sid, forKey: "TOKEN")
+            if isNewHost {
+                printLog(message: "****" + URL_APP_ROOT)
+                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+                isNewHost = false
+            }else{
+                printLog(message: "\(URL_APP_ROOT)")
+            }
+            return
+        }
         if classCode as! String == "ScanBarcode" {
             //扫一扫
             scan(dict: dict, callback: { (result : String?) in
-                let backStr = self.callBackString(type: true, message: result!, callBack: callBackStr)
-                self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
-                    if error != nil{
-                        print("***错误\(String(describing: error))")
-                    }
-                })
+                var backStr: String
+//                let boo = result?.isEmpty
+                if result != nil{
+                    backStr = self.callBackString(type: true, message: result!, callBack: callBackStr)
+                }else{
+                    backStr = self.callBackString(type: false, message: result!, callBack: callBackStr)
+                }
+                print("*******" + backStr)
+                if callBackStr != "" {
+                    self.webView.evaluateJavaScript(backStr, completionHandler: { (item: Any?, error:Error?) in
+                        if error != nil{
+                            print("callBackJS错误\(String(describing: error))")
+                        }
+                    })
+                }else{
+                    print("_callback_为空")
+                }
             })
+            return
         }
-        
+        //跳转到打卡界面
+        if classCode as! String == "clockIn"{
+            clockIn(dict: dict, callback: {
+                let backStr = self.callBackString(type: true, message: "转到打卡界面成功", callBack: callBackStr)
+                self.callBackToJS(message: backStr)
+            })
+            return
+        }
+        //js调刷新
+        if classCode as! String == "ReloadPage"{
+            ReloadPage(dict: dict, callback: {
+                let backStr = self.callBackString(type: true, message: "刷新成功", callBack: callBackStr)
+                self.callBackToJS(message: backStr)
+            })
+            return
+        }
         
    //*******************  有_callback_值但，没有classCode所传方法的时候调用  ***************************
-        
-        let failBackData = ["result": false,"data":"没有所要调用的方法"] as [String : Any]
-        let failJsonData = try? JSONSerialization.data(withJSONObject: failBackData, options: .prettyPrinted)
-        let failJsonString = String(data: failJsonData!, encoding: String.Encoding.utf8)!
-        let failBackString = "(new Function('return \( callBackStr)') ()) (\( failJsonString))"
-        print(failBackString)
-        self.webView.evaluateJavaScript(failBackString) { (item: Any?, error: Error?) in
-
-            if error != nil {
-                print("***错误\(String(describing: error))")
-            }
-        }
-
-        
-        
+        let failBackStr = self.callBackString(type: false, message: "没有所要调用的方法", callBack: callBackStr)
+        self.callBackToJS(message: failBackStr)
     }
     
   //具体执行的方法
     //MARK: - 扫一扫（二维码/条形码）
     func scan(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
+        if dict.keys.contains("_callback_"){
+            
+        }else
+        {
+            MBProgressHUD.showText("该版本暂不支持此功能")
+            return
+        }
         scanVC.scanData(finish: { (result : String?, error : Error?) in
             print(result!)
             callback(result)
@@ -382,9 +432,26 @@ extension MainViewController{
         present(scanVC, animated: true, completion: nil)
     }
   
-    
-    
-    
+    //MARK: - 外勤打卡
+    func clockIn(dict:Dictionary<String, Any>,callback:@escaping()->()){
+        let clockVC = HAFieldClockController()
+        clockVC.delegate = self
+        self.navigationController?.pushViewController(clockVC, animated: true)
+        callback()
+    }
+    //MARK: - JS调用刷新
+    func ReloadPage(dict: Dictionary<String, Any>,callback: @escaping()->()){
+        //?device=iphone&CLIENTID=\(DisplayUtils.uuid())
+        var currentUrlStr = try? String.init(contentsOf: self.webView.url!)
+        if (currentUrlStr?.contains("?"))! {
+            currentUrlStr = currentUrlStr! + "&device=iphone&CLIENTID=\(DisplayUtils.uuid())"
+        }else{
+            currentUrlStr = currentUrlStr! + "?device=iphone&CLIENTID=\(DisplayUtils.uuid())"
+        }
+        print("重刷新的URL\(String(describing: currentUrlStr))")
+        loadUrl(urlStr: currentUrlStr!)
+        callback()
+    }
  //返回给服务器的字符串
     /// 返回给服务器的信息函数
     ///
@@ -394,28 +461,65 @@ extension MainViewController{
     ///   - callBack: 服务器返回来_callback_
     /// - Returns: 返回给服务器的信息
     func callBackString(type: Bool,message: String,callBack:String) -> String {
-        let backData = ["result": type,"data":message] as [String : Any]
-        let jsonData = try? JSONSerialization.data(withJSONObject: backData, options: .prettyPrinted)
-        let jsonString = String(data: jsonData!, encoding: String.Encoding.utf8)!
-        let backString = "(new Function('return \( callBack)') ()) (\( jsonString))"
+        var backString: String
+        if type {
+            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"data\":\(message)}')"
+        } else {
+            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"message\":\(message)}')"
+        }
+        
         return backString
     }
-    
+    //返回信息给JS
+    func callBackToJS(message: String){
+        self.webView.evaluateJavaScript(message, completionHandler: { (item: Any?, error:Error?) in
+            if error != nil{
+                print("***callBackJS错误\(String(describing: error))")
+            }
+        })
+        
+    }
+    //MARK: - 刷新清除缓存
+    func removeWKWebViewCookies(){
+        if #available(iOS 9.0, *) {
+            
+            let websiteDataTypes : Set<String> = ["WKWebsiteDataTypeDiskCache","WKWebsiteDataTypeMemoryCache"]
+            let dateFrom = Date.init(timeIntervalSince1970: 0)
+            let dataStore = WKWebsiteDataStore.default()
+            dataStore.removeData(ofTypes: websiteDataTypes, modifiedSince: dateFrom, completionHandler: {
+                MBProgressHUD.showText("刷新成功")
+            })
+        } else {
+            let libraryPath = (NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first)! as NSString
+            
+            let cookiesPath = libraryPath.appendingPathComponent("Cookies")
+            try? FileManager.default.removeItem(atPath: cookiesPath)
+        }
+    }
 }
 
 extension MainViewController: WKScriptMessageHandler {
-    //MARK: --- js交互回调
+    //MARK: --- js交互回调userContentController
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print(message.body)
         guard let dict = message.body as? [String : Any] else{return}
         print(dict["classCode"] as Any)
+        if dict.keys.contains("classCode") {
+            
+        }else{
+            return
+        }
         let type:String = dict["classCode"] as! String
         print("type"+type)
+        if type == ""{
+            return
+        }
+        CLASSCode = type
         if type == "SetAppliedTitle" {
-            var Frame = self.webView.frame
             let visibility = dict["visibility"] as! Bool
             if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
+
                 Frame.origin.y = -20
                 Frame.size.height = SCREEN_HEIGHT + 20
                 self.pageCollectionView.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
@@ -424,36 +528,18 @@ extension MainViewController: WKScriptMessageHandler {
                 Frame.origin.y = 64
                 Frame.size.height = SCREEN_HEIGHT - 64
                 self.pageCollectionView.frame = CGRect(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+
+//                Thread.sleep(forTimeInterval: 1.0)
+//                self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+//                progressView.frame = CGRect.init(x: 0, y: 20, width: view.bounds.size.width, height: 3)
+//            }else{
+//                self.navigationController?.navigationBar.isHidden = false
+//                self.webView.frame = CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT - 64)
+//                progressView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.size.width, height: 3)
+
             }
         }else if type == "HeartbeatCheck"{
-            let a = dict["status"] as! NSNumber
-            let aString:String = a.stringValue
-            var tag : Bool
-            if aString == "1" {
-                tag = true
-            }else {
-                tag = false
-            }
-            let token:String = dict["token"] as! String
-            UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
-            
-            var time:NSInteger = dict["time"] as! NSInteger
-                time *= 60
-            if tag {
-                if !isTimer{
-                    isTimer = true
-                print("在这里开启心跳")
-                timer = Timer.scheduledTimer(timeInterval: TimeInterval(time), target: self, selector: #selector(Heartbeat), userInfo: nil, repeats: true)
-                }
-            }else{
-                if isTimer{
-                    isTimer = false
-                    timer?.invalidate()
-                    timer = nil
-                print("结束计时器")
-                }
-            }
-            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "HeartbeatCheck"), object: nil, userInfo: dict)
         }else if type == "login" {//自动登录
             let u = (message.body as! Dictionary<String,String>)["u"]! as String
             let p = (message.body as! Dictionary<String,String>)["p"]! as String
@@ -478,18 +564,7 @@ extension MainViewController: WKScriptMessageHandler {
             let pinVC = PingImageViewController()
             pinVC.imageStr = imageUrl
             self.navigationController?.pushViewController(pinVC, animated: true)
-        }
-//        else if type == "scan" {//扫描卡号
-//            let scanVC = ScanViewController()
-//            scanVC.delegate = self
-//            self.navigationController?.pushViewController(scanVC, animated: true)
-//        }else if type == "scanPay" {//二维码扫描
-//            let sqVC = lhScanQCodeViewController()
-//            sqVC.delegate = self
-//            let navVC = UINavigationController.init(rootViewController: sqVC)
-//            self.present(navVC, animated: true, completion: nil)
-//        }
-        else if type == "FrmWeChatPay"{//微信支付
+        }else if type == "FrmWeChatPay"{//微信支付
             WXApi.registerApp((message.body as! Dictionary<String,String>)["appid"])
             let request = PayReq()
             request.openID = (message.body as! Dictionary<String,String>)["appid"]
@@ -511,6 +586,15 @@ extension MainViewController: WKScriptMessageHandler {
 extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        errorImageView.isHidden = true
+        let url = webView.url!
+        let urlStr = "\(url)"
+        if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
+            self.navigationController?.navigationBar.isHidden = true
+            Thread.sleep(forTimeInterval: 1.0)
+                self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+        
+        }
         //是否自动登录
         //方法一
         let userName:String? = UserDefaultsUtils.valueWithKey(key: "userName") as? String
@@ -580,7 +664,7 @@ extension MainViewController: WKNavigationDelegate{
             addAdVC()
         }
     }
-    //标题按钮
+    //MARK: - **** 标题按钮
     func titleClick() {
         /*
         let dataDict = [(icon:"",title:"转到首页")
@@ -633,16 +717,34 @@ extension MainViewController: WKNavigationDelegate{
     //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
+
         guard let urlStr = webView.url?.absoluteString else{return}
         print("请求失败的URL)" + urlStr)
         let urlBool = urlStr.contains("FrmPayRequest")
         let aliBool = urlStr.contains("mclient.alipay.com/cashier/mobilepay.htm")
         if aliBool || urlBool{
+
+//        guard let webUrl = webView.url else {
+//            self.setNavTitle(title: "出错了")
+//            errorImageView.isHidden = false
+//            DisplayUtils.alertControllerDisplay(str: "网络连接失败，请检查网络连接", viewController: self, confirmBlock: {
+//                print("刷新")
+//                self.webView.reload()
+//            },cancelBlock: {
+//                print("取消")
+//            })
+//            return
+//        }
+//        print("请求失败的URL)" + (webUrl.absoluteString))
+//        let urlBool = webView.url?.absoluteString.contains("FrmPayRequest")
+//        let aliBool = webView.url?.absoluteString.contains("mclient.alipay.com/cashier/mobilepay.htm")
+//        if aliBool! || urlBool!{
+
             return
         }
         self.setNavTitle(title: "出错了")
         self.errorImageView.isHidden = false
-        DisplayUtils.alertControllerDisplay(str: "加载失败，请稍后再试", viewController: self, confirmBlock: {
+        DisplayUtils.alertControllerDisplay(str: "网络连接失败，请检查网络连接", viewController: self, confirmBlock: {
             print("刷新")
             self.webView.reload()
             },cancelBlock: {
@@ -651,6 +753,7 @@ extension MainViewController: WKNavigationDelegate{
     }
 }
 
+
 //出现白屏时刷新页面
 extension MainViewController: WKUIDelegate{
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
@@ -658,7 +761,11 @@ extension MainViewController: WKUIDelegate{
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+
         lastUrlStr = webView.url?.relativeString
+
+//        removeWKWebViewCookies()
+
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
             AlipaySDK.defaultService().payUrlOrder(orderInfo, fromScheme: "summer", callback: { (result:[AnyHashable : Any]?) in
@@ -695,7 +802,7 @@ extension MainViewController: WKUIDelegate{
     
 }
 
-//导航栏按钮
+//MARK: - 导航栏按钮
 extension MainViewController:CustemBBI,SettingDelegate{
     //CustemBBI代理方法
     func BBIdidClickWithName(infoStr: String) {
@@ -713,6 +820,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
             
         }else{
             let dataDict = [(icon:"",title:"设置"),
+                            (icon:"",title:"刷新"),
                             (icon:"",title:"退出系统")
                             ]
             
@@ -729,11 +837,11 @@ extension MainViewController:CustemBBI,SettingDelegate{
                     settingVC.delegate = self
                     self?.navigationController?.pushViewController(settingVC, animated: true)
                 }else if index == 1 {
-                    exit(0)
+//                    exit(0)
+                    self?.removeWKWebViewCookies()
+                    print("点击了刷新")
                 }else if index == 2 {
-                    let settingVC = SettingViewController()
-                    settingVC.delegate = self
-                    self?.navigationController?.pushViewController(settingVC, animated: true)
+                    exit(0)
                 }else if index == 3 {
                     self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: BACK_MAIN))
                 }else if index == 4 {
@@ -815,6 +923,7 @@ extension MainViewController :StartAppDelegate {
     }
 }
 
+
 //MARK: - 添加多窗口
 extension MainViewController {
     func showPagesCollectionView() {
@@ -842,6 +951,16 @@ extension MainViewController : UICollectionViewDataSource {
 }
 extension MainViewController : STPagesCollectionViewDataSource {
 
+//MARK: - HAFieldClockControllerDelegate
+//extension MainViewController: HAFieldClockControllerDelegate{
+//    func toClockRecordInterface() {
+//        let Myapp = shareedMyApp.init()
+//        let urlString = Myapp.getFormUrl("FrmAttendance.attendance")
+//        loadUrl(urlStr: urlString)
+//    }
+//}
+
+
     //MARK: - 移除窗口
     func removeCell(collectionView: STPagesCollectionView, indexPath: IndexPath) {
         self.pagesArr.remove(at: indexPath.row)
@@ -857,6 +976,7 @@ extension MainViewController : STPagesCollectionViewDataSource {
     }
    
 }
+
 extension MainViewController : STPagesCollectionViewDelegate {
     //MARK: - 从3D显示转换为正常显示
     func showHighLightCell(collectionView: STPagesCollectionView, indexPath: IndexPath) {
