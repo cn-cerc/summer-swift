@@ -563,7 +563,7 @@ extension MainViewController: WKNavigationDelegate{
             addAdVC()
         }
     }
-    //标题按钮
+    //MARK: - **** 标题按钮
     func titleClick() {
         let dataDict = [(icon:"",title:"转到首页")
                     ];

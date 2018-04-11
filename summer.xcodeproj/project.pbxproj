@@ -108,7 +108,7 @@
 		79797C402022F559003D9572 /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3B2022F559003D9572 /* MBProgressHUD+Add.m */; };
 		79797C412022F559003D9572 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3D2022F559003D9572 /* MBProgressHUD.m */; };
 		79797C422022F559003D9572 /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 79797C3E2022F559003D9572 /* README.mdown */; };
-		79FFC372207CACE8003A3E5C /* trade_mall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79FFC371207CACE8003A3E5C /* trade_mall.wav */; };
+		79FFC374207DB5ED003A3E5C /* trade_mall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79FFC373207DB5ED003A3E5C /* trade_mall.wav */; };
 		9AF3BAAF1E9CB2EA00C3C643 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */; };
 		9AF3BAB01E9CB2EA00C3C643 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */; };
 		C7B089CB1E5C502A00BE0D43 /* PDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */; };
@@ -315,7 +315,7 @@
 		79797C3C2022F559003D9572 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		79797C3D2022F559003D9572 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		79797C3E2022F559003D9572 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
-		79FFC371207CACE8003A3E5C /* trade_mall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trade_mall.wav; sourceTree = "<group>"; };
+		79FFC373207DB5ED003A3E5C /* trade_mall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trade_mall.wav; sourceTree = "<group>"; };
 		9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
@@ -589,7 +589,7 @@
 				79797BDE2016B749003D9572 /* ClockMap */,
 				64EFE3B21E4D5F5B006A1455 /* MainController */,
 				64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */,
-				79FFC371207CACE8003A3E5C /* trade_mall.wav */,
+				79FFC373207DB5ED003A3E5C /* trade_mall.wav */,
 				64EFE3831E4D5EC8006A1455 /* ViewController.swift */,
 				64EFE3851E4D5EC8006A1455 /* Main.storyboard */,
 				64EFE3881E4D5EC8006A1455 /* Assets.xcassets */,
@@ -965,7 +965,7 @@
 				64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */,
 				6407BF631E542DD00073C297 /* LICENSE in Resources */,
 				79797C422022F559003D9572 /* README.mdown in Resources */,
-				79FFC372207CACE8003A3E5C /* trade_mall.wav in Resources */,
+				79FFC374207DB5ED003A3E5C /* trade_mall.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

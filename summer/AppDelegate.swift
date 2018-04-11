@@ -368,6 +368,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        application.applicationIconBadgeNumber = 0
+        application.cancelAllLocalNotifications()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
