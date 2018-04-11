@@ -314,6 +314,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        application.applicationIconBadgeNumber = 0
+        application.cancelAllLocalNotifications()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -410,6 +412,53 @@ extension AppDelegate : JPUSHRegisterDelegate{
         print(userInfo.keys)
         if userInfo.keys.contains("msgId"){
            NotificationCenter.default.post(name: NSNotification.Name(rawValue:JPushMessage), object: nil, userInfo: ["msgId":userInfo["msgId"]!])
+        }
+    }
+}
+
+extension AppDelegate {
+    @objc fileprivate func heartBeatCheck(notifi : Notification) {
+        let dict = notifi.userInfo!
+        let a = dict["status"] as! NSNumber
+        let aString:String = a.stringValue
+        var tag : Bool
+        if aString == "1" {
+            tag = true
+        }else {
+            tag = false
+        }
+        let token:String = dict["token"] as! String
+        UserDefaultsUtils.saveValue(value: token as AnyObject, key: "TOKEN")
+        
+        time = dict["time"] as! NSInteger
+        time *= 60
+        if tag {
+            if !isTimer{
+                isTimer = true
+                print("在这里开启心跳")
+                timer = Timer.scheduledTimer(timeInterval: TimeInterval(time), target: self, selector: #selector(Heartbeat), userInfo: nil, repeats: true)
+            }
+        }else{
+            if isTimer{
+                isTimer = false
+                timer?.invalidate()
+                timer = nil
+                print("结束计时器")
+            }
+        }
+    }
+    
+    //MARK: ---心跳请求
+    @objc func Heartbeat(){
+        let token = UserDefaultsUtils.valueWithKey(key: "TOKEN")
+        let HeartBeat_URL = URL_APP_ROOT+"/forms/WebDefault.heartbeatCheck?sid="+(token as! String)
+    
+        AFNetworkManager.get(HeartBeat_URL, parameters: nil, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
+            print("心跳请求返回数据")
+            print(responseObject)
+            
+        })  { (operation:AFHTTPRequestOperation?, error:Error?) in
+            print(error)
         }
     }
 }

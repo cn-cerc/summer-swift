@@ -110,9 +110,11 @@
 		DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */; };
 		DCAD2846202161E2009AA8E0 /* STScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD2844202161E2009AA8E0 /* STScanViewController.swift */; };
 		DCAD2847202161E2009AA8E0 /* STScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD2845202161E2009AA8E0 /* STScanView.swift */; };
+
 		DCAD284C20219A53009AA8E0 /* STPagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD284920219A53009AA8E0 /* STPagesCollectionViewCell.swift */; };
 		DCAD284D20219A53009AA8E0 /* STPagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD284A20219A53009AA8E0 /* STPagesCollectionView.swift */; };
 		DCAD284E20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD284B20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -305,6 +307,7 @@
 		DC0B06171FFDD8F8004A3A49 /* PingImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingImageViewController.swift; sourceTree = "<group>"; };
 		DCAD2844202161E2009AA8E0 /* STScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STScanViewController.swift; sourceTree = "<group>"; };
 		DCAD2845202161E2009AA8E0 /* STScanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STScanView.swift; sourceTree = "<group>"; };
+
 		DCAD284920219A53009AA8E0 /* STPagesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		DCAD284A20219A53009AA8E0 /* STPagesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPagesCollectionView.swift; sourceTree = "<group>"; };
 		DCAD284B20219A53009AA8E0 /* STPagesCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPagesCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -612,6 +615,7 @@
 		64EFE3B21E4D5F5B006A1455 /* MainController */ = {
 			isa = PBXGroup;
 			children = (
+
 				DCAD284820219A53009AA8E0 /* STPagesCollectionView */,
 				DC0B06141FFDD8F8004A3A49 /* AdViewController.swift */,
 				DC0B06151FFDD8F8004A3A49 /* MainViewController.swift */,
@@ -925,7 +929,9 @@
 				64F413681E55528400FDAAC6 /* MJRefreshBackStateFooter.m in Sources */,
 				64EFE3C31E4D9CA3006A1455 /* GlobalFile.swift in Sources */,
 				DCAD2846202161E2009AA8E0 /* STScanViewController.swift in Sources */,
+
 				DCAD284C20219A53009AA8E0 /* STPagesCollectionViewCell.swift in Sources */,
+
 				DC0B061B1FFDD8F8004A3A49 /* PingImageViewController.swift in Sources */,
 				64F4136A1E55528400FDAAC6 /* MJRefreshNormalHeader.m in Sources */,
 				DC0B06191FFDD8F8004A3A49 /* MainViewController.swift in Sources */,

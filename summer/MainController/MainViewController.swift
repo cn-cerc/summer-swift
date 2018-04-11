@@ -270,6 +270,7 @@ extension MainViewController{
         //添加一个名称，js通过这个名称发送消息
         configuretion.userContentController.add(self, name: "nativeMethod")
         
+
         webView = WKWebView(frame:CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT),configuration:configuretion)
         webView.allowsBackForwardNavigationGestures = true
         webView?.navigationDelegate = self
@@ -633,6 +634,7 @@ extension MainViewController: WKNavigationDelegate{
     //MARK:---内容加载失败的时候调用
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(#function)
+
         guard let urlStr = webView.url?.absoluteString else{return}
         print("请求失败的URL)" + urlStr)
         let urlBool = urlStr.contains("FrmPayRequest")
@@ -650,6 +652,7 @@ extension MainViewController: WKNavigationDelegate{
         })
     }
 }
+    
 
 //出现白屏时刷新页面
 extension MainViewController: WKUIDelegate{
@@ -658,6 +661,8 @@ extension MainViewController: WKUIDelegate{
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+
+
         lastUrlStr = webView.url?.relativeString
         let orderInfo = AlipaySDK.defaultService().fetchOrderInfo(fromH5PayUrl: webView.url?.absoluteString)
         if orderInfo != nil && (orderInfo?.characters.count)! > 0 {
@@ -840,7 +845,12 @@ extension MainViewController : UICollectionViewDataSource {
         return cell
     }
 }
-extension MainViewController : STPagesCollectionViewDataSource {
+extension MainViewController : STPagesCollectionViewDataSource,HAFieldClockControllerDelegate {
+    func toClockRecordInterface() {
+        let Myapp = shareedMyApp.init()
+        let urlString = Myapp.getFormUrl("FrmAttendance.attendance")
+        loadUrl(urlStr: urlString)
+    }
 
     //MARK: - 移除窗口
     func removeCell(collectionView: STPagesCollectionView, indexPath: IndexPath) {
