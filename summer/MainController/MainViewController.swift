@@ -338,12 +338,16 @@ extension MainViewController{
         }
         //MARK: - /***** 创建窗口
         if classCode as! String == "newWindow"{
-            
+            newWindow(dict: dict, callback: {
+                printLog(message: "***** CJ ")
+            })
         }
         
         //MARK: - /***** 关闭窗口
         if classCode as! String == "closeWindow"{
-            
+            closeWindow(dict: dict, callback: {
+                printLog(message: "***** CLOSE")
+            })
             
         }
         
@@ -401,12 +405,17 @@ extension MainViewController{
         let myApp = shareedMyApp.getInstance()
         self.navTitle = self.webView.title
         self.addWebView()
-        self.loadUrl(urlStr: myApp.getFormUrl("WebDefault"))
+        let urlString = dict["url"] as! String
+        let myAppString = myApp.getFormUrl(urlString)
+        printLog(message: "*(*(*(*(" + myAppString)
+        self.loadUrl(urlStr: myApp.getFormUrl(urlString))
+        callback()
     }
     //MARK: - 关闭窗口
     func closeWindow(dict: Dictionary<String,Any>,callback: @escaping()->()) {
         printLog(message: "关闭窗口")
         self.removeWebView(Tag: self.webView.tag)
+        callback()
     }
  //返回给服务器的字符串
     /// 返回给服务器的信息函数
@@ -567,7 +576,7 @@ extension MainViewController: WKNavigationDelegate{
         //设置标题
         Titlebtn = UIButton(type:.system)
         Titlebtn?.setTitle(webView.title!, for: .normal)
-        Titlebtn?.frame = CGRect.init(x: 0, y: 0, width: 60, height: 40)
+        Titlebtn?.frame = CGRect.init(x: 0, y: 0, width: 90, height: 40)
         self.navigationItem.titleView = Titlebtn;
         Titlebtn?.tintColor = UIColor.white;
         Titlebtn?.addTarget(self, action: #selector(titleClick), for: .touchUpInside)
@@ -896,6 +905,7 @@ extension MainViewController{
                     let lastIndex = self.WebArray.count - 1
                     self.WebArray.remove(at: lastIndex)
                     self.webView = self.WebArray.last
+                    let title = self.webView.title
                     self.Titlebtn?.setTitle(self.webView.title, for: .normal)
                 })
                 
