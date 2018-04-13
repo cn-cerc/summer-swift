@@ -56,7 +56,7 @@ let kAppVersion = "appVersion"
 let KLoadDataBase = "KLoadDataBase"//网络监听
 
 let JPushMessage = "JPushMessage"//极光推送
-
+let navHeight: CGFloat = SCREENHEIGHT == 812.0 ? 88 : 64
 /** 自定义打印 */
 func printLog< N >(message: N,method: String = #function,lineNumber: Int = #line ) {
     #if DEBUG

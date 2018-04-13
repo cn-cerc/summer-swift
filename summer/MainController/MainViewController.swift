@@ -22,8 +22,20 @@ class MainViewController: BaseViewController {
     var CLASSCode: String!
     var CallbackStr: String!
     var isNewHost = true
+    var newWebView: WKWebView!
+    var WebArray = [WKWebView]()
+    var webTag = 0
+    var titleArray = [String]()
+    var titleDataDict = [(icon:String,title:String)]()
+    var Titlebtn: UIButton?
+    var navTitle: String?
     
     var scanVC = STScanViewController()
+    lazy var lineView: UIView = {
+        let LV = UIView.init(frame: CGRect(x: 0, y: 36, width: 150, height: 2))
+        LV.backgroundColor = RGBA(r: 38, g: 38, b: 38, a: 1.0)
+        return LV
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +59,7 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.backgroundColor = UIColor.red
-        if #available(iOS 11.0, *) {
-            webView.scrollView.contentInsetAdjustmentBehavior = .never
-        } else {
-            // Fallback on earlier versions
-        }
+
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.navigationBar.barTintColor = RGBA(r: 72, g: 178, b: 189, a: 1.0)
         
@@ -176,7 +184,7 @@ extension MainViewController{
         webView.load(request)
     }
     
-    //MARK: - 添加wkwebview
+    //MARK: - ***** 添加wkwebview
     fileprivate func addWebView() {
         //创建webview
         //创建一个webview的配置项
@@ -192,16 +200,26 @@ extension MainViewController{
         //添加一个名称，js通过这个名称发送消息
         configuretion.userContentController.add(self, name: "nativeMethod")
         
-        webView = WKWebView(frame:CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-64),configuration:configuretion)
+        webView = WKWebView(frame:CGRect.init(x: 0, y: navHeight, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-navHeight),configuration:configuretion)
         webView.allowsBackForwardNavigationGestures = false
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
         webView?.customUserAgent = "iphone"
         //监听支持KVO的属性
         webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+        
+        if #available(iOS 11.0, *) {
+            webView.scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
         //内容自适应
         webView.sizeToFit()
+        webView.tag = webTag
         view.addSubview(webView!)
+        webTag += 1
+        WebArray.append(webView)
+        printLog(message: "当前webView个数：\(WebArray.count)")
     }
     
     //添加进度条
@@ -251,7 +269,7 @@ extension MainViewController{
     }
 }
 
-//MARK: - JS交互调用方法
+//MARK: - ***********  JS交互调用方法 ***********
 extension MainViewController{
     
     func jsCallOcMethod(dict: Dictionary<String, Any>){
@@ -272,7 +290,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
@@ -280,7 +298,7 @@ extension MainViewController{
             return
         }
         if classCode as! String == "ScanBarcode" {
-            //扫一扫
+            //MARK: - /***** 扫一扫
             scan(dict: dict, callback: { (result : String?) in
                 var backStr: String
 //                let boo = result?.isEmpty
@@ -302,7 +320,7 @@ extension MainViewController{
             })
             return
         }
-        //跳转到打卡界面
+        //MARK: - /***** 跳转到打卡界面
         if classCode as! String == "clockIn"{
             clockIn(dict: dict, callback: {
                 let backStr = self.callBackString(type: true, message: "转到打卡界面成功", callBack: callBackStr)
@@ -310,7 +328,7 @@ extension MainViewController{
             })
             return
         }
-        //js调刷新
+        //MARK: - /***** js调刷新
         if classCode as! String == "ReloadPage"{
             ReloadPage(dict: dict, callback: {
                 let backStr = self.callBackString(type: true, message: "刷新成功", callBack: callBackStr)
@@ -318,8 +336,18 @@ extension MainViewController{
             })
             return
         }
+        //MARK: - /***** 创建窗口
+        if classCode as! String == "newWindow"{
+            
+        }
         
-   //*******************  有_callback_值但，没有classCode所传方法的时候调用  ***************************
+        //MARK: - /***** 关闭窗口
+        if classCode as! String == "closeWindow"{
+            
+            
+        }
+        
+   //*******************  有_callback_值但没有classCode所传方法的时候调用  ***************************
         let failBackStr = self.callBackString(type: false, message: "没有所要调用的方法", callBack: callBackStr)
         self.callBackToJS(message: failBackStr)
     }
@@ -361,6 +389,24 @@ extension MainViewController{
         print("重刷新的URL\(String(describing: currentUrlStr))")
         loadUrl(urlStr: currentUrlStr!)
         callback()
+    }
+    //MARK: - 创建窗口
+    func newWindow(dict: Dictionary<String, Any>,callback: @escaping()->()) {
+        printLog(message: "创建窗口")
+        //新建窗口
+        if self.WebArray.count >= 5{
+            MBProgressHUD.showText("已达最大窗口数量")
+            return
+        }
+        let myApp = shareedMyApp.getInstance()
+        self.navTitle = self.webView.title
+        self.addWebView()
+        self.loadUrl(urlStr: myApp.getFormUrl("WebDefault"))
+    }
+    //MARK: - 关闭窗口
+    func closeWindow(dict: Dictionary<String,Any>,callback: @escaping()->()) {
+        printLog(message: "关闭窗口")
+        self.removeWebView(Tag: self.webView.tag)
     }
  //返回给服务器的字符串
     /// 返回给服务器的信息函数
@@ -434,8 +480,8 @@ extension MainViewController: WKScriptMessageHandler {
                 progressView.frame = CGRect.init(x: 0, y: 20, width: view.bounds.size.width, height: 3)
             }else{
                 self.navigationController?.navigationBar.isHidden = false
-                self.webView.frame = CGRect.init(x: 0, y: 64, width: SCREEN_WIDTH, height: SCREEN_HEIGHT - 64)
-                progressView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.size.width, height: 3)
+                self.webView.frame = CGRect.init(x: 0, y: navHeight, width: SCREEN_WIDTH, height: SCREEN_HEIGHT - navHeight)
+                progressView.frame = CGRect.init(x: 0, y: navHeight, width: view.bounds.size.width, height: 3)
             }
         }else if type == "HeartbeatCheck"{
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "HeartbeatCheck"), object: nil, userInfo: dict)
@@ -519,12 +565,12 @@ extension MainViewController: WKNavigationDelegate{
         //隐藏错误视图
         self.errorImageView.isHidden = true
         //设置标题
-        let Titlebtn = UIButton(type:.system)
-        Titlebtn.setTitle(webView.title!, for: .normal)
-        Titlebtn.frame = CGRect.init(x: 0, y: 0, width: 60, height: 40)
+        Titlebtn = UIButton(type:.system)
+        Titlebtn?.setTitle(webView.title!, for: .normal)
+        Titlebtn?.frame = CGRect.init(x: 0, y: 0, width: 60, height: 40)
         self.navigationItem.titleView = Titlebtn;
-        Titlebtn.tintColor = UIColor.white;
-        Titlebtn.addTarget(self, action: #selector(titleClick), for: .touchUpInside)
+        Titlebtn?.tintColor = UIColor.white;
+        Titlebtn?.addTarget(self, action: #selector(titleClick), for: .touchUpInside)
         
         //判断是否需要返回按钮
         var isMainStr:String
@@ -565,12 +611,11 @@ extension MainViewController: WKNavigationDelegate{
     }
     //MARK: - **** 标题按钮
     func titleClick() {
-        let dataDict = [(icon:"",title:"转到首页")
-                    ];
-        
-        popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH/2-75), y: 51, width: 150, height: dataDict.count*40),arrowMargin:17)
+        titlePopuViewData()
+        popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH/2-75), y: 51, width: 150, height: titleDataDict.count*40),arrowMargin:17)
         //数据
-        popMenu.popData = dataDict
+        popMenu.popData = titleDataDict
+        popMenu.tableView.addSubview(lineView)
         //点击菜单的回调
         popMenu.didSelectMenuBlock = {[weak self](index:Int)->Void in self?.popMenu.dismiss()
             let myApp = shareedMyApp.getInstance()
@@ -578,23 +623,35 @@ extension MainViewController: WKNavigationDelegate{
            
             print(msgUrl)
             
-            if index == 0 {
+            if index == 0 {//回到首页
                 self?.loadUrl(urlStr: myApp.getFormUrl("WebDefault"))
-            }else if index == 1 {
-                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: "\(msgUrl)"))
-            }else if index == 2 {
-                let settingVC = SettingViewController()
-                settingVC.delegate = self
-                self?.navigationController?.pushViewController(settingVC, animated: true)
-            }else if index == 3 {
-                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: BACK_MAIN))
-            }else if index == 4 {
-                UserDefaultsUtils.deleteValueWithKey(key: "userName")
-                UserDefaultsUtils.deleteValueWithKey(key: "pwd")
-                self?.webView.evaluateJavaScript("exit()", completionHandler: { (item:Any?, error:Error?) in
-                    
-                })
-                self?.loadUrl(urlStr: DisplayUtils.configUrl(urlStr: EXIT_URL_PATH))
+            }else if index == 1 {//新建窗口
+                //新建窗口
+                if self!.WebArray.count >= 5{
+                    MBProgressHUD.showText("已达最大窗口数量")
+                    return
+                }
+                self?.navTitle = self?.webView.title
+                 self?.addWebView()
+                self?.loadUrl(urlStr: myApp.getFormUrl("WebDefault"))
+                
+            }else if index == 2 {//关闭窗口
+                printLog(message: "第\(String(describing: self?.webView.tag))个webView")
+                self?.removeWebView(Tag: (self?.webView.tag)!)
+            }else {
+                if self!.WebArray.count <= 1{
+                    return
+                }
+                self?.navTitle = self?.webView.title
+                self?.webView = self?.WebArray[index - 3]
+                self?.view.bringSubview(toFront: (self?.webView)!)
+                self?.Titlebtn?.setTitle(self?.webView.title, for: .normal)
+                
+                let indexNum = (self?.WebArray.count)! - (index - 3)
+                for indx in 1..<indexNum{
+                    self?.WebArray.swapAt(index - 3,(self?.WebArray.count)! - indx)
+                }
+            
             }
         }
         popMenu.show()
@@ -664,7 +721,15 @@ extension MainViewController: WKUIDelegate{
             })
         }
     }
-
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        
+        let requstURL = navigationAction.request.url?.absoluteString
+        printLog(message: "标签连接：" + requstURL!)
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
+    }
 //    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
 //        print("runJavaScriptConfirmPanelWithMessage")
 //        completionHandler(true)
@@ -693,6 +758,8 @@ extension MainViewController:CustemBBI,SettingDelegate{
             if (self.webView.url?.absoluteString.contains(URL_APP_ROOT))! || !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! {
                 if self.webView.canGoBack {
                     self.webView.goBack()
+                }else{
+                    self.removeWebView(Tag: self.webView.tag)
                 }
             }else{
                 self.webView.evaluateJavaScript("ReturnBtnClick()", completionHandler: { (item:Any?, error:Error?) in
@@ -722,7 +789,7 @@ extension MainViewController:CustemBBI,SettingDelegate{
                 }else if index == 1 {
 //                    exit(0)
                     self?.removeWKWebViewCookies()
-                    print("点击了刷新")
+                    printLog(message: "点击了刷新")
                 }else if index == 2 {
                     exit(0)
                 }else if index == 3 {
@@ -812,5 +879,48 @@ extension MainViewController: HAFieldClockControllerDelegate{
         let urlString = Myapp.getFormUrl("FrmAttendance.attendance")
         loadUrl(urlStr: urlString)
     }
+}
+//MARK: - ***** 多窗口的相关方法
+extension MainViewController{
+    func removeWebView(Tag: Int) {
+        if WebArray.count <= 1 {
+            return
+        }
+        for web: WKWebView in WebArray {
+            if web.tag == Tag{
+                UIView.animate(withDuration: 1.0, animations: {
+                    web.frame.size.height = SCREENHEIGHT/2
+                    web.alpha = 0.0
+                }, completion: { (finished) in
+                    web.removeFromSuperview()
+                    let lastIndex = self.WebArray.count - 1
+                    self.WebArray.remove(at: lastIndex)
+                    self.webView = self.WebArray.last
+                    self.Titlebtn?.setTitle(self.webView.title, for: .normal)
+                })
+                
+            }
+        }
+    }
+    func titlePopuViewData()  {
+        if WebArray.count > 1 {
+            titleDataDict = [(icon:"",title:"转到首页"),
+                             (icon:"",title:"新建窗口"),
+                             (icon:"",title:"关闭窗口")
+            ];
+            lineView.frame.origin.y = 113
+        }else{
+            titleDataDict = [(icon:"",title:"转到首页"),
+                             (icon:"",title:"新建窗口")
+            ];
+            lineView.frame.origin.y = 73
+        }
+        for web: WKWebView in WebArray {
+            printLog(message: web.title)
+            let title = (icon: "",title: web.title)
+            titleDataDict.append(title as! (icon: String, title: String))
+        }
+    }
+    
 }
 
