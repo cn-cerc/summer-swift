@@ -29,6 +29,7 @@ class MainViewController: BaseViewController {
     var titleDataDict = [(icon:String,title:String)]()
     var Titlebtn: UIButton?
     var navTitle: String?
+    var Hud: MBProgressHUD!
     
     var scanVC = STScanViewController()
     lazy var lineView: UIView = {
@@ -219,6 +220,7 @@ extension MainViewController{
         view.addSubview(webView!)
         webTag += 1
         WebArray.append(webView)
+        Hud = MBProgressHUD.show(in: view, message: "内容加载中")
         printLog(message: "当前webView个数：\(WebArray.count)")
     }
     
@@ -290,7 +292,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
@@ -405,9 +407,10 @@ extension MainViewController{
         let myApp = shareedMyApp.getInstance()
         self.navTitle = self.webView.title
         self.addWebView()
-        let urlString = dict["url"] as! String
-        let myAppString = myApp.getFormUrl(urlString)
-        printLog(message: "*(*(*(*(" + myAppString)
+        guard var urlString: String = dict["url"] as? String else{return}
+        if urlString == "" {
+            urlString = "WebDefault"
+        }
         self.loadUrl(urlStr: myApp.getFormUrl(urlString))
         callback()
     }
@@ -541,6 +544,7 @@ extension MainViewController: WKNavigationDelegate{
     //MARK: - 网页加载完成
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         errorImageView.isHidden = true
+        Hud.hide(true)
         let url = webView.url!
         let urlStr = "\(url)"
         if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
@@ -737,6 +741,7 @@ extension MainViewController: WKUIDelegate{
         if navigationAction.targetFrame == nil {
             webView.load(navigationAction.request)
         }
+        
         return nil
     }
 //    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
@@ -893,19 +898,24 @@ extension MainViewController: HAFieldClockControllerDelegate{
 extension MainViewController{
     func removeWebView(Tag: Int) {
         if WebArray.count <= 1 {
+            MBProgressHUD.showText("唯一窗口，不能被关闭！！请新建窗口后再关闭或退出应用")
             return
         }
-        for web: WKWebView in WebArray {
+        for var web: WKWebView in WebArray {
             if web.tag == Tag{
                 UIView.animate(withDuration: 1.0, animations: {
                     web.frame.size.height = SCREENHEIGHT/2
                     web.alpha = 0.0
                 }, completion: { (finished) in
-                    web.removeFromSuperview()
+                    if #available(iOS 11.0, *){
+                        web.removeFromSuperview()
+                    }else{
+                        printLog(message: "ios10*****")
+                        web.frame.size.height = 0
+                    }
                     let lastIndex = self.WebArray.count - 1
                     self.WebArray.remove(at: lastIndex)
                     self.webView = self.WebArray.last
-                    let title = self.webView.title
                     self.Titlebtn?.setTitle(self.webView.title, for: .normal)
                 })
                 
