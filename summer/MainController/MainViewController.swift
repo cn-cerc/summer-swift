@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import AVFoundation
 
 class MainViewController: BaseViewController {
     
@@ -55,6 +56,7 @@ class MainViewController: BaseViewController {
         
         //设置别名
         JPUSHService.setAlias(DisplayUtils.uuid(), callbackSelector: nil, object: nil)
+        UserDefaultsUtils.saveBoolValue(value: true, key: "voice")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -280,7 +282,9 @@ extension MainViewController{
             return
         }
         
-        let callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
+        var callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
+        callBackStr = callBackStr.components(separatedBy: .newlines).joined(separator: "")
+        callBackStr = callBackStr.components(separatedBy: .whitespaces).joined(separator: "")
         print("_callback_:\(callBackStr)")
         CallbackStr = callBackStr
         //***********  下面判断需要调用的方法是否存在
@@ -292,7 +296,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
@@ -431,9 +435,9 @@ extension MainViewController{
     func callBackString(type: Bool,message: String,callBack:String) -> String {
         var backString: String
         if type {
-            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"data\":\(message)}')"
+            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"data\":\"\(message)\"}')"
         } else {
-            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"message\":\(message)}')"
+            backString = "(new Function('return \( callBack)') ()) ('{\"result\":\(type),\"message\":\"\(message)\"}')"
         }
         
         return backString
@@ -450,7 +454,6 @@ extension MainViewController{
     //MARK: - 刷新清除缓存
     func removeWKWebViewCookies(){
         if #available(iOS 9.0, *) {
-            
             let websiteDataTypes : Set<String> = ["WKWebsiteDataTypeDiskCache","WKWebsiteDataTypeMemoryCache"]
             let dateFrom = Date.init(timeIntervalSince1970: 0)
             let dataStore = WKWebsiteDataStore.default()
@@ -532,6 +535,16 @@ extension MainViewController: WKScriptMessageHandler {
             request.timeStamp = UInt32((message.body as! Dictionary<String,String>)["timestamp"]!)!
             request.sign = (message.body as! Dictionary<String,String>)["sign"]
             WXApi.send(request)
+        }else if type == "voice" {
+            //MARK：- 添加上架审核音频文件代码
+//            var systemSoundID: SystemSoundID = 0;
+//            let path = Bundle.main.path(forResource: "trade_mall", ofType: "wav")
+//            AudioServicesCreateSystemSoundID(NSURL.fileURL(withPath: path!) as CFURL, &systemSoundID)
+//            AudioServicesPlayAlertSound(SystemSoundID(systemSoundID))
+//            let time: TimeInterval = 3.0
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+//                AudioServicesDisposeSystemSoundID(systemSoundID)
+//            }
         }else{
             
         // ************************* 新增方法调用  ******************************
@@ -546,6 +559,7 @@ extension MainViewController: WKNavigationDelegate{
         errorImageView.isHidden = true
         Hud.hide(true)
         let url = webView.url!
+        printLog(message: "加载的URL:\(url)")
         let urlStr = "\(url)"
         if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
             self.navigationController?.navigationBar.isHidden = true
