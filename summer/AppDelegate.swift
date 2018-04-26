@@ -363,6 +363,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             timer = nil
             print("结束计时器")
         }
+        //MARK：- 添加上架审核音频文件代码
+        let testNum = UserDefaultsUtils.stringValueWithKey(key: "testNum")
+        if testNum == "15202406"{
+            
+            var systemSoundID: SystemSoundID = 0;
+            let path = Bundle.main.path(forResource: "trade_mall", ofType: "wav")
+            AudioServicesCreateSystemSoundID(NSURL.fileURL(withPath: path!) as CFURL, &systemSoundID)
+            AudioServicesPlayAlertSound(SystemSoundID(systemSoundID))
+            let time: TimeInterval = 3.0
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
+                AudioServicesDisposeSystemSoundID(systemSoundID)
+            }
+        }
+        
         
     }
     

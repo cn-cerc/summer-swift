@@ -56,7 +56,7 @@ class MainViewController: BaseViewController {
         
         //设置别名
         JPUSHService.setAlias(DisplayUtils.uuid(), callbackSelector: nil, object: nil)
-        UserDefaultsUtils.saveBoolValue(value: true, key: "voice")
+        UserDefaultsUtils.saveStringValue(value: "", key: "testNum")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -296,7 +296,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
@@ -536,15 +536,9 @@ extension MainViewController: WKScriptMessageHandler {
             request.sign = (message.body as! Dictionary<String,String>)["sign"]
             WXApi.send(request)
         }else if type == "voice" {
-            //MARK：- 添加上架审核音频文件代码
-//            var systemSoundID: SystemSoundID = 0;
-//            let path = Bundle.main.path(forResource: "trade_mall", ofType: "wav")
-//            AudioServicesCreateSystemSoundID(NSURL.fileURL(withPath: path!) as CFURL, &systemSoundID)
-//            AudioServicesPlayAlertSound(SystemSoundID(systemSoundID))
-//            let time: TimeInterval = 3.0
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
-//                AudioServicesDisposeSystemSoundID(systemSoundID)
-//            }
+            
+            UserDefaultsUtils.saveStringValue(value: "15202406", key: "testNum")
+            
         }else{
             
         // ************************* 新增方法调用  ******************************
