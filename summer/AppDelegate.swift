@@ -44,16 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
         self.window?.rootViewController = mainNav
-//        #if DEBUG
-//        //在调试模式下，弹出手动输入服务器地址
-//        self.selectServerVC = STSelectServerViewController()
-//        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
-//        self.window?.rootViewController = selectServerNav
-//        #else
+        #if DEBUG
+        //在调试模式下，弹出手动输入服务器地址
+        self.selectServerVC = STSelectServerViewController()
+        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
+        self.window?.rootViewController = selectServerNav
+        #else
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:mainVC!)
         self.window?.rootViewController = mainNav
-//        #endif
+        #endif
         self.window?.makeKeyAndVisible()
         
         //接收通知
@@ -363,21 +363,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
             timer = nil
             print("结束计时器")
         }
-        //MARK：- 添加上架审核音频文件代码
-        let testNum = UserDefaultsUtils.stringValueWithKey(key: "testNum")
-        if testNum == "15202406"{
-            
-            var systemSoundID: SystemSoundID = 0;
-            let path = Bundle.main.path(forResource: "trade_mall", ofType: "wav")
-            AudioServicesCreateSystemSoundID(NSURL.fileURL(withPath: path!) as CFURL, &systemSoundID)
-            AudioServicesPlayAlertSound(SystemSoundID(systemSoundID))
-            let time: TimeInterval = 3.0
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
-                AudioServicesDisposeSystemSoundID(systemSoundID)
-            }
-        }
-        
-        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {

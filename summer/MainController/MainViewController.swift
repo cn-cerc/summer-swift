@@ -115,7 +115,7 @@ class MainViewController: BaseViewController {
     //添加下拉刷新
     func addRefreshView() {
         var isChangeStr:String
-        if UserDefaultsUtils.valueWithKey(key: "ChangeStr").stringValue == nil {
+        if UserDefaultsUtils.valueWithKey(key: "ChangeStr") as? String == nil {
             isChangeStr = isRefrushStr
         }else{
             isChangeStr = UserDefaultsUtils.valueWithKey(key: "ChangeStr") as! String
@@ -296,7 +296,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
@@ -595,7 +595,7 @@ extension MainViewController: WKNavigationDelegate{
         
         //判断是否需要返回按钮
         var isMainStr:String
-        if UserDefaultsUtils.valueWithKey(key: "MainUrlStr").stringValue == nil {
+        if UserDefaultsUtils.valueWithKey(key: "MainUrlStr") as? String == nil {
             isMainStr = isBackStr
         }else{
             isMainStr = UserDefaultsUtils.valueWithKey(key: "MainUrlStr") as! String
@@ -607,7 +607,7 @@ extension MainViewController: WKNavigationDelegate{
         }
         //高度自适应
         var isChangeStr:String
-        if UserDefaultsUtils.valueWithKey(key: "ChangeStr").stringValue == nil {
+        if UserDefaultsUtils.valueWithKey(key: "ChangeStr") as? String == nil {
             isChangeStr = isRefrushStr
         }else{
             isChangeStr = UserDefaultsUtils.valueWithKey(key: "ChangeStr") as! String
