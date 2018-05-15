@@ -347,6 +347,7 @@ extension MainViewController{
             newWindow(dict: dict, callback: {
                 printLog(message: "***** CJ ")
             })
+            return
         }
         
         //MARK: - /***** 关闭窗口
@@ -354,9 +355,13 @@ extension MainViewController{
             closeWindow(dict: dict, callback: {
                 printLog(message: "***** CLOSE")
             })
-            
+           return
         }
-        
+        //MARK: - /***** 上传图片文件
+        if classCode as! String == "UploadImgField" {
+            UploadImgField()
+            return
+        }
    //*******************  有_callback_值但没有classCode所传方法的时候调用  ***************************
         let failBackStr = self.callBackString(type: false, message: "没有所要调用的方法", callBack: callBackStr)
         self.callBackToJS(message: failBackStr)
@@ -777,17 +782,23 @@ extension MainViewController:CustemBBI,SettingDelegate{
     //CustemBBI代理方法
     func BBIdidClickWithName(infoStr: String) {
         if infoStr == "first" {
-            if (self.webView.url?.absoluteString.contains(URL_APP_ROOT))! || !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! {
-                if self.webView.canGoBack {
-                    self.webView.goBack()
-                }else{
-                    self.removeWebView(Tag: self.webView.tag)
-                }
-            }else{
+//            if (self.webView.url?.absoluteString.contains(URL_APP_ROOT))! || !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! {
+//                if self.webView.canGoBack {
+//                    self.webView.goBack()
+//                }else{
+//                    self.removeWebView(Tag: self.webView.tag)
+//                }
+//            }else{
                 self.webView.evaluateJavaScript("ReturnBtnClick()", completionHandler: { (item:Any?, error:Error?) in
-                    
+                    if error != nil{
+                        if self.webView.canGoBack {
+                            self.webView.goBack()
+                        }else{
+                            self.removeWebView(Tag: self.webView.tag)
+                        }
+                    }
                 })
-            }
+//            }
         }else if infoStr == "second" {
             
         }else{
@@ -952,3 +963,93 @@ extension MainViewController{
     
 }
 
+//MARK: - 上传图片文件
+extension MainViewController{
+    func UploadImgField() {
+        
+    let alertVC = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+    let cancel = UIAlertAction.init(title: "取消", style: .cancel) { (action) in
+        printLog(message: "点击了取消")
+    }
+    let photo = UIAlertAction.init(title: "相册", style: .default) { (action) in
+        printLog(message: "相册")
+        self.openCameraPhoto(sourceType: .photoLibrary)
+    }
+    let camera = UIAlertAction.init(title: "相机", style: .default) { (action) in
+        printLog(message: "相机")
+        self.openCameraPhoto(sourceType: .camera)
+    }
+    let file = UIAlertAction.init(title: "文件", style: .default) { (action) in
+        printLog(message: "文件")
+    }
+    alertVC.addAction(cancel)
+    alertVC.addAction(camera)
+    alertVC.addAction(photo)
+//    alertVC.addAction(file)
+    
+    self.present(alertVC, animated: true, completion: nil)
+    
+    }
+    
+    func openCameraPhoto(sourceType: UIImagePickerControllerSourceType) {
+        
+        let isAvailable = UIImagePickerController.isSourceTypeAvailable(sourceType)
+        if  isAvailable {
+            let pickerVC = UIImagePickerController()
+            pickerVC.delegate = self
+            pickerVC.sourceType = sourceType
+            self.present(pickerVC, animated: true) {
+                printLog(message: "选取相片成功")
+            }
+        }else{
+            printLog(message: "打不开")
+        }
+    }
+    func UploadImgFieldAction(image: UIImage) {
+        let Hud = MBProgressHUD.show(in: view, message: "上传中")
+        let Myapp = shareedMyApp.init()
+        let urlString = Myapp.getFormUrl("FrmCusFollowUp.uploadFile")
+        let imgData = UIImageJPEGRepresentation(image, 0.00001)
+        let paramet = ["":""]
+        AFNetworkManager.post(urlString, parameters: paramet, formData: { (formData: AFMultipartFormData?) in
+            let fileManager = FileManager.default
+            var path =  NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
+            try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            path = path + "/image.jpg"
+            if  fileManager.createFile(atPath: path, contents: imgData, attributes: nil){
+                let fileURL = URL.init(fileURLWithPath: path)
+                try? formData?.appendPart(withFileURL: fileURL, name: "followup")
+            }
+        } , success: { (operation : AFHTTPRequestOperation?, responseObject : [AnyHashable: Any]?) in
+            Hud?.hide(true)
+            
+            print("上传图片成功\(String(describing: responseObject))")
+            guard var result = responseObject?["result"] as? Bool else{
+                return;
+            }
+            if result{
+                MBProgressHUD.showText("上传成功！")
+                self.navigationController?.popViewController(animated: true)
+                self.webView.reload()
+            }else{
+                MBProgressHUD.showText("\(String(describing: responseObject!["message"]))")
+            }
+        } ) { (operation: AFHTTPRequestOperation?, error: Error?) in
+            Hud?.hide(true)
+            MBProgressHUD.showText("上传失败")
+        }
+    }
+}
+
+extension MainViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let Img = info[UIImagePickerControllerOriginalImage] as! UIImage
+        UploadImgFieldAction(image: Img)
+        picker.dismiss(animated: true) {
+            printLog(message: "选好图片，退出")
+        }
+    }
+    
+    
+    
+}

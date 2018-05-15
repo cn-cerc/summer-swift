@@ -24,13 +24,13 @@ extension STSelectServerViewController {
     fileprivate func showSelectServer(){
         let alertVC = UIAlertController.init(title: "请输入服务器地址", message: "", preferredStyle: .alert)
         alertVC.addTextField { (inputTF) in
-            inputTF.text = "https://c1.knowall.cn"
+            inputTF.text = "http://192.168.31.150"
         }
         let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction.init(title: "确定", style: .default) { (action) in
             var serverUrl = alertVC.textFields?.first?.text
             if serverUrl?.count == 0{
-                serverUrl = "https://c1.knowall.cn"
+                serverUrl = "http://192.168.31.150"
             }
             URL_APP_ROOT = serverUrl!
             let mainVC = MainViewController()
