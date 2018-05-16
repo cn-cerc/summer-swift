@@ -10,7 +10,7 @@ import UIKit
 //var serverURL = "https://m.knowall.cn"//master版
 //var serverURL = "https://c1.knowall.cn"//Beta版
 //var URL_APP_ROOT = "https://c1.knowall.cn"
-var URL_APP_ROOT = "http://192.168.31.150"
+var URL_APP_ROOT = "http://192.168.31.239"
 //判断是否需要cdn转向
 //var URL_APP_ROOT =  (UserDefaults.standard.value(forKey: "newHost")) != nil ? "https://" + (UserDefaults.standard.value(forKey: "newHost") as! String) :serverURL
 let WELCOME_IMAGES_COUNT = 3
@@ -34,7 +34,7 @@ class shareedMyApp {
     
     func getFormUrl(_ formCode: String) -> String{
         if formCode.contains("?"){
-            return "\(URL_APP_ROOT)/\(FORMS)/\(formCode)device=iphone&CLIENTID=\(DisplayUtils.uuid())&sid=\(UserDefaultsUtils.valueWithKey(key: "TOKEN"))"
+            return "\(URL_APP_ROOT)/\(FORMS)/\(formCode)&device=iphone&CLIENTID=\(DisplayUtils.uuid())&sid=\(UserDefaultsUtils.valueWithKey(key: "TOKEN"))"
         }else{
             return "\(URL_APP_ROOT)/\(FORMS)/\(formCode)?device=iphone&CLIENTID=\(DisplayUtils.uuid())&sid=\(UserDefaultsUtils.valueWithKey(key: "TOKEN"))"
         }
