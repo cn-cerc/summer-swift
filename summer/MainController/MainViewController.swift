@@ -207,7 +207,7 @@ extension MainViewController{
         webView.allowsBackForwardNavigationGestures = false
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
-        webView?.customUserAgent = "iphone"
+        webView?.customUserAgent = "iphone,iPhone"
         //监听支持KVO的属性
         webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         
@@ -296,7 +296,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
