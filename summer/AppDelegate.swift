@@ -224,10 +224,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         let appVersion = infoDict?["CFBundleShortVersionString"]
         paremDict = ["curVersion":appVersion as Any,"appCode":"vine-iphone-standard"]
         //检测版本更新
-        let MyApp = shareedMyApp.getInstance()
-        let urlString = MyApp.getFormUrl("install.client")
-        AFNetworkManager.get(urlString, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
-            //print(responseObject as! [String : Any])
+        AFNetworkManager.get(URLPATH_CONFIG, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
+            printLog(message: "\(String(describing: responseObject))")
             let launchImageUrlStr = responseObject!["startupImage"] as? String
             var launchImageVersion = ""
             var launchUrl = ""

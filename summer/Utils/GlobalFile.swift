@@ -41,7 +41,7 @@ let isRefrushStr = "/forms/Default,/,/forms/Login?device=iphone,/forms/FrmPhoneR
 
 var URLPATH = URL_APP_ROOT+"?device=iphone&CLIENTID="+DisplayUtils.uuid()//url
 
-var URLPATH_CONFIG = URL_APP_ROOT+"/forms/install.client"//获取启动图片、广告图片及检测版本更新
+var URLPATH_CONFIG = URL_APP_ROOT+"/forms/install.client?device=iphone&CLIENTID=i_B361CFF251AB4D638AF5E089246B528C"//获取启动图片、广告图片及检测版本更新
 
 var EXIT_URL_PATH = URL_APP_ROOT+"/form/TFrmLogout"
 

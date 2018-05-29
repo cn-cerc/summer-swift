@@ -57,6 +57,7 @@ class MainViewController: BaseViewController {
         //设置别名
         JPUSHService.setAlias(DisplayUtils.uuid(), callbackSelector: nil, object: nil)
         UserDefaultsUtils.saveStringValue(value: "", key: "testNum")
+        addSlideGsture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -296,7 +297,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
@@ -1049,7 +1050,23 @@ extension MainViewController: UIImagePickerControllerDelegate,UINavigationContro
             printLog(message: "选好图片，退出")
         }
     }
+}
+//MARK: - 添加左右滑动手势
+extension MainViewController{
+    func addSlideGsture() {
+        let leftSlide = UISwipeGestureRecognizer.init(target: self, action: #selector(leftSlideAction))
+        leftSlide.direction = .left
+        view.addGestureRecognizer(leftSlide)
+        let rightSlide = UISwipeGestureRecognizer.init(target: self, action: #selector(rightSlideAction))
+        rightSlide.direction = .right
+        view.addGestureRecognizer(rightSlide)
+    }
     
-    
+    func leftSlideAction() {
+        printLog(message: "左滑")
+    }
+    func rightSlideAction() {
+        printLog(message: "右滑")
+    }
     
 }
