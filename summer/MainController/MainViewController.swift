@@ -181,9 +181,9 @@ extension MainViewController{
    
     //加载url
     func loadUrl(urlStr:String) {
-        let urlStr = URL.init(string: urlStr)
-        printLog(message: "******>>>>>\(urlStr)")
-        let request = URLRequest.init(url: urlStr!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
+        let urlString = URL.init(string: urlStr)
+        printLog(message: "******>>>>>\(urlString)")
+        let request = URLRequest.init(url: urlString!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30.0)
 //        let request = URLRequest.init(url: urlStr!)
         webView.load(request)
     }
@@ -255,7 +255,7 @@ extension MainViewController{
             
             progressView .setProgress(Float(webView.estimatedProgress), animated: animated)
             
-            print(webView.estimatedProgress)
+            printLog(message:webView.estimatedProgress)
             self.progressView.setProgress(Float(webView.estimatedProgress), animated: true)
             
             if Float(webView.estimatedProgress) >= 1.0{
@@ -285,7 +285,7 @@ extension MainViewController{
         
         var callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
         callBackStr = callBackStr.components(separatedBy: .newlines).joined(separator: "")
-        callBackStr = callBackStr.components(separatedBy: .whitespaces).joined(separator: "")
+//        callBackStr = callBackStr.components(separatedBy: .whitespaces).joined(separator: "")
         print("_callback_:\(callBackStr)")
         CallbackStr = callBackStr
         //***********  下面判断需要调用的方法是否存在

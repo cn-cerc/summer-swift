@@ -24,7 +24,7 @@ extension STSelectServerViewController {
     fileprivate func showSelectServer(){
         let alertVC = UIAlertController.init(title: "请输入服务器地址", message: "", preferredStyle: .alert)
         alertVC.addTextField { (inputTF) in
-            inputTF.text = URL_APP_ROOT
+            inputTF.text =  UserDefaults.standard.value(forKey: "myServer") != nil ? UserDefaults.standard.value(forKey: "myServer") as! String : URL_APP_ROOT
         }
         let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction.init(title: "确定", style: .default) { (action) in
@@ -32,11 +32,12 @@ extension STSelectServerViewController {
             if serverUrl?.count == 0{
                 serverUrl = URL_APP_ROOT
             }
+            
             URL_APP_ROOT = serverUrl!
             let mainVC = MainViewController()
             self.navigationController?.pushViewController(mainVC, animated: true)
             UIApplication.shared.keyWindow?.rootViewController = BaseNavViewController(rootViewController:mainVC)
-            
+            UserDefaults.standard.set(serverUrl, forKey: "myServer")
         }
         alertVC.addAction(cancelAction)
         alertVC.addAction(okAction)
