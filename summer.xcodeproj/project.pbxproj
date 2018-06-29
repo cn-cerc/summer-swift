@@ -102,6 +102,7 @@
 		64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44ABB1E569B3A009D1135 /* libresolv.tbd */; };
 		792975562045069600CF48FA /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792975552045069600CF48FA /* Bugly.framework */; };
 		794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794038B11FFB34E80036A8BB /* AdOnlineTool.swift */; };
+		795EF6A720E4BC3C003C9E61 /* new_order.wav in Resources */ = {isa = PBXBuildFile; fileRef = 795EF6A620E4BC3C003C9E61 /* new_order.wav */; };
 		79797BE32016B7B0003D9572 /* HAFieldClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */; };
 		79797BE52016B7B0003D9572 /* custonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BE12016B7B0003D9572 /* custonAnnotation.swift */; };
 		79797C3F2022F559003D9572 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 79797C392022F559003D9572 /* LICENSE */; };
@@ -307,6 +308,7 @@
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
 		792975552045069600CF48FA /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		794038B11FFB34E80036A8BB /* AdOnlineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdOnlineTool.swift; sourceTree = "<group>"; };
+		795EF6A620E4BC3C003C9E61 /* new_order.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = new_order.wav; sourceTree = "<group>"; };
 		79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAFieldClockController.swift; sourceTree = "<group>"; };
 		79797BE12016B7B0003D9572 /* custonAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = custonAnnotation.swift; sourceTree = "<group>"; };
 		79797C392022F559003D9572 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 				79797BDE2016B749003D9572 /* ClockMap */,
 				64EFE3B21E4D5F5B006A1455 /* MainController */,
 				64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */,
+				795EF6A620E4BC3C003C9E61 /* new_order.wav */,
 				79FFC373207DB5ED003A3E5C /* trade_mall.wav */,
 				64EFE3831E4D5EC8006A1455 /* ViewController.swift */,
 				64EFE3851E4D5EC8006A1455 /* Main.storyboard */,
@@ -954,6 +957,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				795EF6A720E4BC3C003C9E61 /* new_order.wav in Resources */,
 				DCCC0B802044DD3900B89CFC /* LoginAccount.plist in Resources */,
 				9AF3BAB01E9CB2EA00C3C643 /* AlipaySDK.bundle in Resources */,
 				6407BFA61E542DDF0073C297 /* LICENSE in Resources */,

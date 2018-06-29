@@ -285,7 +285,6 @@ extension MainViewController{
         
         var callBackStr = (dict["_callback_"] != nil) ?dict["_callback_"] as! String :""
         callBackStr = callBackStr.components(separatedBy: .newlines).joined(separator: "")
-//        callBackStr = callBackStr.components(separatedBy: .whitespaces).joined(separator: "")
         print("_callback_:\(callBackStr)")
         CallbackStr = callBackStr
         //***********  下面判断需要调用的方法是否存在
@@ -297,7 +296,7 @@ extension MainViewController{
             userDefault.set(sid, forKey: "TOKEN")
             if isNewHost {
                 printLog(message: "****" + URL_APP_ROOT)
-//                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
+                loadUrl(urlStr: shareedMyApp.getInstance().getFormUrl("WebDefault"))
                 isNewHost = false
             }else{
                 printLog(message: "\(URL_APP_ROOT)")
