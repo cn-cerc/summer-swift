@@ -7,7 +7,8 @@
 //
 
 import UIKit
-var serverURL = "https://m.knowall.cn"//master版
+//var serverURL = "https://m.knowall.cn"//master_0版
+var serverURL = "https://m.diteng.site"//master_1版
 //var serverURL = "https://c1.knowall.cn"//Beta版
 //var URL_APP_ROOT = "https://c1.knowall.cn"
 //var URL_APP_ROOT = "https://m.knowall.cn"
