@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.9.3</string>
+	<string>1.9.4</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -42,9 +42,23 @@
 				<string>summer</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>JAyun</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>dt888888x</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>201807181600</string>
+	<string>201808311638</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>JAYun</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

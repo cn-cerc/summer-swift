@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import AVFoundation
+import JASDK
 
 class MainViewController: BaseViewController {
     
@@ -362,6 +363,24 @@ extension MainViewController{
             UploadImgField()
             return
         }
+        //MARK: - /***** 绑定及登录聚安
+        if classCode as! String == "qrcode" {
+            guard let qrcode = dict["qrcode"] else{
+                let backString = callBackString(type: false, message: "qrcode错误", callBack: callBackStr)
+                self.callBackToJS(message: backString)
+                return
+            }
+            if qrcode as! String == ""{
+                let backString = callBackString(type: false, message: "qrcode为空", callBack: callBackStr)
+                self.callBackToJS(message: backString)
+                return
+            }
+            printLog(message: "qrCode: \(qrcode)")
+            bindOrLoginJA(qrcode: qrcode as! String) { (backString) in
+                self.callBackToJS(message: backString)
+            }
+            return
+        }
    //*******************  有_callback_值但没有classCode所传方法的时候调用  ***************************
         let failBackStr = self.callBackString(type: false, message: "没有所要调用的方法", callBack: callBackStr)
         self.callBackToJS(message: failBackStr)
@@ -471,6 +490,12 @@ extension MainViewController{
             let cookiesPath = libraryPath.appendingPathComponent("Cookies")
             try? FileManager.default.removeItem(atPath: cookiesPath)
         }
+    }
+    //MARK: - 绑定聚安或调用聚安登录
+    func bindOrLoginJA(qrcode: String,completion: @escaping (_ success: String)->()) {
+        JASDK.ja_LoginOrBind(viewController: self, Message: qrcode)
+        let backString = callBackString(type: true, message: "success", callBack: CallbackStr)
+        completion(backString)
     }
 }
 
