@@ -14,7 +14,6 @@
 		6407BF3C1E5403AE0073C297 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF3B1E5403AD0073C297 /* Security.framework */; };
 		6407BF3E1E5403B60073C297 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF3D1E5403B60073C297 /* CoreTelephony.framework */; };
 		6407BF401E5403BD0073C297 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6407BF3F1E5403BD0073C297 /* CFNetwork.framework */; };
-		6407BF631E542DD00073C297 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6407BF431E542DD00073C297 /* LICENSE */; };
 		6407BF641E542DD00073C297 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6407BF441E542DD00073C297 /* README.md */; };
 		6407BF651E542DD00073C297 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BF471E542DD00073C297 /* NSData+ImageContentType.m */; };
 		6407BF661E542DD00073C297 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6407BF491E542DD00073C297 /* SDImageCache.m */; };
@@ -106,7 +105,6 @@
 		795EF6A720E4BC3C003C9E61 /* new_order.wav in Resources */ = {isa = PBXBuildFile; fileRef = 795EF6A620E4BC3C003C9E61 /* new_order.wav */; };
 		79797BE32016B7B0003D9572 /* HAFieldClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */; };
 		79797BE52016B7B0003D9572 /* custonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BE12016B7B0003D9572 /* custonAnnotation.swift */; };
-		79797C3F2022F559003D9572 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 79797C392022F559003D9572 /* LICENSE */; };
 		79797C402022F559003D9572 /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3B2022F559003D9572 /* MBProgressHUD+Add.m */; };
 		79797C412022F559003D9572 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3D2022F559003D9572 /* MBProgressHUD.m */; };
 		79797C422022F559003D9572 /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 79797C3E2022F559003D9572 /* README.mdown */; };
@@ -969,9 +967,7 @@
 				64F4136C1E55528400FDAAC6 /* MJRefresh.bundle in Resources */,
 				64EFE3CB1E4DBD5C006A1455 /* Images.xcassets in Resources */,
 				64EFE3891E4D5EC8006A1455 /* Assets.xcassets in Resources */,
-				79797C3F2022F559003D9572 /* LICENSE in Resources */,
 				64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */,
-				6407BF631E542DD00073C297 /* LICENSE in Resources */,
 				79797C422022F559003D9572 /* README.mdown in Resources */,
 				79FFC374207DB5ED003A3E5C /* trade_mall.wav in Resources */,
 			);
