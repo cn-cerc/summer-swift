@@ -56,7 +56,7 @@ class SettingViewController: BaseViewController {
         return perverseBtn
     }()
     
-    func perverseClick() {
+    @objc func perverseClick() {
         UserDefaultsUtils.saveValue(value: self.valueLabel.text! as AnyObject, key: "scale")
         if self.delegate != nil {
             print(self.valueLabel.text)
@@ -95,7 +95,7 @@ extension SettingViewController{
         view.addSubview(slider)
     }
     
-    func sliderAction(slider:UISlider) {
+    @objc func sliderAction(slider:UISlider) {
         print(slider.value)
         self.valueLabel.text = String(format:"%.2f",slider.value)
     }

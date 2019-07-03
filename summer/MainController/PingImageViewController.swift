@@ -43,14 +43,14 @@ class PingImageViewController: UIViewController,UIGestureRecognizerDelegate {
         self.imageView?.addGestureRecognizer(panGesture)
     }
     
-    func scaleImage(pinchGestureRecognizer:UIPinchGestureRecognizer) {
+    @objc func scaleImage(pinchGestureRecognizer:UIPinchGestureRecognizer) {
         if pinchGestureRecognizer.state == .began || pinchGestureRecognizer.state == .changed {
             self.imageView?.transform = (self.imageView?.transform)!.scaledBy(x: pinchGestureRecognizer.scale, y: pinchGestureRecognizer.scale)
             pinchGestureRecognizer.scale = 1
         }
     }
     
-    func panView(panGestureRecognizer:UIPanGestureRecognizer) {
+    @objc func panView(panGestureRecognizer:UIPanGestureRecognizer) {
         if panGestureRecognizer.state == .began || panGestureRecognizer.state == .changed {
             let translation = panGestureRecognizer.translation(in: self.imageView?.superview)
             self.imageView?.center = CGPoint.init(x: (self.imageView?.center.x)! + translation.x, y: (self.imageView?.center.y)! + translation.y)

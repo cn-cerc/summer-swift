@@ -99,16 +99,13 @@
 		64F44AB81E569B14009D1135 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB71E569B14009D1135 /* AdSupport.framework */; };
 		64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44AB91E569B24009D1135 /* UserNotifications.framework */; };
 		64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F44ABB1E569B3A009D1135 /* libresolv.tbd */; };
-		790FF86A21870B25003F0DFA /* JASDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790FF86921870B25003F0DFA /* JASDK.framework */; };
 		792975562045069600CF48FA /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792975552045069600CF48FA /* Bugly.framework */; };
 		794038B21FFB34E80036A8BB /* AdOnlineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794038B11FFB34E80036A8BB /* AdOnlineTool.swift */; };
-		795EF6A720E4BC3C003C9E61 /* new_order.wav in Resources */ = {isa = PBXBuildFile; fileRef = 795EF6A620E4BC3C003C9E61 /* new_order.wav */; };
 		79797BE32016B7B0003D9572 /* HAFieldClockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */; };
 		79797BE52016B7B0003D9572 /* custonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79797BE12016B7B0003D9572 /* custonAnnotation.swift */; };
 		79797C402022F559003D9572 /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3B2022F559003D9572 /* MBProgressHUD+Add.m */; };
 		79797C412022F559003D9572 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 79797C3D2022F559003D9572 /* MBProgressHUD.m */; };
 		79797C422022F559003D9572 /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 79797C3E2022F559003D9572 /* README.mdown */; };
-		79FFC374207DB5ED003A3E5C /* trade_mall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79FFC373207DB5ED003A3E5C /* trade_mall.wav */; };
 		9AF3BAAF1E9CB2EA00C3C643 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */; };
 		9AF3BAB01E9CB2EA00C3C643 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */; };
 		C7B089CB1E5C502A00BE0D43 /* PDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B089CA1E5C502A00BE0D43 /* PDKeyChain.m */; };
@@ -305,10 +302,8 @@
 		64F44AB91E569B24009D1135 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		64F44ABB1E569B3A009D1135 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		64F44ABD1E569B51009D1135 /* summer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = summer.entitlements; sourceTree = "<group>"; };
-		790FF86921870B25003F0DFA /* JASDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JASDK.framework; sourceTree = "<group>"; };
 		792975552045069600CF48FA /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		794038B11FFB34E80036A8BB /* AdOnlineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdOnlineTool.swift; sourceTree = "<group>"; };
-		795EF6A620E4BC3C003C9E61 /* new_order.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = new_order.wav; sourceTree = "<group>"; };
 		79797BDF2016B7AF003D9572 /* HAFieldClockController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAFieldClockController.swift; sourceTree = "<group>"; };
 		79797BE12016B7B0003D9572 /* custonAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = custonAnnotation.swift; sourceTree = "<group>"; };
 		79797C392022F559003D9572 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -317,7 +312,6 @@
 		79797C3C2022F559003D9572 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		79797C3D2022F559003D9572 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		79797C3E2022F559003D9572 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
-		79FFC373207DB5ED003A3E5C /* trade_mall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trade_mall.wav; sourceTree = "<group>"; };
 		9AF3BAAD1E9CB2EA00C3C643 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		9AF3BAAE1E9CB2EA00C3C643 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		C7B089C91E5C502A00BE0D43 /* PDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeyChain.h; sourceTree = "<group>"; };
@@ -350,7 +344,6 @@
 				64F44ABC1E569B3A009D1135 /* libresolv.tbd in Frameworks */,
 				64F44ABA1E569B24009D1135 /* UserNotifications.framework in Frameworks */,
 				64F44AB81E569B14009D1135 /* AdSupport.framework in Frameworks */,
-				790FF86A21870B25003F0DFA /* JASDK.framework in Frameworks */,
 				64F44AB61E569AF9009D1135 /* UIKit.framework in Frameworks */,
 				64F44AB41E569AEF009D1135 /* Foundation.framework in Frameworks */,
 				64F44AB21E569AE4009D1135 /* CoreGraphics.framework in Frameworks */,
@@ -414,7 +407,6 @@
 		6407BF411E542DB60073C297 /* Library-oc */ = {
 			isa = PBXGroup;
 			children = (
-				790FF86921870B25003F0DFA /* JASDK.framework */,
 				792975552045069600CF48FA /* Bugly.framework */,
 				DCCC0B812044FAD700B89CFC /* LMJDropdownMenu */,
 				DCF62FD62043DAC7002C245F /* YBPickerTool */,
@@ -593,8 +585,6 @@
 				79797BDE2016B749003D9572 /* ClockMap */,
 				64EFE3B21E4D5F5B006A1455 /* MainController */,
 				64EFE3811E4D5EC8006A1455 /* AppDelegate.swift */,
-				795EF6A620E4BC3C003C9E61 /* new_order.wav */,
-				79FFC373207DB5ED003A3E5C /* trade_mall.wav */,
 				64EFE3831E4D5EC8006A1455 /* ViewController.swift */,
 				64EFE3851E4D5EC8006A1455 /* Main.storyboard */,
 				64EFE3881E4D5EC8006A1455 /* Assets.xcassets */,
@@ -910,7 +900,7 @@
 				TargetAttributes = {
 					64EFE37D1E4D5EC8006A1455 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 35SG99VZ4S;
+						DevelopmentTeam = 65XMWY2LW8;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -939,6 +929,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -959,7 +950,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				795EF6A720E4BC3C003C9E61 /* new_order.wav in Resources */,
 				DCCC0B802044DD3900B89CFC /* LoginAccount.plist in Resources */,
 				9AF3BAB01E9CB2EA00C3C643 /* AlipaySDK.bundle in Resources */,
 				6407BFA61E542DDF0073C297 /* LICENSE in Resources */,
@@ -969,7 +959,6 @@
 				64EFE3891E4D5EC8006A1455 /* Assets.xcassets in Resources */,
 				64EFE3871E4D5EC8006A1455 /* Main.storyboard in Resources */,
 				79797C422022F559003D9572 /* README.mdown in Resources */,
-				79FFC374207DB5ED003A3E5C /* trade_mall.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1232,7 +1221,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 35SG99VZ4S;
+				DEVELOPMENT_TEAM = 65XMWY2LW8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1253,12 +1242,12 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sd5g.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1273,7 +1262,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 35SG99VZ4S;
+				DEVELOPMENT_TEAM = 65XMWY2LW8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1294,11 +1283,11 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mimrc.vine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sd5g.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

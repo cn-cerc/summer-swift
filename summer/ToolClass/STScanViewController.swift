@@ -27,11 +27,11 @@ class STScanViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if status == .authorized{
             initScanDevice()
         }else if status == .notDetermined {
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { (granted : Bool) in
+            AVCaptureDevice.requestAccess(for: AVMediaType.video) { (granted : Bool) in
                 if granted == true {
                     self.initScanDevice()
                 }else {
@@ -63,7 +63,7 @@ extension STScanViewController {
     
     func initScanDevice() {
         //初始化设备
-        device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        device = AVCaptureDevice.default(for: AVMediaType.video)
         guard let device = device else {return}
         //初始化输入
         input = try? AVCaptureDeviceInput.init(device: device)
@@ -74,24 +74,24 @@ extension STScanViewController {
         //初始化连接对象
         session = AVCaptureSession.init()
         //设置采集质量
-        session?.sessionPreset = AVCaptureSessionPresetHigh
+        session?.sessionPreset = AVCaptureSession.Preset.high
         //将输入输出流对象添加到连接对象
-        if session?.canAddInput(input) == true {
-            session?.addInput(input)
+        if session?.canAddInput(input!) == true {
+            session?.addInput(input!)
         }
-        if session?.canAddOutput(output) == true {
-            session?.addOutput(output)
+        if session?.canAddOutput(output!) == true {
+            session?.addOutput(output!)
         }
     
         //设置扫码支持的编码格式
-        output?.metadataObjectTypes = [AVMetadataObjectTypeQRCode,AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code,AVMetadataObjectTypeCode128Code]
+        output?.metadataObjectTypes = [AVMetadataObject.ObjectType.qr,AVMetadataObject.ObjectType.qr,AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.ean8,AVMetadataObject.ObjectType.code128]
         //设置扫描的聚焦区域
         //output?.rectOfInterest = scanRect!
         //output?.rectOfInterest = CGRect(x: 60, y: 200, width: 100, height: 100)
         //图层
-        preview = AVCaptureVideoPreviewLayer.init(session: session)
+        preview = AVCaptureVideoPreviewLayer.init(session: session!)
         preview?.frame = UIScreen.main.bounds
-        preview?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        preview?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         view.layer.insertSublayer(preview!, at: 0)
     }
     
@@ -143,9 +143,9 @@ extension STScanViewController {
     //MARK:- 闪光灯开启与关闭
     @objc func openLight(sender : UIButton) {
         sender.isSelected = !sender.isSelected
-        device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        device = AVCaptureDevice.default(for: AVMediaType.video)
         if (device?.hasFlash)! && (device?.hasTorch)! {
-            var torch : AVCaptureTorchMode = (input?.device.torchMode)!
+            var torch : AVCaptureDevice.TorchMode = (input?.device.torchMode)!
     
             switch torch {
                 case .auto:

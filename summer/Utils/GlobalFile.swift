@@ -49,7 +49,7 @@ var BACK_MAIN = URL_APP_ROOT+"/form/TWebDefault"
 
 let WXPaySuccessNotification = "WeixinPaySuccessNotification"//支付成功
 
-let WX_APPID = "wx41af87527e0b6315"
+let WX_APPID = "wx41df98752e0b6315"
 
 let kAppVersion = "appVersion"
 

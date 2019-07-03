@@ -40,7 +40,7 @@ class CustemNavItem: UIBarButtonItem {
         return BBI
     }
     
-    func BBIdidClick() {
+    @objc func BBIdidClick() {
         self.delegate?.BBIdidClickWithName(infoStr: self.infoStr!)
     }
 }

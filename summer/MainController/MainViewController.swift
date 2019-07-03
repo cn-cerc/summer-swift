@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 import AVFoundation
-import JASDK
+
 
 class MainViewController: BaseViewController {
     
@@ -51,7 +51,7 @@ class MainViewController: BaseViewController {
         //添加ProgressView
         addProgressView()
         //加载网页
-        loadUrl(urlStr: URLPATH)
+        loadUrl(urlStr: serverURL)
         
         self.scale = 1.0
         
@@ -87,7 +87,7 @@ class MainViewController: BaseViewController {
     }
     
     //支付成功返回
-    func paySucceed(notifi:Notification) {
+    @objc func paySucceed(notifi:Notification) {
         let result = notifi.userInfo?["code"]
         self.webView.evaluateJavaScript("ReturnForApp('\(result!)')") {
             (item:Any?, error:Error?) in
@@ -95,7 +95,7 @@ class MainViewController: BaseViewController {
     }
     
     //网络监测
-    func getLoadDataBase(notifi:Notification) {
+    @objc func getLoadDataBase(notifi:Notification) {
         let netWork:String? = notifi.userInfo?["netType"] as! String?
         if netWork! == "NotReachable" || netWork! == "Unknown" {
             DisplayUtils.alertControllerDisplay(str: "网络出现异常，请检查网络连接！", viewController: self, confirmBlock: {
@@ -109,7 +109,7 @@ class MainViewController: BaseViewController {
     }
     
     //推送
-    func jpushMessage(notifi:Notification) {
+    @objc func jpushMessage(notifi:Notification) {
         let msgId:String? = notifi.userInfo?["msgId"] as! String?
         self.loadUrl(urlStr: String(format:"%@/forms/FrmMessages.show?msgId=%@",URL_APP_ROOT,msgId!))
     }
@@ -133,7 +133,7 @@ class MainViewController: BaseViewController {
         }
     }
     
-    func headerRefresh() {
+    @objc func headerRefresh() {
         self.webView.reload()
     }
     
@@ -363,24 +363,6 @@ extension MainViewController{
             UploadImgField()
             return
         }
-        //MARK: - /***** 绑定及登录聚安
-        if classCode as! String == "qrcode" {
-            guard let qrcode = dict["qrcode"] else{
-                let backString = callBackString(type: false, message: "qrcode错误", callBack: callBackStr)
-                self.callBackToJS(message: backString)
-                return
-            }
-            if qrcode as! String == ""{
-                let backString = callBackString(type: false, message: "qrcode为空", callBack: callBackStr)
-                self.callBackToJS(message: backString)
-                return
-            }
-            printLog(message: "qrCode: \(qrcode)")
-            bindOrLoginJA(qrcode: qrcode as! String) { (backString) in
-                self.callBackToJS(message: backString)
-            }
-            return
-        }
    //*******************  有_callback_值但没有classCode所传方法的时候调用  ***************************
         let failBackStr = self.callBackString(type: false, message: "没有所要调用的方法", callBack: callBackStr)
         self.callBackToJS(message: failBackStr)
@@ -490,12 +472,6 @@ extension MainViewController{
             let cookiesPath = libraryPath.appendingPathComponent("Cookies")
             try? FileManager.default.removeItem(atPath: cookiesPath)
         }
-    }
-    //MARK: - 绑定聚安或调用聚安登录
-    func bindOrLoginJA(qrcode: String,completion: @escaping (_ success: String)->()) {
-        JASDK.ja_LoginOrBind(viewController: self, Message: qrcode)
-        let backString = callBackString(type: true, message: "success", callBack: CallbackStr)
-        completion(backString)
     }
 }
 
@@ -661,7 +637,7 @@ extension MainViewController: WKNavigationDelegate{
         }
     }
     //MARK: - **** 标题按钮
-    func titleClick() {
+    @objc func titleClick() {
         titlePopuViewData()
         popMenu = SwiftPopMenu(frame:CGRect.init(x: Int(SCREEN_WIDTH/2-75), y: 51, width: 150, height: titleDataDict.count*40),arrowMargin:17)
         //数据
@@ -1086,10 +1062,10 @@ extension MainViewController{
         view.addGestureRecognizer(rightSlide)
     }
     
-    func leftSlideAction() {
+    @objc func leftSlideAction() {
         printLog(message: "左滑")
     }
-    func rightSlideAction() {
+    @objc func rightSlideAction() {
         printLog(message: "右滑")
     }
     

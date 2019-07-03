@@ -189,7 +189,7 @@ extension HAFieldClockController{
         
         let imageSize = cameraBtn.imageRect(forContentRect: cameraBtn.frame)
         let titleString =  cameraBtn.title(for: .normal)
-        let titleSize = titleString?.size(attributes: [NSFontAttributeName : cameraBtn.titleLabel?.font as Any])
+        let titleSize = titleString?.size(withAttributes: [NSAttributedStringKey.font : cameraBtn.titleLabel?.font as Any])
         let titleInset = UIEdgeInsets(top: (imageSize.height + (titleSize?.height)! + 8), left: -imageSize.width, bottom: 0, right: 0)
         let imageInaet = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -((titleSize?.width)!))
         

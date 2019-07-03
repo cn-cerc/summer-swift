@@ -153,7 +153,7 @@ extension AdViewController {
         }
         imageView.animationImages = images
         imageView.animationDuration = 3.0
-        imageView.animationRepeatCount = Int(MAXFLOAT)
+        imageView.animationRepeatCount = Int(MAXFRAG)
         imageView.startAnimating()
     }
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import JASDK
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageManagerDelegate {
     
@@ -30,14 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Bugly.start(withAppId: "9430ce63c1")
-        JASDK.ja_registerAppkey(appkey: "dt888888x")
         //保存uuid
         if isFirst() == true {
             PDKeyChain.keyChainSave(NSUUID().uuidString)
         }
         //配置信息
-        getImageData()
         //沉睡
         Thread.sleep(forTimeInterval: 1.2)
         
@@ -66,29 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         /*
          * #pragma 欢迎页
          */
-        for i in 0..<UserDefaultsUtils.intValueWithKey(key: "addCount") {
-            let manager = SDWebImageManager()
-            let image1 = manager.imageCache.imageFromDiskCache(forKey: String(format:"adImage%d",i))
-            if (image1 != nil) {
-                self.addArr.append(image1!)
-            }
-        }
-        if isFirstLauch() == true {
-            var array = Array<UIImage>()
-            for i in 0..<WELCOME_IMAGES_COUNT {
-                let image = UIImage.init(named: String(format:"welcome%d",i+1))
-                array.append(image!)
-            }
-            //LaunchIntroductionView.shared(withImages: array, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: false)
-        }else{
-            if self.addArr.count == 0 {
-                UIApplication.shared.statusBarStyle = .lightContent
-                UIApplication.shared.isStatusBarHidden = false
-            }else{
-               // LaunchIntroductionView.shared(withImages: self.addArr, buttonImage: "login", buttonFrame: CGRect.init(x: SCREEN_WIDTH-SCREEN_WIDTH/4, y: 20, width: SCREEN_WIDTH/4-10, height: 20), withisBanner: true)
-            }
-        }
-        
         UserDefaultsUtils.saveValue(value: "1.00" as AnyObject, key: "scale")
         
         //判断网络
@@ -116,7 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
         JPUSHService.setup(withOption: launchOptions, appKey: appkey, channel: channel, apsForProduction: isProduction, advertisingIdentifier: advertisingId)
         //设置启动页
-        getLaunchImage()
+        
+        
         do {
            try AVAudioSession.sharedInstance().setCategory("AVAudioSessionCategoryPlayback")
         }catch{
@@ -173,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(removeLaunchView), userInfo: nil, repeats: false)
     }
     //移除启动页
-    func removeLaunchView(){
+    @objc func removeLaunchView(){
         self.launchView?.removeFromSuperview()
     }
     //MARK:启动页Gif
@@ -193,11 +167,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         }
         imgView.animationImages = imageArray
         imgView.animationDuration = 3.0
-        imgView.animationRepeatCount = Int(MAXFLOAT)
+        imgView.animationRepeatCount = Int(MAXFRAG)
         imgView.startAnimating()
     }
     
-    func statusBarHiddenNotfi() {
+    @objc func statusBarHiddenNotfi() {
         UIApplication.shared.statusBarStyle = .lightContent
         UIApplication.shared.isStatusBarHidden = false
     }

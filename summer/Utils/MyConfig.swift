@@ -7,12 +7,7 @@
 //
 
 import UIKit
-//var serverURL = "https://m.knowall.cn"//master_0版
-var serverURL = "https://m.diteng.site"//master_1版
-//var serverURL = "https://c1.knowall.cn"//Beta版
-//var URL_APP_ROOT = "https://c1.knowall.cn"
-//var URL_APP_ROOT = "https://m.knowall.cn"
-//var URL_APP_ROOT = "http://192.168.31.59"
+var serverURL = "https://www.baidu.com"
 //判断是否需要cdn转向
 var URL_APP_ROOT =  (UserDefaults.standard.value(forKey: "newHost")) != nil ? "https://" + (UserDefaults.standard.value(forKey: "newHost") as! String) :serverURL
 let WELCOME_IMAGES_COUNT = 3
@@ -20,7 +15,7 @@ let FORMS = "forms"
 let SERVICES = "services"
 
 //推送
-let appkey = "cc92570c841a688af5adc5b0"
+let appkey = "cc92570c841a688af5a0b5cd"
 let channel = "Publish channel"
 let isProduction = true
 

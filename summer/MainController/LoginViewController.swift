@@ -177,11 +177,11 @@ extension LoginViewController {
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        attrStr.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, contentStr.count-1))// 添加对齐方式
-        attrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(white: 1.0, alpha: 0.7), range: range)
-        attrStr.addAttribute(NSLinkAttributeName, value: "contact://", range: range1)
+        attrStr.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, contentStr.count-1))// 添加对齐方式
+        attrStr.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.init(white: 1.0, alpha: 0.7), range: range)
+        attrStr.addAttribute(NSAttributedStringKey.link, value: "contact://", range: range1)
         textView.attributedText = attrStr
-        textView.linkTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        textView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white as Any]
     }
 
 
@@ -195,7 +195,7 @@ extension LoginViewController {
 //MARK: - Action
 extension LoginViewController {
     //MARK: - 选择服务器
-    func selectServer() {
+    @objc func selectServer() {
         selectServerBtn?.isSelected = true
         YBPickerTool.show([self.servers], didSelect: { (indexPath) in
             self.selectServerBtn?.isSelected = false
@@ -219,12 +219,12 @@ extension LoginViewController {
         }
     }
     //MARK: - 记住密码
-    func remeberPwd() {
+    @objc func remeberPwd() {
         remeberPwdBtn?.isSelected = !(remeberPwdBtn?.isSelected)!
         isRemeberPwd = !(remeberPwdBtn?.isSelected)!
     }
     //MARK: - 登录
-    func login() {
+    @objc func login() {
         //判断输入为空
         guard accountTF?.text != nil else {return}
         guard pwdTF?.text != nil else {return}
@@ -254,13 +254,13 @@ extension LoginViewController {
     fileprivate func showServerAlert() {
         let alertVC = UIAlertController.init(title: "请输入服务器地址", message: "", preferredStyle: .alert)
         alertVC.addTextField { (inputTF) in
-            inputTF.text = "https://m.knowall.cn"
+            inputTF.text = "https://www.baidu.com"
         }
         let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction.init(title: "确定", style: .default) { (action) in
             var serverUrl = alertVC.textFields?.first?.text
             if serverUrl?.count == 0{
-                serverUrl = "https://m.knowall.cn"
+                serverUrl = "https://www.baidu.com"
             }
             URL_APP_ROOT = serverUrl!
             let mainVC = MainViewController()
