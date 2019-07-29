@@ -29,39 +29,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Bugly.start(withAppId: "9430ce63c1")
         //保存uuid
         if isFirst() == true {
             PDKeyChain.keyChainSave(NSUUID().uuidString)
         }
         //配置信息
+//        getImageData()
         //沉睡
-        Thread.sleep(forTimeInterval: 1.2)
+//        Thread.sleep(forTimeInterval: 1.2)
         
         self.window = UIWindow(frame:UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
         self.mainVC = MainViewController()
         self.mainNav = BaseNavViewController(rootViewController:self.mainVC!)
         self.window?.rootViewController = mainNav
-        #if DEBUG
+//        #if DEBUG
         //在调试模式下，弹出手动输入服务器地址
-        self.selectServerVC = STSelectServerViewController()
-        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
-        self.window?.rootViewController = selectServerNav
-        #else
-        self.mainVC = MainViewController()
-        self.mainNav = BaseNavViewController(rootViewController:mainVC!)
-        self.window?.rootViewController = mainNav
-        #endif
+//        self.selectServerVC = STSelectServerViewController()
+//        self.selectServerNav = BaseNavViewController(rootViewController: selectServerVC!)
+//        self.window?.rootViewController = selectServerNav
+//        #else
+//        self.mainVC = MainViewController()
+//        self.mainNav = BaseNavViewController(rootViewController:mainVC!)
+//        self.window?.rootViewController = mainNav
+//        #endif
         self.window?.makeKeyAndVisible()
         
+        //MARK: - 检测是否有版本更新
+        detectionVersion()
         //接收通知
         let NotifyChatMsgRecv = NSNotification.Name(rawValue:"ShowBanner")
         NotificationCenter.default.addObserver(self, selector: #selector(statusBarHiddenNotfi), name: NotifyChatMsgRecv, object: nil)
         let NotifyHeartbeatCheck = NSNotification.Name(rawValue: "HeartbeatCheck")
         NotificationCenter.default.addObserver(self, selector: #selector(heartBeatCheck(notifi:)), name: NotifyHeartbeatCheck, object: nil)
-        /*
-         * #pragma 欢迎页
-         */
+        
         UserDefaultsUtils.saveValue(value: "1.00" as AnyObject, key: "scale")
         
         //判断网络
@@ -89,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
         JPUSHService.setup(withOption: launchOptions, appKey: appkey, channel: channel, apsForProduction: isProduction, advertisingIdentifier: advertisingId)
         //设置启动页
-        
+//        getLaunchImage()
         
         do {
            try AVAudioSession.sharedInstance().setCategory("AVAudioSessionCategoryPlayback")
@@ -119,8 +121,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         let getImgTool = AdOnlineTool()
         let imgArray = getImgTool.getImages(type: PhotoType.PhotoTypeLaunch)
         if imgArray.count == 0 {
-            imgView.image = UIImage.init(named: "启动页")
+            imgView.image = UIImage.init(named: "LaunchScreen")
         } else {
+//            let imgFilePath = Bundle.main.path(forResource: "launchImg", ofType: "gif")
+            
             let imgFilePath = AdOnlineTool().getLaunchImageURL()
             let imgData = NSData.init(contentsOfFile: imgFilePath)
             let imgType = getImgTool.contentTypeForImageData(imgData!)
@@ -200,7 +204,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,SDWebImageMa
         let appVersion = infoDict?["CFBundleShortVersionString"]
         paremDict = ["curVersion":appVersion as Any,"appCode":"vine-iphone-standard"]
         //检测版本更新
-        AFNetworkManager.get(URLPATH_CONFIG, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
+        let URLString = "https://m.yiyoupin.com.cn/elves/FrmIndex_Phone?device=phone"
+        AFNetworkManager.get(URLString, parameters: paremDict, success: { (operation:AFHTTPRequestOperation?, responseObject:[AnyHashable : Any]?) in
             printLog(message: "\(String(describing: responseObject))")
             let launchImageUrlStr = responseObject!["startupImage"] as? String
             var launchImageVersion = ""
@@ -536,3 +541,87 @@ extension AppDelegate {
         }
     }
 }
+
+
+
+extension AppDelegate{
+    //MARK: - 检测版本更新
+    func detectionVersion() {
+        //获取APP当前版本号
+        let infoDict = Bundle.main.infoDictionary
+        let appVersion = infoDict!["CFBundleShortVersionString"] as! String
+        let rf = RemoteForm.initRemoteForm()
+        rf.parametersDict = ["curVersion": appVersion as Any ,"appCode": APPCODE as Any]
+        rf.onResult = {(RF) in
+            let result = RF.getResult()
+            if !result{
+                let msg = RF.getMessage()
+                MBProgressHUD.show(in: self.window?.rootViewController?.view, message: msg)
+                return
+            }
+            let dataDict = RF.getServerData()
+            printLog(message: "更新数据：\(dataDict)")
+            //数据逻辑处理
+            //获取当前版本号
+            let infoDict = Bundle.main.infoDictionary
+            let appVersion = infoDict!["CFBundleShortVersionString"] as! String
+            //获取服务器数据信息
+            let version = dataDict["appVersion"] as! String
+            let appUpdateReadme: Array = dataDict["appUpdateReadme"] as! Array <String>
+            printLog(message: "更新内容：\(appUpdateReadme)")
+            //比对版本号
+            if appVersion == version {
+                printLog(message: "已是最新版本")
+                return
+            }
+            //是否强制更新
+            guard let appUpdateReset: Bool = dataDict["appUpdateReset"] as? Bool else {
+                return
+            }
+            //弹窗提醒
+            var massage = ""
+            massage = appUpdateReadme[0]
+            if massage == "" {
+                massage = "优化交互体验及系统运行流畅度"
+            }
+            self.updateNewVersionApp(url: "", appUpdateReadme: massage,appUpdateReset: appUpdateReset)
+            
+        }
+        let urlString = "https://m.yiyoupin.com.cn/elves/install.client"
+        printLog(message: "版本检测URL：" + urlString)
+        rf.requestDataFromServer(type: .post, urlString: urlString)
+        
+        
+    }
+    //MARK: - *********** 弹窗 *************
+    func updateNewVersionApp(url: String,appUpdateReadme: String,appUpdateReset: Bool) {
+        
+        let alertVC = UIAlertController.init(title: "发现新版本", message: appUpdateReadme, preferredStyle: .alert)
+        let cancel = UIAlertAction.init(title: "下次再说", style: .cancel) { (Action) in
+            
+        }
+        let ok_Action = UIAlertAction.init(title: "立即更新", style: .default) { (Action) in
+            let version = getVersion()
+            let appCode = "&appCode=" + APPCODE
+            let parameter = "curVersion=" + version + appCode
+            let urlString = Myapp.getFormParameters(Server: SERVER, formCode: "install.update", Parameters: parameter)
+            let Url = URL.init(string: urlString)
+            UIApplication.shared.open(Url!, options: ["":""], completionHandler: nil)
+        }
+        let exit_Action = UIAlertAction.init(title: "退出", style: .default) { (action) in
+            exit(0)
+        }
+        if appUpdateReset{
+            alertVC.addAction(exit_Action)
+            alertVC.addAction(ok_Action)
+        }else{
+            alertVC.addAction(cancel)
+            alertVC.addAction(ok_Action)
+        }
+        
+        window?.rootViewController?.present(alertVC, animated: true, completion: nil)
+        
+    }
+}
+
+
