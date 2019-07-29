@@ -83,15 +83,6 @@ class MainViewController: BaseViewController {
         
         
 //***********************************************************
-        //添加WkWebView
-//        addWebView()
-//        //添加错误视图
-//        view.addSubview(self.errorImageView)
-//        //添加ProgressView
-//        addProgressView()
-//        //MARK: - 加载网页
-//        //loadUrl(urlStr: serverURL)
-//        loadUrl(urlStr: URLPATH)
         
         
         
@@ -108,16 +99,6 @@ class MainViewController: BaseViewController {
         view.backgroundColor = UIColor.white
         self.navigationController?.isNavigationBarHidden = true
         self.automaticallyAdjustsScrollViewInsets = false
-//        self.navigationController?.navigationBar.barTintColor = RGBA(r: 72, g: 178, b: 189, a: 1.0)
-        
-//        if isNavHidden == true {
-//            navigationController?.isNavigationBarHidden = true
-//            let statusBarView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: view.bounds.size.width, height: 20))
-//            statusBarView.backgroundColor = UIColor.white
-//            view.addSubview(statusBarView)
-//        }else{
-//            navigationController?.isNavigationBarHidden = false
-//        }
         
         //支付成功
         NotificationCenter.default.addObserver(self, selector: #selector(paySucceed), name: Notification.Name(rawValue:WXPaySuccessNotification), object: nil)
@@ -285,7 +266,6 @@ extension MainViewController{
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        //        webView.configuration.userContentController.removeScriptMessageHandler(forName: "webViewApp")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -649,14 +629,6 @@ extension MainViewController: WKNavigationDelegate{
                 
             })
         }
-        //方法二
-        //        let userName = UserDefaultsUtils.valueWithKey(key: "userName")
-        //        let pwd = UserDefaultsUtils.valueWithKey(key: "pwd")
-        //        if !(userName as! String).isEmpty && !(pwd as! String).isEmpty  {
-        //            self.webView.evaluateJavaScript("iosLogin(\(userName as! String),\(pwd as! String))", completionHandler: { (item:Any?, error:Error?) in
-        //
-        //            })
-        //        }
         //加载完成结束刷新
         endRefresh()
         //设置下拉刷新
@@ -707,7 +679,7 @@ extension MainViewController: WKNavigationDelegate{
             self.webView.reload()
         }
         if webView.url?.relativePath == "/forms/TFrmWelcome" {
-//            addAdVC()
+
         }
     }
     //MARK: - **** 标题按钮
@@ -832,6 +804,7 @@ extension MainViewController: WKUIDelegate{
         
         return nil
     }
+//MARK: - 修复不能调起支付宝支付的BUG
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let urlString = navigationAction.request.url?.absoluteString
         if (urlString?.hasPrefix("alipays://"))! || (urlString?.hasPrefix("alipay://"))! {
@@ -870,13 +843,6 @@ extension MainViewController:CustemBBI,SettingDelegate{
     //CustemBBI代理方法
     func BBIdidClickWithName(infoStr: String) {
         if infoStr == "first" {
-//            if (self.webView.url?.absoluteString.contains(URL_APP_ROOT))! || !(self.webView.url?.absoluteString.contains(URL_APP_ROOT))! {
-//                if self.webView.canGoBack {
-//                    self.webView.goBack()
-//                }else{
-//                    self.removeWebView(Tag: self.webView.tag)
-//                }
-//            }else{
                 self.webView.evaluateJavaScript("ReturnBtnClick()", completionHandler: { (item:Any?, error:Error?) in
                     if error != nil{
                         if self.webView.canGoBack {
