@@ -40,18 +40,60 @@ class MainViewController: BaseViewController {
         return LV
     }()
     
+    var isRepeat = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
+        
+//***********************  添加启动时的视频播放   *************************
+        
+//        weak var weakSelf = self
+        let playView = TJAVplayerView()
+        playView.isNoUI = true
+        playView.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        self.view.addSubview(playView)
+        let moviePath = Bundle.main.path(forResource: "startVideo", ofType: "mp4")
+        playView.settingPlayerItem(with: URL.init(fileURLWithPath: moviePath!))
+        playView.overBlock = {[weak self] (type : String?)->() in
+            
+                DispatchQueue.main.async {
+                    if !self!.isRepeat{
+                        playView.removeSelf()
+//                    添加WkWebView
+                    
+                        self!.addWebView()
+                    //添加错误视图
+                        self!.view.addSubview(self!.errorImageView)
+                    //添加ProgressView
+                        self!.addProgressView()
+                    //MARK: - 加载网页
+//                            loadUrl(urlStr: serverURL)
+                    
+                        self!.loadUrl(urlStr: URLPATH)
+                        self!.isRepeat = true
+                    }
+            
+                }
+
+        } 
+        
+        
+        
+        
+//***********************************************************
         //添加WkWebView
-        addWebView()
-        //添加错误视图
-        view.addSubview(self.errorImageView)
-        //添加ProgressView
-        addProgressView()
-        //加载网页
-        loadUrl(urlStr: serverURL)
+//        addWebView()
+//        //添加错误视图
+//        view.addSubview(self.errorImageView)
+//        //添加ProgressView
+//        addProgressView()
+//        //MARK: - 加载网页
+//        //loadUrl(urlStr: serverURL)
+//        loadUrl(urlStr: URLPATH)
+        
+        
         
         self.scale = 1.0
         
@@ -63,19 +105,19 @@ class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.backgroundColor = UIColor.red
-
+        view.backgroundColor = UIColor.white
+        self.navigationController?.isNavigationBarHidden = true
         self.automaticallyAdjustsScrollViewInsets = false
-        self.navigationController?.navigationBar.barTintColor = RGBA(r: 72, g: 178, b: 189, a: 1.0)
+//        self.navigationController?.navigationBar.barTintColor = RGBA(r: 72, g: 178, b: 189, a: 1.0)
         
-        if isNavHidden == true {
-            navigationController?.isNavigationBarHidden = true
-            let statusBarView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: view.bounds.size.width, height: 20))
-            statusBarView.backgroundColor = UIColor.white
-            view.addSubview(statusBarView)
-        }else{
-            navigationController?.isNavigationBarHidden = false
-        }
+//        if isNavHidden == true {
+//            navigationController?.isNavigationBarHidden = true
+//            let statusBarView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: view.bounds.size.width, height: 20))
+//            statusBarView.backgroundColor = UIColor.white
+//            view.addSubview(statusBarView)
+//        }else{
+//            navigationController?.isNavigationBarHidden = false
+//        }
         
         //支付成功
         NotificationCenter.default.addObserver(self, selector: #selector(paySucceed), name: Notification.Name(rawValue:WXPaySuccessNotification), object: nil)
@@ -205,7 +247,7 @@ extension MainViewController{
         //添加一个名称，js通过这个名称发送消息
         configuretion.userContentController.add(self, name: "nativeMethod")
         
-        webView = WKWebView(frame:CGRect.init(x: 0, y: navHeight, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-navHeight),configuration:configuretion)
+        webView = WKWebView(frame:CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT),configuration:configuretion)
         webView.allowsBackForwardNavigationGestures = false
         webView?.navigationDelegate = self
         webView?.uiDelegate = self
@@ -235,7 +277,7 @@ extension MainViewController{
         if isNavHidden == true{
             progressView.frame = CGRect.init(x: 0, y: 20, width: view.bounds.size.width, height: 3)
         }else{
-            progressView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.size.width, height: 3)
+            progressView.frame = CGRect.init(x: 0, y: 20, width: view.bounds.size.width, height: 3)
         }
         progressView.trackTintColor = UIColor.clear
         progressView.progressTintColor = UIColor.blue
@@ -335,6 +377,22 @@ extension MainViewController{
             })
             return
         }
+        //MARK: - /*****AR地图
+        if classCode as! String == "ArLocation" {
+            ArLocation(dict: dict) {
+                let backStr = self.callBackString(type: true, message: "转到AR地图成功", callBack: callBackStr)
+                self.callBackToJS(message: backStr)
+            }
+            return;
+        }
+        //MARK: - /*****
+        if classCode as! String == "ArGame" {
+            ArGame(dict: dict) {
+                let backStr = self.callBackString(type: true, message: "转到AR游戏成功", callBack: callBackStr)
+                self.callBackToJS(message: backStr)
+            }
+            return
+        }
         //MARK: - /***** js调刷新
         if classCode as! String == "ReloadPage"{
             ReloadPage(dict: dict, callback: {
@@ -368,7 +426,21 @@ extension MainViewController{
         self.callBackToJS(message: failBackStr)
     }
     
-  //具体执行的方法
+  //MARK: - 具体执行的方法
+    
+    //MARK: - AR地图
+    func ArLocation(dict:Dictionary<String, Any>,callback:@escaping()->()){
+        let vc = ARSearchViewController()
+        self.present(vc, animated: true, completion: nil)
+        callback()
+    }
+    
+    //MARK: - AR游戏
+    func ArGame(dict:Dictionary<String, Any>,callback:@escaping()->()){
+        let vc = ARSpiritViewController()
+        self.present(vc, animated: true, completion: nil)
+        callback()
+    }
     //MARK: - 扫一扫（二维码/条形码）
     func scan(dict:Dictionary<String, Any>,callback:@escaping(_ result : String?)->()){
         if dict.keys.contains("_callback_"){
@@ -493,6 +565,7 @@ extension MainViewController: WKScriptMessageHandler {
         }
         CLASSCode = type
         if type == "SetAppliedTitle" {
+            return
             let visibility = dict["visibility"] as! Bool
             if !visibility {
                 self.navigationController?.navigationBar.isHidden = true
@@ -562,7 +635,7 @@ extension MainViewController: WKNavigationDelegate{
         printLog(message: "加载的URL:\(url)")
         let urlStr = "\(url)"
         if urlStr.contains("TFrmWelcome") && (CLASSCode == "SetAppliedTitle") {
-            self.navigationController?.navigationBar.isHidden = true
+//            self.navigationController?.navigationBar.isHidden = true
             Thread.sleep(forTimeInterval: 1.0)
                 self.webView.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
         
@@ -621,6 +694,7 @@ extension MainViewController: WKNavigationDelegate{
         if isChangeStr.contains((webView.url?.relativePath)!){
             self.navigationItem.rightBarButtonItem = nil
         }else{
+//            return
             //设置导航栏按钮
             self.navigationItem.rightBarButtonItem = CustemNavItem.initWithImage(image: UIImage.init(named: "ic_nav_classify")!, target: self as CustemBBI, infoStr: "third")
             let js_fit_code = "document.getElementsByTagName('body')[0].style.zoom= '\(self.scale!)'"
@@ -633,7 +707,7 @@ extension MainViewController: WKNavigationDelegate{
             self.webView.reload()
         }
         if webView.url?.relativePath == "/forms/TFrmWelcome" {
-            addAdVC()
+//            addAdVC()
         }
     }
     //MARK: - **** 标题按钮
@@ -757,6 +831,19 @@ extension MainViewController: WKUIDelegate{
         }
         
         return nil
+    }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let urlString = navigationAction.request.url?.absoluteString
+        if (urlString?.hasPrefix("alipays://"))! || (urlString?.hasPrefix("alipay://"))! {
+            let alipayURL = URL.init(string: urlString!)!
+            UIApplication.shared.open(alipayURL, options: [UIApplicationOpenURLOptionUniversalLinksOnly : false]) { (success : Bool) in
+                print("~~~ aliPay ~~~~")
+                webView.reload()
+            }
+        
+            
+        }
+        decisionHandler(WKNavigationActionPolicy.allow)
     }
 //    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
 //        print("runJavaScriptConfirmPanelWithMessage")
@@ -883,7 +970,7 @@ extension MainViewController {
             adVC.delegate = self
             addChildViewController(adVC)
             view.addSubview(adVC.view)
-            self.navigationController?.navigationBar.isHidden = true
+//            self.navigationController?.navigationBar.isHidden = true
             self.tabBarController?.tabBar.isHidden = true
             UserDefaults.standard.set(false, forKey: "showAdVC")
         } else{
@@ -901,7 +988,7 @@ extension MainViewController :StartAppDelegate {
             self.adVC.view.alpha = 0
         }
         adVC.view.removeFromSuperview()
-        self.navigationController?.navigationBar.isHidden = false
+//        self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
         
     }
