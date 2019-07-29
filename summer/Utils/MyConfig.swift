@@ -7,7 +7,7 @@
 //
 
 import UIKit
-var serverURL = "https://www.baidu.com"
+var serverURL = "https://m.yiyoupin.com.cn/elves/FrmIndex_Phone"
 //判断是否需要cdn转向
 var URL_APP_ROOT =  (UserDefaults.standard.value(forKey: "newHost")) != nil ? "https://" + (UserDefaults.standard.value(forKey: "newHost") as! String) :serverURL
 let WELCOME_IMAGES_COUNT = 3
@@ -37,4 +37,24 @@ class shareedMyApp {
         }
         
     }
+}
+//https://m.yiyoupin.com.cn/elves/install.client?curVersion=1.0.1&appCode=elves-iphone-beta
+//MARK: - 版本更新使用
+var SERVER = "https://m.yiyoupin.com.cn/elves"
+let APPCODE = "elves-iphone-beta"
+
+/// 获取APP版本号
+///
+/// - Returns: APP当前版本号
+func getVersion() -> String{
+    let infoDict = Bundle.main.infoDictionary
+    let appVersion = infoDict!["CFBundleShortVersionString"] as! String
+    return appVersion
+}
+/// 获取设备唯一识别码
+///
+/// - Returns: UUID
+func myUUID() -> String {
+    let uuid = UIDevice.current.identifierForVendor?.description
+    return String(format: "i_%@", (uuid?.replacingOccurrences(of: "-", with: ""))!)
 }

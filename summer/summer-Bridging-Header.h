@@ -38,3 +38,7 @@
 #import "STKeyChain.h"
 //下拉列表
 #import "LMJDropdownMenu.h"
+
+#import "ARSpiritViewController.h"
+#import "ARSearchViewController.h"
+#import "TJAVplayerView.h"

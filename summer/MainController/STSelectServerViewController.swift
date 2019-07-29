@@ -10,14 +10,44 @@ import UIKit
 class STSelectServerViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        showSelectServer()
+        return
+        
+        
+        let btn:UIButton = UIButton(type: UIButton.ButtonType.custom)
+        btn.frame = CGRect.init(x: 100, y: 100, width: 80, height: 50)
+        btn.setTitle("导航", for: UIControl.State.normal)
+        btn.setTitleColor(UIColor.black, for: UIControl.State.normal)
+        btn.backgroundColor = UIColor.red
+        btn.addTarget(self, action: #selector(btnClick), for: UIControl.Event.touchUpInside)
+        self.view.addSubview(btn)
+        
+        let button:UIButton = UIButton(type: UIButton.ButtonType.custom)
+        button.frame = CGRect.init(x: 100, y: 200, width: 80, height: 50)
+        button.setTitle("游戏", for: UIControl.State.normal)
+        button.setTitleColor(UIColor.black, for: UIControl.State.normal)
+        button.backgroundColor = UIColor.red
+        button.addTarget(self, action: #selector(buttonClick), for: UIControl.Event.touchUpInside)
+        self.view.addSubview(button)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        showSelectServer()
+//        showSelectServer()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.navigationItem.hidesBackButton = true
+    }
+    @objc func btnClick() {
+        print("导航")
+        let vc = ARSearchViewController()
+        self.present(vc, animated: true, completion: nil)
+    }
+    @objc func buttonClick() {
+        print("游戏")
+        let vc = ARSpiritViewController()
+        self.present(vc, animated: true, completion: nil)
     }
 }
 extension STSelectServerViewController {
