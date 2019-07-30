@@ -33,8 +33,8 @@
 
 @property (nonatomic, strong) CLLocationManager *locationmanager;//定位服务
 @property (strong, nonatomic) NSString *location;//经度+纬度
-@property (assign, nonatomic) float longitude;//经度
-@property (assign, nonatomic) float latitude;//纬度
+@property (assign, nonatomic) double longitude;//经度
+@property (assign, nonatomic) double latitude;//纬度
 @property (strong, nonatomic) NSString *searchStr;//搜索内容
 
 @property (nonatomic, strong) ARSensorManager *sensorManger;
@@ -100,11 +100,6 @@
 //            [weakSelf loadmArID];
 //        });
 //    };
-    
-    /**
-     屏蔽调AR刚启动时的视频 loadmArID  方法需要单独拿出来
-     若需要开启 AR 启动是的视频，则下面的的代码需要注释掉
-     */
     [self loadmArID];
     self.theMessageClient = [[easyar_MessageClient alloc] initWithPlayerView:ARScene(self) name:@"Native" destName:@"TS" callback:^(NSString *from, easyar_Message *message) {
         NSLog(@"fromId: %@ \n id: %d",from,message.theId);
@@ -241,7 +236,7 @@
     __weak typeof(self) weakSelf = self;
     NSString *key = @"Wp2U9nyGTbsbmuGWaG70mKNUMIZM0Ybz";
     NSString *location = @"39.915,116.404";
-    NSString *urlStr = [NSString stringWithFormat:@"http://api.map.baidu.com/place/v2/search?query=%@&scope=2&location=%@&radius=1000&output=json&ak=%@",text,self.location,key];
+    NSString *urlStr = [NSString stringWithFormat:@"http://api.map.baidu.com/place/v2/search?query=%@&scope=2&location=%@&radius=1000&output=json&filter=sort_name:distance|sort_rule:1&ak=%@",text,self.location,key];
 //    http://api.map.baidu.com/place/v2/search?query=%E7%BE%8E%E9%A3%9F&scope=2&location=39.915,116.404&radius=2000&output=json&ak=Wp2U9nyGTbsbmuGWaG70mKNUMIZM0Ybz
     NSLog(@"%@",urlStr);
 //    urlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:NSUTF8StringEncoding];
@@ -316,10 +311,11 @@
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
     //打印当前的经度与纬度
-    self.longitude = currentLocation.coordinate.longitude;
-    self.latitude = currentLocation.coordinate.latitude;
-    self.location = [NSString stringWithFormat:@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude];
-    NSLog(@"location %@",self.location);
+//    self.longitude = currentLocation.coordinate.longitude;
+//    self.latitude = currentLocation.coordinate.latitude;
+//    self.location = [NSString stringWithFormat:@"%lf,%lf",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude];
+//    NSLog(@"locationManager %@",self.location);
+     NSLog(@"unUse location %lf,%lf",currentLocation.coordinate.longitude,currentLocation.coordinate.latitude);
     
     //反地理编码
 //    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error)
@@ -338,6 +334,50 @@
 //         }
 //     }];
     
+    __weak typeof(self) weakSelf = self;
+    NSString *url = [NSString stringWithFormat:@"http://api.map.baidu.com/ag/coord/convert?from=0&to=2&x=%lf&y=%lf",currentLocation.coordinate.longitude,currentLocation.coordinate.latitude];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLSessionDataTask *explainDataTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@",error);
+            return ;
+        }
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"%@",json);
+        [weakSelf getBaiduLocationWithGaodeLocation:[weakSelf base64Decode:json[@"x"]] y:[weakSelf base64Decode:json[@"y"]]];
+    }];
+    [explainDataTask resume];
+}
+- (void)getBaiduLocationWithGaodeLocation:(NSString *)x y:(NSString *)y {
+    __weak typeof(self) weakSelf = self;
+    NSString *url = [NSString stringWithFormat:@"http://api.map.baidu.com/ag/coord/convert?from=2&to=4&x=%@&y=%@",x,y];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLSessionDataTask *explainDataTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@",error);
+            return ;
+        }
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"%@ %@ %@",json,[weakSelf base64Decode:json[@"x"]],[weakSelf base64Decode:json[@"y"]]);
+        weakSelf.longitude = [[weakSelf base64Decode:json[@"x"]] doubleValue];
+        weakSelf.latitude = [[weakSelf base64Decode:json[@"y"]] doubleValue];
+        weakSelf.location = [NSString stringWithFormat:@"%@,%@",[weakSelf base64Decode:json[@"y"]],[weakSelf base64Decode:json[@"x"]]];
+        NSLog(@"locationManager %@",weakSelf.location);
+    }];
+    [explainDataTask resume];
+}
+
+- (NSString *)base64Decode:(NSString *)str
+{
+    // 1、加密字符串转二进制数据
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    // 2、二进制数据转字符串
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+- (CLLocationCoordinate2D)getBaiDuCoordinateByGaoDeCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(coordinate.latitude + 0.006, coordinate.longitude + 0.0065);
 }
 
 - (void)dealloc {

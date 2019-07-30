@@ -84,10 +84,6 @@ static bool permissionChecked = false;
     }];
     
     [self creatSubView];
-    /**
-     屏蔽调AR刚启动时的视频 loadmArID  方法需要单独拿出来
-     若需要开启 AR 启动是的视频，则下面的的代码需要注释掉
-     */
     [self loadmArID];
 //    __weak typeof(self) weakSelf = self;
 //    self.playerView = [[TJAVplayerView alloc] init];
@@ -103,68 +99,6 @@ static bool permissionChecked = false;
 //            [weakSelf loadmArID];
 //        });
 //    };
-}
-
-- (void)test {
-    //1.创建会话对象
-    NSURLSession *session = [NSURLSession sharedSession];
-    //2.根据会话对象创建task
-    NSURL *url = [NSURL URLWithString:@"http://openapi.tuling123.com/openapi/api/v2"];
-    //3.创建可变的请求对象
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    //4.修改请求方法为POST
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    //5.设置请求体
-    NSDictionary *dict = @{@"reqType":@"0",@"perception":@{@"inputText":@{@"text":@"看看天气"}},@"userInfo":@{@"apiKey":@"86abfed02ac14b6a8157d82e61835f9e",@"userId":@"983bf9da3e8abf89"}};
-//    NSDictionary *dict = @{@"reqType":@"0",@"perception":@{@"inputText":@{@"text":@""}},@"userInfo":@{@"apiKey":@"d8336a2db103406d8163dee0bf410f74",@"userId":@"PpOB9I4KR6UPy7ik"}};
-
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-    request.HTTPBody = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-//        request.HTTPBody = [@"username=520it&pwd=520it&type=JSON" dataUsingEncoding:NSUTF8StringEncoding];
-    //6.根据会话对象创建一个Task(发送请求）
-    /*
-     第一个参数：请求对象
-     第二个参数：completionHandler回调（请求完成【成功|失败】的回调）
-     data：响应体信息（期望的数据）
-     response：响应头信息，主要是对服务器端的描述
-     error：错误信息，如果请求失败，则error有值
-     */
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        //8.解析数据
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        NSLog(@"%@",dict);
-        
-        for (NSDictionary *dic in dict[@"results"]) {
-            if ([dic[@"resultType"] isEqualToString:@"text"]) {
-                NSLog(@"%@",dic[@"values"][@"text"]);
-            }
-        }
-        
-    }];
-    
-    //7.执行任务
-    [dataTask resume];
-}
-- (NSString *)convertToJsonData:(NSDictionary *)dict{
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString;
-    if (!jsonData) {
-        NSLog(@"%@",error);
-    }else{
-        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
-    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
-    NSRange range = {0,jsonString.length};
-    //去掉字符串中的空格
-    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
-    NSRange range2 = {0,mutStr.length};
-    //去掉字符串中的换行符
-    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
-    return mutStr;
 }
 - (void)creatSubView {
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -265,6 +199,9 @@ static bool permissionChecked = false;
     [self.theMessageClient send:[[easyar_Message alloc] initWithId:1010 body:body]];
 }
 - (void)centerButtonAction {
+    if (self.iFlySpeechRecognizer.isListening) {
+        return;
+    }
     [self.iFlySpeechRecognizer startListening];
     self.voicePrompt.hidden = NO;
 }
@@ -432,7 +369,7 @@ static bool permissionChecked = false;
     __weak typeof(self) weakSelf = self;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"environment" ofType:@"ezp"];
     [ARScene(self) loadPackage:path onFinish:^{
-        
+
     }];
     
 }
@@ -718,6 +655,25 @@ static bool permissionChecked = false;
 - (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     if (error) {
         NSLog(@"保存视频过程中发生错误，错误信息:%@",error.localizedDescription);
+        self.spiritVideoView.hidden = YES;
+        UILabel *toast = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
+        toast.center = self.view.center;
+        toast.textAlignment = NSTextAlignmentCenter;
+        toast.layer.masksToBounds = YES;
+        toast.layer.cornerRadius = 5;
+        toast.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        toast.textColor = [UIColor whiteColor];
+        toast.text = @"保存视频失败";
+        [self.view addSubview:toast];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [toast removeFromSuperview];
+            self.leftButton.hidden = NO;
+            self.rightButton.hidden = NO;
+            self.centerButton.hidden = NO;
+            self.leftLabel.hidden = NO;
+            self.centerLabel.hidden = NO;
+            self.rightLabel.hidden = NO;
+        });
     } else {
         self.spiritVideoView.hidden = YES;
         self.recodeOverView.hidden = NO;
@@ -736,6 +692,8 @@ static bool permissionChecked = false;
 
 
 - (void)dealloc {
+    [_iFlySpeechRecognizer destroy];
+    [IFlySpeechSynthesizer destroy];
     NSLog(@"**********ARSpiritViewController*************");
 }
 
