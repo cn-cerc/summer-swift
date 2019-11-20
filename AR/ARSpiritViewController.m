@@ -227,7 +227,7 @@ static bool permissionChecked = false;
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     //5.设置请求体
-    NSDictionary *dict = @{@"key":@"d8336a2db103406d8163dee0bf410f74",@"timestamp":@"PpOB9I4KR6UPy7ik",@"data":@{@"content":@[@{@"data":text}],@"userInfo":@{@"uniqueId":@"uniqueId"}}};
+    NSDictionary *dict = @{@"key":@"0ea93f831cad4069b3bfbc8d6479d4f3",@"timestamp":@"317jIm437amsMZ31",@"data":@{@"content":@[@{@"data":text}],@"userInfo":@{@"uniqueId":@"uniqueId"}}};
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     request.HTTPBody = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
