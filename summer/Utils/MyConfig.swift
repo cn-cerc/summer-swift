@@ -7,7 +7,7 @@
 //
 
 import UIKit
-var serverURL = "https://m.yiyoupin.com.cn/elves/FrmIndex_Phone"
+var serverURL = "https://app.yiyoupin.com.cn/elves/FrmIndex_Phone"
 //判断是否需要cdn转向
 var URL_APP_ROOT =  (UserDefaults.standard.value(forKey: "newHost")) != nil ? "https://" + (UserDefaults.standard.value(forKey: "newHost") as! String) :serverURL
 let WELCOME_IMAGES_COUNT = 3
@@ -40,8 +40,8 @@ class shareedMyApp {
 }
 //https://m.yiyoupin.com.cn/elves/install.client?curVersion=1.0.1&appCode=elves-iphone-beta
 //MARK: - 版本更新使用
-var SERVER = "https://m.yiyoupin.com.cn/elves"
-let APPCODE = "elves-iphone-beta"
+var SERVER = "https://app.yiyoupin.com.cn/elves/"
+let APPCODE = "elves-iphone-release"
 
 /// 获取APP版本号
 ///

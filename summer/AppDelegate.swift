@@ -587,7 +587,7 @@ extension AppDelegate{
             self.updateNewVersionApp(url: "", appUpdateReadme: massage,appUpdateReset: appUpdateReset)
             
         }
-        let urlString = "https://m.yiyoupin.com.cn/elves/install.client"
+        let urlString = "https://app.yiyoupin.com.cn/elves/install.client"
         printLog(message: "版本检测URL：" + urlString)
         rf.requestDataFromServer(type: .post, urlString: urlString)
         
