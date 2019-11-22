@@ -1295,7 +1295,7 @@
 				TargetAttributes = {
 					64EFE37D1E4D5EC8006A1455 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = FFUGU7TWY5;
+						DevelopmentTeam = 5P2BBY2NC9;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1739,7 +1739,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 201911201540;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = FFUGU7TWY5;
+				DEVELOPMENT_TEAM = 5P2BBY2NC9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1762,7 +1762,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.elves.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.voteApp.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
@@ -1783,7 +1783,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 201911201540;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = FFUGU7TWY5;
+				DEVELOPMENT_TEAM = 5P2BBY2NC9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1806,7 +1806,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.elves.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.voteApp.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
