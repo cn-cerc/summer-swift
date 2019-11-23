@@ -1757,7 +1757,7 @@
 					"$(PROJECT_DIR)/summer/Library-oc/ScanCard/RecognizeCardManager/TesseractOCR/lib",
 					"$(PROJECT_DIR)/summer/Library/Lib",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
@@ -1801,7 +1801,7 @@
 					"$(PROJECT_DIR)/summer/Library-oc/ScanCard/RecognizeCardManager/TesseractOCR/lib",
 					"$(PROJECT_DIR)/summer/Library/Lib",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
