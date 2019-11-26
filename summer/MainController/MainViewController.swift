@@ -401,6 +401,23 @@ extension MainViewController{
             UploadImgField()
             return
         }
+        //MARK: - /***** 跳到浏览器打开指定页面
+        if classCode as! String == "CallBrowser"{
+            guard dict["url"] != nil else{
+                printLog(message: "跳转到浏览器URL错误")
+                return
+            }
+            let urlString = dict["url"] as! String
+            let url = URL.init(string: urlString)
+            UIApplication.shared.open(url!, options: [:]) { (finished) in
+                if finished {
+                    printLog(message: "打开网页成功")
+                }else{
+                    printLog(message: "打开网页失败")
+                }
+            }
+            return
+        }
    //*******************  有_callback_值但没有classCode所传方法的时候调用  ***************************
         let failBackStr = self.callBackString(type: false, message: "没有所要调用的方法", callBack: callBackStr)
         self.callBackToJS(message: failBackStr)
