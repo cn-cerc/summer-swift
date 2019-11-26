@@ -1762,7 +1762,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.voteApp.www;
+				PRODUCT_BUNDLE_IDENTIFIER = site.elves.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
@@ -1806,7 +1806,7 @@
 					"-force_load",
 					"$(PROJECT_DIR)/summer/Library/WXPay/libWeChatSDK.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.voteApp.www;
+				PRODUCT_BUNDLE_IDENTIFIER = site.elves.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "summer/summer-Bridging-Header.h";
